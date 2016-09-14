@@ -32,12 +32,13 @@ void initGameData()
 
     	srand((unsigned)time(NULL));
 
+    	int boxWidth    = 8;
+    	int boxHeight   = 5;
+
         polygon[0].radius = 2.0;
         polygon[0].properties.mass = polygon[0].radius;
 		polygon[0].centre.xPosition = rand() % (int)(xMapSize - (2 * polygon[0].radius)) + (polygon[0].radius);
 		polygon[0].centre.yPosition = rand() % (int)(yMapSize - (2 * polygon[0].radius)) + (polygon[0].radius);
-		//polygon[0].properties.xVelocity = rand() % OCTAGON_MAX_VELOCITY - (OCTAGON_MAX_VELOCITY / 2);
-		//polygon[0].properties.yVelocity = rand() % OCTAGON_MAX_VELOCITY - (OCTAGON_MAX_VELOCITY / 2);
 		polygon[0].properties.colour[RED] = 255;
 		polygon[0].properties.colour[GREEN] = 255;
 		polygon[0].properties.colour[BLUE] = 255;
@@ -50,14 +51,19 @@ void initGameData()
 				(polygon[0].radius * sin(((360 / MAX_POLYGON_SIDES) * (j)) * (PI / 180)));
 		}
 
-
-		//box[0].centre.xPosition = rand() % (int)(xMapSize - (2 * box[0].radius)) + (box[0].radius);
-		//box[0].centre.yPosition = rand() % (int)(yMapSize - (2 * box[0].radius)) + (box[0].radius);
-		//box[0].properties.xVelocity = rand() % OCTAGON_MAX_VELOCITY - (OCTAGON_MAX_VELOCITY / 2);
-		//box[0].properties.yVelocity = rand() % OCTAGON_MAX_VELOCITY - (OCTAGON_MAX_VELOCITY / 2);
+		box[0].centre.xPosition = rand() % (int)(xMapSize - (boxWidth)) + (boxWidth);
+		box[0].centre.yPosition = rand() % (int)(yMapSize - (boxHeight)) + (boxHeight);
 		box[0].properties.colour[RED] = 255;
 		box[0].properties.colour[GREEN] = 255;
 		box[0].properties.colour[BLUE] = 255;
+
+        for (j = 0; j < 4; j++)
+		{
+			box[0].vertices[j].xPosition = box[0].centre.xPosition + ((boxWidth / 2)
+				  * sqrt(2) * (cos((45 + (j * 90)) * (PI / 180))));
+            box[0].vertices[j].yPosition = box[0].centre.yPosition + ((boxHeight / 2)
+				 * sqrt(2) * (sin((45 + (j * 90)) * (PI / 180))));
+		}
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 

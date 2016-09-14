@@ -1,11 +1,11 @@
 /**
 
 File:           GrassRoots_Framework.c
-Description:    A simple framework for custom vintage 2D games
+Description:    A superannuated 2D platformer game framework developed in C and legacy OpenGL. For Academic Purposes.
 
 Author:         Jean-Louis Haywood (Haywood.JeanLouis@gmail.com)
 Created:        01/09/2016
-Updated:        09/09/2016
+Updated:        13/09/2016
 Version:        1.0
 
 */
@@ -152,13 +152,12 @@ void drawBoxes()
                     box[i].properties.colour[GREEN] / PEAK_COLOUR_LEVEL,
                     box[i].properties.colour[BLUE] / PEAK_COLOUR_LEVEL);
 
-        /*
-		for (j = 0; j < MAX_BOXES; j++)
+		for (j = 0; j < 4; j++)
 		{
 			glVertex2f(((box[i].vertices[j].xPosition) - (mapScale / 2)) / (mapScale / 2),
 				((box[i].vertices[j].yPosition) - (mapScale / 2)) / (mapScale / 2));
 		}
-		*/
+
 		glEnd();
 	}
 }
