@@ -5,7 +5,7 @@ Description:    A superannuated 2D platformer game framework developed in C and 
 
 Author:         Jean-Louis Haywood (Haywood.JeanLouis@gmail.com)
 Created:        01/09/2016
-Updated:        13/09/2016
+Updated:        16/09/2016
 Version:        1.0
 
 */
@@ -178,3 +178,58 @@ void renderHUD()
 
 }
 
+//Instructions
+void grass_create(unsigned char object, unsigned char type, double newRadius, double newWidth,
+       double newHeight, double newXPosition, double newYPosition,
+       unsigned char red, unsigned char green, unsigned char blue)
+{
+    srand((unsigned)time(NULL));
+
+    switch(object)
+    {
+        case POLYGON: polygon[0].properties.classification = type;
+                        polygon[0].radius = newRadius;
+                        if(newXPosition == 0 || newYPosition == 0)
+                        {
+                            polygon[0].centre.xPosition = rand() %
+                            (int)(xMapSize - (2 * polygon[0].radius)) + (polygon[0].radius);
+                            polygon[0].centre.yPosition = rand() %
+                            (int)(yMapSize - (2 * polygon[0].radius)) + (polygon[0].radius);
+                        }
+                        else
+                        {
+                            polygon[0].centre.xPosition = newXPosition;
+                            polygon[0].centre.yPosition = newYPosition;
+                        }
+                        polygon[0].properties.colour[RED] = red;
+                        polygon[0].properties.colour[GREEN] = green;
+                        polygon[0].properties.colour[BLUE] = blue;
+
+                        for (j = 0; j < MAX_POLYGON_SIDES; j++)
+                        {
+                            polygon[0].vertices[j].xPosition = polygon[0].centre.xPosition +
+                                (polygon[0].radius * cos(((360 / MAX_POLYGON_SIDES) * (j)) * (PI / 180)));
+                            polygon[0].vertices[j].yPosition = polygon[0].centre.yPosition +
+                                (polygon[0].radius * sin(((360 / MAX_POLYGON_SIDES) * (j)) * (PI / 180)));
+                        }
+        break;
+        case BOX:     box[0].properties.classification = type;
+                        if(newXPosition == 0 || newYPosition == 0)
+                        {
+                            box[0].centre.xPosition = rand() % (int)(xMapSize - (newWidth)) + (newWidth);
+                            box[0].centre.yPosition = rand() % (int)(yMapSize - (newHeight)) + (newHeight);
+                        }
+                        box[0].properties.colour[RED] = red;
+                        box[0].properties.colour[GREEN] = green;
+                        box[0].properties.colour[BLUE] = blue;
+
+                        for (j = 0; j < 4; j++)
+                        {
+                            box[0].vertices[j].xPosition = box[0].centre.xPosition + ((newWidth / 2)
+                                    * sqrt(2) * (cos((45 + (j * 90)) * (PI / 180))));
+                            box[0].vertices[j].yPosition = box[0].centre.yPosition + ((newHeight / 2)
+                                    * sqrt(2) * (sin((45 + (j * 90)) * (PI / 180))));
+                        }
+                        break;
+    }
+}
