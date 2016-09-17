@@ -5,6 +5,7 @@
 #include <GL/freeglut.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 #include <time.h>
 #include <math.h>
 
@@ -30,6 +31,11 @@ enum RGBColours
     RED, GREEN, BLUE
 };
 
+enum objectName
+{
+    POLYGON, BOX
+};
+
 enum objectType
 {
     BACKGROUND, ENTITY, PLATFORM
@@ -51,8 +57,7 @@ typedef struct
     unsigned char classification; //backgrounds, entities, platforms
     unsigned char colour[3];
     double acceleration;
-    double angularDisplacement; //for rotation
-    double transparency;
+    double angle; //for rotation
     int layer; //arranges objects by distance from screen
     double mass;
     double xVelocity;
@@ -133,14 +138,9 @@ void detectPlatformCollision();
 void reduceVelocity();
 void translateRotation();
 void translatePosition();
-void computeTransparency();
 void updateHUD();
-void resizeObject();
 void changeBackgroundColour();
 void incrementTime();
-void gravitateToObjects();
-void gravitateToPlatform();
-void gravitateToPoint();
 
 //Render2D
 void drawRadialPolygons();
@@ -149,4 +149,31 @@ void drawBackground();
 void drawGrid();
 void adjustCamera();
 void renderHUD();
+
+//Instructions
+
+void grass_create(unsigned char object, unsigned char type, double newRadius, double newWidth,
+       double newHeight, double newXPosition, double newYPosition,
+       unsigned char red, unsigned char green, unsigned char blue); //object; "polygon", "box" | type; BACKGROUND, ENTITY, PLATFORM |
+void grass_remove(char object[], int objectNumber[]);
+void grass_move(char object[], int objectNumber, double xPosition, double yPosition);
+void grass_resize(char object[], int objectNumber, double scale);
+void grass_change(char object[], int objectNumber, char attribute[], double amount);
+            //property; "angle", "mass", "xVelocity", "yVelocity", "gravity", "friction"
+void grass_colour(int red, int green, int blue);
+void grass_gravitate(char object[], int objectNumber);
+void grass_force(char firstObject[], int firstObjectNumber,
+                 char preposition[], char secondObject[], int secondobjectNumber);// preposition - "to", "from"
+
+//Artificial Intelligence
+
+void AI_follow(char object[], int objectNumber);
+void AI_avoid(char object[], int objectNumber);
+void AI_shoot(char object[], int objectNumber);
+void AI_aim(char object[], int objectNumber);
+void AI_mimic(char object[], int objectNumber);
+void AI_signal(char message[]);
+void AI_listen();
+void AI_catch(char object[], int objectNumber);
+void AI_travel(char object[], int objectNumber, double xVelocity, double yVelocity);
 
