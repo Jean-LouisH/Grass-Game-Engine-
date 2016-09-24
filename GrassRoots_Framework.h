@@ -13,7 +13,7 @@
 //Define framework constants
 /////////////////////////////////////////////////////////
 //Physics
-#define PEAK_COLOUR_LEVEL       255
+#define PEAK_COLOUR_LEVEL       255.0
 #define PI                      3.141592
 
 //Supported maximums
@@ -30,15 +30,29 @@ enum RGBColours
 {
     RED, GREEN, BLUE
 };
-
 enum objectName
 {
-    POLYGON, BOX
+    GAME, POLYGON, BOX
 };
-
 enum objectType
 {
-    BACKGROUND, ENTITY, PLATFORM
+    NOTHING, BACKGROUND, ENTITY, PLATFORM
+};
+enum attributes
+{
+    ANGLE, MASS, XVELOCITY, YVELOCITY, GRAVITY, FRICTION
+};
+enum prepositions
+{
+    TO, FROM
+};
+enum spinDirections
+{
+    ANTICLOCKWISE, CLOCKWISE
+};
+enum AIMessages
+{
+    WAIT
 };
 
 typedef struct
@@ -58,6 +72,7 @@ typedef struct
     unsigned char colour[3];
     double acceleration;
     double angle; //for rotation
+    int sides;
     int layer; //arranges objects by distance from screen
     double mass;
     double xVelocity;
@@ -77,6 +92,8 @@ typedef struct
     Property properties;
     Vertex vertices[4];
     Vertex centre;
+    double boxWidth;
+    double boxHeight;
 }Box;
 
 ////////////////////////////////////////////////////////////
@@ -100,11 +117,14 @@ extern double pointGravity[8];
 //Loop iterations
 extern int i;
 extern int j;
+extern int k;
 
 extern int frameCount;
+extern float timeCount;
 
 extern RadialPolygon polygon[MAX_POLYGONS];
 extern Box box[MAX_BOXES];
+extern Camera camera2D;
 
 extern char headsUpDisplay[8][32];
 
@@ -131,49 +151,55 @@ void keyUp(unsigned char key, int x, int y);
 //////////////////////////////////
 
 //Compute
-void limitBoundary();
+void compute_plotPolygon(int objectNumber);
+void compute_plotBox(int objectNumber);
+void compute_roll(unsigned char object, int objectNumber);
+void compute_limitBoundary();
 void detectRadialCollision();
 void detectBoxCollision();
-void detectPlatformCollision();
+void compute_detectPlatformCollision();
 void reduceVelocity();
 void translateRotation();
 void translatePosition();
-void updateHUD();
+void compute_HUD();
 void changeBackgroundColour();
-void incrementTime();
+void compute_gravitate(unsigned char object, int objectNumber);
+void compute_scrollCamera(double xScroll, double yScroll);
+void compute_incrementTime();
 
 //Render2D
-void drawRadialPolygons();
-void drawBoxes();
-void drawBackground();
-void drawGrid();
-void adjustCamera();
-void renderHUD();
+void render_drawPolygonEntities();
+void render_drawBoxPlatforms();
+void render_drawBoxBackgrounds();
+void render_drawGrid();
+void render_HUD();
 
 //Instructions
 
-void grass_create(unsigned char object, unsigned char type, double newRadius, double newWidth,
+void grass_camera(double newXPosition, double newYPosition);
+void grass_create(unsigned char object, unsigned char type, int numberOfSides, double newRadius, double newWidth,
        double newHeight, double newXPosition, double newYPosition,
        unsigned char red, unsigned char green, unsigned char blue); //object; "polygon", "box" | type; BACKGROUND, ENTITY, PLATFORM |
-void grass_remove(char object[], int objectNumber[]);
-void grass_move(char object[], int objectNumber, double xPosition, double yPosition);
-void grass_resize(char object[], int objectNumber, double scale);
-void grass_change(char object[], int objectNumber, char attribute[], double amount);
-            //property; "angle", "mass", "xVelocity", "yVelocity", "gravity", "friction"
-void grass_colour(int red, int green, int blue);
-void grass_gravitate(char object[], int objectNumber);
-void grass_force(char firstObject[], int firstObjectNumber,
-                 char preposition[], char secondObject[], int secondobjectNumber);// preposition - "to", "from"
+void grass_remove(unsigned char object, int objectNumber);
+void grass_move(unsigned char object, int objectNumber, double newXPosition, double newYPosition);
+void grass_resize(unsigned char object, int objectNumber, double scale);
+void grass_change(unsigned char object, int objectNumber, unsigned char attribute, double amount);
+            //attributes; "angle", "mass", "xVelocity", "yVelocity", "gravity", "friction"
+            //GAME object allows access to gravity and friction.
+void grass_colour(unsigned char object, int objectNumber, unsigned char red, unsigned char green, unsigned char blue);
+void grass_force(unsigned char firstObject, int firstObjectNumber,
+                 unsigned char preposition, unsigned char secondObject, int secondobjectNumber);// preposition - "to", "from"
 
 //Artificial Intelligence
 
-void AI_follow(char object[], int objectNumber);
-void AI_avoid(char object[], int objectNumber);
-void AI_shoot(char object[], int objectNumber);
-void AI_aim(char object[], int objectNumber);
-void AI_mimic(char object[], int objectNumber);
-void AI_signal(char message[]);
+void AI_follow(unsigned char object, int objectNumber);
+void AI_avoid(unsigned char object, int objectNumber);
+void AI_shoot(unsigned char object, int objectNumber);
+void AI_aim(unsigned char object, int objectNumber);
+void AI_mimic(unsigned char object, int objectNumber);
+void AI_signal(unsigned char message);
 void AI_listen();
-void AI_catch(char object[], int objectNumber);
-void AI_travel(char object[], int objectNumber, double xVelocity, double yVelocity);
+void AI_spin(unsigned char object, int objectNumber, unsigned char direction, double amount);
+void AI_catch(unsigned char object[], int objectNumber);
+void AI_travel(unsigned char object[], int objectNumber, double xVelocity, double yVelocity);
 
