@@ -42,13 +42,31 @@
 			<Add library="gdi32" />
 			<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/lib" />
 		</Linker>
-		<Unit filename="Game Template.c">
+		<Unit filename="Framework Src/GLUT_Callback_Functions.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="GrassRoots_Framework.c">
+		<Unit filename="Framework Src/GrassRoots_Framework.h" />
+		<Unit filename="Framework Src/Grass_2DRenderer.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="GrassRoots_Framework.h" />
+		<Unit filename="Framework Src/Grass_AI.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Framework Src/Grass_Compute.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Framework Src/Grass_Editor.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Framework Src/Grass_Kernel.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Game_Assets.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Game_Test_Example.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<envvars />
