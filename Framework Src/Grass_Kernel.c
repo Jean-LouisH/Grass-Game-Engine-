@@ -1,6 +1,6 @@
 /**
 
-File:           GrassRoots_Framework.c
+File:           Grass_Kernel.c
 Description:    A superannuated 2D platformer game framework
                 developed in C and legacy OpenGL. For Academic Purposes.
 
@@ -10,30 +10,29 @@ Updated:        28/09/2016
 Version:        1.0
 
 To do;
-1. Grass_2DRenderer: Combine Box rendering functions into one with logical condition controlling use of common algorithm.
-2. Grass_Compute: Look into cancelling gravity directly by logical conditioning, instead of adding a reaction force.
-3. Grass_Editor: Remove the change function.
-4. Grass_Compute : Add day/night cycle effect using the colour values.
-5. Grass_Editor: Allow the editor to manually change the day/night cycle effect.
+1. Grass_Compute:   Add day/night cycle effect using the colour values.
+2. Grass_Editor:    Allow the editor to manually change the day/night cycle effect.
+3. Grass_Compute:   Add Rigid Body calculations.
 
 */
 
-#include "GrassRoots_Framework.h"
+#include "Grass.h"
 
 //Loop iterations
 int i;
 int j;
 int k;
 
-//Runtime frame count
 int frameCount = 0;
-float timeCount;
+double timeCount;
+double smallerMapDimension;
+char headsUpDisplay[8][32];
+char keyStates[256];
 
 RadialPolygon polygon[MAX_POLYGONS] = {0};
-Box box[MAX_BOXES] = {0};
+Box box[MAX_BOXES]                  = {0};
 Camera camera2D;
 
-char headsUpDisplay[8][32];
 
 int main(int argc, char **argv)
 {
@@ -62,6 +61,7 @@ void runGLUT(int argc, char **argv)
 
 void runGrassKernel()
 {
+    compute_findSmallerMapDimension();
     compute_incrementTime();
     frameCount++;
 
@@ -75,9 +75,10 @@ void runGrassKernel()
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    render_drawBoxBackgrounds();
-    render_drawPolygonEntities();
-    render_drawBoxPlatforms();
+    //render_drawBoxBackgrounds();
+    render_drawBox();
+    render_drawPolygon();
+    //render_drawBoxPlatforms();
     //drawGrid();
     render_HUD();
 

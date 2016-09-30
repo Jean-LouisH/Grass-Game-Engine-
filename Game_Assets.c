@@ -1,11 +1,10 @@
-#include "Framework Src\GrassRoots_Framework.h"
+#include "Framework Src\Grass.h"
 /*
 ///////////////////////////////////
 //Custom code for Game Data, Logic, AI, Inputs
 ///////////////////////////////////
 
 //Global variables
-char keyStates[256];
 char gameTitle[64]          = "";
 int screenWidth             = 600;
 int screenHeight            = 600;

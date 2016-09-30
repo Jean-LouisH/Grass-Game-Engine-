@@ -1,10 +1,5 @@
-#include "GrassRoots_Framework.h"
+#include "Grass.h"
 
-void edit_camera(double newXPosition, double newYPosition)
-{
-    camera2D.target.xPosition = newXPosition;
-    camera2D.target.yPosition = newYPosition;
-}
 void edit_create(unsigned char object, unsigned char type, int numberOfSides,
                   double newRadius, double newWidth, double newHeight, double newXPosition,
                   double newYPosition,unsigned char red, unsigned char green, unsigned char blue)
@@ -177,6 +172,41 @@ void edit_change(unsigned char object, int objectNumber, unsigned char attribute
         break;
     }
 }
+
+void edit_adjust(unsigned char object, int objectNumber, unsigned char attribute, double amount)
+{
+    switch(attribute)
+    {
+        case GRAVITY:   if(object == GAME)
+                            platformGravity += amount;
+        break;
+        case FRICTION:  if(object == GAME)
+                            friction += amount;
+        break;
+
+        case ANGLE:     if(object == POLYGON)
+                            polygon[objectNumber].properties.angle += amount;
+                        if(object == BOX)
+                            box[objectNumber].properties.angle += amount;
+        break;
+        case MASS:      if(object == POLYGON)
+                            polygon[objectNumber].properties.mass += amount;
+                        if(object == BOX)
+                            box[objectNumber].properties.mass += amount;
+        break;
+        case XVELOCITY: if(object == POLYGON)
+                            polygon[objectNumber].properties.xVelocity += amount;
+                        if(object == BOX)
+                            box[objectNumber].properties.xVelocity += amount;
+        break;
+        case YVELOCITY: if(object == POLYGON)
+                            polygon[objectNumber].properties.yVelocity += amount;
+                        if(object == BOX)
+                            box[objectNumber].properties.yVelocity += amount;
+        break;
+    }
+}
+
 void edit_colour(unsigned char object, int objectNumber, unsigned char red, unsigned char green, unsigned char blue)
 {
     switch(object)
