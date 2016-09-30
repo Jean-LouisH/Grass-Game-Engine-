@@ -1,5 +1,12 @@
-#include "GrassRoots_Framework.h"
+#include "Grass.h"
 
+void compute_findSmallerMapDimension()
+{
+    if(xMapSize <= yMapSize)
+        smallerMapDimension = xMapSize;
+    else
+        smallerMapDimension = yMapSize;
+}
 
 void compute_plotPolygon(int objectNumber)
 {
@@ -31,7 +38,7 @@ void compute_detectPlatformCollision()
         {
             if(box[j].properties.classification == PLATFORM)
             {
-                if(polygon[i].centre.yPosition - polygon[i].radius <=
+                if(polygon[i].centre.yPosition - polygon[i].radius <
                         box[j].centre.yPosition + (box[j].boxHeight / 2) &&
                     polygon[i].centre.yPosition - polygon[i].radius >
                         box[j].centre.yPosition - (box[j].boxHeight / 2)) //If on top of platform.
@@ -42,8 +49,8 @@ void compute_detectPlatformCollision()
                             box[j].centre.xPosition + (box[j].boxWidth / 2))//If the centre is within the platform length.
                     {
                         polygon[i].properties.yVelocity = polygon[i].properties.yVelocity * -1 * friction; //Allow bounce
-                        //if(polygon[i].properties.yVelocity < 0.01)
-                            polygon[i].properties.yVelocity = box[j].properties.yVelocity + platformGravity;
+                        polygon[i].centre.yPosition = box[j].centre.yPosition + (box[j].boxHeight / 2) + polygon[i].radius;
+                        //Adjust the polygon on top of the platform.
                     }
                 }
             }
@@ -61,14 +68,14 @@ void compute_detectPlatformCollision()
     }
 }
 
-void translateRotation()
+void compute_rotate()
 {
     for (i = 0; i < MAX_POLYGONS; i++)
 	{
 		while (polygon[i].properties.angle >= 360)
-		{
 			polygon[i].properties.angle -= 360;
-		}
+        while (polygon[i].properties.angle < 0)
+            polygon[i].properties.angle += 360;
 
 		for (j = 0; j < polygon[i].properties.sides; j++)
 		{
@@ -82,7 +89,7 @@ void translateRotation()
 	}
 }
 
-void translatePosition()
+void compute_translate()
 {
     for (i = 0; i < MAX_POLYGONS; i++)
 	{
@@ -125,12 +132,6 @@ void compute_incrementTime()
     timeCount = (frameCount * FRAME_DELAY_MILLISECS)/1000;
 }
 
-void compute_scrollCamera(double xScroll, double yScroll)
-{
-    camera2D.target.xPosition += xScroll;
-    camera2D.target.yPosition += yScroll;
-}
-
 void compute_gravitate(unsigned char object, int objectNumber)
 {
     switch(object)
@@ -142,15 +143,27 @@ void compute_gravitate(unsigned char object, int objectNumber)
     }
 }
 
+void compute_rigidBodyDynamics()
+{
+    for(i = 0; i < MAX_POLYGONS; i++)
+    {
+        //polygon[i].properties.angle
+        //platformGravity
+        //polygon[i].properties.xVelocity
+    }
+}
+
 void compute_roll(unsigned char object, int objectNumber)
 {
     switch(object)
     {
     case POLYGON:      //if(polygon[objectNumber].centre.yPosition - polygon[objectNumber].radius < 1)
                     if(polygon[objectNumber].properties.xVelocity < 0)
-                        AI_spin(POLYGON, objectNumber, ANTICLOCKWISE, (dpadSensitivity / polygon[objectNumber].radius));
+                        AI_spin(POLYGON, objectNumber, ANTICLOCKWISE,
+                                -1 * (polygon[objectNumber].properties.xVelocity / polygon[objectNumber].radius));
                     else if(polygon[objectNumber].properties.xVelocity > 0)
-                        AI_spin(POLYGON, objectNumber, CLOCKWISE, (dpadSensitivity / polygon[objectNumber].radius));
+                        AI_spin(POLYGON, objectNumber, CLOCKWISE,
+                                (polygon[objectNumber].properties.xVelocity / polygon[objectNumber].radius));
     break;
     /*case BOX:          if(box[objectNumber].properties.xVelocity < 0)
                             box[objectNumber].properties.angle -= dpadSensitivity / 1;
