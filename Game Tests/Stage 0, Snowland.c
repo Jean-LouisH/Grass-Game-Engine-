@@ -1,4 +1,4 @@
-#include "..\Framework Src\Grass.h"
+#include "..\Framework Source\Grass.h"
 
 ///////////////////////////////////
 //Custom code for Game Data, Logic, AI, Inputs
@@ -10,7 +10,7 @@ int screenWidth             = 800;
 int screenHeight            = 600;
 double dpadSensitivity      = 30;
 double cameraScrollSpeed    = 0.5;
-double xMapSize             = 400;
+double xMapSize             = 200;
 double yMapSize             = 60;
 bool gamePause              = false;
 
@@ -21,32 +21,18 @@ double pointGravity[8];
 
 void runGameScript()
 {
-    compute_gravitate(POLYGON, 0);
-
-    for(i = 1; i < MAX_POLYGONS; i++)
-        edit_change(POLYGON, i, YVELOCITY, -5.0);
-
     compute_translate();
     compute_rotate();
     compute_limitBoundary();
     compute_detectPlatformCollision();
+
+    compute_gravitate(POLYGON, 0);
     compute_roll(POLYGON, 0);
     camera_follow(POLYGON, 0, true, false);
 
-    if(polygon[0].centre.yPosition < -5)
-    {
-        edit_move(POLYGON, 0, 5, 30);
-    }
-    for(i = 0; i < 20; i++)
-    {
-        if(i != 0)
-        {
-            if(polygon[i].centre.yPosition < 6)
-            {
-                edit_move(POLYGON, i, polygon[i].centre.xPosition, yMapSize - 1);
-            }
-        }
-    }
+    for(i = 1; i < 20; i++)
+        if(polygon[i].centre.yPosition < 6)
+            edit_move(POLYGON, i, polygon[i].centre.xPosition, yMapSize - 1);
 }
 
 void initGameData()
@@ -56,9 +42,10 @@ void initGameData()
         edit_create(BOX, PLATFORM, 0, 0, xMapSize - 0.01, 3.0, xMapSize/2, 1.6, 83, 21, 21);
         edit_create(BOX, PLATFORM, 0, 0, xMapSize - 0.01, 3.0, xMapSize/2, 3, 255, 255, 255);
         edit_create(POLYGON, ENTITY, 6, 3.0, 0, 0, 5, 30, 255, 0, 0);
-        for(i = 0; i < 20; i++)
+        for(i = 1; i < 20; i++)
         {
             edit_create(POLYGON, ENTITY, 8, 0.5, 0, 0, 0, 0, 255, 255, 255);
+            edit_change(POLYGON, i, YVELOCITY, -5.0);
         }
 }
 
