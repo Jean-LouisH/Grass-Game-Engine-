@@ -4,15 +4,17 @@ File:           Grass_Kernel.c
 Description:    A superannuated 2D platformer game framework
                 developed in C and legacy OpenGL. For Academic Purposes.
 
-Author:         Jean-Louis Haywood (Haywood.JeanLouis@gmail.com)
+Author:         Jean-Louis Haywood
 Created:        01/09/2016
-Updated:        28/09/2016
+Updated:        09/10/2016
 Version:        1.0
 
 To do;
-1. Grass_Compute:   Add day/night cycle effect using the colour values.
-2. Grass_Editor:    Allow the editor to manually change the day/night cycle effect.
-3. Grass_Compute:   Add Rigid Body calculations.
+
+1. Grass_Compute:   Add Rigid Body calculations.
+2.                  Add glColor4f for transparency options.
+3.                  Add DrawString for HUD.
+4. Grass_Compute:   Radial Collision detection.
 
 */
 
@@ -75,10 +77,8 @@ void runGrassKernel()
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    //render_drawBoxBackgrounds();
     render_drawBox();
     render_drawPolygon();
-    //render_drawBoxPlatforms();
     //drawGrid();
     render_HUD();
 

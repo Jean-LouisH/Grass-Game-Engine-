@@ -36,26 +36,34 @@ void compute_detectPlatformCollision()
     {
         for(j = 0; j < MAX_BOXES; j++)
         {
-            if(box[j].properties.classification == PLATFORM)
+            if(box[j].properties.classification == PLATFORM &&
+               polygon[i].properties.classification == ENTITY)
             {
-                if(polygon[i].centre.yPosition - polygon[i].radius <
-                        box[j].centre.yPosition + (box[j].boxHeight / 2) &&
-                    polygon[i].centre.yPosition - polygon[i].radius >
-                        box[j].centre.yPosition - (box[j].boxHeight / 2)) //If on top of platform.
+                if(polygon[i].centre.xPosition >
+                        box[j].centre.xPosition - (box[j].boxWidth / 2) &&
+                    polygon[i].centre.xPosition <
+                        box[j].centre.xPosition + (box[j].boxWidth / 2))//If the centre is within the platform length.
                 {
-                    if(polygon[i].centre.xPosition >
-                            box[j].centre.xPosition - (box[j].boxWidth / 2) &&
-                       polygon[i].centre.xPosition <
-                            box[j].centre.xPosition + (box[j].boxWidth / 2))//If the centre is within the platform length.
+                    if(polygon[i].centre.yPosition - polygon[i].radius <
+                            box[j].centre.yPosition + (box[j].boxHeight / 2) &&
+                        polygon[i].centre.yPosition - polygon[i].radius >
+                            box[j].centre.yPosition - (box[j].boxHeight / 2)) //If on top of platform.
                     {
-                        polygon[i].properties.yVelocity = polygon[i].properties.yVelocity * -1 * friction; //Allow bounce
+                        polygon[i].properties.yVelocity = polygon[i].properties.yVelocity * -1 * friction; //Allow bounce on top
                         polygon[i].centre.yPosition = box[j].centre.yPosition + (box[j].boxHeight / 2) + polygon[i].radius;
                         //Adjust the polygon on top of the platform.
+                    }
+                    else if(polygon[i].centre.yPosition + polygon[i].radius >
+                                box[j].centre.yPosition - (box[j].boxHeight / 2) &&
+                            polygon[i].centre.yPosition + polygon[i].radius <
+                                box[j].centre.yPosition + (box[j].boxHeight / 2))
+                    {
+                        polygon[i].properties.yVelocity = -30.0; //Allow bounce below
+                        polygon[i].centre.yPosition = box[j].centre.yPosition - (box[j].boxHeight / 2) - polygon[i].radius;
                     }
                 }
             }
         }
-
     }
     for(i = 0; i < MAX_BOXES; i++)
     {
@@ -171,4 +179,17 @@ void compute_roll(unsigned char object, int objectNumber)
                             box[objectNumber].properties.angle += dpadSensitivity / 1;
     break;*/
     }
+}
+
+void compute_limitBoundary()
+{
+	for (i = 0; i < MAX_POLYGONS; i++)
+	{
+		//X Axis
+		if(polygon[i].centre.xPosition + polygon[i].radius >= xMapSize)
+            polygon[i].centre.xPosition = xMapSize - polygon[i].radius;
+
+        else if (polygon[i].centre.xPosition - polygon[i].radius <= 0)
+            polygon[i].centre.xPosition = 0 + polygon[i].radius;
+	}
 }

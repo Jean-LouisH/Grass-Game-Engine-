@@ -171,6 +171,7 @@ void compute_incrementTime();
 
 //Effects
 void effects_dayNightCycle(double hoursPerSecond);
+
 //2DRenderer
 void render_drawPolygon();
 void render_drawBox();

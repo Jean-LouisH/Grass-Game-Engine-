@@ -1,63 +1,51 @@
-#include "Framework Src\Grass.h"
+#include "..\Framework Src\Grass.h"
 
 ///////////////////////////////////
 //Custom code for Game Data, Logic, AI, Inputs
 ///////////////////////////////////
 
 //Global variables
-char gameTitle[64]          = "Grass (Game Engine) [0.0.0, Debug: 30.09.2016, Stage 1]";
-int screenWidth             = 600;
+char gameTitle[64]          = "Grass (Game Engine) 0.5.1 [Debug:09.10.2016, Stage 0, Snowland]";
+int screenWidth             = 800;
 int screenHeight            = 600;
 double dpadSensitivity      = 30;
 double cameraScrollSpeed    = 0.5;
-double xMapSize             = 100;
+double xMapSize             = 400;
 double yMapSize             = 60;
 bool gamePause              = false;
 
 double friction             = 0.3;
 double objectGravity        = 0.0;
-double platformGravity      = 0.98;
+double platformGravity      = 1.0;
 double pointGravity[8];
 
 void runGameScript()
 {
     compute_gravitate(POLYGON, 0);
-    compute_gravitate(POLYGON, 1);
+
+    for(i = 1; i < MAX_POLYGONS; i++)
+        edit_change(POLYGON, i, YVELOCITY, -5.0);
+
     compute_translate();
     compute_rotate();
+    compute_limitBoundary();
     compute_detectPlatformCollision();
     compute_roll(POLYGON, 0);
-    AI_spin(POLYGON, 1, ANTICLOCKWISE, 3);
-    camera_follow(POLYGON, 0, 1, 0);
-    //camera_follow(POLYGON, 0, Y, N);
-
-    if(hypot(polygon[0].centre.xPosition - polygon[1].centre.xPosition,
-        polygon[0].centre.yPosition - polygon[1].centre.yPosition) < polygon[1].radius)
-    {
-        edit_remove(POLYGON, 1);
-        edit_colour(POLYGON, 0, 0, 225, 0);
-    }
-    if(frameCount % (int)(1000/FRAME_DELAY_MILLISECS * 1) == 0)
-    {
-        if(polygon[0].properties.colour[GREEN] > 0)
-            edit_colour(BOX, 3, 0, 225, 0);
-    }
-    if(frameCount % (int)(1000/FRAME_DELAY_MILLISECS * 1) == 25)
-    //
-    {
-        if(box[3].properties.colour[GREEN] > 0)
-            edit_colour(BOX, 3, 255, 0, 0);
-    }
-    if(box[7].centre.yPosition <= 30)
-        edit_adjust(BOX, 7, YVELOCITY, 5);
-    if(box[7].centre.yPosition >= 45)
-        edit_adjust(BOX, 7, YVELOCITY, -5);
+    camera_follow(POLYGON, 0, true, false);
 
     if(polygon[0].centre.yPosition < -5)
-        exit(EXIT_SUCCESS);
-    if(timeCount == 5)
     {
-        //edit_change(GAME, 0, GRAVITY, 0.6);
+        edit_move(POLYGON, 0, 5, 30);
+    }
+    for(i = 0; i < 20; i++)
+    {
+        if(i != 0)
+        {
+            if(polygon[i].centre.yPosition < 6)
+            {
+                edit_move(POLYGON, i, polygon[i].centre.xPosition, yMapSize - 1);
+            }
+        }
     }
 }
 
@@ -65,23 +53,19 @@ void initGameData()
 {
         camera_set(25, yMapSize/2);
         edit_create(BOX, BACKGROUND, 0, 0, xMapSize - 0.01, yMapSize - 0.01, xMapSize/2, yMapSize/2, 135, 206, 250);
-        edit_create(BOX, PLATFORM, 0, 0, 60, 1.0, 30, 1.0, 0, 150, 0);
-        edit_create(BOX, PLATFORM, 0, 0, 60, 1.0, 30, 0.505, 165, 42, 42);
+        edit_create(BOX, PLATFORM, 0, 0, xMapSize - 0.01, 3.0, xMapSize/2, 1.6, 83, 21, 21);
+        edit_create(BOX, PLATFORM, 0, 0, xMapSize - 0.01, 3.0, xMapSize/2, 3, 255, 255, 255);
         edit_create(POLYGON, ENTITY, 6, 3.0, 0, 0, 5, 30, 255, 0, 0);
-        edit_create(POLYGON, ENTITY, 3, 2.0, 0, 0, 10, 40 + 5.0, 0, 200, 0);
-        edit_create(BOX, PLATFORM, 0, 0, 10.0, 1.0, 10, 40, 255, 0, 0);
-        edit_create(BOX, PLATFORM, 0, 0, 12.0, 1.0, 80, 10, 0, 0, 100);
-        edit_create(BOX, PLATFORM, 0, 0, 6.0, 1.0, 95, 20, 0, 0, 100);
-        edit_create(BOX, PLATFORM, 0, 0, 10.0, 1.0, 85, 32, 0, 0, 100);
-        edit_create(BOX, PLATFORM, 0, 0, 6.0, 1.0, 46, 30, 0, 0, 100);
+        for(i = 0; i < 20; i++)
+        {
+            edit_create(POLYGON, ENTITY, 8, 0.5, 0, 0, 0, 0, 255, 255, 255);
+        }
 }
 
 //Controller
 void readInput()
 {
-    //////////////
-    //1P movement
-    //////////////
+
     if(!gamePause)
     {
         if (keyStates['w'] || keyStates['W'])
@@ -102,7 +86,7 @@ void readInput()
                                 box[i].centre.xPosition + (box[i].boxWidth / 2))
                         {
                             //if(polygon[0].centre.yPosition - polygon[0].radius < 1)
-                            polygon[0].properties.yVelocity = 40;
+                            polygon[0].properties.yVelocity = 40 + box[i].properties.yVelocity;
                         }
                     }
                 }
@@ -117,15 +101,9 @@ void readInput()
 
         if (keyStates['d'] || keyStates['D'])
             polygon[0].properties.xVelocity = dpadSensitivity;;
-        //Rotation
-        if (keyStates['q'] || keyStates['Q'])
-            ;
-
-        if (keyStates['e'] || keyStates['E'])
-            ;
 
         ////////////////
-        //2P movement
+        //Camera
         ////////////////
         if (keyStates['i'] || keyStates['I'])
             camera_scroll(0.0, cameraScrollSpeed);
