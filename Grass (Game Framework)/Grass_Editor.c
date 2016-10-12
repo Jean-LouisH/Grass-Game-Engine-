@@ -1,4 +1,5 @@
-#include "Grass.h"
+#include "Grass_Definitions.h"
+#include "Grass_Editor.h"
 
 void edit_create(unsigned char object, unsigned char type, int numberOfSides,
                   double newRadius, double newWidth, double newHeight, double newXPosition,

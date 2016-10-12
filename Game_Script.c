@@ -1,12 +1,13 @@
-#include "Framework Src\Grass.h"
 /*
+#include "Grass (Game Framework)\Grass.h"
+
 ///////////////////////////////////
 //Custom code for Game Data, Logic, AI, Inputs
 ///////////////////////////////////
 
 //Global variables
 char gameTitle[64]          = "";
-int screenWidth             = 600;
+int screenWidth             = 800;
 int screenHeight            = 600;
 double dpadSensitivity      = 30;
 double cameraScrollSpeed    = 0.5;

@@ -1,11 +1,11 @@
-#include "..\Framework Source\Grass.h"
+#include "..\Grass (Game Framework)\Grass.h"
 
 ///////////////////////////////////
 //Custom code for Game Data, Logic, AI, Inputs
 ///////////////////////////////////
 
 //Global variables
-char gameTitle[64]          = "Grass (Game Engine) 0.5.1 [Debug:09.10.2016, Stage 0, Snowland]";
+char gameTitle[64]          = "Grass (Game Framework) " VERSION " [Stage 0, Snowland]";
 int screenWidth             = 800;
 int screenHeight            = 600;
 double dpadSensitivity      = 30;
@@ -14,7 +14,7 @@ double xMapSize             = 200;
 double yMapSize             = 60;
 bool gamePause              = false;
 
-double friction             = 0.3;
+double friction             = 0.4;
 double objectGravity        = 0.0;
 double platformGravity      = 1.0;
 double pointGravity[8];
@@ -72,8 +72,7 @@ void readInput()
                            polygon[0].centre.xPosition <
                                 box[i].centre.xPosition + (box[i].boxWidth / 2))
                         {
-                            //if(polygon[0].centre.yPosition - polygon[0].radius < 1)
-                            polygon[0].properties.yVelocity = 40 + box[i].properties.yVelocity;
+                            edit_change(POLYGON, 0, YVELOCITY, 40 + box[i].properties.yVelocity);
                         }
                     }
                 }
@@ -81,13 +80,10 @@ void readInput()
         }
 
         if (keyStates['a'] || keyStates['A'])
-            polygon[0].properties.xVelocity = -1 * dpadSensitivity;;
-
-        if (keyStates['s'] || keyStates['S'])
-            ;
+            edit_change(POLYGON, 0, XVELOCITY, -1 * dpadSensitivity);
 
         if (keyStates['d'] || keyStates['D'])
-            polygon[0].properties.xVelocity = dpadSensitivity;;
+            edit_change(POLYGON, 0, XVELOCITY, dpadSensitivity);
 
         ////////////////
         //Camera
@@ -103,13 +99,6 @@ void readInput()
 
         if (keyStates['l'] || keyStates['L'])
             camera_scroll(cameraScrollSpeed, 0.0);
-
-        //Rotation
-        if (keyStates['u'] || keyStates['U'])
-            ;
-
-        if (keyStates['o'] || keyStates['O'])
-            ;
     }
 
     /////////////

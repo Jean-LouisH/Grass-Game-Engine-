@@ -1,4 +1,5 @@
-#include "Grass.h"
+#include "Grass_Definitions.h"
+#include "Grass_Compute.h"
 
 void compute_findSmallerMapDimension()
 {
@@ -17,6 +18,24 @@ void compute_plotPolygon(int objectNumber)
         polygon[k].vertices[j].yPosition = polygon[k].centre.yPosition +
                 (polygon[k].radius * sin(((360 / polygon[k].properties.sides) * (j)) * (PI / 180)));
     }//polygon defined sides divide a full circle into angle increments that are multiplied by j to plot all points.
+}
+
+bool compute_isOnPlatform(unsigned char firstObject, int firstObjectNumber, unsigned char secondObject, int secondObjectNumber)
+{
+    if(box[secondObjectNumber].properties.classification == PLATFORM)
+    {
+                    if(polygon[0].centre.yPosition - polygon[0].radius <=
+                            box[i].centre.yPosition + (box[i].boxHeight / 2) &&
+                        polygon[0].centre.yPosition - polygon[0].radius >
+                            box[i].centre.yPosition - (box[i].boxHeight / 2))
+                    {
+                        if(polygon[0].centre.xPosition >
+                                box[i].centre.xPosition - (box[i].boxWidth / 2) &&
+                           polygon[0].centre.xPosition <
+                                box[i].centre.xPosition + (box[i].boxWidth / 2))
+                        ;
+                    }
+    }
 }
 
 void compute_plotBox(int objectNumber)

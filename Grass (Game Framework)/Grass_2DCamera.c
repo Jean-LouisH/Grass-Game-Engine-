@@ -1,4 +1,5 @@
-#include "Grass.h"
+#include "Grass_Definitions.h"
+#include "Grass_2DCamera.h"
 
 void camera_set(double newXPosition, double newYPosition)
 {

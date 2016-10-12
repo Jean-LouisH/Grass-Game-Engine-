@@ -1,13 +1,13 @@
 /**
 
-File:           Grass_Kernel.c
+File:           main.c
 Description:    A superannuated 2D platformer game framework
                 developed in C and legacy OpenGL. For Academic Purposes.
 
 Author:         Jean-Louis Haywood
 Created:        01/09/2016
-Updated:        09/10/2016
-Version:        1.0
+Updated:        10/10/2016
+Version:        0.5.2
 
 To do;
 
@@ -18,7 +18,10 @@ To do;
 
 */
 
-#include "Grass.h"
+#include "Grass_Definitions.h"
+#include "GLUT_Callback_Functions.h"
+#include "Game_Script.h"
+#include "main.h"
 
 //Loop iterations
 int i;
