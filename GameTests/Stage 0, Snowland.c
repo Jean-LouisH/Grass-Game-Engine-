@@ -1,11 +1,11 @@
-#include "..\Grass (Game Framework)\Grass.h"
+#include "..\GrassGameFramework\Grass.h"
 
 ///////////////////////////////////
 //Custom code for Game Data, Logic, AI, Inputs
 ///////////////////////////////////
 
 //Global variables
-char gameTitle[64]          = "Grass (Game Framework) " VERSION " [Stage 0, Snowland]";
+char gameTitle[64]          = "GrassGameFramework " VERSION " [Stage 0, Snowland]";
 int screenWidth             = 800;
 int screenHeight            = 600;
 double dpadSensitivity      = 30;

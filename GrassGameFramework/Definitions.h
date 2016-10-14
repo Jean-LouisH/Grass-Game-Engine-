@@ -1,5 +1,5 @@
-#ifndef GRASS_DEFINITIONS_H
-#define GRASS_DEFINITIONS_H
+#ifndef DEFINITIONS_H
+#define DEFINITIONS_H
 #endif
 
 #include <GL/freeglut.h>

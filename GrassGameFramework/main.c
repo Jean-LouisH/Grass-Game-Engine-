@@ -18,9 +18,9 @@ To do;
 
 */
 
-#include "Grass_Definitions.h"
-#include "GLUT_Callback_Functions.h"
-#include "Game_Script.h"
+#include "Definitions.h"
+#include "GLUTCallbackFunctions.h"
+#include "GameScript.h"
 #include "main.h"
 
 //Loop iterations

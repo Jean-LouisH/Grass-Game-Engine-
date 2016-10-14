@@ -1,5 +1,5 @@
-#include "Grass_Definitions.h"
-#include "GLUT_Callback_Functions.h"
+#include "Definitions.h"
+#include "GLUTCallbackFunctions.h"
 
 ////////////////////////////////////////
 //GLUT Callback function implementations

@@ -1,5 +1,5 @@
-#include "Grass_Definitions.h"
-#include "Grass_Compute.h"
+#include "Definitions.h"
+#include "Compute.h"
 
 void compute_findSmallerMapDimension()
 {

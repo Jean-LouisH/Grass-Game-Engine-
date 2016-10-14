@@ -1,5 +1,5 @@
-#include "Grass_Definitions.h"
-#include "Grass_2DRenderer.h"
+#include "Definitions.h"
+#include "2DRenderer.h"
 
 ////////////////////////////////////////
 //2D Rendering

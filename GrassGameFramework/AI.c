@@ -1,5 +1,5 @@
-#include "Grass_Definitions.h"
-#include "Grass_AI.h"
+#include "Definitions.h"
+#include "AI.h"
 
 void AI_spin(unsigned char object, int objectNumber, unsigned char direction, double amount)
 {
