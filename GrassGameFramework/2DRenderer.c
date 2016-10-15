@@ -9,16 +9,12 @@ void render_drawPolygon()
     for (i = 0; i < MAX_POLYGONS; i++)
 	{
 		glBegin(GL_POLYGON);
-		glColor3f(polygon[i].properties.colour[RED] / PEAK_COLOUR_LEVEL,
-                    polygon[i].properties.colour[GREEN] / PEAK_COLOUR_LEVEL,
-                    polygon[i].properties.colour[BLUE] / PEAK_COLOUR_LEVEL); //Ratios allow variable colour levels.
+		glColor4ub(polygon[i].properties.colour[RED], polygon[i].properties.colour[GREEN], polygon[i].properties.colour[BLUE], 255);
 
-		for (j = 0; j < polygon[i].properties.sides; j++)
+		for (j = 0; j < polygon[i].properties.sides; j++)//renders plotted points.
 		{
-			glVertex2f(((polygon[i].vertices[j].xPosition) - (smallerMapDimension / 2)
-                            + ((smallerMapDimension/2) - (camera2D.target.xPosition))) / (smallerMapDimension / 2),
-                    ((polygon[i].vertices[j].yPosition) - (smallerMapDimension / 2)
-                            + ((smallerMapDimension/2) - (camera2D.target.yPosition))) / (smallerMapDimension / 2));
+            glVertex2f((polygon[i].vertices[j].xPosition - (camera2D.target.xPosition))/ (camera2D.viewport.width/2),
+                       (polygon[i].vertices[j].yPosition - (camera2D.target.yPosition))/ (camera2D.viewport.height/2));
 		}
 		glEnd();
 	}
@@ -29,29 +25,22 @@ void render_drawBox()
 	{
 
         glBegin(GL_QUADS);
-        glColor3f(box[i].properties.colour[RED] / PEAK_COLOUR_LEVEL,
-                    box[i].properties.colour[GREEN] / PEAK_COLOUR_LEVEL,
-                    box[i].properties.colour[BLUE] / PEAK_COLOUR_LEVEL);
+        glColor4ub(box[i].properties.colour[RED], box[i].properties.colour[GREEN], box[i].properties.colour[BLUE], 255);
 
-        if(box[i].properties.classification == BACKGROUND)
+        if(box[i].properties.classification == BACKGROUND)//renders backgrounds first.
         {
             for (j = 0; j < 4; j++)
             {
-                glVertex2f(((box[i].vertices[j].xPosition) - (smallerMapDimension / 2)
-                                + ((smallerMapDimension/2) - (camera2D.target.xPosition))) / (smallerMapDimension / 2),
-                        ((box[i].vertices[j].yPosition) - (smallerMapDimension / 2)
-                                + ((smallerMapDimension/2) - (camera2D.target.yPosition))) / (smallerMapDimension / 2));
+                glVertex2f((box[i].vertices[j].xPosition - (camera2D.target.xPosition))/ (camera2D.viewport.width/2),
+                           (box[i].vertices[j].yPosition - (camera2D.target.yPosition))/ (camera2D.viewport.height/2));
             }
         }
-        if(box[i].properties.classification == PLATFORM)
+        if(box[i].properties.classification == PLATFORM)//renders platforms after.
         {
-
             for (j = 0; j < 4; j++)
             {
-                glVertex2f(((box[i].vertices[j].xPosition) - (smallerMapDimension / 2)
-                                + ((smallerMapDimension/2) - (camera2D.target.xPosition))) / (smallerMapDimension / 2),
-                        ((box[i].vertices[j].yPosition) - (smallerMapDimension / 2)
-                                + ((smallerMapDimension/2) - (camera2D.target.yPosition))) / (smallerMapDimension / 2));
+                glVertex2f((box[i].vertices[j].xPosition - (camera2D.target.xPosition))/ (camera2D.viewport.width/2),
+                           (box[i].vertices[j].yPosition - (camera2D.target.yPosition))/ (camera2D.viewport.height/2));
             }
         }
         glEnd();
