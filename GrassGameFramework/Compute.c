@@ -1,14 +1,6 @@
 #include "Definitions.h"
 #include "Compute.h"
 
-void compute_findSmallerMapDimension()
-{
-    if(xMapSize <= yMapSize)
-        smallerMapDimension = xMapSize;
-    else
-        smallerMapDimension = yMapSize;
-}
-
 void compute_plotPolygon(int objectNumber)
 {
     for (j = 0; j < polygon[k].properties.sides; j++)
@@ -24,17 +16,17 @@ bool compute_isOnPlatform(unsigned char firstObject, int firstObjectNumber, unsi
 {
     if(box[secondObjectNumber].properties.classification == PLATFORM)
     {
-                    if(polygon[0].centre.yPosition - polygon[0].radius <=
-                            box[i].centre.yPosition + (box[i].boxHeight / 2) &&
-                        polygon[0].centre.yPosition - polygon[0].radius >
-                            box[i].centre.yPosition - (box[i].boxHeight / 2))
-                    {
-                        if(polygon[0].centre.xPosition >
-                                box[i].centre.xPosition - (box[i].boxWidth / 2) &&
-                           polygon[0].centre.xPosition <
-                                box[i].centre.xPosition + (box[i].boxWidth / 2))
-                        ;
-                    }
+        if(polygon[0].centre.yPosition - polygon[0].radius <=
+            box[i].centre.yPosition + (box[i].boxHeight / 2) &&
+           polygon[0].centre.yPosition - polygon[0].radius >
+            box[i].centre.yPosition - (box[i].boxHeight / 2))
+        {
+            if(polygon[0].centre.xPosition >
+                box[i].centre.xPosition - (box[i].boxWidth / 2) &&
+            polygon[0].centre.xPosition <
+                box[i].centre.xPosition + (box[i].boxWidth / 2))
+                ;
+        }//to be completed.
     }
 }
 
@@ -89,6 +81,7 @@ void compute_detectPlatformCollision()
         if((box[i].centre.yPosition) - (box[i].boxHeight/2) <= 0)
         {
             box[i].properties.yVelocity = box[i].properties.yVelocity * -1 * friction;
+
             if(box[i].properties.yVelocity < 0.01)
                 box[i].properties.yVelocity = platformGravity;
         }
@@ -163,9 +156,11 @@ void compute_gravitate(unsigned char object, int objectNumber)
 {
     switch(object)
     {
-        case POLYGON:   polygon[objectNumber].properties.yVelocity -= platformGravity;
+        case POLYGON:   polygon[objectNumber].properties.yVelocity -= platformGravity *
+                        FRAME_DELAY_MILLISECS * 0.001;
         break;
-        case BOX:       box[objectNumber].properties.yVelocity -= platformGravity;
+        case BOX:       box[objectNumber].properties.yVelocity -= platformGravity *
+                        FRAME_DELAY_MILLISECS * 0.001;
         break;
     }
 }
@@ -197,7 +192,7 @@ void compute_roll(unsigned char object, int objectNumber)
                         else if(box[objectNumber].properties.xVelocity > 0)
                             box[objectNumber].properties.angle += dpadSensitivity / 1;
     break;*/
-    }
+    }//might exclude boxes.
 }
 
 void compute_limitBoundary()
@@ -205,8 +200,8 @@ void compute_limitBoundary()
 	for (i = 0; i < MAX_POLYGONS; i++)
 	{
 		//X Axis
-		if(polygon[i].centre.xPosition + polygon[i].radius >= xMapSize)
-            polygon[i].centre.xPosition = xMapSize - polygon[i].radius;
+		if(polygon[i].centre.xPosition + polygon[i].radius >= worldMap.width)
+            polygon[i].centre.xPosition = worldMap.width - polygon[i].radius;
 
         else if (polygon[i].centre.xPosition - polygon[i].radius <= 0)
             polygon[i].centre.xPosition = 0 + polygon[i].radius;
