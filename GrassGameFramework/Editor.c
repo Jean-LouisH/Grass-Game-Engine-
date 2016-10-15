@@ -8,61 +8,68 @@ void edit_create(unsigned char object, unsigned char type, int numberOfSides,
     srand((unsigned)time(NULL));
     switch(object)
     {
-        case POLYGON:   k = 0;
-                        while(polygon[k].properties.classification != NOTHING) //searches for a non-empty cell.
+        case POLYGON:
+                        for(k = 0; k < MAX_POLYGONS; k++)
                         {
-                            k++;
+                            if(polygon[k].properties.classification == NOTHING)
+                                break;
                         }
 
-                        polygon[k].properties.classification = type;
-                        polygon[k].properties.sides = numberOfSides;
-                        polygon[k].radius = newRadius;
-
-                        if(newXPosition == 0 || newYPosition == 0) //provides a random position if non is specified.
+                        if (k < MAX_POLYGONS)
                         {
-                            polygon[k].centre.xPosition = rand() %
-                            (int)(xMapSize - (2 * polygon[k].radius) * (k + 1))+ (polygon[k].radius);
-                            polygon[k].centre.yPosition = rand() %
-                            (int)(yMapSize - (2 * polygon[k].radius) * (k + 1)) + (polygon[k].radius);
-                        }
-                        else
-                        {
-                            polygon[k].centre.xPosition = newXPosition;
-                            polygon[k].centre.yPosition = newYPosition;
-                        }
+                            polygon[k].properties.classification = type;
+                            polygon[k].properties.sides = numberOfSides;
+                            polygon[k].radius = newRadius;
 
-                        polygon[k].properties.colour[RED] = red;
-                        polygon[k].properties.colour[GREEN] = green;
-                        polygon[k].properties.colour[BLUE] = blue;
+                            if(newXPosition == 0 || newYPosition == 0) //provides a random position if non is specified.
+                            {
+                                polygon[k].centre.xPosition = rand() %
+                                (int)(worldMap.width - (2 * polygon[k].radius) * (k + 1))+ (polygon[k].radius);
+                                polygon[k].centre.yPosition = rand() %
+                                (int)(worldMap.height - (2 * polygon[k].radius) * (k + 1)) + (polygon[k].radius);
+                            }
+                            else
+                            {
+                                polygon[k].centre.xPosition = newXPosition;
+                                polygon[k].centre.yPosition = newYPosition;
+                            }
 
-                        compute_plotPolygon(k);
+                            polygon[k].properties.colour[RED] = red;
+                            polygon[k].properties.colour[GREEN] = green;
+                            polygon[k].properties.colour[BLUE] = blue;
+
+                            compute_plotPolygon(k);
+                        }
         break;
-        case BOX:       k = 0;
-                        while(box[k].properties.classification != NOTHING) //searches for a non-empty cell.
+        case BOX:       for(k = 0; k < MAX_BOXES; k++)
                         {
-                            k++;
+                            if(box[k].properties.classification == NOTHING)
+                                break;
                         }
 
-                        box[k].properties.classification = type;
-                        box[k].boxWidth = newWidth;
-                        box[k].boxHeight = newHeight;
-                        if(newXPosition == 0 || newYPosition == 0)
+                        if (k < MAX_BOXES)
                         {
-                            box[k].centre.xPosition = rand() %
-                            (int)(xMapSize - (box[k].boxWidth) * (k + 1)) + (box[k].boxWidth);
-                            box[k].centre.yPosition = rand() %
-                            (int)(yMapSize - (box[k].boxHeight) * (k + 1)) + (box[k].boxHeight);
-                        }
-                        else
-                        {
-                            box[k].centre.xPosition = newXPosition;
-                            box[k].centre.yPosition = newYPosition;
-                        }
-                        box[k].properties.colour[RED] = red;
-                        box[k].properties.colour[GREEN] = green;
-                        box[k].properties.colour[BLUE] = blue;
+                            box[k].properties.classification = type;
+                            box[k].boxWidth = newWidth;
+                            box[k].boxHeight = newHeight;
+                            if(newXPosition == 0 || newYPosition == 0)
+                            {
+                                box[k].centre.xPosition = rand() %
+                                (int)(worldMap.width - (box[k].boxWidth) * (k + 1)) + (box[k].boxWidth);
+                                box[k].centre.yPosition = rand() %
+                                (int)(worldMap.height - (box[k].boxHeight) * (k + 1)) + (box[k].boxHeight);
+                            }
+                            else
+                            {
+                                box[k].centre.xPosition = newXPosition;
+                                box[k].centre.yPosition = newYPosition;
+                            }
+                            box[k].properties.colour[RED] = red;
+                            box[k].properties.colour[GREEN] = green;
+                            box[k].properties.colour[BLUE] = blue;
 
-                        compute_plotBox(k);
+                            compute_plotBox(k);
+                        }
         break;
     }
 }
