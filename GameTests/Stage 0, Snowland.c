@@ -6,18 +6,16 @@
 
 //Global variables
 char gameTitle[64]          = "GrassGameFramework " VERSION " [Stage 0, Snowland]";
-int screenWidth             = 800;
-int screenHeight            = 600;
 double dpadSensitivity      = 30;
 double cameraScrollSpeed    = 0.5;
-double xMapSize             = 200;
-double yMapSize             = 60;
+
+Rect worldMap               = {200,60};
+
 bool gamePause              = false;
 
 double friction             = 0.4;
 double objectGravity        = 0.0;
 double platformGravity      = 1.0;
-double pointGravity[8];
 
 void runGameScript()
 {
@@ -29,18 +27,24 @@ void runGameScript()
     compute_gravitate(POLYGON, 0);
     compute_roll(POLYGON, 0);
     camera_follow(POLYGON, 0, true, false);
+    camera_limit(0, worldMap.width, worldMap.height, 0);
 
     for(i = 1; i < 20; i++)
         if(polygon[i].centre.yPosition < 6)
-            edit_move(POLYGON, i, polygon[i].centre.xPosition, yMapSize - 1);
+            edit_move(POLYGON, i, polygon[i].centre.xPosition, worldMap.height - 1);
 }
 
 void initGameData()
 {
-        camera_set(25, yMapSize/2);
-        edit_create(BOX, BACKGROUND, 0, 0, xMapSize - 0.01, yMapSize - 0.01, xMapSize/2, yMapSize/2, 135, 206, 250);
-        edit_create(BOX, PLATFORM, 0, 0, xMapSize - 0.01, 3.0, xMapSize/2, 1.6, 83, 21, 21);
-        edit_create(BOX, PLATFORM, 0, 0, xMapSize - 0.01, 3.0, xMapSize/2, 3, 255, 255, 255);
+        //camera2D.viewport.height = 50;
+        //camera2D.viewport.width = camera2D.viewport.height;
+
+        camera2D.viewport.height = 50;
+        camera2D.viewport.width = 91.188;
+        camera_set(camera2D.viewport.width/2, camera2D.viewport.height/2);
+        edit_create(BOX, BACKGROUND, 0, 0, worldMap.width - 0.01, worldMap.height - 0.01, worldMap.width/2, worldMap.height/2, 135, 206, 250);
+        edit_create(BOX, PLATFORM, 0, 0, worldMap.width - 0.01, 3.0, worldMap.width/2, 1.6, 83, 21, 21);
+        edit_create(BOX, PLATFORM, 0, 0, worldMap.width - 0.01, 3.0, worldMap.width/2, 3, 255, 255, 255);
         edit_create(POLYGON, ENTITY, 6, 3.0, 0, 0, 5, 30, 255, 0, 0);
         for(i = 1; i < 20; i++)
         {
