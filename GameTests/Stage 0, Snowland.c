@@ -15,7 +15,7 @@ bool gamePause              = false;
 
 double friction             = 0.4;
 double objectGravity        = 0.0;
-double platformGravity      = 1.0;
+double platformGravity      = 50.0;
 
 void runGameScript()
 {
@@ -36,12 +36,9 @@ void runGameScript()
 
 void initGameData()
 {
-        //camera2D.viewport.height = 50;
-        //camera2D.viewport.width = camera2D.viewport.height;
+        camera_resolution(100);
+        camera_target(camera2D.viewport.width/2, camera2D.viewport.height/2);
 
-        camera2D.viewport.height = 50;
-        camera2D.viewport.width = 91.188;
-        camera_set(camera2D.viewport.width/2, camera2D.viewport.height/2);
         edit_create(BOX, BACKGROUND, 0, 0, worldMap.width - 0.01, worldMap.height - 0.01, worldMap.width/2, worldMap.height/2, 135, 206, 250);
         edit_create(BOX, PLATFORM, 0, 0, worldMap.width - 0.01, 3.0, worldMap.width/2, 1.6, 83, 21, 21);
         edit_create(BOX, PLATFORM, 0, 0, worldMap.width - 0.01, 3.0, worldMap.width/2, 3, 255, 255, 255);
