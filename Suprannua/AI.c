@@ -5,7 +5,8 @@ void AI_spin(unsigned char agent, int agentNumber, unsigned char direction, doub
 {
     switch(agent)
     {
-        case POLYGON: polygon[agentNumber].properties.angle += ((direction * 2) - 1) * amount;
+        case POLYGON:   polygon[agentNumber].properties.angle +=
+                        ((direction * 2) - 1) * (amount / (1000/FRAME_DELAY_MILLISECS));
         break;
     }
 }
