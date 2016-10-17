@@ -13,14 +13,15 @@
 //Define framework constants
 /////////////////////////////////////////////////////////
 
-#define VERSION                 "0.6.5"
+#define SOFTWARE                "Suprannua"
+#define VERSION                 " 0.6.6 "
 
 //Physics
 #define PI                      3.1415926535897932384626433832795
 
 //Supported maximums
 #define MAX_POLYGONS            50
-#define MAX_POLYGON_SIDES       12
+#define MAX_POLYGON_SIDES       16
 #define MAX_BOXES               50
 
 #define FRAME_DELAY_MILLISECS   17
@@ -114,11 +115,11 @@ extern char gameTitle[64];
 extern double dpadSensitivity;
 
 extern Rect worldMap;
-extern bool gamePause;
 
 extern double friction; //for bounce calculations
-extern double objectGravity;
 extern double platformGravity;
+
+extern bool gamePause;
 
 //Loop iterations
 extern int i;

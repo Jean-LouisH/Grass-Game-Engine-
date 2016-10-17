@@ -149,7 +149,7 @@ void compute_translate()
 }
 void compute_incrementTime()
 {
-    timeCount = (frameCount * FRAME_DELAY_MILLISECS)/1000;
+    timeCount = (frameCount * FRAME_DELAY_MILLISECS) * 0.001;
 }
 
 void compute_gravitate(unsigned char object, int objectNumber)

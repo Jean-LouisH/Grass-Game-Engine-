@@ -1,6 +1,6 @@
 #include "Definitions.h"
 
-void runGrassKernel()
+void runKernel()
 {
     compute_incrementTime();
     frameCount++;

@@ -1,21 +1,42 @@
-#include "..\GrassGameFramework\Grass.h"
+#include "..\Suprannua\Definitions.h" //All the enums, structs and variables the framework and script needs to know.
+#include "..\Suprannua\GameScript.h" //Script and asset functions.
+#include "..\Suprannua\2DCamera.h" //Camera functions.
+#include "..\Suprannua\AI.h" //Artificial Intelligence of agents.
+#include "..\Suprannua\Compute.h" //All algorithms and physics calculations.
+#include "..\Suprannua\Editor.h" //Functions used for data manipulation in game script.
 
 ///////////////////////////////////
 //Custom code for Game Data, Logic, AI, Inputs
 ///////////////////////////////////
 
 //Global variables
-char gameTitle[64]          = "GrassGameFramework " VERSION " [Stage 0, Snowland]";
+char gameTitle[64]          = SOFTWARE VERSION "[Stage 0, Snowland]";
 double dpadSensitivity      = 30;
 double cameraScrollSpeed    = 0.5;
 
 Rect worldMap               = {200,60};
 
+double friction             = 0.4;
+double platformGravity      = 50.0;
+
 bool gamePause              = false;
 
-double friction             = 0.4;
-double objectGravity        = 0.0;
-double platformGravity      = 50.0;
+
+void initGameData()
+{
+        camera_resolution(100);
+        camera_target(camera2D.viewport.width/2, camera2D.viewport.height/2);
+
+        edit_create(BOX, BACKGROUND, 0, 0, worldMap.width - 0.01, worldMap.height - 0.01, worldMap.width/2, worldMap.height/2, 135, 206, 250);
+        edit_create(BOX, PLATFORM, 0, 0, worldMap.width - 0.01, 3.0, worldMap.width/2, 1.6, 83, 21, 21);
+        edit_create(BOX, PLATFORM, 0, 0, worldMap.width - 0.01, 3.0, worldMap.width/2, 3, 255, 255, 255);
+        edit_create(POLYGON, ENTITY, 6, 3.0, 0, 0, 5, 30, 255, 0, 0);
+        for(i = 1; i < 20; i++)
+        {
+            edit_create(POLYGON, ENTITY, 8, 0.5, 0, 0, 0, 0, 255, 255, 255);
+            edit_change(POLYGON, i, YVELOCITY, -5.0);
+        }
+}
 
 void runGameScript()
 {
@@ -34,26 +55,9 @@ void runGameScript()
             edit_move(POLYGON, i, polygon[i].centre.xPosition, worldMap.height - 1);
 }
 
-void initGameData()
-{
-        camera_resolution(100);
-        camera_target(camera2D.viewport.width/2, camera2D.viewport.height/2);
-
-        edit_create(BOX, BACKGROUND, 0, 0, worldMap.width - 0.01, worldMap.height - 0.01, worldMap.width/2, worldMap.height/2, 135, 206, 250);
-        edit_create(BOX, PLATFORM, 0, 0, worldMap.width - 0.01, 3.0, worldMap.width/2, 1.6, 83, 21, 21);
-        edit_create(BOX, PLATFORM, 0, 0, worldMap.width - 0.01, 3.0, worldMap.width/2, 3, 255, 255, 255);
-        edit_create(POLYGON, ENTITY, 6, 3.0, 0, 0, 5, 30, 255, 0, 0);
-        for(i = 1; i < 20; i++)
-        {
-            edit_create(POLYGON, ENTITY, 8, 0.5, 0, 0, 0, 0, 255, 255, 255);
-            edit_change(POLYGON, i, YVELOCITY, -5.0);
-        }
-}
-
 //Controller
 void readInput()
 {
-
     if(!gamePause)
     {
         if (keyStates['w'] || keyStates['W'])
