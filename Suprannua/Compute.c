@@ -182,10 +182,12 @@ void compute_roll(unsigned char object, int objectNumber)
     case POLYGON:      //if(polygon[objectNumber].centre.yPosition - polygon[objectNumber].radius < 1)
                     if(polygon[objectNumber].properties.xVelocity < 0)
                         AI_spin(POLYGON, objectNumber, ANTICLOCKWISE,
-                                -1 * (polygon[objectNumber].properties.xVelocity / polygon[objectNumber].radius));
+                                -1 * (polygon[objectNumber].properties.xVelocity / polygon[objectNumber].radius)
+                                 * (1000/FRAME_DELAY_MILLISECS));
                     else if(polygon[objectNumber].properties.xVelocity > 0)
                         AI_spin(POLYGON, objectNumber, CLOCKWISE,
-                                (polygon[objectNumber].properties.xVelocity / polygon[objectNumber].radius));
+                                (polygon[objectNumber].properties.xVelocity / polygon[objectNumber].radius)
+                                * (1000/FRAME_DELAY_MILLISECS));
     break;
     /*case BOX:          if(box[objectNumber].properties.xVelocity < 0)
                             box[objectNumber].properties.angle -= dpadSensitivity / 1;
