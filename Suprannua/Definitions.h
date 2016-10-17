@@ -119,7 +119,7 @@ extern Rect worldMap;
 extern double friction; //for bounce calculations
 extern double platformGravity;
 
-extern bool gamePause;
+extern bool isGamePaused;
 
 //Loop iterations
 extern int i;
