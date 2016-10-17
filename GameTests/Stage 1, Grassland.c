@@ -19,7 +19,7 @@ Rect worldMap               = {100,80};
 double friction             = 0.3;
 double platformGravity      = 50.0;
 
-bool gamePause              = false;
+bool isGamePaused           = false;
 
 void initGameData()
 {
@@ -48,7 +48,7 @@ void runGameScript()
     compute_limitBoundary();
     compute_detectPlatformCollision();
     compute_roll(POLYGON, 0);
-    AI_spin(POLYGON, 1, ANTICLOCKWISE, 3);
+    AI_spin(POLYGON, 1, ANTICLOCKWISE, 180);
     //camera_zoom(100);
 
     if(timeCount >= 3 && timeCount < 10 && camera2D.viewport.width > 15)
@@ -106,7 +106,7 @@ void runGameScript()
 //Controller
 void readInput()
 {
-    if(!gamePause)
+    if(!isGamePaused)
     {
         if (keyStates['w'] || keyStates['W'])
         {
@@ -153,14 +153,6 @@ void readInput()
         if (keyStates['l'] || keyStates['L'])
             camera_scroll(cameraScrollSpeed, 0.0);
     }
-
-    /////////////
-    //Game states
-    /////////////
-
-    if (keyStates[27])
-        exit(EXIT_SUCCESS);
-
 }
 
 

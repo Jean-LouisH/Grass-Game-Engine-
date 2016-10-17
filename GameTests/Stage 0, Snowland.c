@@ -19,7 +19,7 @@ Rect worldMap               = {200,60};
 double friction             = 0.4;
 double platformGravity      = 50.0;
 
-bool gamePause              = false;
+bool isGamePaused              = false;
 
 
 void initGameData()
@@ -105,13 +105,6 @@ void readInput()
         if (keyStates['l'] || keyStates['L'])
             camera_scroll(cameraScrollSpeed, 0.0);
     }
-
-    /////////////
-    //Game states
-    /////////////
-
-    if (keyStates[27])
-        exit(EXIT_SUCCESS);
 
 }
 
