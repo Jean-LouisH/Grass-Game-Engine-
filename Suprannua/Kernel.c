@@ -2,16 +2,17 @@
 
 void runKernel()
 {
-    compute_incrementTime();
-    frameCount++;
-
-    if(frameCount == 1)
+    if(frameCount < 1)
         initGameData();
 
     readInput();
 
-    if(!gamePause)
+    if(!isGamePaused)
+    {
+        compute_incrementTime();
+        frameCount++;
         runGameScript();
+    }
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_BLEND);
