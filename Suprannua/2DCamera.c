@@ -52,7 +52,7 @@ void camera_zoom(double approach)
     }
 }
 
-void camera_limit(double left, double right, double up, double down)
+void camera_limit(double left, double right, double down, double up)
 {
     if(camera2D.target.xPosition - (camera2D.viewport.width/2) < left)
         camera2D.target.xPosition = left + (camera2D.viewport.width/2);
