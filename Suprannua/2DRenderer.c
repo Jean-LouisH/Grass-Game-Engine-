@@ -53,4 +53,29 @@ void render_drawGrid()
 void render_HUD()
 {
 
+    //For now testing HUD rendering and storage for data.
+    char testText[64] = SOFTWARE VERSION "[Test HUD rendering]";
+    char pauseText[7] = "PAUSED";
+
+    glColor3f(1.0, 1.0, 1.0);
+    glRasterPos2f(-1.0, 0.95);
+
+    while(testText[i] != 0)
+    {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, *(testText+i));
+        i++;
+    }
+    i = 0;
+
+    glColor3f(1.0, 1.0, 1.0);
+    glRasterPos2f(-0.075, 0.0);
+    if(isGamePaused)
+    {
+        while(pauseText[i] != 0)
+        {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *(pauseText+i));
+            i++;
+        }
+    }
+
 }
