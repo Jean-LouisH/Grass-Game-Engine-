@@ -7,15 +7,13 @@ Description:    A superannuated, 2D platformer, code reuse game framework develo
 
 Author:         Jean-Louis Haywood
 Created:        01/09/2016
-Updated:        16/10/2016
-Version:        0.6.7
+Updated:        18/10/2016
+Version:        0.7.1
 
 To do;
 
 1. Compute:     Add Rigid Body calculations.
-2.                  Add glColor4f for transparency options.
-3.                  Add DrawString for HUD.
-4. Compute:     Radial Collision detection.
+2. Compute:     Radial Collision detection.
 
 */
 
@@ -34,6 +32,7 @@ int frameCount = 0;
 double timeCount;
 char headsUpDisplay[8][32];
 char keyStates[256];
+char specialKeyStates[21];
 
 RadialPolygon polygon[MAX_POLYGONS] = {0};
 Box box[MAX_BOXES]                  = {0};
@@ -56,7 +55,7 @@ void runGLUT(int argc, char **argv)
     screenWidth     =   glutGet(GLUT_SCREEN_WIDTH) * 0.750;
     screenHeight    =   (screenWidth * 0.563);
 
-    glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
     glutInitWindowSize(screenWidth, screenHeight);
     glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH) - screenWidth) / 2,
                            ((glutGet(GLUT_SCREEN_HEIGHT) - screenHeight) / 2) - 20);
@@ -65,6 +64,10 @@ void runGLUT(int argc, char **argv)
     //Run GLUT callback registration
     glutKeyboardFunc(keyPressed);
     glutKeyboardUpFunc(keyUp);
+    glutSpecialFunc(keySpecial);
+    glutSpecialUpFunc(keyUpSpecial);
+    glutReshapeFunc(resize);
+
     glutDisplayFunc(runKernel);
     glutTimerFunc(FRAME_DELAY_MILLISECS, timer, FRAME_DELAY_MILLISECS);
     glutMainLoop();
