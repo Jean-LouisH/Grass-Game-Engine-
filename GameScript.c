@@ -2,6 +2,7 @@
 #include "Suprannua\GameScript.h" //Script and asset functions.
 #include "Suprannua\2DCamera.h" //Camera functions.
 #include "Suprannua\AI.h" //Artificial Intelligence of agents.
+#include "Suprannua\Input.h"
 #include "Suprannua\Compute.h" //All algorithms and physics calculations.
 #include "Suprannua\Editor.h" //Functions used for data manipulation in game script.
 
@@ -19,7 +20,7 @@ Rect worldMap               = {100,100};
 double friction             = 0.4;
 double platformGravity      = 50.0;
 
-bool isGamePaused              = false;
+bool isGamePaused           = false;
 
 
 void initGameData()
@@ -36,18 +37,18 @@ void runGameScript()
 void readInput()
 {
 
-    if(!gamePause)
+ if(!isGamePaused)
     {
-        if (keyStates['w'] || keyStates['W'])
+        if(input_isPressed('w'))
             ;
 
-        if (keyStates['a'] || keyStates['A'])
+        if(input_isPressed('a'))
             ;
 
-        if (keyStates['s'] || keyStates['D'])
+        if(input_isPressed('s'))
             ;
 
-        if (keyStates['d'] || keyStates['D'])
+        if(input_isPressed('d'))
             ;
     }
 }

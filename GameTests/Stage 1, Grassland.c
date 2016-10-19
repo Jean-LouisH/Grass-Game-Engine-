@@ -2,6 +2,7 @@
 #include "..\Suprannua\GameScript.h" //Script and asset functions.
 #include "..\Suprannua\2DCamera.h" //Camera functions.
 #include "..\Suprannua\AI.h" //Artificial Intelligence of agents.
+#include "..\Suprannua\Input.h"
 #include "..\Suprannua\Compute.h" //All algorithms and physics calculations.
 #include "..\Suprannua\Editor.h" //Functions used for data manipulation in game script.
 
@@ -41,16 +42,26 @@ void initGameData()
 
 void runGameScript()
 {
-    compute_gravitate(POLYGON, 0);
-    compute_gravitate(POLYGON, 1);
     compute_translate();
     compute_rotate();
     compute_limitBoundary();
     compute_detectPlatformCollision();
-    compute_roll(POLYGON, 0);
-    AI_spin(POLYGON, 1, ANTICLOCKWISE, 180);
-    //camera_zoom(100);
 
+    compute_gravitate(POLYGON, 1, DOWN);
+    AI_spin(POLYGON, 1, ANTICLOCKWISE, 180);
+    compute_roll(POLYGON, 0);
+
+    if(compute_isWithinPlatformRange(POLYGON, 0, 7))
+    {
+        if(box[7].centre.yPosition > polygon[0].centre.yPosition)
+            compute_gravitate(POLYGON, 0, UP);
+        else
+            compute_gravitate(POLYGON, 0, DOWN);
+    }
+    else
+        compute_gravitate(POLYGON, 0, DOWN);
+
+    //Currently testing scripted sequencing, before developing a function.
     if(timeCount >= 3 && timeCount < 10 && camera2D.viewport.width > 15)
     {
         camera_target(polygon[1].centre.xPosition, polygon[1].centre.yPosition);
@@ -67,15 +78,17 @@ void runGameScript()
     {
         camera_resolution(worldMap.width);
         camera_target(camera2D.viewport.width/2, camera2D.viewport.height/2);
-
     }
 
+    //To do: add a distance function for simplicity.
     if(hypot(polygon[0].centre.xPosition - polygon[1].centre.xPosition,
         polygon[0].centre.yPosition - polygon[1].centre.yPosition) < polygon[1].radius)
     {
         edit_remove(POLYGON, 1);
         edit_colour(POLYGON, 0, 0, 225, 0);
     }
+
+    //To do: add a timing function for simplicity.
     if(frameCount % (int)(1000/FRAME_DELAY_MILLISECS * 1) == 0)
     {
         if(polygon[0].properties.colour[GREEN] > 0)
@@ -87,10 +100,13 @@ void runGameScript()
         if(box[3].properties.colour[GREEN] > 0)
             edit_colour(BOX, 3, 255, 0, 0);
     }
+
+    //To do: add a platform scroller function for simplicity.
     if(box[7].centre.yPosition <= 30)
         edit_adjust(BOX, 7, YVELOCITY, 5);
     if(box[7].centre.yPosition >= 45)
         edit_adjust(BOX, 7, YVELOCITY, -5);
+
 
     if(polygon[0].centre.yPosition < -5)
     {
@@ -108,49 +124,43 @@ void readInput()
 {
     if(!isGamePaused)
     {
-        if (keyStates['w'] || keyStates['W'])
+        if(input_isPressed('w'))
         {
-            //Jumping
             for(i = 0; i < MAX_BOXES; i++)
             {
-                if(box[i].properties.classification == PLATFORM)
-                {
-                    if(polygon[0].centre.yPosition - polygon[0].radius <=
-                            box[i].centre.yPosition + (box[i].boxHeight / 2) &&
-                        polygon[0].centre.yPosition - polygon[0].radius >
-                            box[i].centre.yPosition - (box[i].boxHeight / 2))
-                    {
-                        if(polygon[0].centre.xPosition >
-                                box[i].centre.xPosition - (box[i].boxWidth / 2) &&
-                           polygon[0].centre.xPosition <
-                                box[i].centre.xPosition + (box[i].boxWidth / 2))
-                        {
-                            edit_change(POLYGON, 0, YVELOCITY, 40 + box[i].properties.yVelocity);
-                        }
-                    }
-                }
+                if(compute_isOnPlatform(POLYGON, 0, i))
+                    edit_change(POLYGON, 0, YVELOCITY, 40 + box[i].properties.yVelocity); //Jumping
             }
         }
 
-        if (keyStates['a'] || keyStates['A'])
+        if(input_isPressed('a'))
             edit_change(POLYGON, 0, XVELOCITY, -1 * dpadSensitivity);
 
-        if (keyStates['d'] || keyStates['D'])
+        if(input_isPressed('s'))
+        {
+            for(i = 0; i < MAX_BOXES; i++)
+            {
+                if(compute_isTouchingUnderPlatform(POLYGON, 0, i))
+                    edit_change(POLYGON, 0, YVELOCITY, -40 + box[i].properties.yVelocity);
+            }
+        }
+
+        if(input_isPressed('d'))
             edit_change(POLYGON, 0, XVELOCITY, dpadSensitivity);
 
         ////////////////
         //Camera
         ////////////////
-        if (keyStates['i'] || keyStates['I'])
+        if(input_isPressed('i'))
             camera_scroll(0.0, cameraScrollSpeed);
 
-        if (keyStates['j'] || keyStates['J'])
+        if(input_isPressed('j'))
             camera_scroll(-1 * cameraScrollSpeed, 0.0);
 
-        if (keyStates['k'] || keyStates['K'])
+        if(input_isPressed('k'))
             camera_scroll(0.0, - 1 * cameraScrollSpeed);
 
-        if (keyStates['l'] || keyStates['L'])
+        if(input_isPressed('l'))
             camera_scroll(cameraScrollSpeed, 0.0);
     }
 }
