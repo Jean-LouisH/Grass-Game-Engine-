@@ -14,7 +14,7 @@
 /////////////////////////////////////////////////////////
 
 #define SOFTWARE                "Suprannua"
-#define VERSION                 " 0.6.7 "
+#define VERSION                 " 0.7.1 "
 
 //Physics
 #define PI                      3.1415926535897932384626433832795
@@ -52,6 +52,10 @@ enum prepositions
 enum spinDirections
 {
     ANTICLOCKWISE, CLOCKWISE
+};
+enum gravitation
+{
+    DOWN, UP
 };
 enum AIMessages
 {
@@ -111,6 +115,7 @@ typedef struct
 ////////////////////////////////////////////////////////////
 //Custom defined
 extern char keyStates[256]; //keyboard input buffer
+extern char specialKeyStates[21];
 extern char gameTitle[64];
 extern double dpadSensitivity;
 
