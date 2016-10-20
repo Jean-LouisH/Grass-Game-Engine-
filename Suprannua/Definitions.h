@@ -3,6 +3,7 @@
 #endif
 
 #include <GL/freeglut.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
@@ -24,7 +25,7 @@
 #define MAX_POLYGON_SIDES       16
 #define MAX_BOXES               50
 
-#define FRAME_DELAY_MILLISECS   17
+#define FRAME_DELAY_MILLISECS   1000.0/60.0
 
 //////////////////////////////////////////////////////////
 //Enums, structs
@@ -133,9 +134,10 @@ extern int k;
 
 extern int frameCount;
 extern double timeCount;
+extern double kernelTime;
 
 extern RadialPolygon polygon[MAX_POLYGONS];
 extern Box box[MAX_BOXES];
 extern Camera camera2D;
 
-extern char headsUpDisplay[8][32];
+extern char headsUpDisplay[8][64];
