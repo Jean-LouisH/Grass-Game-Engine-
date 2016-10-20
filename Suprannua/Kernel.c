@@ -2,8 +2,15 @@
 
 void runKernel()
 {
+    static double firstTimeSample;
+
     if(frameCount < 1)
+    {
+        firstTimeSample = time(NULL);
         initGameData();
+    }
+
+    kernelTime = time(NULL) - firstTimeSample;
 
     readInput();
 

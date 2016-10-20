@@ -30,7 +30,8 @@ int k;
 
 int frameCount = 0;
 double timeCount;
-char headsUpDisplay[8][32];
+double kernelTime;
+char headsUpDisplay[8][64];
 char keyStates[256];
 char specialKeyStates[21];
 
