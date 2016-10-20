@@ -15,7 +15,7 @@
 /////////////////////////////////////////////////////////
 
 #define SOFTWARE                "Suprannua"
-#define VERSION                 " 0.7.1 "
+#define VERSION                 " 0.7.2 "
 
 //Physics
 #define PI                      3.1415926535897932384626433832795
@@ -25,7 +25,8 @@
 #define MAX_POLYGON_SIDES       16
 #define MAX_BOXES               50
 
-#define FRAME_DELAY_MILLISECS   1000.0/60.0
+#define FRAME_RATE              60.0
+#define FRAME_DELAY_MILLISECS   1000.0/FRAME_RATE
 
 //////////////////////////////////////////////////////////
 //Enums, structs

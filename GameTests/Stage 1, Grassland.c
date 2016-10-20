@@ -89,12 +89,12 @@ void runGameScript()
     }
 
     //To do: add a timing function for simplicity.
-    if(frameCount % (int)(1000/FRAME_DELAY_MILLISECS * 1) == 0)
+    if(frameCount % (int)(FRAME_RATE * 1) == 0)
     {
         if(polygon[0].properties.colour[GREEN] > 0)
             edit_colour(BOX, 3, 0, 225, 0);
     }
-    if(frameCount % (int)(1000/FRAME_DELAY_MILLISECS * 1) == 25)
+    if(frameCount % (int)(FRAME_RATE * 1) == 25)
     //
     {
         if(box[3].properties.colour[GREEN] > 0)
