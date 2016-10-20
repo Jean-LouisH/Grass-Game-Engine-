@@ -7,8 +7,8 @@ Description:    A superannuated, 2D platformer, code reuse game framework develo
 
 Author:         Jean-Louis Haywood
 Created:        01/09/2016
-Updated:        18/10/2016
-Version:        0.7.1
+Updated:        20/10/2016
+Version:        0.7.2
 
 To do;
 
