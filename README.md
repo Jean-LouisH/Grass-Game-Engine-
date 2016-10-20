@@ -1,5 +1,5 @@
 # Suprannua
-A superannuated, 2D platformer, code reuse game framework developed in C and legacy OpenGL. For learning purposes in algorithms and coding practice.
+A superannuated, 2D platformer, code reuse game engine developed in C and legacy OpenGL. For learning purposes in algorithms and coding practice.
 
 The framework houses several functions that open an OpenGL window, draws radial polygons and rectangles, computes physics and math algorithms, manages the camera, data values and the artificial intelligence algorithms. 
 
