@@ -17,7 +17,7 @@ double cameraScrollSpeed    = 0.5;
 
 Rect worldMap               = {200,60};
 
-double friction             = 0.4;
+double bouncePercentage     = 0.4;
 double platformGravity      = 50.0;
 
 bool isGamePaused           = false;
@@ -29,21 +29,19 @@ void initGameData()
         camera_target(camera2D.viewport.width/2, camera2D.viewport.height/2);
 
         edit_create(BOX, BACKGROUND, 0, 0, worldMap.width - 0.01, worldMap.height - 0.01, worldMap.width/2,
-                    worldMap.height/2, 135, 206, 250);
-        edit_create(BOX, PLATFORM, 0, 0, worldMap.width - 0.01, 3.0, worldMap.width/2, 1.6, 83, 21, 21);
-        edit_create(BOX, PLATFORM, 0, 0, worldMap.width - 0.01, 3.0, worldMap.width/2, 3, 255, 255, 255);
-        edit_create(POLYGON, ENTITY, 6, 3.0, 0, 0, 5, 30, 255, 0, 0);
+                    worldMap.height/2, 135, 206, 250, 255);
+        edit_create(BOX, PLATFORM, 0, 0, worldMap.width - 0.01, 3.0, worldMap.width/2, 1.6, 83, 21, 21, 255);
+        edit_create(BOX, PLATFORM, 0, 0, worldMap.width - 0.01, 3.0, worldMap.width/2, 3, 255, 255, 255, 255);
+        edit_create(POLYGON, ENTITY, 6, 3.0, 0, 0, 5, 30, 255, 0, 0, 255);
         for(i = 1; i < 20; i++)
         {
-            edit_create(POLYGON, ENTITY, 8, 0.5, 0, 0, 0, 0, 255, 255, 255);
+            edit_create(POLYGON, ENTITY, 8, 0.5, 0, 0, 0, 0, 255, 255, 255, 255);
             edit_change(POLYGON, i, YVELOCITY, -5.0);
         }
 }
 
 void runGameScript()
 {
-    compute_translate();
-    compute_rotate();
     compute_limitBoundary();
     compute_detectPlatformCollision();
 
@@ -73,6 +71,8 @@ void readInput()
 
         if(input_isPressed('a'))
             edit_change(POLYGON, 0, XVELOCITY, -1 * dpadSensitivity);
+        else if(polygon[0].properties.xVelocity > 0)
+                edit_adjust(POLYGON, 0, XVELOCITY, -3);
 
         if(input_isPressed('s'))
         {
@@ -85,6 +85,8 @@ void readInput()
 
         if(input_isPressed('d'))
             edit_change(POLYGON, 0, XVELOCITY, dpadSensitivity);
+        else if(polygon[0].properties.xVelocity < 0)
+                edit_adjust(POLYGON, 0, XVELOCITY, 3);
 
         ////////////////
         //Camera
