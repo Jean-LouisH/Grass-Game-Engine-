@@ -17,6 +17,8 @@ void runKernel()
     if(!isGamePaused)
     {
         compute_incrementTime();
+        compute_translate();
+        compute_rotate();
         frameCount++;
         runGameScript();
     }

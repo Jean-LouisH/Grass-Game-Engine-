@@ -31,7 +31,7 @@ void keyUp(unsigned char key, int x, int y)
         isGamePaused = false;
 
     keyStates[key] = false;
-    polygon[0].properties.xVelocity = 0; //stops player movement immediately after releasing.
+    //polygon[0].properties.xVelocity = 0; //stops player movement immediately after releasing.
                                         //Considering an alternative method for custom freedom.
 }
 
@@ -43,7 +43,6 @@ void keySpecial(unsigned char key, int x, int y)
 void keyUpSpecial(unsigned char key, int x, int y)
 {
     specialKeyStates[key] = false;
-    polygon[0].properties.xVelocity = 0; //Considering an alternative method for custom freedom.
 }
 
 void resize(int width, int height)
