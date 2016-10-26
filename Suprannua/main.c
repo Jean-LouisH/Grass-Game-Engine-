@@ -7,13 +7,6 @@ Description:    A superannuated, 2D platformer, code reuse game framework develo
 
 Author:         Jean-Louis Haywood
 Created:        01/09/2016
-Updated:        20/10/2016
-Version:        0.7.2
-
-To do;
-
-1. Compute:     Add Rigid Body calculations.
-2. Compute:     Radial Collision detection.
 
 */
 
@@ -35,7 +28,7 @@ char headsUpDisplay[8][64];
 char keyStates[256];
 char specialKeyStates[21];
 
-RadialPolygon polygon[MAX_POLYGONS] = {0};
+RegularPolygon polygon[MAX_POLYGONS] = {0};
 Box box[MAX_BOXES]                  = {0};
 Camera camera2D;
 

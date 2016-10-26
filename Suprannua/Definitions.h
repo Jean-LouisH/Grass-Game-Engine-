@@ -1,12 +1,10 @@
 #ifndef DEFINITIONS_H
 #define DEFINITIONS_H
-#endif
 
 #include <GL/freeglut.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <string.h>
 #include <time.h>
 #include <math.h>
 
@@ -15,15 +13,15 @@
 /////////////////////////////////////////////////////////
 
 #define SOFTWARE                "Suprannua"
-#define VERSION                 " 0.7.2 "
+#define VERSION                 " 0.7.3 "
 
 //Physics
 #define PI                      3.1415926535897932384626433832795
 
 //Supported maximums
-#define MAX_POLYGONS            50
-#define MAX_POLYGON_SIDES       16
-#define MAX_BOXES               50
+#define MAX_POLYGONS            255
+#define MAX_POLYGON_SIDES       12
+#define MAX_BOXES               255
 
 #define FRAME_RATE              60.0
 #define FRAME_DELAY_MILLISECS   1000.0/FRAME_RATE
@@ -33,7 +31,7 @@
 //////////////////////////////////////////////////////////
 enum RGBColours
 {
-    RED, GREEN, BLUE
+    RED, GREEN, BLUE, ALPHA
 };
 enum objectName
 {
@@ -85,11 +83,9 @@ typedef struct
 typedef struct
 {
     unsigned char classification; //backgrounds, entities, platforms
-    unsigned char colour[3];
-    double acceleration;
+    unsigned char colour[4];
+    int edges;
     double angle; //for rotation
-    int sides;
-    int layer; //arranges objects by distance from screen
     double mass;
     double xVelocity;
     double yVelocity;
@@ -101,7 +97,7 @@ typedef struct
     Vertex vertices[MAX_POLYGON_SIDES];
     Vertex centre;
     double radius;
-}RadialPolygon;
+}RegularPolygon;
 
 typedef struct
 {
@@ -123,7 +119,7 @@ extern double dpadSensitivity;
 
 extern Rect worldMap;
 
-extern double friction; //for bounce calculations
+extern double bouncePercentage; //for bounce calculations
 extern double platformGravity;
 
 extern bool isGamePaused;
@@ -137,8 +133,10 @@ extern int frameCount;
 extern double timeCount;
 extern double kernelTime;
 
-extern RadialPolygon polygon[MAX_POLYGONS];
+extern RegularPolygon polygon[MAX_POLYGONS];
 extern Box box[MAX_BOXES];
 extern Camera camera2D;
 
 extern char headsUpDisplay[8][64];
+
+#endif

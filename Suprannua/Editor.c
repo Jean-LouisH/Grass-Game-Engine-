@@ -3,7 +3,8 @@
 
 void edit_create(unsigned char object, unsigned char type, int numberOfSides,
                   double newRadius, double newWidth, double newHeight, double newXPosition,
-                  double newYPosition,unsigned char red, unsigned char green, unsigned char blue)
+                  double newYPosition,unsigned char red, unsigned char green, unsigned char blue,
+                  unsigned char alpha)
 {
     srand((unsigned)time(NULL));
     switch(object)
@@ -18,7 +19,7 @@ void edit_create(unsigned char object, unsigned char type, int numberOfSides,
                         if (k < MAX_POLYGONS)
                         {
                             polygon[k].properties.classification = type;
-                            polygon[k].properties.sides = numberOfSides;
+                            polygon[k].properties.edges = numberOfSides;
                             polygon[k].radius = newRadius;
 
                             if(newXPosition == 0 || newYPosition == 0) //provides a random position if non is specified.
@@ -37,6 +38,7 @@ void edit_create(unsigned char object, unsigned char type, int numberOfSides,
                             polygon[k].properties.colour[RED] = red;
                             polygon[k].properties.colour[GREEN] = green;
                             polygon[k].properties.colour[BLUE] = blue;
+                            polygon[k].properties.colour[ALPHA] = alpha;
 
                             compute_plotPolygon(k);
                         }
@@ -67,6 +69,7 @@ void edit_create(unsigned char object, unsigned char type, int numberOfSides,
                             box[k].properties.colour[RED] = red;
                             box[k].properties.colour[GREEN] = green;
                             box[k].properties.colour[BLUE] = blue;
+                            box[k].properties.colour[ALPHA] = alpha;
 
                             compute_plotBox(k);
                         }
@@ -79,7 +82,6 @@ void edit_remove(unsigned char object, int objectNumber)
     {
         case POLYGON:   //Clears the entire cell
                         polygon[objectNumber].radius = 0.0;
-                        polygon[objectNumber].properties.acceleration = 0.0;
                         polygon[objectNumber].properties.angle = 0.0;
                         polygon[objectNumber].properties.classification = NOTHING;
                         for(i  = 0; i < 3; i++)
@@ -98,7 +100,6 @@ void edit_remove(unsigned char object, int objectNumber)
         case BOX:
                         box[objectNumber].centre.xPosition = 0.0;
                         box[objectNumber].centre.yPosition = 0.0;
-                        box[objectNumber].properties.acceleration = 0.0;
                         box[objectNumber].properties.angle = 0.0;
                         box[objectNumber].properties.classification = NOTHING;
                         for(i = 0; i < 3; i++)
@@ -155,7 +156,7 @@ void edit_change(unsigned char object, int objectNumber, unsigned char attribute
                             platformGravity = amount;
         break;
         case FRICTION:  if(object == GAME)
-                            friction = amount;
+                            bouncePercentage = amount;
         break;
 
         case ANGLE:     if(object == POLYGON)
@@ -189,7 +190,7 @@ void edit_adjust(unsigned char object, int objectNumber, unsigned char attribute
                             platformGravity += amount;
         break;
         case FRICTION:  if(object == GAME)
-                            friction += amount;
+                            bouncePercentage += amount;
         break;
 
         case ANGLE:     if(object == POLYGON)
@@ -215,17 +216,20 @@ void edit_adjust(unsigned char object, int objectNumber, unsigned char attribute
     }
 }
 
-void edit_colour(unsigned char object, int objectNumber, unsigned char red, unsigned char green, unsigned char blue)
+void edit_colour(unsigned char object, int objectNumber, unsigned char red,
+                 unsigned char green, unsigned char blue, unsigned char alpha)
 {
     switch(object)
     {
         case POLYGON:   polygon[objectNumber].properties.colour[RED]    = red;
                         polygon[objectNumber].properties.colour[GREEN]  = green;
                         polygon[objectNumber].properties.colour[BLUE]   = blue;
+                        polygon[objectNumber].properties.colour[ALPHA]  = alpha;
         break;
         case BOX:       box[objectNumber].properties.colour[RED]    = red;
                         box[objectNumber].properties.colour[GREEN]  = green;
                         box[objectNumber].properties.colour[BLUE]   = blue;
+                        box[objectNumber].properties.colour[ALPHA]  = alpha;
         break;
     }
 }

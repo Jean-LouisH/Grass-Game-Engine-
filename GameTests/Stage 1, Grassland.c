@@ -17,7 +17,7 @@ double cameraScrollSpeed    = 0.5;
 
 Rect worldMap               = {100,80};
 
-double friction             = 0.3;
+double bouncePercentage     = 0.3;
 double platformGravity      = 50.0;
 
 bool isGamePaused           = false;
@@ -28,27 +28,26 @@ void initGameData()
         camera_target(camera2D.viewport.width/2, camera2D.viewport.height/2);
 
         edit_create(BOX, BACKGROUND, 0, 0, worldMap.width - 0.01, worldMap.height - 0.01,
-                    worldMap.width/2, worldMap.height/2, 135, 206, 250);
-        edit_create(BOX, PLATFORM, 0, 0, 60, 1.0, 30, 1.0, 0, 150, 0);
-        edit_create(BOX, PLATFORM, 0, 0, 60, 1.0, 30, 0.505, 165, 42, 42);
-        edit_create(POLYGON, ENTITY, 6, 3.0, 0, 0, 5, 30, 255, 0, 0);
-        edit_create(POLYGON, ENTITY, 3, 2.0, 0, 0, 10, 40 + 5.0, 0, 200, 0);
-        edit_create(BOX, PLATFORM, 0, 0, 10.0, 1.0, 10, 40, 255, 0, 0);
-        edit_create(BOX, PLATFORM, 0, 0, 12.0, 1.0, 80, 10, 0, 0, 100);
-        edit_create(BOX, PLATFORM, 0, 0, 6.0, 1.0, 95, 20, 0, 0, 100);
-        edit_create(BOX, PLATFORM, 0, 0, 10.0, 1.0, 85, 32, 0, 0, 100);
-        edit_create(BOX, PLATFORM, 0, 0, 6.0, 1.0, 46, 30, 0, 0, 100);
+                    worldMap.width/2, worldMap.height/2, 135, 206, 250, 255);
+        edit_create(BOX, PLATFORM, 0, 0, 60, 1.0, 30, 1.0, 0, 150, 0, 255);
+        edit_create(BOX, PLATFORM, 0, 0, 60, 1.0, 30, 0.505, 165, 42, 42, 255);
+        edit_create(POLYGON, ENTITY, 6, 3.0, 0, 0, 5, 30, 255, 0, 0, 255);
+        edit_create(POLYGON, ENTITY, 3, 2.0, 0, 0, 10, 40 + 5.0, 0, 200, 0, 255);
+        edit_create(BOX, PLATFORM, 0, 0, 10.0, 1.0, 10, 40, 255, 0, 0, 255);
+        edit_create(BOX, PLATFORM, 0, 0, 12.0, 1.0, 80, 10, 0, 0, 100, 255);
+        edit_create(BOX, PLATFORM, 0, 0, 6.0, 1.0, 95, 20, 0, 0, 100, 255);
+        edit_create(BOX, PLATFORM, 0, 0, 10.0, 1.0, 85, 32, 0, 0, 100, 255);
+        edit_create(BOX, PLATFORM, 0, 0, 6.0, 1.0, 46, 30, 0, 0, 100, 255);
 }
 
 void runGameScript()
 {
-    compute_translate();
-    compute_rotate();
     compute_limitBoundary();
     compute_detectPlatformCollision();
 
     compute_gravitate(POLYGON, 1, DOWN);
     AI_spin(POLYGON, 1, ANTICLOCKWISE, 180);
+
     compute_roll(POLYGON, 0);
 
     if(compute_isWithinPlatformRange(POLYGON, 0, 7))
@@ -85,20 +84,20 @@ void runGameScript()
         polygon[0].centre.yPosition - polygon[1].centre.yPosition) < polygon[1].radius)
     {
         edit_remove(POLYGON, 1);
-        edit_colour(POLYGON, 0, 0, 225, 0);
+        edit_colour(POLYGON, 0, 0, 225, 0, 255);
     }
 
     //To do: add a timing function for simplicity.
     if(frameCount % (int)(FRAME_RATE * 1) == 0)
     {
         if(polygon[0].properties.colour[GREEN] > 0)
-            edit_colour(BOX, 3, 0, 225, 0);
+            edit_colour(BOX, 3, 0, 225, 0, 255);
     }
     if(frameCount % (int)(FRAME_RATE * 1) == 25)
     //
     {
         if(box[3].properties.colour[GREEN] > 0)
-            edit_colour(BOX, 3, 255, 0, 0);
+            edit_colour(BOX, 3, 255, 0, 0, 255);
     }
 
     //To do: add a platform scroller function for simplicity.
@@ -135,6 +134,9 @@ void readInput()
 
         if(input_isPressed('a'))
             edit_change(POLYGON, 0, XVELOCITY, -1 * dpadSensitivity);
+        else if(polygon[0].properties.xVelocity > 0)
+                edit_adjust(POLYGON, 0, XVELOCITY, -3);
+            //polygon[0].properties.xVelocity = 0;
 
         if(input_isPressed('s'))
         {
@@ -147,6 +149,8 @@ void readInput()
 
         if(input_isPressed('d'))
             edit_change(POLYGON, 0, XVELOCITY, dpadSensitivity);
+        else if(polygon[0].properties.xVelocity < 0)
+                edit_adjust(POLYGON, 0, XVELOCITY, 3);
 
         ////////////////
         //Camera

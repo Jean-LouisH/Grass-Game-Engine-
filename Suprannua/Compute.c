@@ -3,12 +3,12 @@
 
 void compute_plotPolygon(int objectNumber)
 {
-    for (j = 0; j < polygon[k].properties.sides; j++)
+    for (j = 0; j < polygon[k].properties.edges; j++)
     {
         polygon[k].vertices[j].xPosition = polygon[k].centre.xPosition +
-                (polygon[k].radius * cos(((360 / polygon[k].properties.sides) * (j)) * (PI / 180)));
+                (polygon[k].radius * cos(((360 / polygon[k].properties.edges) * (j)) * (PI / 180)));
         polygon[k].vertices[j].yPosition = polygon[k].centre.yPosition +
-                (polygon[k].radius * sin(((360 / polygon[k].properties.sides) * (j)) * (PI / 180)));
+                (polygon[k].radius * sin(((360 / polygon[k].properties.edges) * (j)) * (PI / 180)));
     }//polygon defined sides divide a full circle into angle increments that are multiplied by j to plot all points.
 }
 
@@ -99,13 +99,13 @@ void compute_detectPlatformCollision()
             {
                 if(compute_isOnPlatform(POLYGON, i, j))
                 {
-                    polygon[i].properties.yVelocity = polygon[i].properties.yVelocity * -1 * friction; //Allow bounce on top
+                    polygon[i].properties.yVelocity = polygon[i].properties.yVelocity * -1 * bouncePercentage; //Allow bounce on top
                     polygon[i].centre.yPosition = box[j].centre.yPosition + (box[j].boxHeight / 2) + polygon[i].radius;
                     //Adjust the polygon on top of the platform.
                 }
                 else if(compute_isTouchingUnderPlatform(POLYGON, i, j))
                 {
-                    polygon[i].properties.yVelocity = polygon[i].properties.yVelocity * -1 * friction; //Allow bounce below
+                    polygon[i].properties.yVelocity = polygon[i].properties.yVelocity * -1 * bouncePercentage; //Allow bounce below
                     polygon[i].centre.yPosition = box[j].centre.yPosition - (box[j].boxHeight / 2) - polygon[i].radius;
                 }
             }
@@ -115,7 +115,7 @@ void compute_detectPlatformCollision()
     {
         if((box[i].centre.yPosition) - (box[i].boxHeight/2) <= 0)
         {
-            box[i].properties.yVelocity = box[i].properties.yVelocity * -1 * friction;
+            box[i].properties.yVelocity = box[i].properties.yVelocity * -1 * bouncePercentage;
 
             if(box[i].properties.yVelocity < 0.01)
                 box[i].properties.yVelocity = platformGravity;
@@ -132,13 +132,13 @@ void compute_rotate()
         while (polygon[i].properties.angle < 0)
             polygon[i].properties.angle += 360;
 
-		for (j = 0; j < polygon[i].properties.sides; j++)
+		for (j = 0; j < polygon[i].properties.edges; j++)
 		{
 			polygon[i].vertices[j].xPosition = polygon[i].centre.xPosition +
-				(polygon[i].radius * cos(((360 / polygon[i].properties.sides) *
+				(polygon[i].radius * cos(((360 / polygon[i].properties.edges) *
                 (j) - polygon[i].properties.angle) * (PI / 180)));
             polygon[i].vertices[j].yPosition = polygon[i].centre.yPosition +
-				(polygon[i].radius * sin(((360 / polygon[i].properties.sides) *
+				(polygon[i].radius * sin(((360 / polygon[i].properties.edges) *
                 (j) - polygon[i].properties.angle) * (PI / 180)));
 		}
 	}
@@ -150,14 +150,14 @@ void compute_translate()
 	{
 		//X Axis
 		polygon[i].centre.xPosition += (polygon[i].properties.xVelocity * FRAME_DELAY_MILLISECS * 0.001);
-		for (j = 0; j < polygon[i].properties.sides; j++)
+		for (j = 0; j < polygon[i].properties.edges; j++)
 		{
 			polygon[i].vertices[j].xPosition +=
 				(polygon[i].properties.xVelocity * FRAME_DELAY_MILLISECS * 0.001);
 		}
 		//Y Axis
 		polygon[i].centre.yPosition += (polygon[i].properties.yVelocity * FRAME_DELAY_MILLISECS * 0.001);
-		for (j = 0; j < polygon[i].properties.sides; j++)
+		for (j = 0; j < polygon[i].properties.edges; j++)
 		{
 			polygon[i].vertices[j].yPosition +=
 				(polygon[i].properties.yVelocity * FRAME_DELAY_MILLISECS * 0.001);
