@@ -13,7 +13,7 @@
 /////////////////////////////////////////////////////////
 
 #define SOFTWARE                "Suprannua"
-#define VERSION                 " 0.7.3 "
+#define VERSION                 " 0.7.4 "
 
 //Physics
 #define PI                      3.1415926535897932384626433832795
@@ -29,9 +29,11 @@
 //////////////////////////////////////////////////////////
 //Enums, structs
 //////////////////////////////////////////////////////////
-enum RGBColours
+enum colourPalette
 {
-    RED, GREEN, BLUE, ALPHA
+    BLACK, WHITE, ALPHA, RED, GREEN, BLUE, ORANGE, YELLOW,
+    VIOLET, PURPLE, BROWN, SKY_BLUE, GOLD, SEA_GREEN,
+    PINK, GREY
 };
 enum objectName
 {
@@ -39,7 +41,7 @@ enum objectName
 };
 enum objectType
 {
-    NOTHING, BACKGROUND, ENTITY, PLATFORM
+    NOTHING, BACKGROUND, FOREGROUND, ENTITY, PLATFORM
 };
 enum attributes
 {
