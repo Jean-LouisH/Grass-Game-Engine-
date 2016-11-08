@@ -111,16 +111,6 @@ void compute_detectPlatformCollision()
             }
         }
     }
-    for(i = 0; i < MAX_BOXES; i++)
-    {
-        if((box[i].centre.yPosition) - (box[i].boxHeight/2) <= 0)
-        {
-            box[i].properties.yVelocity = box[i].properties.yVelocity * -1 * bouncePercentage;
-
-            if(box[i].properties.yVelocity < 0.01)
-                box[i].properties.yVelocity = platformGravity;
-        }
-    }
 }
 
 void compute_rotate()
@@ -211,22 +201,17 @@ void compute_roll(unsigned char object, int objectNumber)
 {
     switch(object)
     {
-    case POLYGON:
-                    if(polygon[objectNumber].properties.xVelocity < 0)
-                        AI_spin(POLYGON, objectNumber, ANTICLOCKWISE,
-                                -1 * (polygon[objectNumber].properties.xVelocity / polygon[objectNumber].radius)
-                                 * (FRAME_RATE));
-                    else if(polygon[objectNumber].properties.xVelocity > 0)
-                        AI_spin(POLYGON, objectNumber, CLOCKWISE,
-                                (polygon[objectNumber].properties.xVelocity / polygon[objectNumber].radius)
-                                * (FRAME_RATE));
-    break;
-    /*case BOX:          if(box[objectNumber].properties.xVelocity < 0)
-                            box[objectNumber].properties.angle -= dpadSensitivity / 1;
-                        else if(box[objectNumber].properties.xVelocity > 0)
-                            box[objectNumber].properties.angle += dpadSensitivity / 1;
-    break;*/
-    }//might exclude boxes.
+        case POLYGON:
+                        if(polygon[objectNumber].properties.xVelocity < 0)
+                            AI_spin(POLYGON, objectNumber, ANTICLOCKWISE,
+                                    -1 * (polygon[objectNumber].properties.xVelocity / polygon[objectNumber].radius)
+                                     * (FRAME_RATE));
+                        else if(polygon[objectNumber].properties.xVelocity > 0)
+                            AI_spin(POLYGON, objectNumber, CLOCKWISE,
+                                    (polygon[objectNumber].properties.xVelocity / polygon[objectNumber].radius)
+                                    * (FRAME_RATE));
+        break;
+    }
 }
 
 void compute_limitBoundary()
