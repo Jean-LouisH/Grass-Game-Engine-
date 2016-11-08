@@ -30,7 +30,7 @@ void runKernel()
     render_drawBox();
     render_drawPolygon();
     //drawGrid();
-    render_HUD();
+    render_postHUD();
 
     glutSwapBuffers(); //freeglut buffer swap for animation.
 }
