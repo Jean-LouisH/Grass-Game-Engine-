@@ -24,8 +24,8 @@ bool isGamePaused           = false;
 
 void initGameData()
 {
-        camera_resolution(worldMap.width);
-        camera_target(camera2D.viewport.width/2, camera2D.viewport.height/2);
+        camera_setWidth(worldMap.width);
+        camera_setTarget(camera2D.viewport.width/2, camera2D.viewport.height/2);
 
         edit_create(BOX, BACKGROUND, 0, 0, worldMap.width - 0.01, worldMap.height - 0.01,
                     worldMap.width/2, worldMap.height/2, 135, 206, 250, 255);
@@ -63,20 +63,20 @@ void runGameScript()
     //Currently testing scripted sequencing, before developing a function.
     if(timeCount >= 3 && timeCount < 10 && camera2D.viewport.width > 15)
     {
-        camera_target(polygon[1].centre.xPosition, polygon[1].centre.yPosition);
+        camera_setTarget(polygon[1].centre.xPosition, polygon[1].centre.yPosition);
         camera_zoom(0.4);
     }
     if(timeCount > 10 && timeCount < 11)
-        camera_resolution(100);
+        camera_setWidth(100);
     if(timeCount >= 10 && timeCount < 15 && camera2D.viewport.width > 15)
     {
-        camera_target(polygon[0].centre.xPosition, polygon[0].centre.yPosition);
+        camera_setTarget(polygon[0].centre.xPosition, polygon[0].centre.yPosition);
         camera_zoom(0.6);
     }
     if(timeCount > 15 && timeCount < 16)
     {
-        camera_resolution(worldMap.width);
-        camera_target(camera2D.viewport.width/2, camera2D.viewport.height/2);
+        camera_setWidth(worldMap.width);
+        camera_setTarget(camera2D.viewport.width/2, camera2D.viewport.height/2);
     }
 
     //To do: add a distance function for simplicity.

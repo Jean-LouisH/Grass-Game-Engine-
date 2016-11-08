@@ -1,7 +1,7 @@
 #include "Definitions.h"
 #include "2DCamera.h"
 
-void camera_target(double newXPosition, double newYPosition)
+void camera_setTarget(double newXPosition, double newYPosition)
 {
     camera2D.target.xPosition = newXPosition;
     camera2D.target.yPosition = newYPosition;
@@ -28,7 +28,7 @@ void camera_scrollToTarget(double targetXPosition, double targetYPosition, doubl
       camera2D.target.yPosition += scrollSpeed;
 }
 
-void camera_resolution(double cameraWidth)
+void camera_setWidth(double cameraWidth)
 {
     camera2D.viewport.width = cameraWidth;
     camera2D.viewport.height = camera2D.viewport.width / (1.777); //16:9 aspect ratio.

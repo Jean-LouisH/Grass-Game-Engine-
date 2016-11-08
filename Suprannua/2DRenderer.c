@@ -52,7 +52,7 @@ void render_drawGrid()
 {
 
 }
-void render_HUD()
+void render_postHUD()
 {
 
     //For now testing HUD rendering and storage for data.
