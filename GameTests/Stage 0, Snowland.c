@@ -15,9 +15,8 @@ char gameTitle[64]          = SOFTWARE VERSION "[Stage 0, Snowland]";
 double dpadSensitivity      = 30;
 double cameraScrollSpeed    = 0.5;
 
-Rect worldMap               = {200,60};
+Rect worldSizeMetres        = {200,60};
 
-double bouncePercentage     = 0.4;
 double platformGravity      = 50.0;
 
 bool isGamePaused           = false;
@@ -25,13 +24,16 @@ bool isGamePaused           = false;
 
 void initGameData()
 {
-        camera_resolution(100);
-        camera_target(camera2D.viewport.width/2, camera2D.viewport.height/2);
+        int i;
 
-        edit_create(BOX, BACKGROUND, 0, 0, worldMap.width - 0.01, worldMap.height - 0.01, worldMap.width/2,
-                    worldMap.height/2, 135, 206, 250, 255);
-        edit_create(BOX, PLATFORM, 0, 0, worldMap.width - 0.01, 3.0, worldMap.width/2, 1.6, 83, 21, 21, 255);
-        edit_create(BOX, PLATFORM, 0, 0, worldMap.width - 0.01, 3.0, worldMap.width/2, 3, 255, 255, 255, 255);
+        camera_setWidth(100);
+        camera_setTarget(camera2D.viewport.width/2, camera2D.viewport.height/2);
+
+        edit_create(BOX, BACKGROUND, 0, 0, worldSizeMetres.width - 0.01, worldSizeMetres.height - 0.01, worldSizeMetres.width/2,
+                    worldSizeMetres.height/2, 135, 206, 250, 255);
+        edit_create(BOX, PLATFORM, 0, 0, worldSizeMetres.width - 0.01, 3.0, worldSizeMetres.width/2, 1.6, 83, 21, 21, 255);
+        polygon[0].properties.bouncePercentage = 0.3;
+        edit_create(BOX, PLATFORM, 0, 0, worldSizeMetres.width - 0.01, 3.0, worldSizeMetres.width/2, 3, 255, 255, 255, 255);
         edit_create(POLYGON, ENTITY, 6, 3.0, 0, 0, 5, 30, 255, 0, 0, 255);
         for(i = 1; i < 20; i++)
         {
@@ -42,23 +44,27 @@ void initGameData()
 
 void runGameScript()
 {
+    int i;
+
     compute_limitBoundary();
     compute_detectPlatformCollision();
 
     compute_gravitate(POLYGON, 0, DOWN);
     compute_roll(POLYGON, 0);
     camera_follow(POLYGON, 0, true, false);
-    camera_limit(0, worldMap.width, 0, worldMap.height);
+    camera_limit(0, worldSizeMetres.width, 0, worldSizeMetres.height);
 
     for(i = 1; i < 20; i++)
         if(polygon[i].centre.yPosition < 6)
-            edit_move(POLYGON, i, polygon[i].centre.xPosition, worldMap.height - 1);
+            edit_move(POLYGON, i, polygon[i].centre.xPosition, worldSizeMetres.height - 1);
 }
 
 //Controller
 void readInput()
 {
-    if(!isGamePaused)
+    int i;
+
+    if(gameState == GAMEPLAY)
     {
         if(input_isPressed('w'))
         {
@@ -102,6 +108,10 @@ void readInput()
 
         if(input_isPressed('l'))
             camera_scroll(cameraScrollSpeed, 0.0);
+    }
+    else if (gameState == MENU)
+    {
+
     }
 }
 

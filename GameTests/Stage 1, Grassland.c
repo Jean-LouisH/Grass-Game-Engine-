@@ -15,23 +15,23 @@ char gameTitle[64]          = SOFTWARE VERSION "[Stage 1, Grassland]";
 double dpadSensitivity      = 30;
 double cameraScrollSpeed    = 0.5;
 
-Rect worldMap               = {100,80};
+Rect worldSizeMetres        = {100,80};
 
-double bouncePercentage     = 0.3;
 double platformGravity      = 50.0;
 
 bool isGamePaused           = false;
 
 void initGameData()
 {
-        camera_setWidth(worldMap.width);
+        camera_setWidth(worldSizeMetres.width);
         camera_setTarget(camera2D.viewport.width/2, camera2D.viewport.height/2);
 
-        edit_create(BOX, BACKGROUND, 0, 0, worldMap.width - 0.01, worldMap.height - 0.01,
-                    worldMap.width/2, worldMap.height/2, 135, 206, 250, 255);
+        edit_create(BOX, BACKGROUND, 0, 0, worldSizeMetres.width - 0.01, worldSizeMetres.height - 0.01,
+                    worldSizeMetres.width/2, worldSizeMetres.height/2, 135, 206, 250, 255);
         edit_create(BOX, PLATFORM, 0, 0, 60, 1.0, 30, 1.0, 0, 150, 0, 255);
         edit_create(BOX, PLATFORM, 0, 0, 60, 1.0, 30, 0.505, 165, 42, 42, 255);
         edit_create(POLYGON, ENTITY, 6, 3.0, 0, 0, 5, 30, 255, 0, 0, 255);
+        polygon[0].properties.bouncePercentage = 0.3;
         edit_create(POLYGON, ENTITY, 3, 2.0, 0, 0, 10, 40 + 5.0, 0, 200, 0, 255);
         edit_create(BOX, PLATFORM, 0, 0, 10.0, 1.0, 10, 40, 255, 0, 0, 255);
         edit_create(BOX, PLATFORM, 0, 0, 12.0, 1.0, 80, 10, 0, 0, 100, 255);
@@ -42,6 +42,8 @@ void initGameData()
 
 void runGameScript()
 {
+    int i;
+
     compute_limitBoundary();
     compute_detectPlatformCollision();
 
@@ -64,18 +66,18 @@ void runGameScript()
     if(timeCount >= 3 && timeCount < 10 && camera2D.viewport.width > 15)
     {
         camera_setTarget(polygon[1].centre.xPosition, polygon[1].centre.yPosition);
-        camera_zoom(0.4);
+        camera_zoom(-0.4);
     }
     if(timeCount > 10 && timeCount < 11)
         camera_setWidth(100);
     if(timeCount >= 10 && timeCount < 15 && camera2D.viewport.width > 15)
     {
         camera_setTarget(polygon[0].centre.xPosition, polygon[0].centre.yPosition);
-        camera_zoom(0.6);
+        camera_zoom(-0.6);
     }
     if(timeCount > 15 && timeCount < 16)
     {
-        camera_setWidth(worldMap.width);
+        camera_setWidth(worldSizeMetres.width);
         camera_setTarget(camera2D.viewport.width/2, camera2D.viewport.height/2);
     }
 
@@ -114,14 +116,16 @@ void runGameScript()
     }
     if(polygon[0].properties.colour[GREEN] > 0 && camera2D.viewport.width < 200)
     {
-        camera_zoom(-0.1);
+        camera_zoom(0.1);
     }
 }
 
 //Controller
 void readInput()
 {
-    if(!isGamePaused)
+    int i;
+
+    if(gameState == GAMEPLAY)
     {
         if(input_isPressed('w'))
         {
@@ -166,6 +170,10 @@ void readInput()
 
         if(input_isPressed('l'))
             camera_scroll(cameraScrollSpeed, 0.0);
+    }
+    else if (gameState == MENU)
+    {
+
     }
 }
 

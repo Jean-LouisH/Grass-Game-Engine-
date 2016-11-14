@@ -15,9 +15,8 @@ char gameTitle[64]          =  "";
 double dpadSensitivity      = 30;
 double cameraScrollSpeed    = 0.5;
 
-Rect worldMap               = {100,100};
+Rect worldSizeMetres        = {100,100};
 
-double friction             = 0.4;
 double platformGravity      = 50.0;
 
 bool isGamePaused           = false;
@@ -37,7 +36,7 @@ void runGameScript()
 void readInput()
 {
 
- if(!isGamePaused)
+    if(gameState == GAMEPLAY)
     {
         if(input_isPressed('w'))
             ;
@@ -51,5 +50,10 @@ void readInput()
         if(input_isPressed('d'))
             ;
     }
+    else if (gameState == MENU)
+    {
+
+    }
+
 }
 
