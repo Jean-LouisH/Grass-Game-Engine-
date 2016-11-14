@@ -1,90 +1,94 @@
 #include "Definitions.h"
-#include "Editor.h"
 
 void edit_create(unsigned char object, unsigned char type, int numberOfSides,
                   double newRadius, double newWidth, double newHeight, double newXPosition,
                   double newYPosition,unsigned char red, unsigned char green, unsigned char blue,
                   unsigned char alpha)
 {
+    int i;
+
     srand((unsigned)time(NULL));
     switch(object)
     {
         case POLYGON:
-                        for(k = 0; k < MAX_POLYGONS; k++)
+                        for(i = 0; i < MAX_POLYGONS; i++)
                         {
-                            if(polygon[k].properties.classification == NOTHING)
+                            if(polygon[i].properties.classification == NOTHING)
                                 break;
                         }
 
-                        if (k < MAX_POLYGONS)
+                        if (i < MAX_POLYGONS)
                         {
-                            polygon[k].properties.classification = type;
-                            polygon[k].properties.edges = numberOfSides;
-                            polygon[k].radius = newRadius;
+                            polygon[i].properties.classification = type;
+                            polygon[i].properties.edges = numberOfSides;
+                            polygon[i].radius = newRadius;
 
                             if(newXPosition == 0 || newYPosition == 0) //provides a random position if non is specified.
                             {
-                                polygon[k].centre.xPosition = rand() %
-                                (int)(worldMap.width - (2 * polygon[k].radius) * (k + 1))+ (polygon[k].radius);
-                                polygon[k].centre.yPosition = rand() %
-                                (int)(worldMap.height - (2 * polygon[k].radius) * (k + 1)) + (polygon[k].radius);
+                                polygon[i].centre.xPosition = rand() %
+                                (int)(worldSizeMetres.width - (2 * polygon[i].radius) * (i + 1))+ (polygon[i].radius);
+                                polygon[i].centre.yPosition = rand() %
+                                (int)(worldSizeMetres.height - (2 * polygon[i].radius) * (i + 1)) + (polygon[i].radius);
                             }
                             else
                             {
-                                polygon[k].centre.xPosition = newXPosition;
-                                polygon[k].centre.yPosition = newYPosition;
+                                polygon[i].centre.xPosition = newXPosition;
+                                polygon[i].centre.yPosition = newYPosition;
                             }
 
-                            polygon[k].properties.colour[RED] = red;
-                            polygon[k].properties.colour[GREEN] = green;
-                            polygon[k].properties.colour[BLUE] = blue;
-                            polygon[k].properties.colour[ALPHA] = alpha;
+                            polygon[i].properties.colour[RED] = red;
+                            polygon[i].properties.colour[GREEN] = green;
+                            polygon[i].properties.colour[BLUE] = blue;
+                            polygon[i].properties.colour[ALPHA] = alpha;
 
-                            compute_plotPolygon(k);
+                            compute_plotPolygon(i);
                         }
         break;
-        case BOX:       for(k = 0; k < MAX_BOXES; k++)
+        case BOX:       for(i = 0; i < MAX_BOXES; i++)
                         {
-                            if(box[k].properties.classification == NOTHING)
+                            if(box[i].properties.classification == NOTHING)
                                 break;
                         }
 
-                        if (k < MAX_BOXES)
+                        if (i < MAX_BOXES)
                         {
-                            box[k].properties.classification = type;
-                            box[k].boxWidth = newWidth;
-                            box[k].boxHeight = newHeight;
+                            box[i].properties.classification = type;
+                            box[i].dimensions.width = newWidth;
+                            box[i].dimensions.height = newHeight;
                             if(newXPosition == 0 || newYPosition == 0)
                             {
-                                box[k].centre.xPosition = rand() %
-                                (int)(worldMap.width - (box[k].boxWidth) * (k + 1)) + (box[k].boxWidth);
-                                box[k].centre.yPosition = rand() %
-                                (int)(worldMap.height - (box[k].boxHeight) * (k + 1)) + (box[k].boxHeight);
+                                box[i].centre.xPosition = rand() %
+                                (int)(worldSizeMetres.width - (box[i].dimensions.width) * (i + 1)) + (box[i].dimensions.width);
+                                box[i].centre.yPosition = rand() %
+                                (int)(worldSizeMetres.height - (box[i].dimensions.height) * (i + 1)) + (box[i].dimensions.height);
                             }
                             else
                             {
-                                box[k].centre.xPosition = newXPosition;
-                                box[k].centre.yPosition = newYPosition;
+                                box[i].centre.xPosition = newXPosition;
+                                box[i].centre.yPosition = newYPosition;
                             }
-                            box[k].properties.colour[RED] = red;
-                            box[k].properties.colour[GREEN] = green;
-                            box[k].properties.colour[BLUE] = blue;
-                            box[k].properties.colour[ALPHA] = alpha;
+                            box[i].properties.colour[RED] = red;
+                            box[i].properties.colour[GREEN] = green;
+                            box[i].properties.colour[BLUE] = blue;
+                            box[i].properties.colour[ALPHA] = alpha;
 
-                            compute_plotBox(k);
+                            compute_plotBox(i);
                         }
         break;
     }
 }
 void edit_remove(unsigned char object, int objectNumber)
 {
+
+    int i;
+
     switch(object)
     {
         case POLYGON:   //Clears the entire cell
                         polygon[objectNumber].radius = 0.0;
                         polygon[objectNumber].properties.angle = 0.0;
                         polygon[objectNumber].properties.classification = NOTHING;
-                        for(i  = 0; i < 3; i++)
+                        for(i  = 0; i < 4; i++)
                             polygon[objectNumber].properties.colour[i] = 0;
                         polygon[objectNumber].properties.mass = 0.0;
                         polygon[objectNumber].properties.xVelocity = 0.0;
@@ -102,7 +106,7 @@ void edit_remove(unsigned char object, int objectNumber)
                         box[objectNumber].centre.yPosition = 0.0;
                         box[objectNumber].properties.angle = 0.0;
                         box[objectNumber].properties.classification = NOTHING;
-                        for(i = 0; i < 3; i++)
+                        for(i = 0; i < 4; i++)
                             box[objectNumber].properties.colour[i] = 0;
                         box[objectNumber].properties.mass = 0.0;
                         box[objectNumber].properties.xVelocity = 0.0;
@@ -122,28 +126,31 @@ void edit_move(unsigned char object, int objectNumber, double newXPosition, doub
         case POLYGON:   polygon[objectNumber].centre.xPosition = newXPosition;
                         polygon[objectNumber].centre.yPosition = newYPosition;
 
-                        compute_plotPolygon(k);
+                        compute_plotPolygon(objectNumber);
         break;
         case BOX:       box[objectNumber].centre.xPosition = newXPosition;
                         box[objectNumber].centre.yPosition = newYPosition;
 
-                        compute_plotBox(k);
+                        compute_plotBox(objectNumber);
         break;
     }
 }
 void edit_resize(unsigned char object, int objectNumber, double scale)
 {
+
+    int i;
+
     switch(object)
     {
         case POLYGON:   polygon[objectNumber].radius = polygon[objectNumber].radius * scale;
 
-                        compute_plotPolygon(k);
+                        compute_plotPolygon(i);
         break;
         case BOX:
-                        box[objectNumber].boxWidth = box[objectNumber].boxWidth * scale;
-                        box[objectNumber].boxHeight = box[objectNumber].boxHeight * scale;
+                        box[objectNumber].dimensions.width = box[objectNumber].dimensions.width * scale;
+                        box[objectNumber].dimensions.height = box[objectNumber].dimensions.height * scale;
 
-                        compute_plotBox(k);
+                        compute_plotBox(i);
         break;
     }
 }
@@ -155,10 +162,6 @@ void edit_change(unsigned char object, int objectNumber, unsigned char attribute
         case GRAVITY:   if(object == GAME)
                             platformGravity = amount;
         break;
-        case FRICTION:  if(object == GAME)
-                            bouncePercentage = amount;
-        break;
-
         case ANGLE:     if(object == POLYGON)
                             polygon[objectNumber].properties.angle = amount;
                         if(object == BOX)
@@ -188,9 +191,6 @@ void edit_adjust(unsigned char object, int objectNumber, unsigned char attribute
     {
         case GRAVITY:   if(object == GAME)
                             platformGravity += amount;
-        break;
-        case FRICTION:  if(object == GAME)
-                            bouncePercentage += amount;
         break;
 
         case ANGLE:     if(object == POLYGON)
