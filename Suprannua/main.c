@@ -16,20 +16,23 @@ Created:        01/09/2016
 #include "Kernel.h"
 #include "main.h"
 
-//Loop iterations
-int i;
-int j;
-int k;
 
-int frameCount = 0;
+int frameCount                          = 0;
 double timeCount;
+double framesPerSecond;
+int passedFrames;
+double startTime;
+double currentTime;
+double firstTimeSample;
 double kernelTime;
+
+unsigned char gameState                 = GAMEPLAY;
 char headsUpDisplay[8][64];
 char keyStates[256];
 char specialKeyStates[21];
 
-RegularPolygon polygon[MAX_POLYGONS] = {0};
-Box box[MAX_BOXES]                  = {0};
+RegularPolygon polygon[MAX_POLYGONS]    = {0};
+Box box[MAX_BOXES]                      = {0};
 Camera camera2D;
 
 int main(int argc, char **argv)
@@ -40,19 +43,19 @@ int main(int argc, char **argv)
 
 void runGLUT(int argc, char **argv)
 {
-    int screenWidth;
-    int screenHeight;
+    int screenWidthPixels;
+    int screenHeightPixels;
 
     //GLUT initialisation
     glutInit(&argc, argv);
 
-    screenWidth     =   glutGet(GLUT_SCREEN_WIDTH) * 0.750;
-    screenHeight    =   (screenWidth * 0.563);
+    screenWidthPixels     =   glutGet(GLUT_SCREEN_WIDTH) * 0.750;
+    screenHeightPixels    =   (screenWidthPixels * 0.563);
 
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
-    glutInitWindowSize(screenWidth, screenHeight);
-    glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH) - screenWidth) / 2,
-                           ((glutGet(GLUT_SCREEN_HEIGHT) - screenHeight) / 2) - 20);
+    glutInitWindowSize(screenWidthPixels, screenHeightPixels);
+    glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH) - screenWidthPixels) / 2,
+                           ((glutGet(GLUT_SCREEN_HEIGHT) - screenHeightPixels) / 2) - 20);
     glutCreateWindow(gameTitle);
 
     //Run GLUT callback registration
