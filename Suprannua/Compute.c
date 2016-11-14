@@ -1,25 +1,30 @@
 #include "Definitions.h"
-#include "Compute.h"
 
 void compute_plotPolygon(int objectNumber)
 {
-    for (j = 0; j < polygon[k].properties.edges; j++)
+    int i;
+
+    for (i = 0; i < polygon[objectNumber].properties.edges; i++)
     {
-        polygon[k].vertices[j].xPosition = polygon[k].centre.xPosition +
-                (polygon[k].radius * cos(((360 / polygon[k].properties.edges) * (j)) * (PI / 180)));
-        polygon[k].vertices[j].yPosition = polygon[k].centre.yPosition +
-                (polygon[k].radius * sin(((360 / polygon[k].properties.edges) * (j)) * (PI / 180)));
+        polygon[objectNumber].vertices[i].xPosition = polygon[objectNumber].centre.xPosition +
+                (polygon[objectNumber].radius * cos(((360 / polygon[objectNumber].properties.edges) *
+                                                    (i)) * (PI / 180)));
+        polygon[objectNumber].vertices[i].yPosition = polygon[objectNumber].centre.yPosition +
+                (polygon[objectNumber].radius * sin(((360 / polygon[objectNumber].properties.edges) *
+                                                     (i)) * (PI / 180)));
     }//polygon defined sides divide a full circle into angle increments that are multiplied by j to plot all points.
 }
 
 void compute_plotBox(int objectNumber)
 {
-    for (j = 0; j < 4; j++)
+    int i;
+
+    for (i = 0; i < 4; i++)
     {
-        box[k].vertices[j].xPosition = box[k].centre.xPosition + ((box[k].boxWidth / 2)
-                    * sqrt(2) * (cos((45 + (j * 90)) * (PI / 180))));
-        box[k].vertices[j].yPosition = box[k].centre.yPosition + ((box[k].boxHeight / 2)
-                    * sqrt(2) * (sin((45 + (j * 90)) * (PI / 180))));
+        box[objectNumber].vertices[i].xPosition = box[objectNumber].centre.xPosition + ((box[objectNumber].dimensions.width / 2)
+                    * sqrt(2) * (cos((45 + (i * 90)) * (PI / 180))));
+        box[objectNumber].vertices[i].yPosition = box[objectNumber].centre.yPosition + ((box[objectNumber].dimensions.height / 2)
+                    * sqrt(2) * (sin((45 + (i * 90)) * (PI / 180))));
     }//All expected angles return a ratio of 1/sqrt(2). Sqrt(2) cancels this to give the circumscribed square size.
 }
 
@@ -28,9 +33,9 @@ bool compute_isWithinPlatformRange(unsigned char object, int objectNumber, int p
     bool platformFlag = false;
 
     if(polygon[objectNumber].centre.xPosition >
-            box[platformNumber].centre.xPosition - (box[platformNumber].boxWidth / 2) &&
+            box[platformNumber].centre.xPosition - (box[platformNumber].dimensions.width / 2) &&
         polygon[objectNumber].centre.xPosition <
-            box[platformNumber].centre.xPosition + (box[platformNumber].boxWidth / 2))
+            box[platformNumber].centre.xPosition + (box[platformNumber].dimensions.width / 2))
     {
         platformFlag = true;
     }
@@ -48,9 +53,9 @@ bool compute_isOnPlatform(unsigned char object, int objectNumber, int platformNu
                         if(box[platformNumber].properties.classification == PLATFORM)
                         {
                             if(polygon[objectNumber].centre.yPosition - polygon[objectNumber].radius <=
-                                box[platformNumber].centre.yPosition + (box[platformNumber].boxHeight / 2) &&
+                                box[platformNumber].centre.yPosition + (box[platformNumber].dimensions.height / 2) &&
                                polygon[objectNumber].centre.yPosition - polygon[objectNumber].radius >
-                                box[platformNumber].centre.yPosition - (box[platformNumber].boxHeight / 2))
+                                box[platformNumber].centre.yPosition - (box[platformNumber].dimensions.height / 2))
                             {
                                 if(compute_isWithinPlatformRange(object, objectNumber, platformNumber))
                                 {
@@ -73,9 +78,9 @@ bool compute_isTouchingUnderPlatform(unsigned char object, int objectNumber, int
                         if(box[platformNumber].properties.classification == PLATFORM)
                         {
                             if (polygon[objectNumber].centre.yPosition + polygon[objectNumber].radius >=
-                                    box[platformNumber].centre.yPosition - (box[platformNumber].boxHeight / 2) &&
+                                    box[platformNumber].centre.yPosition - (box[platformNumber].dimensions.height / 2) &&
                                 polygon[objectNumber].centre.yPosition + polygon[objectNumber].radius <
-                                    box[platformNumber].centre.yPosition + (box[platformNumber].boxHeight / 2))
+                                    box[platformNumber].centre.yPosition + (box[platformNumber].dimensions.height / 2))
                             {
                                 if(compute_isWithinPlatformRange(object, objectNumber, platformNumber))
                                 {
@@ -91,6 +96,9 @@ bool compute_isTouchingUnderPlatform(unsigned char object, int objectNumber, int
 
 void compute_detectPlatformCollision()
 {
+    int i;
+    int j;
+
     for(i = 0; i < MAX_POLYGONS; i++)
     {
         for(j = 0; j < MAX_BOXES; j++)
@@ -99,43 +107,27 @@ void compute_detectPlatformCollision()
             {
                 if(compute_isOnPlatform(POLYGON, i, j))
                 {
-                    polygon[i].properties.yVelocity = polygon[i].properties.yVelocity * -1 * bouncePercentage; //Allow bounce on top
-                    polygon[i].centre.yPosition = box[j].centre.yPosition + (box[j].boxHeight / 2) + polygon[i].radius;
+                    polygon[i].properties.yVelocity = polygon[i].properties.yVelocity * -1 *
+                        polygon[i].properties.bouncePercentage; //Allow bounce on top
+                    polygon[i].centre.yPosition = box[j].centre.yPosition + (box[j].dimensions.height / 2) + polygon[i].radius;
                     //Adjust the polygon on top of the platform.
                 }
                 else if(compute_isTouchingUnderPlatform(POLYGON, i, j))
                 {
-                    polygon[i].properties.yVelocity = polygon[i].properties.yVelocity * -1 * bouncePercentage; //Allow bounce below
-                    polygon[i].centre.yPosition = box[j].centre.yPosition - (box[j].boxHeight / 2) - polygon[i].radius;
+                    polygon[i].properties.yVelocity = polygon[i].properties.yVelocity * -1 *
+                        polygon[i].properties.bouncePercentage; //Allow bounce below
+                    polygon[i].centre.yPosition = box[j].centre.yPosition - (box[j].dimensions.height / 2) - polygon[i].radius;
                 }
             }
         }
     }
 }
 
-void compute_rotate()
+void compute_transform()
 {
-    for (i = 0; i < MAX_POLYGONS; i++)
-	{
-		while (polygon[i].properties.angle >= 360)
-			polygon[i].properties.angle -= 360;
-        while (polygon[i].properties.angle < 0)
-            polygon[i].properties.angle += 360;
+    int i;
+    int j;
 
-		for (j = 0; j < polygon[i].properties.edges; j++)
-		{
-			polygon[i].vertices[j].xPosition = polygon[i].centre.xPosition +
-				(polygon[i].radius * cos(((360 / polygon[i].properties.edges) *
-                (j) - polygon[i].properties.angle) * (PI / 180)));
-            polygon[i].vertices[j].yPosition = polygon[i].centre.yPosition +
-				(polygon[i].radius * sin(((360 / polygon[i].properties.edges) *
-                (j) - polygon[i].properties.angle) * (PI / 180)));
-		}
-	}
-}
-
-void compute_translate()
-{
     for (i = 0; i < MAX_POLYGONS; i++)
 	{
 		//X Axis
@@ -169,6 +161,25 @@ void compute_translate()
 		{
 			box[i].vertices[j].yPosition +=
 				(box[i].properties.yVelocity * FRAME_DELAY_MILLISECS * 0.001);
+		}
+	}
+
+	//Rotation
+	for (i = 0; i < MAX_POLYGONS; i++)
+	{
+		while (polygon[i].properties.angle >= 360)
+			polygon[i].properties.angle -= 360;
+        while (polygon[i].properties.angle < 0)
+            polygon[i].properties.angle += 360;
+
+		for (j = 0; j < polygon[i].properties.edges; j++)
+		{
+			polygon[i].vertices[j].xPosition = polygon[i].centre.xPosition +
+				(polygon[i].radius * cos(((360 / polygon[i].properties.edges) *
+                (j) - polygon[i].properties.angle) * (PI / 180)));
+            polygon[i].vertices[j].yPosition = polygon[i].centre.yPosition +
+				(polygon[i].radius * sin(((360 / polygon[i].properties.edges) *
+                (j) - polygon[i].properties.angle) * (PI / 180)));
 		}
 	}
 }
@@ -216,11 +227,13 @@ void compute_roll(unsigned char object, int objectNumber)
 
 void compute_limitBoundary()
 {
+    int i;
+
 	for (i = 0; i < MAX_POLYGONS; i++)
 	{
 		//X Axis
-		if(polygon[i].centre.xPosition + polygon[i].radius >= worldMap.width)
-            polygon[i].centre.xPosition = worldMap.width - polygon[i].radius;
+		if(polygon[i].centre.xPosition + polygon[i].radius >= worldSizeMetres.width)
+            polygon[i].centre.xPosition = worldSizeMetres.width - polygon[i].radius;
 
         else if (polygon[i].centre.xPosition - polygon[i].radius <= 0)
             polygon[i].centre.xPosition = 0 + polygon[i].radius;
