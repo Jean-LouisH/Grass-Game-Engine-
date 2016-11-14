@@ -1,5 +1,4 @@
 #include "Definitions.h"
-#include "GLUTCallbackFunctions.h"
 
 ////////////////////////////////////////
 //GLUT Callback function implementations
@@ -17,7 +16,7 @@ void keyPressed(unsigned char key, int x, int y)
     if (keyStates[27]) //Escape key
         exit(EXIT_SUCCESS);
 
-    if(keyStates[9])
+    if(keyStates[9]) //Tab key
         glutPositionWindow(((glutGet(GLUT_SCREEN_WIDTH) * 0.250)/ 2) + 1,
                            ((glutGet(GLUT_SCREEN_HEIGHT) * 0.250 * 0.563) / 2) + 22);
 }
@@ -25,14 +24,17 @@ void keyPressed(unsigned char key, int x, int y)
 void keyUp(unsigned char key, int x, int y)
 {
     if((keyStates['p'] || keyStates['P']) && (!isGamePaused))
+    {
         isGamePaused = true;
-
+        gameState = MENU;
+    }
     else if((keyStates['p'] || keyStates['P'] ) && (isGamePaused))
+    {
         isGamePaused = false;
+        gameState = GAMEPLAY;
+    }
 
     keyStates[key] = false;
-    //polygon[0].properties.xVelocity = 0; //stops player movement immediately after releasing.
-                                        //Considering an alternative method for custom freedom.
 }
 
 void keySpecial(unsigned char key, int x, int y)
