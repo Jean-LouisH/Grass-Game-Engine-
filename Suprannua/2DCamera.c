@@ -1,5 +1,4 @@
 #include "Definitions.h"
-#include "2DCamera.h"
 
 void camera_setTarget(double newXPosition, double newYPosition)
 {
@@ -28,28 +27,34 @@ void camera_scrollToTarget(double targetXPosition, double targetYPosition, doubl
       camera2D.target.yPosition += scrollSpeed;
 }
 
+void camera_fitWorldSize()
+{
+    if(camera2D.viewport.width > worldSizeMetres.width &&
+       camera2D.viewport.height > worldSizeMetres.height)
+    {
+        camera_scrollToTarget(worldSizeMetres.width / 2, worldSizeMetres.height / 2, 1.0);// centres worldMap when everything can fit.
+    }
+}
+
 void camera_setWidth(double cameraWidth)
 {
     camera2D.viewport.width = cameraWidth;
     camera2D.viewport.height = camera2D.viewport.width / (1.777); //16:9 aspect ratio.
-
-    if(camera2D.viewport.width > worldMap.width &&
-       camera2D.viewport.height > worldMap.height)
-    {
-        camera_scrollToTarget(worldMap.width / 2, worldMap.height / 2, 1.0);// centres worldMap when everything can fit.
-    }
+    camera_fitWorldSize();
 }
 
-void camera_zoom(double approach)
+void camera_setHeight(double cameraHeight)
 {
-    camera2D.viewport.width -= approach;
-    camera2D.viewport.height = camera2D.viewport.width / (1.777);
+    camera2D.viewport.height = cameraHeight;
+    camera2D.viewport.width = camera2D.viewport.height * (1.777); //16:9 aspect ratio.
+    camera_fitWorldSize();
+}
 
-    if(camera2D.viewport.width > worldMap.width &&
-       camera2D.viewport.height > worldMap.height)
-    {
-        camera_scrollToTarget(worldMap.width / 2, worldMap.height / 2, 1);
-    }
+void camera_zoom(double deltaWidth)
+{
+    camera2D.viewport.width += deltaWidth;
+    camera2D.viewport.height = camera2D.viewport.width / (1.777);
+    camera_fitWorldSize();
 }
 
 void camera_limit(double left, double right, double down, double up)
@@ -71,7 +76,7 @@ void camera_follow(unsigned char object, int objectNumber, bool followX, bool fo
 {
     switch(object)
     {
-        case POLYGON:   if(followX && camera2D.viewport.width < worldMap.width) //if it's not too wide to bother following.
+        case POLYGON:   if(followX && camera2D.viewport.width < worldSizeMetres.width) //if it's not too wide to bother following.
                         {
                             if(polygon[objectNumber].centre.xPosition > camera2D.target.xPosition)
                                 camera2D.target.xPosition = polygon[objectNumber].centre.xPosition;
@@ -79,7 +84,7 @@ void camera_follow(unsigned char object, int objectNumber, bool followX, bool fo
                             if(polygon[objectNumber].centre.xPosition < camera2D.target.xPosition)
                                 camera2D.target.xPosition = polygon[objectNumber].centre.xPosition;
                         }
-                        if (followY && camera2D.viewport.height < worldMap.height) //if it's not too tall to bother following.
+                        if (followY && camera2D.viewport.height < worldSizeMetres.height) //if it's not too tall to bother following.
                         {
                             if(polygon[objectNumber].centre.yPosition > camera2D.target.yPosition)
                                 camera2D.target.yPosition = polygon[objectNumber].centre.yPosition;
@@ -88,7 +93,7 @@ void camera_follow(unsigned char object, int objectNumber, bool followX, bool fo
                                 camera2D.target.yPosition = polygon[objectNumber].centre.yPosition;
                         }
         break;
-        case BOX:       if(followX && camera2D.viewport.width < worldMap.width)
+        case BOX:       if(followX && camera2D.viewport.width < worldSizeMetres.width)
                         {
                             if(box[objectNumber].centre.xPosition > camera2D.target.xPosition)
                                 camera2D.target.xPosition = box[objectNumber].centre.xPosition;
@@ -96,7 +101,7 @@ void camera_follow(unsigned char object, int objectNumber, bool followX, bool fo
                             if(box[objectNumber].centre.xPosition < camera2D.target.xPosition)
                                 camera2D.target.xPosition = box[objectNumber].centre.xPosition;
                         }
-                        if (followY && camera2D.viewport.height < worldMap.height)
+                        if (followY && camera2D.viewport.height < worldSizeMetres.height)
                         {
                             if(box[objectNumber].centre.yPosition > camera2D.target.yPosition)
                                 camera2D.target.yPosition = box[objectNumber].centre.yPosition;
