@@ -1,5 +1,4 @@
 #include "Definitions.h"
-#include "Input.h"
 
 bool input_isPressed(int input)
 {

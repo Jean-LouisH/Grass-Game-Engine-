@@ -1,5 +1,4 @@
 #include "Definitions.h"
-#include "AI.h"
 
 void AI_spin(unsigned char agent, int agentNumber, bool direction, double amount)
 {
