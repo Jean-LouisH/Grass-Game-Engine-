@@ -13,21 +13,23 @@
 /////////////////////////////////////////////////////////
 
 #define SOFTWARE                "Suprannua"
-#define VERSION                 " 0.7.4 "
+#define VERSION                 " 0.7.5 "
 
 //Physics
 #define PI                      3.1415926535897932384626433832795
 
 //Supported maximums
-#define MAX_POLYGONS            255
+#define MAX_POLYGONS            500
 #define MAX_POLYGON_SIDES       12
-#define MAX_BOXES               255
+#define MAX_BOXES               500
+
+#define FULL                    255 //Colour level
 
 #define FRAME_RATE              60.0
 #define FRAME_DELAY_MILLISECS   1000.0/FRAME_RATE
 
 //////////////////////////////////////////////////////////
-//Enums, structs
+//Enums
 //////////////////////////////////////////////////////////
 enum colourPalette
 {
@@ -45,11 +47,16 @@ enum objectType
 };
 enum attributes
 {
-    ANGLE, MASS, XVELOCITY, YVELOCITY, GRAVITY, FRICTION
+    ANGLE, MASS, XVELOCITY, YVELOCITY, GRAVITY, TYPE,
+    EDGES, BOUNCE
 };
 enum prepositions
 {
     TO, FROM
+};
+enum controlModes
+{
+    GAMEPLAY, MENU
 };
 enum spinDirections
 {
@@ -63,6 +70,10 @@ enum AIMessages
 {
     WAIT
 };
+
+/////////////////////////////////////////////////////////
+//Structs
+/////////////////////////////////////////////////////////
 
 typedef struct
 {
@@ -89,6 +100,7 @@ typedef struct
     int edges;
     double angle; //for rotation
     double mass;
+    double bouncePercentage;
     double xVelocity;
     double yVelocity;
 }Property;
@@ -106,8 +118,7 @@ typedef struct
     Property properties;
     Vertex vertices[4];
     Vertex centre;
-    double boxWidth;
-    double boxHeight;
+    Rect dimensions;
 }Box;
 
 ////////////////////////////////////////////////////////////
@@ -119,21 +130,21 @@ extern char specialKeyStates[21];
 extern char gameTitle[64];
 extern double dpadSensitivity;
 
-extern Rect worldMap;
+extern Rect worldSizeMetres;
 
-extern double bouncePercentage; //for bounce calculations
 extern double platformGravity;
 
 extern bool isGamePaused;
 
-//Loop iterations
-extern int i;
-extern int j;
-extern int k;
-
 extern int frameCount;
 extern double timeCount;
+extern double framesPerSecond;
+extern int passedFrames;
+extern double startTime;
+extern double currentTime;
+extern double firstTimeSample;
 extern double kernelTime;
+extern unsigned char gameState;
 
 extern RegularPolygon polygon[MAX_POLYGONS];
 extern Box box[MAX_BOXES];
