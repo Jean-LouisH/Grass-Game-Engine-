@@ -70,19 +70,16 @@ void render_postHUD()
     int i;
 
     //For now testing HUD rendering and storage for data.
-    char testText[128];
     char pauseText[7] = "PAUSED";
 
     i = 0;
 
-    sprintf(testText, SOFTWARE VERSION "Kernel time: %.0fs, Runtime: %.2fs, Frame count: %d, FPS: %.2f", kernelTime, timeCount, frameCount, framesPerSecond);
-
     glColor3f(1.0, 1.0, 1.0);
     glRasterPos2f(-1.0, 0.95);
 
-    while(testText[i] != NULL)
+    while(textCache[0].text[i] != NULL)
     {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, *(testText+i));
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, *(textCache[0].text+i));
         i++;
     }
     i = 0;
@@ -91,9 +88,9 @@ void render_postHUD()
     glRasterPos2f(-0.075, 0.0);
     if(isGamePaused)
     {
-        while(pauseText[i] != NULL)
+        while(textCache[1].text[i] != NULL)
         {
-            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *(pauseText+i));
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *(textCache[1].text+i));
             i++;
         }
     }
