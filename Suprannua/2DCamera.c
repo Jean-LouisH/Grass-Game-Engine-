@@ -27,7 +27,7 @@ void camera_scrollToTarget(double targetXPosition, double targetYPosition, doubl
       camera2D.target.yPosition += scrollSpeed;
 }
 
-void camera_fitWorldSize()
+void camera_centreWorldSize()
 {
     if(camera2D.viewport.width > worldSizeMetres.width &&
        camera2D.viewport.height > worldSizeMetres.height)
@@ -40,21 +40,39 @@ void camera_setWidth(double cameraWidth)
 {
     camera2D.viewport.width = cameraWidth;
     camera2D.viewport.height = camera2D.viewport.width / (1.777); //16:9 aspect ratio.
-    camera_fitWorldSize();
+    camera_centreWorldSize();
 }
 
 void camera_setHeight(double cameraHeight)
 {
     camera2D.viewport.height = cameraHeight;
     camera2D.viewport.width = camera2D.viewport.height * (1.777); //16:9 aspect ratio.
-    camera_fitWorldSize();
+    camera_centreWorldSize();
 }
 
-void camera_zoom(double deltaWidth)
+void camera_zoomBy(double deltaWidth)
 {
     camera2D.viewport.width += deltaWidth;
     camera2D.viewport.height = camera2D.viewport.width / (1.777);
-    camera_fitWorldSize();
+    camera_centreWorldSize();
+}
+
+void camera_zoomToWidth(double targetWidth, double deltaWidth)
+{
+    if(camera2D.viewport.width > targetWidth)
+      camera2D.viewport.width -= deltaWidth;
+
+    if(camera2D.viewport.width < targetWidth)
+      camera2D.viewport.width += deltaWidth;
+}
+
+void camera_zoomToHeight(double targetHeight, double deltaHeight)
+{
+    if(camera2D.viewport.height > targetHeight)
+      camera2D.viewport.height -= deltaHeight;
+
+    if(camera2D.viewport.height < targetHeight)
+      camera2D.viewport.height += deltaHeight;
 }
 
 void camera_limit(double left, double right, double down, double up)
