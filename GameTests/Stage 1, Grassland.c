@@ -3,7 +3,9 @@
 #include "..\Suprannua\2DCamera.h" //Camera functions.
 #include "..\Suprannua\AI.h" //Artificial Intelligence of agents.
 #include "..\Suprannua\Input.h"
-#include "..\Suprannua\Compute.h" //All algorithms and physics calculations.
+#include "..\Suprannua\Physics.h" //All algorithms and physics calculations.
+#include "..\Suprannua\Logic.h"
+#include "..\Suprannua\Geometry.h"
 #include "..\Suprannua\Editor.h" //Functions used for data manipulation in game script.
 
 ///////////////////////////////////
@@ -44,36 +46,36 @@ void runGameScript()
 {
     int i;
 
-    compute_limitBoundary();
-    compute_detectPlatformCollision();
+    physics_limitBoundary();
+    physics_detectPlatformCollision();
 
-    compute_gravitate(POLYGON, 1, DOWN);
+    physics_gravitate(POLYGON, 1, DOWN);
     AI_spin(POLYGON, 1, ANTICLOCKWISE, 180);
 
-    compute_roll(POLYGON, 0);
+    physics_roll(POLYGON, 0);
 
-    if(compute_isWithinPlatformRange(POLYGON, 0, 7))
+    if(logic_isWithinPlatformRange(POLYGON, 0, 7))
     {
         if(box[7].centre.yPosition > polygon[0].centre.yPosition)
-            compute_gravitate(POLYGON, 0, UP);
+            physics_gravitate(POLYGON, 0, UP);
         else
-            compute_gravitate(POLYGON, 0, DOWN);
+            physics_gravitate(POLYGON, 0, DOWN);
     }
     else
-        compute_gravitate(POLYGON, 0, DOWN);
+        physics_gravitate(POLYGON, 0, DOWN);
 
     //Currently testing scripted sequencing, before developing a function.
     if(timeCount >= 3 && timeCount < 10 && camera2D.viewport.width > 15)
     {
         camera_setTarget(polygon[1].centre.xPosition, polygon[1].centre.yPosition);
-        camera_zoom(-0.4);
+        camera_zoomBy(-0.4);
     }
     if(timeCount > 10 && timeCount < 11)
         camera_setWidth(100);
     if(timeCount >= 10 && timeCount < 15 && camera2D.viewport.width > 15)
     {
         camera_setTarget(polygon[0].centre.xPosition, polygon[0].centre.yPosition);
-        camera_zoom(-0.6);
+        camera_zoomBy(-0.6);
     }
     if(timeCount > 15 && timeCount < 16)
     {
@@ -116,7 +118,7 @@ void runGameScript()
     }
     if(polygon[0].properties.colour[GREEN] > 0 && camera2D.viewport.width < 200)
     {
-        camera_zoom(0.1);
+        camera_zoomBy(0.1);
     }
 }
 
@@ -131,7 +133,7 @@ void readInput()
         {
             for(i = 0; i < MAX_BOXES; i++)
             {
-                if(compute_isOnPlatform(POLYGON, 0, i))
+                if(logic_isOnPlatform(POLYGON, 0, i))
                     edit_change(POLYGON, 0, YVELOCITY, 40 + box[i].properties.yVelocity); //Jumping
             }
         }
@@ -146,7 +148,7 @@ void readInput()
         {
             for(i = 0; i < MAX_BOXES; i++)
             {
-                if(compute_isTouchingUnderPlatform(POLYGON, 0, i))
+                if(logic_isTouchingUnderPlatform(POLYGON, 0, i))
                     edit_change(POLYGON, 0, YVELOCITY, -40 + box[i].properties.yVelocity);
             }
         }
@@ -156,6 +158,9 @@ void readInput()
         else if(polygon[0].properties.xVelocity < 0)
                 edit_adjust(POLYGON, 0, XVELOCITY, 3);
 
+    }
+    else if (gameState == MENU)
+    {
         ////////////////
         //Camera
         ////////////////
@@ -170,10 +175,6 @@ void readInput()
 
         if(input_isPressed('l'))
             camera_scroll(cameraScrollSpeed, 0.0);
-    }
-    else if (gameState == MENU)
-    {
-
     }
 }
 

@@ -3,7 +3,9 @@
 #include "..\Suprannua\2DCamera.h" //Camera functions.
 #include "..\Suprannua\AI.h" //Artificial Intelligence of agents.
 #include "..\Suprannua\Input.h"
-#include "..\Suprannua\Compute.h" //All algorithms and physics calculations.
+#include "..\Suprannua\Physics.h" //All algorithms and physics calculations.
+#include "..\Suprannua\Logic.h"
+#include "..\Suprannua\Geometry.h"
 #include "..\Suprannua\Editor.h" //Functions used for data manipulation in game script.
 
 ///////////////////////////////////
@@ -46,11 +48,11 @@ void runGameScript()
 {
     int i;
 
-    compute_limitBoundary();
-    compute_detectPlatformCollision();
+    physics_limitBoundary();
+    physics_detectPlatformCollision();
 
-    compute_gravitate(POLYGON, 0, DOWN);
-    compute_roll(POLYGON, 0);
+    physics_gravitate(POLYGON, 0, DOWN);
+    physics_roll(POLYGON, 0);
     camera_follow(POLYGON, 0, true, false);
     camera_limit(0, worldSizeMetres.width, 0, worldSizeMetres.height);
 
@@ -70,7 +72,7 @@ void readInput()
         {
             for(i = 0; i < MAX_BOXES; i++)
             {
-                if(compute_isOnPlatform(POLYGON, 0, i))
+                if(logic_isOnPlatform(POLYGON, 0, i))
                     edit_change(POLYGON, 0, YVELOCITY, 40 + box[i].properties.yVelocity); //Jumping
             }
         }
@@ -84,7 +86,7 @@ void readInput()
         {
             for(i = 0; i < MAX_BOXES; i++)
             {
-                if(compute_isTouchingUnderPlatform(POLYGON, 0, i))
+                if(logic_isTouchingUnderPlatform(POLYGON, 0, i))
                     edit_change(POLYGON, 0, YVELOCITY, -40 + box[i].properties.yVelocity);
             }
         }

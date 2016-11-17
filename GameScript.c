@@ -3,7 +3,9 @@
 #include "Suprannua\2DCamera.h" //Camera functions.
 #include "Suprannua\AI.h" //Artificial Intelligence of agents.
 #include "Suprannua\Input.h"
-#include "Suprannua\Compute.h" //All algorithms and physics calculations.
+#include "Suprannua\Physics.h" //All algorithms and physics calculations.
+#include "Suprannua\Logic.h"
+#include "Suprannua\Geometry.h"
 #include "Suprannua\Editor.h" //Functions used for data manipulation in game script.
 
 //////////////////////////////////////////////////////////////////////
