@@ -17,8 +17,8 @@ void runKernel()
 
     if(!isGamePaused)
     {
-        compute_incrementTime();
-        compute_transform();
+        physics_incrementTime();
+        geometry_transform();
         frameCount++;
         passedFrames++;
         runGameScript();
@@ -31,18 +31,16 @@ void runKernel()
         passedFrames = 0;
     }
 
-    if(true)
-    {
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //enables alpha blending with glColor4ub().
+    //HUD_updateKernelStats();
 
-        render_drawBox();
-        render_drawPolygon();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //enables alpha blending with glColor4ub().
+
+    render_drawBox();
+    render_drawPolygon();
         //drawGrid();
-        render_postHUD();
+    render_postHUD();
 
-        glutSwapBuffers(); //freeglut buffer swap for animation.
-    }
-
+    glutSwapBuffers(); //freeglut buffer swap for animation.
 }

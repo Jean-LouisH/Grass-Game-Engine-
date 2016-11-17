@@ -27,10 +27,10 @@ double firstTimeSample;
 double kernelTime;
 
 unsigned char gameState                 = GAMEPLAY;
-char headsUpDisplay[8][64];
 char keyStates[256];
 char specialKeyStates[21];
 
+HeadsUpDisplay textCache[8];
 RegularPolygon polygon[MAX_POLYGONS]    = {0};
 Box box[MAX_BOXES]                      = {0};
 Camera camera2D;
