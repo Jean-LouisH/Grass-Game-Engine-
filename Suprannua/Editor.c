@@ -41,7 +41,7 @@ void edit_create(unsigned char object, unsigned char type, int numberOfSides,
                             polygon[i].properties.colour[BLUE] = blue;
                             polygon[i].properties.colour[ALPHA] = alpha;
 
-                            compute_plotPolygon(i);
+                            geometry_plotPolygon(i);
                         }
         break;
         case BOX:       for(i = 0; i < MAX_BOXES; i++)
@@ -72,7 +72,7 @@ void edit_create(unsigned char object, unsigned char type, int numberOfSides,
                             box[i].properties.colour[BLUE] = blue;
                             box[i].properties.colour[ALPHA] = alpha;
 
-                            compute_plotBox(i);
+                            geometry_plotBox(i);
                         }
         break;
     }
@@ -126,12 +126,12 @@ void edit_move(unsigned char object, int objectNumber, double newXPosition, doub
         case POLYGON:   polygon[objectNumber].centre.xPosition = newXPosition;
                         polygon[objectNumber].centre.yPosition = newYPosition;
 
-                        compute_plotPolygon(objectNumber);
+                        geometry_plotPolygon(objectNumber);
         break;
         case BOX:       box[objectNumber].centre.xPosition = newXPosition;
                         box[objectNumber].centre.yPosition = newYPosition;
 
-                        compute_plotBox(objectNumber);
+                        geometry_plotBox(objectNumber);
         break;
     }
 }
@@ -144,13 +144,13 @@ void edit_resize(unsigned char object, int objectNumber, double scale)
     {
         case POLYGON:   polygon[objectNumber].radius = polygon[objectNumber].radius * scale;
 
-                        compute_plotPolygon(i);
+                        geometry_plotPolygon(i);
         break;
         case BOX:
                         box[objectNumber].dimensions.width = box[objectNumber].dimensions.width * scale;
                         box[objectNumber].dimensions.height = box[objectNumber].dimensions.height * scale;
 
-                        compute_plotBox(i);
+                        geometry_plotBox(i);
         break;
     }
 }
