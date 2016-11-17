@@ -8,12 +8,14 @@
 #include <time.h>
 #include <math.h>
 
+
+
 /////////////////////////////////////////////////////////
 //Define framework constants
 /////////////////////////////////////////////////////////
 
 #define SOFTWARE                "Suprannua"
-#define VERSION                 " 0.7.5 "
+#define VERSION                 " 0.7.6 "
 
 //Physics
 #define PI                      3.1415926535897932384626433832795
@@ -22,6 +24,7 @@
 #define MAX_POLYGONS            500
 #define MAX_POLYGON_SIDES       12
 #define MAX_BOXES               500
+#define MAX_TEXTS               8
 
 #define FULL                    255 //Colour level
 
@@ -43,7 +46,7 @@ enum objectName
 };
 enum objectType
 {
-    NOTHING, BACKGROUND, FOREGROUND, ENTITY, PLATFORM
+    NOTHING, BACKGROUND, FOREGROUND, CAMERA, ENTITY, PLATFORM
 };
 enum attributes
 {
@@ -121,6 +124,13 @@ typedef struct
     Rect dimensions;
 }Box;
 
+typedef struct
+{
+    Vertex textPin;
+    char text[128];
+    unsigned char classification;
+}HeadsUpDisplay;
+
 ////////////////////////////////////////////////////////////
 //Externs
 ////////////////////////////////////////////////////////////
@@ -150,6 +160,6 @@ extern RegularPolygon polygon[MAX_POLYGONS];
 extern Box box[MAX_BOXES];
 extern Camera camera2D;
 
-extern char headsUpDisplay[8][64];
+extern HeadsUpDisplay textCache[MAX_TEXTS];
 
 #endif
