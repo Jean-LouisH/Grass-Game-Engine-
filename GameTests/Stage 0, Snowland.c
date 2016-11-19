@@ -31,11 +31,11 @@ void initGameData()
         camera_setWidth(100);
         camera_setTarget(camera2D.viewport.width/2, camera2D.viewport.height/2);
 
-        edit_create(BOX, BACKGROUND, 0, 0, worldSizeMetres.width - 0.01, worldSizeMetres.height - 0.01, worldSizeMetres.width/2,
+        edit_create(BLOCK, BACKGROUND, 0, 0, worldSizeMetres.width - 0.01, worldSizeMetres.height - 0.01, worldSizeMetres.width/2,
                     worldSizeMetres.height/2, 135, 206, 250, 255);
-        edit_create(BOX, PLATFORM, 0, 0, worldSizeMetres.width - 0.01, 3.0, worldSizeMetres.width/2, 1.6, 83, 21, 21, 255);
+        edit_create(BLOCK, PLATFORM, 0, 0, worldSizeMetres.width - 0.01, 3.0, worldSizeMetres.width/2, 1.6, 83, 21, 21, 255);
         polygon[0].properties.bouncePercentage = 0.3;
-        edit_create(BOX, PLATFORM, 0, 0, worldSizeMetres.width - 0.01, 3.0, worldSizeMetres.width/2, 3, 255, 255, 255, 255);
+        edit_create(BLOCK, PLATFORM, 0, 0, worldSizeMetres.width - 0.01, 3.0, worldSizeMetres.width/2, 3, 255, 255, 255, 255);
         edit_create(POLYGON, ENTITY, 6, 3.0, 0, 0, 5, 30, 255, 0, 0, 255);
         for(i = 1; i < 20; i++)
         {
@@ -70,10 +70,10 @@ void readInput()
     {
         if(input_isPressed('w'))
         {
-            for(i = 0; i < MAX_BOXES; i++)
+            for(i = 0; i < MAX_BLOCKS; i++)
             {
                 if(logic_isOnPlatform(POLYGON, 0, i))
-                    edit_change(POLYGON, 0, YVELOCITY, 40 + box[i].properties.yVelocity); //Jumping
+                    edit_change(POLYGON, 0, YVELOCITY, 40 + block[i].properties.yVelocity); //Jumping
             }
         }
 
@@ -84,10 +84,10 @@ void readInput()
 
         if(input_isPressed('s'))
         {
-            for(i = 0; i < MAX_BOXES; i++)
+            for(i = 0; i < MAX_BLOCKS; i++)
             {
                 if(logic_isTouchingUnderPlatform(POLYGON, 0, i))
-                    edit_change(POLYGON, 0, YVELOCITY, -40 + box[i].properties.yVelocity);
+                    edit_change(POLYGON, 0, YVELOCITY, -40 + block[i].properties.yVelocity);
             }
         }
 

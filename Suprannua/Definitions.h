@@ -15,15 +15,15 @@
 /////////////////////////////////////////////////////////
 
 #define SOFTWARE                "Suprannua"
-#define VERSION                 " 0.7.6 "
+#define VERSION                 " 0.7.7 "
 
 //Physics
 #define PI                      3.1415926535897932384626433832795
 
 //Supported maximums
-#define MAX_POLYGONS            500
+#define MAX_POLYGONS            1000
 #define MAX_POLYGON_SIDES       12
-#define MAX_BOXES               500
+#define MAX_BLOCKS              1000
 #define MAX_TEXTS               8
 
 #define FULL                    255 //Colour level
@@ -42,7 +42,7 @@ enum colourPalette
 };
 enum objectName
 {
-    GAME, POLYGON, BOX
+    GAME, POLYGON, BLOCK
 };
 enum objectType
 {
@@ -122,7 +122,7 @@ typedef struct
     Vertex vertices[4];
     Vertex centre;
     Rect dimensions;
-}Box;
+}Block;
 
 typedef struct
 {
@@ -157,7 +157,7 @@ extern double kernelTime;
 extern unsigned char gameState;
 
 extern RegularPolygon polygon[MAX_POLYGONS];
-extern Box box[MAX_BOXES];
+extern Block block[MAX_BLOCKS];
 extern Camera camera2D;
 
 extern HeadsUpDisplay textCache[MAX_TEXTS];

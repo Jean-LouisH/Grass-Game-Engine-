@@ -32,7 +32,7 @@ char specialKeyStates[21];
 
 HeadsUpDisplay textCache[8];
 RegularPolygon polygon[MAX_POLYGONS]    = {0};
-Box box[MAX_BOXES]                      = {0};
+Block block[MAX_BLOCKS]                 = {0};
 Camera camera2D;
 
 int main(int argc, char **argv)

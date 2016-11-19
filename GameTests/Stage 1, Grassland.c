@@ -28,18 +28,18 @@ void initGameData()
         camera_setWidth(worldSizeMetres.width);
         camera_setTarget(camera2D.viewport.width/2, camera2D.viewport.height/2);
 
-        edit_create(BOX, BACKGROUND, 0, 0, worldSizeMetres.width - 0.01, worldSizeMetres.height - 0.01,
+        edit_create(BLOCK, BACKGROUND, 0, 0, worldSizeMetres.width - 0.01, worldSizeMetres.height - 0.01,
                     worldSizeMetres.width/2, worldSizeMetres.height/2, 135, 206, 250, 255);
-        edit_create(BOX, PLATFORM, 0, 0, 60, 1.0, 30, 1.0, 0, 150, 0, 255);
-        edit_create(BOX, PLATFORM, 0, 0, 60, 1.0, 30, 0.505, 165, 42, 42, 255);
+        edit_create(BLOCK, PLATFORM, 0, 0, 60, 1.0, 30, 1.0, 0, 150, 0, 255);
+        edit_create(BLOCK, PLATFORM, 0, 0, 60, 1.0, 30, 0.505, 165, 42, 42, 255);
         edit_create(POLYGON, ENTITY, 6, 3.0, 0, 0, 5, 30, 255, 0, 0, 255);
         polygon[0].properties.bouncePercentage = 0.3;
         edit_create(POLYGON, ENTITY, 3, 2.0, 0, 0, 10, 40 + 5.0, 0, 200, 0, 255);
-        edit_create(BOX, PLATFORM, 0, 0, 10.0, 1.0, 10, 40, 255, 0, 0, 255);
-        edit_create(BOX, PLATFORM, 0, 0, 12.0, 1.0, 80, 10, 0, 0, 100, 255);
-        edit_create(BOX, PLATFORM, 0, 0, 6.0, 1.0, 95, 20, 0, 0, 100, 255);
-        edit_create(BOX, PLATFORM, 0, 0, 10.0, 1.0, 85, 32, 0, 0, 100, 255);
-        edit_create(BOX, PLATFORM, 0, 0, 6.0, 1.0, 46, 30, 0, 0, 100, 255);
+        edit_create(BLOCK, PLATFORM, 0, 0, 10.0, 1.0, 10, 40, 255, 0, 0, 255);
+        edit_create(BLOCK, PLATFORM, 0, 0, 12.0, 1.0, 80, 10, 0, 0, 100, 255);
+        edit_create(BLOCK, PLATFORM, 0, 0, 6.0, 1.0, 95, 20, 0, 0, 100, 255);
+        edit_create(BLOCK, PLATFORM, 0, 0, 10.0, 1.0, 85, 32, 0, 0, 100, 255);
+        edit_create(BLOCK, PLATFORM, 0, 0, 6.0, 1.0, 46, 30, 0, 0, 100, 255);
 }
 
 void runGameScript()
@@ -56,7 +56,7 @@ void runGameScript()
 
     if(logic_isWithinPlatformRange(POLYGON, 0, 7))
     {
-        if(box[7].centre.yPosition > polygon[0].centre.yPosition)
+        if(block[7].centre.yPosition > polygon[0].centre.yPosition)
             physics_gravitate(POLYGON, 0, UP);
         else
             physics_gravitate(POLYGON, 0, DOWN);
@@ -95,20 +95,20 @@ void runGameScript()
     if(frameCount % (int)(FRAME_RATE * 1) == 0)
     {
         if(polygon[0].properties.colour[GREEN] > 0)
-            edit_colour(BOX, 3, 0, 225, 0, 255);
+            edit_colour(BLOCK, 3, 0, 225, 0, 255);
     }
     if(frameCount % (int)(FRAME_RATE * 1) == 25)
     //
     {
-        if(box[3].properties.colour[GREEN] > 0)
-            edit_colour(BOX, 3, 255, 0, 0, 255);
+        if(block[3].properties.colour[GREEN] > 0)
+            edit_colour(BLOCK, 3, 255, 0, 0, 255);
     }
 
     //To do: add a platform scroller function for simplicity.
-    if(box[7].centre.yPosition <= 30)
-        edit_adjust(BOX, 7, YVELOCITY, 5);
-    if(box[7].centre.yPosition >= 45)
-        edit_adjust(BOX, 7, YVELOCITY, -5);
+    if(block[7].centre.yPosition <= 30)
+        edit_adjust(BLOCK, 7, YVELOCITY, 5);
+    if(block[7].centre.yPosition >= 45)
+        edit_adjust(BLOCK, 7, YVELOCITY, -5);
 
 
     if(polygon[0].centre.yPosition < -5)
@@ -131,10 +131,10 @@ void readInput()
     {
         if(input_isPressed('w'))
         {
-            for(i = 0; i < MAX_BOXES; i++)
+            for(i = 0; i < MAX_BLOCKS; i++)
             {
                 if(logic_isOnPlatform(POLYGON, 0, i))
-                    edit_change(POLYGON, 0, YVELOCITY, 40 + box[i].properties.yVelocity); //Jumping
+                    edit_change(POLYGON, 0, YVELOCITY, 40 + block[i].properties.yVelocity); //Jumping
             }
         }
 
@@ -146,10 +146,10 @@ void readInput()
 
         if(input_isPressed('s'))
         {
-            for(i = 0; i < MAX_BOXES; i++)
+            for(i = 0; i < MAX_BLOCKS; i++)
             {
                 if(logic_isTouchingUnderPlatform(POLYGON, 0, i))
-                    edit_change(POLYGON, 0, YVELOCITY, -40 + box[i].properties.yVelocity);
+                    edit_change(POLYGON, 0, YVELOCITY, -40 + block[i].properties.yVelocity);
             }
         }
 

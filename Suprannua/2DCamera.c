@@ -111,21 +111,21 @@ void camera_follow(unsigned char object, int objectNumber, bool followX, bool fo
                                 camera2D.target.yPosition = polygon[objectNumber].centre.yPosition;
                         }
         break;
-        case BOX:       if(followX && camera2D.viewport.width < worldSizeMetres.width)
+        case BLOCK:       if(followX && camera2D.viewport.width < worldSizeMetres.width)
                         {
-                            if(box[objectNumber].centre.xPosition > camera2D.target.xPosition)
-                                camera2D.target.xPosition = box[objectNumber].centre.xPosition;
+                            if(block[objectNumber].centre.xPosition > camera2D.target.xPosition)
+                                camera2D.target.xPosition = block[objectNumber].centre.xPosition;
 
-                            if(box[objectNumber].centre.xPosition < camera2D.target.xPosition)
-                                camera2D.target.xPosition = box[objectNumber].centre.xPosition;
+                            if(block[objectNumber].centre.xPosition < camera2D.target.xPosition)
+                                camera2D.target.xPosition = block[objectNumber].centre.xPosition;
                         }
                         if (followY && camera2D.viewport.height < worldSizeMetres.height)
                         {
-                            if(box[objectNumber].centre.yPosition > camera2D.target.yPosition)
-                                camera2D.target.yPosition = box[objectNumber].centre.yPosition;
+                            if(block[objectNumber].centre.yPosition > camera2D.target.yPosition)
+                                camera2D.target.yPosition = block[objectNumber].centre.yPosition;
 
-                            if(box[objectNumber].centre.yPosition < camera2D.target.yPosition)
-                                camera2D.target.yPosition = box[objectNumber].centre.yPosition;
+                            if(block[objectNumber].centre.yPosition < camera2D.target.yPosition)
+                                camera2D.target.yPosition = block[objectNumber].centre.yPosition;
                         }
         break;
     }

@@ -44,33 +44,33 @@ void edit_create(unsigned char object, unsigned char type, int numberOfSides,
                             geometry_plotPolygon(i);
                         }
         break;
-        case BOX:       for(i = 0; i < MAX_BOXES; i++)
+        case BLOCK:       for(i = 0; i < MAX_BLOCKS; i++)
                         {
-                            if(box[i].properties.classification == NOTHING)
+                            if(block[i].properties.classification == NOTHING)
                                 break;
                         }
 
-                        if (i < MAX_BOXES)
+                        if (i < MAX_BLOCKS)
                         {
-                            box[i].properties.classification = type;
-                            box[i].dimensions.width = newWidth;
-                            box[i].dimensions.height = newHeight;
+                            block[i].properties.classification = type;
+                            block[i].dimensions.width = newWidth;
+                            block[i].dimensions.height = newHeight;
                             if(newXPosition == 0 || newYPosition == 0)
                             {
-                                box[i].centre.xPosition = rand() %
-                                (int)(worldSizeMetres.width - (box[i].dimensions.width) * (i + 1)) + (box[i].dimensions.width);
-                                box[i].centre.yPosition = rand() %
-                                (int)(worldSizeMetres.height - (box[i].dimensions.height) * (i + 1)) + (box[i].dimensions.height);
+                                block[i].centre.xPosition = rand() %
+                                (int)(worldSizeMetres.width - (block[i].dimensions.width) * (i + 1)) + (block[i].dimensions.width);
+                                block[i].centre.yPosition = rand() %
+                                (int)(worldSizeMetres.height - (block[i].dimensions.height) * (i + 1)) + (block[i].dimensions.height);
                             }
                             else
                             {
-                                box[i].centre.xPosition = newXPosition;
-                                box[i].centre.yPosition = newYPosition;
+                                block[i].centre.xPosition = newXPosition;
+                                block[i].centre.yPosition = newYPosition;
                             }
-                            box[i].properties.colour[RED] = red;
-                            box[i].properties.colour[GREEN] = green;
-                            box[i].properties.colour[BLUE] = blue;
-                            box[i].properties.colour[ALPHA] = alpha;
+                            block[i].properties.colour[RED] = red;
+                            block[i].properties.colour[GREEN] = green;
+                            block[i].properties.colour[BLUE] = blue;
+                            block[i].properties.colour[ALPHA] = alpha;
 
                             geometry_plotBox(i);
                         }
@@ -101,20 +101,20 @@ void edit_remove(unsigned char object, int objectNumber)
                             polygon[objectNumber].vertices[i].yPosition = 0.0;
                         }
         break;
-        case BOX:
-                        box[objectNumber].centre.xPosition = 0.0;
-                        box[objectNumber].centre.yPosition = 0.0;
-                        box[objectNumber].properties.angle = 0.0;
-                        box[objectNumber].properties.classification = NOTHING;
+        case BLOCK:
+                        block[objectNumber].centre.xPosition = 0.0;
+                        block[objectNumber].centre.yPosition = 0.0;
+                        block[objectNumber].properties.angle = 0.0;
+                        block[objectNumber].properties.classification = NOTHING;
                         for(i = 0; i < 4; i++)
-                            box[objectNumber].properties.colour[i] = 0;
-                        box[objectNumber].properties.mass = 0.0;
-                        box[objectNumber].properties.xVelocity = 0.0;
-                        box[objectNumber].properties.yVelocity = 0.0;
+                            block[objectNumber].properties.colour[i] = 0;
+                        block[objectNumber].properties.mass = 0.0;
+                        block[objectNumber].properties.xVelocity = 0.0;
+                        block[objectNumber].properties.yVelocity = 0.0;
                         for(i = 0; i < 4; i++)
                         {
-                            box[objectNumber].vertices[i].xPosition = 0.0;
-                            box[objectNumber].vertices[i].yPosition = 0.0;
+                            block[objectNumber].vertices[i].xPosition = 0.0;
+                            block[objectNumber].vertices[i].yPosition = 0.0;
                         }
         break;
     }
@@ -128,8 +128,8 @@ void edit_move(unsigned char object, int objectNumber, double newXPosition, doub
 
                         geometry_plotPolygon(objectNumber);
         break;
-        case BOX:       box[objectNumber].centre.xPosition = newXPosition;
-                        box[objectNumber].centre.yPosition = newYPosition;
+        case BLOCK:       block[objectNumber].centre.xPosition = newXPosition;
+                        block[objectNumber].centre.yPosition = newYPosition;
 
                         geometry_plotBox(objectNumber);
         break;
@@ -146,9 +146,9 @@ void edit_resize(unsigned char object, int objectNumber, double scale)
 
                         geometry_plotPolygon(i);
         break;
-        case BOX:
-                        box[objectNumber].dimensions.width = box[objectNumber].dimensions.width * scale;
-                        box[objectNumber].dimensions.height = box[objectNumber].dimensions.height * scale;
+        case BLOCK:
+                        block[objectNumber].dimensions.width = block[objectNumber].dimensions.width * scale;
+                        block[objectNumber].dimensions.height = block[objectNumber].dimensions.height * scale;
 
                         geometry_plotBox(i);
         break;
@@ -164,23 +164,23 @@ void edit_change(unsigned char object, int objectNumber, unsigned char attribute
         break;
         case ANGLE:     if(object == POLYGON)
                             polygon[objectNumber].properties.angle = amount;
-                        if(object == BOX)
-                            box[objectNumber].properties.angle = amount;
+                        if(object == BLOCK)
+                            block[objectNumber].properties.angle = amount;
         break;
         case MASS:      if(object == POLYGON)
                             polygon[objectNumber].properties.mass = amount;
-                        if(object == BOX)
-                            box[objectNumber].properties.mass = amount;
+                        if(object == BLOCK)
+                            block[objectNumber].properties.mass = amount;
         break;
         case XVELOCITY: if(object == POLYGON)
                             polygon[objectNumber].properties.xVelocity = amount;
-                        if(object == BOX)
-                            box[objectNumber].properties.xVelocity = amount;
+                        if(object == BLOCK)
+                            block[objectNumber].properties.xVelocity = amount;
         break;
         case YVELOCITY: if(object == POLYGON)
                             polygon[objectNumber].properties.yVelocity = amount;
-                        if(object == BOX)
-                            box[objectNumber].properties.yVelocity = amount;
+                        if(object == BLOCK)
+                            block[objectNumber].properties.yVelocity = amount;
         break;
     }
 }
@@ -195,23 +195,23 @@ void edit_adjust(unsigned char object, int objectNumber, unsigned char attribute
 
         case ANGLE:     if(object == POLYGON)
                             polygon[objectNumber].properties.angle += amount;
-                        if(object == BOX)
-                            box[objectNumber].properties.angle += amount;
+                        if(object == BLOCK)
+                            block[objectNumber].properties.angle += amount;
         break;
         case MASS:      if(object == POLYGON)
                             polygon[objectNumber].properties.mass += amount;
-                        if(object == BOX)
-                            box[objectNumber].properties.mass += amount;
+                        if(object == BLOCK)
+                            block[objectNumber].properties.mass += amount;
         break;
         case XVELOCITY: if(object == POLYGON)
                             polygon[objectNumber].properties.xVelocity += amount;
-                        if(object == BOX)
-                            box[objectNumber].properties.xVelocity += amount;
+                        if(object == BLOCK)
+                            block[objectNumber].properties.xVelocity += amount;
         break;
         case YVELOCITY: if(object == POLYGON)
                             polygon[objectNumber].properties.yVelocity += amount;
-                        if(object == BOX)
-                            box[objectNumber].properties.yVelocity += amount;
+                        if(object == BLOCK)
+                            block[objectNumber].properties.yVelocity += amount;
         break;
     }
 }
@@ -226,10 +226,10 @@ void edit_colour(unsigned char object, int objectNumber, unsigned char red,
                         polygon[objectNumber].properties.colour[BLUE]   = blue;
                         polygon[objectNumber].properties.colour[ALPHA]  = alpha;
         break;
-        case BOX:       box[objectNumber].properties.colour[RED]    = red;
-                        box[objectNumber].properties.colour[GREEN]  = green;
-                        box[objectNumber].properties.colour[BLUE]   = blue;
-                        box[objectNumber].properties.colour[ALPHA]  = alpha;
+        case BLOCK:       block[objectNumber].properties.colour[RED]    = red;
+                        block[objectNumber].properties.colour[GREEN]  = green;
+                        block[objectNumber].properties.colour[BLUE]   = blue;
+                        block[objectNumber].properties.colour[ALPHA]  = alpha;
         break;
     }
 }
