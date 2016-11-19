@@ -21,9 +21,9 @@ void geometry_plotBox(int objectNumber)
 
     for (i = 0; i < 4; i++)
     {
-        box[objectNumber].vertices[i].xPosition = box[objectNumber].centre.xPosition + ((box[objectNumber].dimensions.width / 2)
+        block[objectNumber].vertices[i].xPosition = block[objectNumber].centre.xPosition + ((block[objectNumber].dimensions.width / 2)
                     * sqrt(2) * (cos((45 + (i * 90)) * (PI / 180))));
-        box[objectNumber].vertices[i].yPosition = box[objectNumber].centre.yPosition + ((box[objectNumber].dimensions.height / 2)
+        block[objectNumber].vertices[i].yPosition = block[objectNumber].centre.yPosition + ((block[objectNumber].dimensions.height / 2)
                     * sqrt(2) * (sin((45 + (i * 90)) * (PI / 180))));
     }//All expected angles return a ratio of 1/sqrt(2). Sqrt(2) cancels this to give the circumscribed square size.
 }
@@ -35,56 +35,65 @@ void geometry_transform()
 
     for (i = 0; i < MAX_POLYGONS; i++)
 	{
-		//X Axis
-		polygon[i].centre.xPosition += (polygon[i].properties.xVelocity / FRAME_RATE);
-		for (j = 0; j < polygon[i].properties.edges; j++)
-		{
-			polygon[i].vertices[j].xPosition +=
-				(polygon[i].properties.xVelocity / FRAME_RATE);
-		}
-		//Y Axis
-		polygon[i].centre.yPosition += (polygon[i].properties.yVelocity / FRAME_RATE);
-		for (j = 0; j < polygon[i].properties.edges; j++)
-		{
-			polygon[i].vertices[j].yPosition +=
-				(polygon[i].properties.yVelocity / FRAME_RATE);
-		}
+	    if(polygon[i].properties.classification != NOTHING)
+        {
+            //X Axis
+            polygon[i].centre.xPosition += (polygon[i].properties.xVelocity / FRAME_RATE);
+            for (j = 0; j < polygon[i].properties.edges; j++)
+            {
+                polygon[i].vertices[j].xPosition +=
+                    (polygon[i].properties.xVelocity / FRAME_RATE);
+            }
+            //Y Axis
+            polygon[i].centre.yPosition += (polygon[i].properties.yVelocity / FRAME_RATE);
+            for (j = 0; j < polygon[i].properties.edges; j++)
+            {
+                polygon[i].vertices[j].yPosition +=
+                    (polygon[i].properties.yVelocity / FRAME_RATE);
+            }
+        }
 	}
 
-	for (i = 0; i < MAX_BOXES; i++)
+	for (i = 0; i < MAX_BLOCKS; i++)
 	{
-		//X Axis
-		box[i].centre.xPosition += (box[i].properties.xVelocity / FRAME_RATE);
-		for (j = 0; j < 4; j++)
-		{
-			box[i].vertices[j].xPosition +=
-				(box[i].properties.xVelocity / FRAME_RATE);
-		}
-		//Y Axis
-		box[i].centre.yPosition += (box[i].properties.yVelocity / FRAME_RATE);
-		for (j = 0; j < 4; j++)
-		{
-			box[i].vertices[j].yPosition +=
-				(box[i].properties.yVelocity / FRAME_RATE);
-		}
+	    if(block[i].properties.classification != NOTHING)
+        {
+            //X Axis
+            block[i].centre.xPosition += (block[i].properties.xVelocity / FRAME_RATE);
+            for (j = 0; j < 4; j++)
+            {
+                block[i].vertices[j].xPosition +=
+                    (block[i].properties.xVelocity / FRAME_RATE);
+            }
+            //Y Axis
+            block[i].centre.yPosition += (block[i].properties.yVelocity / FRAME_RATE);
+            for (j = 0; j < 4; j++)
+            {
+                block[i].vertices[j].yPosition +=
+                    (block[i].properties.yVelocity / FRAME_RATE);
+            }
+        }
 	}
 
 	//Rotation
 	for (i = 0; i < MAX_POLYGONS; i++)
 	{
-		while (polygon[i].properties.angle >= 360)
-			polygon[i].properties.angle -= 360;
-        while (polygon[i].properties.angle < 0)
-            polygon[i].properties.angle += 360;
+	    if(polygon[i].properties.classification != NOTHING)
+        {
+            while (polygon[i].properties.angle >= 360)
+                polygon[i].properties.angle -= 360;
+            while (polygon[i].properties.angle < 0)
+                polygon[i].properties.angle += 360;
 
-		for (j = 0; j < polygon[i].properties.edges; j++)
-		{
-			polygon[i].vertices[j].xPosition = polygon[i].centre.xPosition +
-				(polygon[i].radius * cos(((360 / polygon[i].properties.edges) *
-                (j) - polygon[i].properties.angle) * (PI / 180)));
-            polygon[i].vertices[j].yPosition = polygon[i].centre.yPosition +
-				(polygon[i].radius * sin(((360 / polygon[i].properties.edges) *
-                (j) - polygon[i].properties.angle) * (PI / 180)));
-		}
+            for (j = 0; j < polygon[i].properties.edges; j++)
+            {
+                polygon[i].vertices[j].xPosition = polygon[i].centre.xPosition +
+                    (polygon[i].radius * cos(((360 / polygon[i].properties.edges) *
+                    (j) - polygon[i].properties.angle) * (PI / 180)));
+                polygon[i].vertices[j].yPosition = polygon[i].centre.yPosition +
+                    (polygon[i].radius * sin(((360 / polygon[i].properties.edges) *
+                    (j) - polygon[i].properties.angle) * (PI / 180)));
+            }
+        }
 	}
 }

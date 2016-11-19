@@ -10,53 +10,58 @@ void render_drawPolygon()
 
     for (i = 0; i < MAX_POLYGONS; i++)
 	{
-		glBegin(GL_POLYGON);
-		glColor4ub(polygon[i].properties.colour[RED], polygon[i].properties.colour[GREEN],
-                    polygon[i].properties.colour[BLUE], polygon[i].properties.colour[ALPHA]);
+	    if(polygon[i].properties.classification != NOTHING)
+        {
+            glBegin(GL_POLYGON);
+            glColor4ub(polygon[i].properties.colour[RED], polygon[i].properties.colour[GREEN],
+                        polygon[i].properties.colour[BLUE], polygon[i].properties.colour[ALPHA]);
 
-		for (j = 0; j < polygon[i].properties.edges; j++)//renders plotted points.
-		{
-            glVertex2f((polygon[i].vertices[j].xPosition - (camera2D.target.xPosition))/
-                        (camera2D.viewport.width/2),
-                       (polygon[i].vertices[j].yPosition - (camera2D.target.yPosition))/
-                        (camera2D.viewport.height/2));
-		}
-		glEnd();
+            for (j = 0; j < polygon[i].properties.edges; j++)//renders plotted points.
+            {
+                glVertex2f((polygon[i].vertices[j].xPosition - (camera2D.target.xPosition))/
+                            (camera2D.viewport.width/2),
+                           (polygon[i].vertices[j].yPosition - (camera2D.target.yPosition))/
+                            (camera2D.viewport.height/2));
+            }
+            glEnd();
+        }
 	}
 }
-void render_drawBox()
+void render_drawBlock()
 {
     int i;
     int j;
 
-    for (i = 0; i < MAX_BOXES; i++)
+    for (i = 0; i < MAX_BLOCKS; i++)
 	{
-
-        glBegin(GL_QUADS);
-        glColor4ub(box[i].properties.colour[RED], box[i].properties.colour[GREEN],
-                   box[i].properties.colour[BLUE], box[i].properties.colour[ALPHA]);
-
-        if(box[i].properties.classification == BACKGROUND)//renders backgrounds first.
+        if(block[i].properties.classification != NOTHING)
         {
-            for (j = 0; j < 4; j++)
+            glBegin(GL_QUADS);
+            glColor4ub(block[i].properties.colour[RED], block[i].properties.colour[GREEN],
+                       block[i].properties.colour[BLUE], block[i].properties.colour[ALPHA]);
+
+            if(block[i].properties.classification == BACKGROUND)//renders backgrounds first.
             {
-                glVertex2f((box[i].vertices[j].xPosition - (camera2D.target.xPosition))/
-                            (camera2D.viewport.width/2),
-                           (box[i].vertices[j].yPosition - (camera2D.target.yPosition))/
-                            (camera2D.viewport.height/2));
+                for (j = 0; j < 4; j++)
+                {
+                    glVertex2f((block[i].vertices[j].xPosition - (camera2D.target.xPosition))/
+                                (camera2D.viewport.width/2),
+                               (block[i].vertices[j].yPosition - (camera2D.target.yPosition))/
+                                (camera2D.viewport.height/2));
+                }
             }
-        }
-        if(box[i].properties.classification == PLATFORM)//renders platforms after.
-        {
-            for (j = 0; j < 4; j++)
+            if(block[i].properties.classification == PLATFORM)//renders platforms after.
             {
-                glVertex2f((box[i].vertices[j].xPosition - (camera2D.target.xPosition))/
-                            (camera2D.viewport.width/2),
-                           (box[i].vertices[j].yPosition - (camera2D.target.yPosition))/
-                            (camera2D.viewport.height/2));
+                for (j = 0; j < 4; j++)
+                {
+                    glVertex2f((block[i].vertices[j].xPosition - (camera2D.target.xPosition))/
+                                (camera2D.viewport.width/2),
+                               (block[i].vertices[j].yPosition - (camera2D.target.yPosition))/
+                                (camera2D.viewport.height/2));
+                }
             }
+            glEnd();
         }
-        glEnd();
 	}
 }
 void render_drawGrid()
