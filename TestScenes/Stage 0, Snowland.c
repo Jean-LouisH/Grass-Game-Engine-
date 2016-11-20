@@ -36,8 +36,11 @@ void initGameData()
         edit_create(BLOCK, PLATFORM, 0, 0, worldSizeMetres.width - 0.01, 3.0, worldSizeMetres.width/2, 1.6, 83, 21, 21, 255);
         polygon[0].properties.bouncePercentage = 0.3;
         edit_create(BLOCK, PLATFORM, 0, 0, worldSizeMetres.width - 0.01, 3.0, worldSizeMetres.width/2, 3, 255, 255, 255, 255);
+        edit_createBlock(BACKGROUND, 52, 60, 4.5, 10, BLACK);
         edit_create(POLYGON, ENTITY, 6, 3.0, 0, 0, 5, 30, 255, 0, 0, 255);
-        for(i = 1; i < 20; i++)
+        edit_createBlock(BACKGROUND, 49, 51, 0, 40, GREY);
+        edit_createPolygon(BACKGROUND, 3, 8, 50, 40, BLACK);
+        for(i = 2; i < 20; i++)
         {
             edit_create(POLYGON, ENTITY, 8, 0.5, 0, 0, 0, 0, 255, 255, 255, 255);
             edit_change(POLYGON, i, YVELOCITY, -5.0);
@@ -53,10 +56,11 @@ void runGameScript()
 
     physics_gravitate(POLYGON, 0, DOWN);
     physics_roll(POLYGON, 0);
+    AI_spin(POLYGON, 1, ANTICLOCKWISE, 180);
     camera_follow(POLYGON, 0, true, false);
-    camera_limit(0, worldSizeMetres.width, 0, worldSizeMetres.height);
+    camera_limitTo(0, worldSizeMetres.width, 0, worldSizeMetres.height);
 
-    for(i = 1; i < 20; i++)
+    for(i = 2; i < 20; i++)
         if(polygon[i].centre.yPosition < 6)
             edit_move(POLYGON, i, polygon[i].centre.xPosition, worldSizeMetres.height - 1);
 }

@@ -54,7 +54,7 @@ void runGameScript()
 
     physics_roll(POLYGON, 0);
 
-    if(logic_isWithinPlatformRange(POLYGON, 0, 7))
+    if(logic_isWithinPlatformWidth(POLYGON, 0, 7))
     {
         if(block[7].centre.yPosition > polygon[0].centre.yPosition)
             physics_gravitate(POLYGON, 0, UP);
