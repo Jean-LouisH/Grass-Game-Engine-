@@ -8,14 +8,12 @@
 #include <time.h>
 #include <math.h>
 
-
-
 /////////////////////////////////////////////////////////
 //Define framework constants
 /////////////////////////////////////////////////////////
 
 #define SOFTWARE                "Suprannua"
-#define VERSION                 " 0.7.7 "
+#define VERSION                 " 0.8.0 "
 
 //Physics
 #define PI                      3.1415926535897932384626433832795
@@ -36,7 +34,7 @@
 //////////////////////////////////////////////////////////
 enum colourPalette
 {
-    BLACK, WHITE, ALPHA, RED, GREEN, BLUE, ORANGE, YELLOW,
+    RED, GREEN, BLUE, ALPHA, BLACK, WHITE, ORANGE, YELLOW,
     VIOLET, PURPLE, BROWN, SKY_BLUE, GOLD, SEA_GREEN,
     PINK, GREY
 };
@@ -161,5 +159,21 @@ extern Block block[MAX_BLOCKS];
 extern Camera camera2D;
 
 extern HeadsUpDisplay textCache[MAX_TEXTS];
+
+extern unsigned char black[3];
+extern unsigned char white[3];
+extern unsigned char red[3];
+extern unsigned char green[3];
+extern unsigned char blue[3];
+extern unsigned char orange[3];
+extern unsigned char yellow[3];
+extern unsigned char violet[3];
+extern unsigned char purple[3];
+extern unsigned char brown[3];
+extern unsigned char skyBlue[3];
+extern unsigned char gold[3];
+extern unsigned char seaGreen[3];
+extern unsigned char pink[3];
+extern unsigned char grey[3];
 
 #endif
