@@ -35,6 +35,23 @@ RegularPolygon polygon[MAX_POLYGONS]    = {0};
 Block block[MAX_BLOCKS]                 = {0};
 Camera camera2D;
 
+unsigned char black[3]      = {0,0,0};
+unsigned char white[3]      = {255,255,255};
+unsigned char red[3]        = {255,0,0};
+unsigned char green[3]      = {0,255,0};
+unsigned char blue[3]       = {0,0,255};
+unsigned char orange[3]     = {255,165,0};
+unsigned char yellow[3]     = {255,255,0};
+unsigned char violet[3]     = {27,0,255};
+unsigned char purple[3]     = {128,0,128};
+unsigned char brown[3]      = {150,75,0};
+unsigned char skyBlue[3]    = {135,206,235};
+unsigned char gold[3]       = {204,153,0};
+unsigned char seaGreen[3]   = {46,139,87};
+unsigned char pink[3]       = {255,192,203};
+unsigned char grey[3]       = {128,128,128};
+
+
 int main(int argc, char **argv)
 {
     runGLUT(argc, argv);
