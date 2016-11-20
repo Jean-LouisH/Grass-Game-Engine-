@@ -1,6 +1,6 @@
 #include "Definitions.h"
 
-bool logic_isWithinPlatformRange(unsigned char object, int objectNumber, int platformNumber)
+bool logic_isWithinPlatformWidth(unsigned char object, int objectNumber, int platformNumber)
 {
     bool platformFlag = false;
 
@@ -29,7 +29,7 @@ bool logic_isOnPlatform(unsigned char object, int objectNumber, int platformNumb
                                polygon[objectNumber].centre.yPosition - polygon[objectNumber].radius >
                                 block[platformNumber].centre.yPosition - (block[platformNumber].dimensions.height / 2))
                             {
-                                if(logic_isWithinPlatformRange(object, objectNumber, platformNumber))
+                                if(logic_isWithinPlatformWidth(object, objectNumber, platformNumber))
                                 {
                                     platformFlag = true;
                                 }
@@ -54,7 +54,7 @@ bool logic_isTouchingUnderPlatform(unsigned char object, int objectNumber, int p
                                 polygon[objectNumber].centre.yPosition + polygon[objectNumber].radius <
                                     block[platformNumber].centre.yPosition + (block[platformNumber].dimensions.height / 2))
                             {
-                                if(logic_isWithinPlatformRange(object, objectNumber, platformNumber))
+                                if(logic_isWithinPlatformWidth(object, objectNumber, platformNumber))
                                 {
                                     platformFlag = true;
                                 }
