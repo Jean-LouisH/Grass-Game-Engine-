@@ -37,10 +37,10 @@ void runKernel()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //enables alpha blending with glColor4ub().
 
-    render_drawBlock();
-    render_drawPolygon();
+    render_displayBlockList();
+    render_displayPolygonList();
     //drawGrid();
-    render_postHUD();
+    //render_postHUD();
 
     glutSwapBuffers(); //freeglut buffer swap for animation.
 }
