@@ -15,7 +15,7 @@ void geometry_plotPolygon(int objectNumber)
     }//polygon defined sides divide a full circle into angle increments that are multiplied by j to plot all points.
 }
 
-void geometry_plotBox(int objectNumber)
+void geometry_plotBlock(int objectNumber)
 {
     int i;
 
@@ -96,4 +96,35 @@ void geometry_transform()
             }
         }
 	}
+}
+
+double geometry_findDistance(unsigned char firstObject, int firstObjectNumber,
+                             unsigned char secondObject, int secondObjectNumber)
+{
+    if(firstObject == POLYGON)
+    {
+        if(secondObject == POLYGON)
+            return (hypot(polygon[firstObjectNumber].centre.xPosition -
+                          polygon[secondObjectNumber].centre.xPosition,
+                          polygon[firstObjectNumber].centre.yPosition -
+                          polygon[secondObjectNumber].centre.yPosition));
+        else if(secondObject == BLOCK)
+            return (hypot(polygon[firstObjectNumber].centre.xPosition -
+                          block[secondObjectNumber].centre.xPosition,
+                          polygon[firstObjectNumber].centre.yPosition -
+                          block[secondObjectNumber].centre.yPosition));
+    }
+    else if (firstObject == BLOCK)
+    {
+        if(secondObject == POLYGON)
+            return (hypot(block[firstObjectNumber].centre.xPosition -
+                          polygon[secondObjectNumber].centre.xPosition,
+                          block[firstObjectNumber].centre.yPosition -
+                          polygon[secondObjectNumber].centre.yPosition));
+        else if(secondObject == BLOCK)
+            return (hypot(block[firstObjectNumber].centre.xPosition -
+                          block[secondObjectNumber].centre.xPosition,
+                          block[firstObjectNumber].centre.yPosition -
+                          block[secondObjectNumber].centre.yPosition));
+    }
 }
