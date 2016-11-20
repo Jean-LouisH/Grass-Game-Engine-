@@ -50,7 +50,7 @@ void camera_setHeight(double cameraHeight)
     camera_centreWorldSize();
 }
 
-void camera_zoomBy(double deltaWidth)
+void camera_keepZoomingBy(double deltaWidth)
 {
     camera2D.viewport.width += deltaWidth;
     camera2D.viewport.height = camera2D.viewport.width / (1.777);
@@ -75,7 +75,7 @@ void camera_zoomToHeight(double targetHeight, double deltaHeight)
       camera2D.viewport.height += deltaHeight;
 }
 
-void camera_limit(double left, double right, double down, double up)
+void camera_limitTo(double left, double right, double down, double up)
 {
     if(camera2D.target.xPosition - (camera2D.viewport.width/2) < left)
         camera2D.target.xPosition = left + (camera2D.viewport.width/2);
