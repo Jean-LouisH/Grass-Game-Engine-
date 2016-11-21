@@ -1,4 +1,6 @@
 #include "Definitions.h"
+#include "Geometry.h"
+#include "Editor.h"
 
 void physics_detectPlatformCollision()
 {
@@ -23,6 +25,35 @@ void physics_detectPlatformCollision()
                     polygon[i].properties.yVelocity = polygon[i].properties.yVelocity * -1 *
                         polygon[i].properties.bouncePercentage; //Allow bounce below
                     polygon[i].centre.yPosition = block[j].centre.yPosition - (block[j].dimensions.height / 2) - polygon[i].radius;
+                }
+            }
+        }
+    }
+}
+
+void physics_detectCollision()
+{
+    int i;
+    int j;
+
+    double centreDistance = 0;
+    double combinedRadius;
+
+    for(i = 0; i < MAX_POLYGONS; i++)
+    {
+        if(polygon[i].properties.classification == ENTITY)
+        {
+            for(j = 0; j < MAX_POLYGONS; j++)
+            {
+                if(polygon[j].properties.classification == ENTITY)
+                {
+                    centreDistance = geometry_findDistance(POLYGON, 0, POLYGON, 20);
+                    combinedRadius = polygon[0].radius + polygon[20].radius;
+
+                    if(centreDistance < combinedRadius)
+                    {
+
+                    }
                 }
             }
         }
