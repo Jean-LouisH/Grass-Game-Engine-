@@ -16,5 +16,6 @@ void edit_adjust(unsigned char object, int objectNumber, unsigned char attribute
 void edit_colourFromRGBA(unsigned char object, int objectNumber, unsigned char red,
                  unsigned char green, unsigned char blue, unsigned char alpha);
 void edit_colourFromText(unsigned char object, int objectNumber, unsigned char colour);
+void edit_colourToAlpha(unsigned char object, int objectNumber, double alpha);
 void edit_force(unsigned char firstObject, int firstObjectNumber,
                  unsigned char preposition, unsigned char secondObject, int secondobjectNumber);// preposition - "to", "from"

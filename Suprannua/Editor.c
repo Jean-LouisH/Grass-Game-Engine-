@@ -92,6 +92,7 @@ void edit_createBlock(unsigned char type, double left, double right,
     {
         case PLATFORM:      block[i].properties.classification = PLATFORM;      break;
         case ENTITY:        block[i].properties.classification = ENTITY;        break;
+        case FOREGROUND:    block[i].properties.classification = FOREGROUND;    break;
         case BACKGROUND:
         default:            block[i].properties.classification = BACKGROUND;
     }
@@ -118,6 +119,7 @@ void edit_createPolygon(unsigned char type, int numberOfSides, double newRadius,
     {
         case PLATFORM:      polygon[i].properties.classification = PLATFORM;      break;
         case ENTITY:        polygon[i].properties.classification = ENTITY;        break;
+        case FOREGROUND:    polygon[i].properties.classification = FOREGROUND;    break;
         case BACKGROUND:
         default:            polygon[i].properties.classification = BACKGROUND;
     }
@@ -303,6 +305,7 @@ void edit_colourFromText(unsigned char object, int objectNumber, unsigned char c
     else if (object == BLOCK)
         edit_colourBlock(objectNumber, colour);
 }
+
 void edit_colourPolygon(int objectNumber, unsigned char colour)
 {
     switch(colour)
@@ -473,6 +476,15 @@ void edit_colourBlock(int objectNumber, unsigned char colour)
                     block[objectNumber].properties.colour[ALPHA]   = FULL;
     }
 }
+
+void edit_colourToAlpha(unsigned char object, int objectNumber, double alpha)
+{
+    if(object == POLYGON)
+        polygon[objectNumber].properties.colour[3] = alpha * FULL;
+    else if(object == BLOCK)
+        block[objectNumber].properties.colour[3] = alpha * FULL;
+}
+
 void edit_force(unsigned char firstObject, int firstObjectNumber,
                  unsigned char preposition, unsigned char secondObject, int secondobjectNumber)// preposition - "to", "from"
 {
