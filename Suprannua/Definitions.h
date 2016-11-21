@@ -13,7 +13,7 @@
 /////////////////////////////////////////////////////////
 
 #define SOFTWARE                "Suprannua"
-#define VERSION                 " 0.8.0 "
+#define VERSION                 " 0.8.1 "
 
 //Physics
 #define PI                      3.1415926535897932384626433832795

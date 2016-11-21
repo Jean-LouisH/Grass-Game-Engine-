@@ -45,6 +45,19 @@ void initGameData()
             edit_create(POLYGON, ENTITY, 8, 0.5, 0, 0, 0, 0, 255, 255, 255, 255);
             edit_change(POLYGON, i, YVELOCITY, -5.0);
         }
+        edit_createPolygon(FOREGROUND, 5, 10, 100, 1, PURPLE);
+        edit_colourToAlpha(POLYGON, 20, 0.8);
+        edit_createPolygon(ENTITY, 6, 3, 150, 5, BLACK);
+        edit_colourToAlpha(POLYGON, 21, 0.9);
+        edit_createPolygon(ENTITY, 6, 3, 150, 15, BLACK);
+        edit_colourToAlpha(POLYGON, 22, 0.7);
+        edit_createPolygon(ENTITY, 6, 3, 150, 22, BLACK);
+        edit_colourToAlpha(POLYGON, 23, 0.5);
+        edit_createPolygon(ENTITY, 6, 3, 150, 29, BLACK);
+        edit_colourToAlpha(POLYGON, 24, 0.3);
+        edit_createPolygon(ENTITY, 6, 3, 150, 36, BLACK);
+        edit_colourToAlpha(POLYGON, 25, 0.1);
+
 }
 
 void runGameScript()
@@ -53,10 +66,12 @@ void runGameScript()
 
     physics_limitBoundary();
     physics_detectPlatformCollision();
+    physics_detectCollision();
 
     physics_gravitate(POLYGON, 0, DOWN);
     physics_roll(POLYGON, 0);
     AI_spin(POLYGON, 1, ANTICLOCKWISE, 180);
+    AI_spin(POLYGON, 20, CLOCKWISE, 270);
     camera_follow(POLYGON, 0, true, false);
     camera_limitTo(0, worldSizeMetres.width, 0, worldSizeMetres.height);
 
@@ -100,24 +115,23 @@ void readInput()
         else if(polygon[0].properties.xVelocity < 0)
                 edit_adjust(POLYGON, 0, XVELOCITY, 3);
 
-        ////////////////
-        //Camera
-        ////////////////
-        if(input_isPressed('i'))
-            camera_scroll(0.0, cameraScrollSpeed);
-
-        if(input_isPressed('j'))
-            camera_scroll(-1 * cameraScrollSpeed, 0.0);
-
-        if(input_isPressed('k'))
-            camera_scroll(0.0, - 1 * cameraScrollSpeed);
-
-        if(input_isPressed('l'))
-            camera_scroll(cameraScrollSpeed, 0.0);
     }
     else if (gameState == MENU)
     {
+        ////////////////
+        //Camera
+        ////////////////
+        if(input_isPressed('w'))
+            camera_scroll(0.0, cameraScrollSpeed);
 
+        if(input_isPressed('a'))
+            camera_scroll(-1 * cameraScrollSpeed, 0.0);
+
+        if(input_isPressed('s'))
+            camera_scroll(0.0, - 1 * cameraScrollSpeed);
+
+        if(input_isPressed('d'))
+            camera_scroll(cameraScrollSpeed, 0.0);
     }
 }
 
