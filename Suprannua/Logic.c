@@ -65,3 +65,12 @@ bool logic_isTouchingUnderPlatform(unsigned char object, int objectNumber, int p
 
     return (platformFlag);
 }
+
+bool logic_arePolygonsTouching(int firstObjectNumber, int secondObjectNumber)
+{
+    if(geometry_findDistance(POLYGON, firstObjectNumber, POLYGON, secondObjectNumber) <
+           polygon[firstObjectNumber].radius + polygon[secondObjectNumber].radius)
+    {
+        return (true);
+    }
+}
