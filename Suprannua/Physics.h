@@ -6,3 +6,5 @@ void physics_detectCollision();//bounces radial polygons from each other
 void physics_detectPlatformCollision();//allows objects to settle on platforms or bounce from under.
 void physics_gravitate(unsigned char object, int objectNumber, bool direction);//causes an object to fall.
 void physics_incrementTime();//updates game or simulation time.
+void physics_force(unsigned char firstObject, int firstObjectNumber,
+                 unsigned char preposition, unsigned char secondObject, int secondobjectNumber);// preposition - "to", "from"

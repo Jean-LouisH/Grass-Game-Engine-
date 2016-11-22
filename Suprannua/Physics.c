@@ -36,7 +36,7 @@ void physics_detectCollision()
     int i;
     int j;
 
-    double centreDistance = 0;
+    double centreDistance;
     double combinedRadius;
 
     for(i = 0; i < MAX_POLYGONS; i++)
@@ -116,4 +116,10 @@ void physics_limitBoundary()
                 polygon[i].centre.xPosition = 0 + polygon[i].radius;
         }
 	}
+}
+
+void physics_force(unsigned char firstObject, int firstObjectNumber,
+                 unsigned char preposition, unsigned char secondObject, int secondobjectNumber)// preposition - "to", "from"
+{
+
 }
