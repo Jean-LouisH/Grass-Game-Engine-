@@ -12,7 +12,7 @@ void HUD_setText(double xText, double yText, char newText)
     int i;
     textCache[1].text[0] = newText;
     //sprintf(textCache[1].text, "%c", newText);
-    textCache[1].classification = CAMERA;
+    textCache[1].classification = HUD;
 
 }
 
