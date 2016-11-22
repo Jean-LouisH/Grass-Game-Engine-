@@ -13,7 +13,7 @@
 /////////////////////////////////////////////////////////
 
 #define SOFTWARE                "Suprannua"
-#define VERSION                 " 0.8.1 "
+#define VERSION                 " 0.8.2 "
 
 //Physics
 #define PI                      3.1415926535897932384626433832795
@@ -44,12 +44,13 @@ enum objectName
 };
 enum objectType
 {
-    NOTHING, BACKGROUND, FOREGROUND, CAMERA, ENTITY, PLATFORM
+    NOTHING, BACKGROUND, FOREGROUND, HUD, ENTITY, PLATFORM
 };
 enum attributes
 {
     ANGLE, MASS, XVELOCITY, YVELOCITY, GRAVITY, TYPE,
-    EDGES, BOUNCE
+    EDGES, BOUNCE, XPOSITION, YPOSITION, WIDTH, HEIGHT,
+    RADIUS, ALPHA_COLOUR
 };
 enum prepositions
 {

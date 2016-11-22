@@ -100,6 +100,7 @@ void edit_createBlock(unsigned char type, double left, double right,
     block[i].dimensions.height = (up - down);
     block[i].centre.xPosition = (left + right) / 2;
     block[i].centre.yPosition = (down + up) / 2;
+    block[i].properties.mass = 1.0;
 
     edit_colourBlock(i, colour);
     geometry_plotBlock(i);
@@ -125,6 +126,7 @@ void edit_createPolygon(unsigned char type, int numberOfSides, double newRadius,
     }
     polygon[i].properties.edges = numberOfSides;
     polygon[i].radius = newRadius;
+    polygon[i].properties.mass = 1.0;
 
     if(newXPosition == 0 || newYPosition == 0) //provides a random position if non is specified.
     {
@@ -485,8 +487,36 @@ void edit_colourToAlpha(unsigned char object, int objectNumber, double alpha)
         block[objectNumber].properties.colour[3] = alpha * FULL;
 }
 
-void edit_force(unsigned char firstObject, int firstObjectNumber,
-                 unsigned char preposition, unsigned char secondObject, int secondobjectNumber)// preposition - "to", "from"
+double edit_get(unsigned char object, int objectNumber, unsigned char attribute)
 {
-
+    if(object == POLYGON)
+    {
+        switch(attribute)
+        {
+            case ALPHA_COLOUR:     return (polygon[objectNumber].properties.colour[3] / FULL); break;
+            case ANGLE:     return polygon[objectNumber].properties.angle;              break;
+            case MASS:      return polygon[objectNumber].properties.mass;               break;
+            case XVELOCITY: return polygon[objectNumber].properties.xVelocity;          break;
+            case YVELOCITY: return polygon[objectNumber].properties.yVelocity;          break;
+            case BOUNCE:    return polygon[objectNumber].properties.bouncePercentage;   break;
+            case XPOSITION: return polygon[objectNumber].centre.xPosition;              break;
+            case YPOSITION: return polygon[objectNumber].centre.yPosition;              break;
+            case RADIUS:    return polygon[objectNumber].radius;                        break;
+        }
+    }
+    else if (object == BLOCK)
+    {
+        switch(attribute)
+        {
+            case ALPHA_COLOUR:     return (block[objectNumber].properties.colour[3] / 255);    break;
+            case MASS:      return block[objectNumber].properties.mass;                 break;
+            case XVELOCITY: return block[objectNumber].properties.xVelocity;            break;
+            case YVELOCITY: return block[objectNumber].properties.yVelocity;            break;
+            case BOUNCE:    return block[objectNumber].properties.bouncePercentage;     break;
+            case XPOSITION: return block[objectNumber].centre.xPosition;                break;
+            case YPOSITION: return block[objectNumber].centre.yPosition;                break;
+            case WIDTH:     return block[objectNumber].dimensions.width;                break;
+            case HEIGHT:    return block[objectNumber].dimensions.height;               break;
+        }
+    }
 }
