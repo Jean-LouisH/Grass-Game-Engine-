@@ -1,8 +1,38 @@
-#include "Definitions.h"
+#include "Suprannua.h"
 
 ////////////////////////////////////////
-//GLUT Callback function implementations
+//GLUT implementations
 ///////////////////////////////////////
+
+void runGLUT(int argc, char **argv)
+{
+	int screenWidthPixels;
+	int screenHeightPixels;
+
+	//GLUT initialisation
+	glutInit(&argc, argv);
+
+	screenWidthPixels = glutGet(GLUT_SCREEN_WIDTH) * 0.750;
+	screenHeightPixels = (screenWidthPixels * 0.563);
+
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+	glutInitWindowSize(screenWidthPixels, screenHeightPixels);
+	glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH) - screenWidthPixels) / 2,
+		((glutGet(GLUT_SCREEN_HEIGHT) - screenHeightPixels) / 2) - 20);
+	glutCreateWindow(gameTitle);
+
+	//Run GLUT callback registration
+	glutKeyboardFunc(keyPressed);
+	glutKeyboardUpFunc(keyUp);
+	glutSpecialFunc(keySpecial);
+	glutSpecialUpFunc(keyUpSpecial);
+	glutReshapeFunc(resize);
+
+	glutDisplayFunc(runKernel);
+	glutTimerFunc(FRAME_DELAY_MILLISECS, timer, FRAME_DELAY_MILLISECS);
+	glutMainLoop();
+}
+
 void timer(int milliseconds)
 {
     glutTimerFunc(milliseconds, timer, milliseconds);
