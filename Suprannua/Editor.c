@@ -1,4 +1,4 @@
-#include "Definitions.h"
+#include "Suprannua.h"
 
 void edit_create(unsigned char object, unsigned char type, int numberOfSides,
                   double newRadius, double newWidth, double newHeight, double newXPosition,
@@ -17,63 +17,63 @@ void edit_create(unsigned char object, unsigned char type, int numberOfSides,
                                 break;
                         }
 
-                        if (i < MAX_POLYGONS)
+						if(i > occupiedPolygons)
+							occupiedPolygons = i;
+
+                        polygon[i].properties.classification = type;
+                        polygon[i].properties.edges = numberOfSides;
+                        polygon[i].radius = newRadius;
+
+                        if(newXPosition == 0 || newYPosition == 0) //provides a random position if non is specified.
                         {
-                            polygon[i].properties.classification = type;
-                            polygon[i].properties.edges = numberOfSides;
-                            polygon[i].radius = newRadius;
-
-                            if(newXPosition == 0 || newYPosition == 0) //provides a random position if non is specified.
-                            {
-                                polygon[i].centre.xPosition = rand() %
-                                (int)(worldSizeMetres.width - (2 * polygon[i].radius) * (i + 1))+ (polygon[i].radius);
-                                polygon[i].centre.yPosition = rand() %
-                                (int)(worldSizeMetres.height - (2 * polygon[i].radius) * (i + 1)) + (polygon[i].radius);
-                            }
-                            else
-                            {
-                                polygon[i].centre.xPosition = newXPosition;
-                                polygon[i].centre.yPosition = newYPosition;
-                            }
-
-                            polygon[i].properties.colour[RED] = red;
-                            polygon[i].properties.colour[GREEN] = green;
-                            polygon[i].properties.colour[BLUE] = blue;
-                            polygon[i].properties.colour[ALPHA] = alpha;
-
-                            geometry_plotPolygon(i);
+                            polygon[i].centre.xPosition = rand() %
+                            (int)(worldSizeMetres.width - (2 * polygon[i].radius) * (i + 1))+ (polygon[i].radius);
+                            polygon[i].centre.yPosition = rand() %
+                            (int)(worldSizeMetres.height - (2 * polygon[i].radius) * (i + 1)) + (polygon[i].radius);
                         }
+                        else
+                        {
+                            polygon[i].centre.xPosition = newXPosition;
+                            polygon[i].centre.yPosition = newYPosition;
+                        }
+
+                        polygon[i].properties.colour[RED] = red;
+                        polygon[i].properties.colour[GREEN] = green;
+                        polygon[i].properties.colour[BLUE] = blue;
+                        polygon[i].properties.colour[ALPHA] = alpha;
+
+                        geometry_plotPolygon(i);
         break;
-        case BLOCK:       for(i = 0; i < MAX_BLOCKS; i++)
+        case BLOCK:    for(i = 0; i < MAX_BLOCKS; i++)
                         {
                             if(block[i].properties.classification == NOTHING)
                                 break;
                         }
 
-                        if (i < MAX_BLOCKS)
-                        {
-                            block[i].properties.classification = type;
-                            block[i].dimensions.width = newWidth;
-                            block[i].dimensions.height = newHeight;
-                            if(newXPosition == 0 || newYPosition == 0)
-                            {
-                                block[i].centre.xPosition = rand() %
-                                (int)(worldSizeMetres.width - (block[i].dimensions.width) * (i + 1)) + (block[i].dimensions.width);
-                                block[i].centre.yPosition = rand() %
-                                (int)(worldSizeMetres.height - (block[i].dimensions.height) * (i + 1)) + (block[i].dimensions.height);
-                            }
-                            else
-                            {
-                                block[i].centre.xPosition = newXPosition;
-                                block[i].centre.yPosition = newYPosition;
-                            }
-                            block[i].properties.colour[RED] = red;
-                            block[i].properties.colour[GREEN] = green;
-                            block[i].properties.colour[BLUE] = blue;
-                            block[i].properties.colour[ALPHA] = alpha;
+					   if (i > occupiedBlocks)
+						   occupiedBlocks = i;
 
-                            geometry_plotBlock(i);
-                        }
+                       block[i].properties.classification = type;
+                       block[i].dimensions.width = newWidth;
+                       block[i].dimensions.height = newHeight;
+                       if(newXPosition == 0 || newYPosition == 0)
+                       {
+                           block[i].centre.xPosition = rand() %
+                          (int)(worldSizeMetres.width - (block[i].dimensions.width) * (i + 1)) + (block[i].dimensions.width);
+                           block[i].centre.yPosition = rand() %
+                          (int)(worldSizeMetres.height - (block[i].dimensions.height) * (i + 1)) + (block[i].dimensions.height);
+                       }
+					   else
+					   {
+						   block[i].centre.xPosition = newXPosition;
+						   block[i].centre.yPosition = newYPosition;
+					   }
+                       block[i].properties.colour[RED] = red;
+                       block[i].properties.colour[GREEN] = green;
+                       block[i].properties.colour[BLUE] = blue;
+                       block[i].properties.colour[ALPHA] = alpha;
+
+                       geometry_plotBlock(i);
         break;
     }
 }
@@ -87,6 +87,9 @@ void edit_createBlock(unsigned char type, double left, double right,
         if(block[i].properties.classification == NOTHING)
             break;
     }
+
+	if (i > occupiedBlocks)
+		occupiedBlocks = i;
 
     switch(type)
     {
@@ -115,6 +118,9 @@ void edit_createPolygon(unsigned char type, int numberOfSides, double newRadius,
         if(polygon[i].properties.classification == NOTHING)
             break;
     }
+
+	if (i > occupiedPolygons)
+		occupiedPolygons = i;
 
     switch(type)
     {
@@ -203,20 +209,17 @@ void edit_move(unsigned char object, int objectNumber, double newXPosition, doub
 }
 void edit_resize(unsigned char object, int objectNumber, double scale)
 {
-
-    int i;
-
     switch(object)
     {
         case POLYGON:   polygon[objectNumber].radius = polygon[objectNumber].radius * scale;
 
-                        geometry_plotPolygon(i);
+                        geometry_plotPolygon(objectNumber);
         break;
         case BLOCK:
                         block[objectNumber].dimensions.width = block[objectNumber].dimensions.width * scale;
                         block[objectNumber].dimensions.height = block[objectNumber].dimensions.height * scale;
 
-                        geometry_plotBlock(i);
+                        geometry_plotBlock(objectNumber);
         break;
     }
 }
@@ -493,7 +496,7 @@ double edit_get(unsigned char object, int objectNumber, unsigned char attribute)
     {
         switch(attribute)
         {
-            case ALPHA_COLOUR:     return (polygon[objectNumber].properties.colour[3] / FULL); break;
+            case ALPHA:     return (polygon[objectNumber].properties.colour[3] / FULL); break;
             case ANGLE:     return polygon[objectNumber].properties.angle;              break;
             case MASS:      return polygon[objectNumber].properties.mass;               break;
             case XVELOCITY: return polygon[objectNumber].properties.xVelocity;          break;
@@ -508,7 +511,7 @@ double edit_get(unsigned char object, int objectNumber, unsigned char attribute)
     {
         switch(attribute)
         {
-            case ALPHA_COLOUR:     return (block[objectNumber].properties.colour[3] / 255);    break;
+            case ALPHA:     return (block[objectNumber].properties.colour[3] / 255);    break;
             case MASS:      return block[objectNumber].properties.mass;                 break;
             case XVELOCITY: return block[objectNumber].properties.xVelocity;            break;
             case YVELOCITY: return block[objectNumber].properties.yVelocity;            break;
