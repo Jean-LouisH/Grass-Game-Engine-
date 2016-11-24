@@ -1,5 +1,4 @@
-#include "Definitions.h"
-#include "HUD.h"
+#include "Suprannua.h"
 
 void HUD_updateKernelStats()
 {
@@ -16,7 +15,7 @@ void HUD_setText(double xText, double yText, char newText)
 
 }
 
-void HUD_removeText()
+void HUD_removeText(int textCell)
 {
 
 
