@@ -1,4 +1,4 @@
-#include "Definitions.h"
+#include "Suprannua.h"
 
 bool logic_isWithinPlatformWidth(unsigned char object, int objectNumber, int platformNumber)
 {

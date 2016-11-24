@@ -1,11 +1,20 @@
-#include "Definitions.h"
+#include "Suprannua.h"
 
-bool input_isPressed(int input)
+bool input_isPressed(unsigned char input)
 {
-    //XOR gated ASCII character for capital or common letters.
-    if (keyStates[input] || keyStates[(input^0x0020)])
-        return (true);
+	bool inputFlag = false;
 
-    if (specialKeyStates[input])
-        return (true);
+    //XOR gated ASCII character for capital or common letters.
+    //if (keyStates[input] || keyStates[(input^0x0020)])
+	if (keyStates[input] == true)
+	{ 
+		inputFlag = true;
+	}
+
+	if (specialKeyStates[input] == true)
+	{
+		inputFlag = true;
+	}
+
+	return (inputFlag);
 }
