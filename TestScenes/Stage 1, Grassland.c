@@ -1,12 +1,4 @@
-#include "..\Suprannua\Definitions.h" //All the enums, structs and variables the framework and script needs to know.
-#include "..\Suprannua\GameScript.h" //Script and asset functions.
-#include "..\Suprannua\2DCamera.h" //Camera functions.
-#include "..\Suprannua\AI.h" //Artificial Intelligence of agents.
-#include "..\Suprannua\Input.h"
-#include "..\Suprannua\Physics.h" //All algorithms and physics calculations.
-#include "..\Suprannua\Logic.h"
-#include "..\Suprannua\Geometry.h"
-#include "..\Suprannua\Editor.h" //Functions used for data manipulation in game script.
+#include "..\Suprannua\Suprannua.h" 
 
 ///////////////////////////////////
 //Custom code for Game Data, Logic, AI, Inputs
@@ -68,14 +60,14 @@ void runGameScript()
     if(timeCount >= 3 && timeCount < 10 && camera2D.viewport.width > 15)
     {
         camera_setTarget(polygon[1].centre.xPosition, polygon[1].centre.yPosition);
-        camera_zoomBy(-0.4);
+        camera_keepZoomingBy(-0.4);
     }
     if(timeCount > 10 && timeCount < 11)
         camera_setWidth(100);
     if(timeCount >= 10 && timeCount < 15 && camera2D.viewport.width > 15)
     {
         camera_setTarget(polygon[0].centre.xPosition, polygon[0].centre.yPosition);
-        camera_zoomBy(-0.6);
+        camera_keepZoomingBy(-0.6);
     }
     if(timeCount > 15 && timeCount < 16)
     {
@@ -88,20 +80,20 @@ void runGameScript()
         polygon[0].centre.yPosition - polygon[1].centre.yPosition) < polygon[1].radius)
     {
         edit_remove(POLYGON, 1);
-        edit_colour(POLYGON, 0, 0, 225, 0, 255);
+        edit_colourFromRGBA(POLYGON, 0, 0, 225, 0, 255);
     }
 
     //To do: add a timing function for simplicity.
     if(frameCount % (int)(FRAME_RATE * 1) == 0)
     {
         if(polygon[0].properties.colour[GREEN] > 0)
-            edit_colour(BLOCK, 3, 0, 225, 0, 255);
+            edit_colourFromRGBA(BLOCK, 3, 0, 225, 0, 255);
     }
     if(frameCount % (int)(FRAME_RATE * 1) == 25)
     //
     {
         if(block[3].properties.colour[GREEN] > 0)
-            edit_colour(BLOCK, 3, 255, 0, 0, 255);
+            edit_colourFromRGBA(BLOCK, 3, 255, 0, 0, 255);
     }
 
     //To do: add a platform scroller function for simplicity.
@@ -118,7 +110,7 @@ void runGameScript()
     }
     if(polygon[0].properties.colour[GREEN] > 0 && camera2D.viewport.width < 200)
     {
-        camera_zoomBy(0.1);
+        camera_keepZoomingBy(0.1);
     }
 }
 

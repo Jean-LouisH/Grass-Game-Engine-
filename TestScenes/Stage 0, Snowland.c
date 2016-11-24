@@ -1,12 +1,4 @@
-#include "..\Suprannua\Definitions.h" //All the enums, structs and variables the framework and script needs to know.
-#include "..\Suprannua\GameScript.h" //Script and asset functions.
-#include "..\Suprannua\2DCamera.h" //Camera functions.
-#include "..\Suprannua\AI.h" //Artificial Intelligence of agents.
-#include "..\Suprannua\Input.h"
-#include "..\Suprannua\Physics.h" //All algorithms and physics calculations.
-#include "..\Suprannua\Logic.h"
-#include "..\Suprannua\Geometry.h"
-#include "..\Suprannua\Editor.h" //Functions used for data manipulation in game script.
+#include "..\Suprannua\Suprannua.h" //All the enums, structs and variables the framework and script needs to know.
 
 ///////////////////////////////////
 //Custom code for Game Data, Logic, AI, Inputs
@@ -45,7 +37,7 @@ void initGameData()
             edit_create(POLYGON, ENTITY, 8, 0.5, 0, 0, 0, 0, 255, 255, 255, 255);
             edit_change(POLYGON, i, YVELOCITY, -5.0);
         }
-        edit_createPolygon(FOREGROUND, 5, 10, 100, 1, PURPLE);
+        edit_createPolygon(ENTITY, 5, 10, 100, 1, PURPLE);
         edit_colourToAlpha(POLYGON, 20, 0.8);
         edit_createPolygon(ENTITY, 6, 3, 150, 5, BLACK);
         edit_colourToAlpha(POLYGON, 21, 0.9);
@@ -73,7 +65,7 @@ void runGameScript()
     AI_spin(POLYGON, 1, ANTICLOCKWISE, 180);
     AI_spin(POLYGON, 20, CLOCKWISE, 270);
     camera_follow(POLYGON, 0, true, false);
-    camera_limitTo(0, worldSizeMetres.width, 0, worldSizeMetres.height);
+    //camera_limitTo(0, worldSizeMetres.width, 0, worldSizeMetres.height);
 
     for(i = 2; i < 20; i++)
         if(polygon[i].centre.yPosition < 6)
@@ -130,8 +122,16 @@ void readInput()
         if(input_isPressed('s'))
             camera_scroll(0.0, - 1 * cameraScrollSpeed);
 
-        if(input_isPressed('d'))
-            camera_scroll(cameraScrollSpeed, 0.0);
+		if (input_isPressed('d'))
+		{
+			camera_scroll(cameraScrollSpeed, 0.0);
+		}
+
+        if(input_isPressed('q'))
+            camera_keepZoomingBy(1);
+
+        if(input_isPressed('e'))
+            camera_keepZoomingBy(-1);
     }
 }
 
