@@ -1,4 +1,4 @@
-#include "Definitions.h"
+#include "Suprannua.h"
 
 ////////////////////////////////////////
 //2D Rendering
@@ -7,19 +7,19 @@ void render_displayPolygonList()
 {
     int i;
 
-    for (i = 0; i < MAX_POLYGONS; i++)
+    for (i = 0; i <= occupiedPolygons; i++)
 	    if(polygon[i].properties.classification == BACKGROUND)//renders backgrounds first.
             render_drawPolygon(i);
 
-    for (i = 0; i < MAX_POLYGONS; i++)
+    for (i = 0; i <= occupiedPolygons; i++)
         if(polygon[i].properties.classification == PLATFORM)//renders platforms second.
             render_drawPolygon(i);
 
-	for (i = 0; i < MAX_POLYGONS; i++)
+	for (i = 0; i <= occupiedPolygons; i++)
         if(polygon[i].properties.classification == ENTITY)//renders entities third.
             render_drawPolygon(i);
 
-    for (i = 0; i < MAX_POLYGONS; i++)
+    for (i = 0; i <= occupiedPolygons; i++)
         if(polygon[i].properties.classification == FOREGROUND)//renders foregrounds last.
             render_drawPolygon(i);
 }
@@ -46,23 +46,23 @@ void render_displayBlockList()
 {
     int i;
 
-    for (i = 0; i < MAX_BLOCKS; i++)
+    for (i = 0; i <= occupiedBlocks; i++)
         if(block[i].properties.classification == BACKGROUND)
             render_drawBlock(i);
 
-    for(i = 0; i < MAX_BLOCKS; i++)
+    for(i = 0; i <= occupiedBlocks; i++)
         if(block[i].properties.classification == PLATFORM)
             render_drawBlock(i);
 
-    for(i = 0; i < MAX_BLOCKS; i++)
+    for(i = 0; i <= occupiedBlocks; i++)
         if(block[i].properties.classification == ENTITY)
             render_drawBlock(i);
 
-    for(i = 0; i < MAX_BLOCKS; i++)
+    for(i = 0; i <= occupiedBlocks; i++)
         if(block[i].properties.classification == FOREGROUND)
             render_drawBlock(i);
 }
-render_drawBlock(int objectNumber)
+void render_drawBlock(int objectNumber)
 {
     int i ;
 

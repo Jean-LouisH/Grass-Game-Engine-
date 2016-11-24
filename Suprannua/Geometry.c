@@ -1,4 +1,4 @@
-#include "Definitions.h"
+#include "Suprannua.h"
 
 void geometry_plotPolygon(int objectNumber)
 {
@@ -33,7 +33,7 @@ void geometry_transform()
     int i;
     int j;
 
-    for (i = 0; i < MAX_POLYGONS; i++)
+    for (i = 0; i <= occupiedPolygons; i++)
 	{
 	    if(polygon[i].properties.classification != NOTHING)
         {
@@ -54,7 +54,7 @@ void geometry_transform()
         }
 	}
 
-	for (i = 0; i < MAX_BLOCKS; i++)
+	for (i = 0; i <= occupiedBlocks; i++)
 	{
 	    if(block[i].properties.classification != NOTHING)
         {
@@ -76,7 +76,7 @@ void geometry_transform()
 	}
 
 	//Rotation
-	for (i = 0; i < MAX_POLYGONS; i++)
+	for (i = 0; i <= occupiedPolygons; i++)
 	{
 	    if(polygon[i].properties.classification != NOTHING)
         {

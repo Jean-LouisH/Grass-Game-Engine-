@@ -1,29 +1,29 @@
-#include "Definitions.h"
-#include "Geometry.h"
-#include "Editor.h"
+#include "Suprannua.h"
 
 void physics_detectPlatformCollision()
 {
     int i;
     int j;
 
-    for(i = 0; i < MAX_POLYGONS; i++)
+    for(i = 0; i <= occupiedPolygons; i++)
     {
         if(polygon[i].properties.classification == ENTITY)
         {
-            for(j = 0; j < MAX_BLOCKS; j++)
+            for(j = 0; j <= occupiedBlocks; j++)
             {
                 if(logic_isOnPlatform(POLYGON, i, j))
                 {
                     polygon[i].properties.yVelocity = polygon[i].properties.yVelocity * -1 *
-                        polygon[i].properties.bouncePercentage; //Allow bounce on top
+							polygon[i].properties.bouncePercentage; //Allow bounce on top
+
                     polygon[i].centre.yPosition = block[j].centre.yPosition + (block[j].dimensions.height / 2) + polygon[i].radius;
                     //Adjust the polygon on top of the platform.
                 }
-                else if(logic_isTouchingUnderPlatform(POLYGON, i, j))
+                if(logic_isTouchingUnderPlatform(POLYGON, i, j))
                 {
                     polygon[i].properties.yVelocity = polygon[i].properties.yVelocity * -1 *
-                        polygon[i].properties.bouncePercentage; //Allow bounce below
+							polygon[i].properties.bouncePercentage; //Allow bounce below
+
                     polygon[i].centre.yPosition = block[j].centre.yPosition - (block[j].dimensions.height / 2) - polygon[i].radius;
                 }
             }
@@ -39,11 +39,11 @@ void physics_detectCollision()
     double centreDistance;
     double combinedRadius;
 
-    for(i = 0; i < MAX_POLYGONS; i++)
+    for(i = 0; i <= occupiedPolygons; i++)
     {
         if(polygon[i].properties.classification == ENTITY)
         {
-            for(j = 0; j < MAX_POLYGONS; j++)
+            for(j = 0; j <= occupiedPolygons; j++)
             {
                 if(polygon[j].properties.classification == ENTITY)
                 {
@@ -104,7 +104,7 @@ void physics_limitBoundary()
 {
     int i;
 
-	for (i = 0; i < MAX_POLYGONS; i++)
+	for (i = 0; i <= occupiedPolygons; i++)
 	{
 	    if(polygon[i].properties.classification != NOTHING)
         {
