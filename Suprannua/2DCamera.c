@@ -1,4 +1,4 @@
-#include "Definitions.h"
+#include "Suprannua.h"
 
 void camera_setTarget(double newXPosition, double newYPosition)
 {
@@ -52,9 +52,13 @@ void camera_setHeight(double cameraHeight)
 
 void camera_keepZoomingBy(double deltaWidth)
 {
-    camera2D.viewport.width += deltaWidth;
-    camera2D.viewport.height = camera2D.viewport.width / (1.777);
-    camera_centreWorldSize();
+	camera2D.viewport.width += deltaWidth;
+	if (camera2D.viewport.width < 1)
+	{
+		camera2D.viewport.width = 1;
+	}
+	camera2D.viewport.height = camera2D.viewport.width / (1.777);
+	camera_centreWorldSize();
 }
 
 void camera_zoomToWidth(double targetWidth, double deltaWidth)
