@@ -1,19 +1,11 @@
-#include "Suprannua\Definitions.h" //All the enums, structs and variables the framework and script needs to know.
-#include "Suprannua\GameScript.h" //Script and asset functions.
-#include "Suprannua\2DCamera.h" //Camera functions.
-#include "Suprannua\AI.h" //Artificial Intelligence of agents.
-#include "Suprannua\Input.h"
-#include "Suprannua\Physics.h" //All algorithms and physics calculations.
-#include "Suprannua\Logic.h"
-#include "Suprannua\Geometry.h"
-#include "Suprannua\Editor.h" //Functions used for data manipulation in game script.
+#include "Suprannua\Suprannua.h" 
 
 //////////////////////////////////////////////////////////////////////
 //Custom code for Game Data, Logic, AI, Inputs
 //////////////////////////////////////////////////////////////////////
 
 //Global variables
-char gameTitle[64]          =  "";
+char gameTitle[64]          = SOFTWARE VERSION "[No Game Loaded.]";
 double dpadSensitivity      = 30;
 double cameraScrollSpeed    = 0.5;
 
