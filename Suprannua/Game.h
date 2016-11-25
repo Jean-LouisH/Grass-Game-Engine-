@@ -1,5 +1,5 @@
 /**
-* Game Script
+* Game
 *
 * Links the Suprannua kernel to a user made game which utilises the Suprannua framework functions.
 */

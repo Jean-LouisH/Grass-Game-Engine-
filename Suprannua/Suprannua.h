@@ -20,7 +20,7 @@
 #include "2DRenderer.h"
 #include "AI.h"
 #include "Editor.h"
-#include "GameScript.h"
+#include "Game.h"
 #include "Geometry.h"
 #include "GLUT.h"
 #include "HUD.h"
@@ -34,7 +34,7 @@
 /////////////////////////////////////////////////////////
 
 #define SOFTWARE                "Suprannua"
-#define VERSION                 " 0.9.0 "
+#define VERSION                 " 0.9.1 "
 
 #define PI                      3.1415926535897932384626433832795
 #define FULL                    255 //Colour level
@@ -57,7 +57,7 @@ enum colourPalette
 };
 enum objectName
 {
-    GAME, POLYGON, BLOCK, TEXT
+    GAME, POLYGON, BLOCK, TEXT, CAMERA
 };
 enum objectType
 {
@@ -67,7 +67,7 @@ enum attributes
 {
     ANGLE, MASS, GRAVITY, TYPE, XVELOCITY, YVELOCITY,
     EDGES, BOUNCE, XPOSITION, YPOSITION, WIDTH, HEIGHT,
-    RADIUS,
+    RADIUS, XCENTRE, YCENTRE
 };
 enum prepositions
 {
