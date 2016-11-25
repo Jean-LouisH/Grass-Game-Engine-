@@ -109,11 +109,28 @@ void physics_limitBoundary()
 	    if(polygon[i].properties.classification != NOTHING)
         {
             //X Axis
-            if(polygon[i].centre.xPosition + polygon[i].radius >= worldSizeMetres.width)
-                polygon[i].centre.xPosition = worldSizeMetres.width - polygon[i].radius;
+			if (polygon[i].centre.xPosition + polygon[i].radius >= worldSizeMetres.width)
+			{
+				polygon[i].centre.xPosition = worldSizeMetres.width - polygon[i].radius;
+				polygon[i].properties.xVelocity = -1 * polygon[i].properties.xVelocity;
+			}
+			else if (polygon[i].centre.xPosition - polygon[i].radius <= 0)
+			{
+				polygon[i].centre.xPosition = 0 + polygon[i].radius;
+				polygon[i].properties.xVelocity = -1 * polygon[i].properties.xVelocity;
+			}
 
-            else if (polygon[i].centre.xPosition - polygon[i].radius <= 0)
-                polygon[i].centre.xPosition = 0 + polygon[i].radius;
+			//Y Axis
+			if (polygon[i].centre.yPosition + polygon[i].radius >= worldSizeMetres.height)
+			{
+				polygon[i].centre.yPosition = worldSizeMetres.height - polygon[i].radius;
+				polygon[i].properties.yVelocity = -1 * polygon[i].properties.yVelocity;
+			}
+			else if (polygon[i].centre.yPosition - polygon[i].radius <= 0)
+			{
+				polygon[i].centre.yPosition = 0 + polygon[i].radius;
+				polygon[i].properties.yVelocity = -1 * polygon[i].properties.yVelocity;
+			}
         }
 	}
 }
