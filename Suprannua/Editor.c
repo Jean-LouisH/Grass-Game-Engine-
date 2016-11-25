@@ -77,7 +77,7 @@ void edit_create(unsigned char object, unsigned char type, int numberOfSides,
         break;
     }
 }
-void edit_createBlock(unsigned char type, double left, double right,
+void edit_createRectangle(unsigned char type, double left, double right,
                          double down, double up, unsigned char colour)
 {
     int i;
@@ -108,6 +108,40 @@ void edit_createBlock(unsigned char type, double left, double right,
     edit_colourBlock(i, colour);
     geometry_plotBlock(i);
 }
+
+void edit_createSquare(unsigned char type, double diagonalLength, double newXPosition,
+						double newYPosition, unsigned char colour)
+{
+	int i;
+
+	for (i = 0; i < MAX_BLOCKS; i++)
+	{
+		if (block[i].properties.classification == NOTHING)
+			break;
+	}
+
+	if (i > occupiedBlocks)
+		occupiedBlocks = i;
+
+	switch (type)
+	{
+		case PLATFORM:      block[i].properties.classification = PLATFORM;      break;
+		case ENTITY:        block[i].properties.classification = ENTITY;        break;
+		case FOREGROUND:    block[i].properties.classification = FOREGROUND;    break;
+		case BACKGROUND:
+		default:            block[i].properties.classification = BACKGROUND;
+	}
+
+	block[i].dimensions.width = (diagonalLength / sqrt(2));
+	block[i].dimensions.height = block[i].dimensions.width;
+	block[i].centre.xPosition = newXPosition;
+	block[i].centre.yPosition = newYPosition;
+	block[i].properties.mass = 1.0;
+
+	edit_colourBlock(i, colour);
+	geometry_plotBlock(i);
+}
+
 void edit_createPolygon(unsigned char type, int numberOfSides, double newRadius, double newXPosition,
                          double newYPosition, unsigned char colour)
 {
@@ -133,6 +167,7 @@ void edit_createPolygon(unsigned char type, int numberOfSides, double newRadius,
     polygon[i].properties.edges = numberOfSides;
     polygon[i].radius = newRadius;
     polygon[i].properties.mass = 1.0;
+	polygon[i].properties.bouncePercentage = 0.3;
 
     if(newXPosition == 0 || newYPosition == 0) //provides a random position if non is specified.
     {
@@ -492,34 +527,49 @@ void edit_colourToAlpha(unsigned char object, int objectNumber, double alpha)
 
 double edit_get(unsigned char object, int objectNumber, unsigned char attribute)
 {
-    if(object == POLYGON)
-    {
-        switch(attribute)
-        {
-            case ALPHA:     return (polygon[objectNumber].properties.colour[3] / FULL); break;
-            case ANGLE:     return polygon[objectNumber].properties.angle;              break;
-            case MASS:      return polygon[objectNumber].properties.mass;               break;
-            case XVELOCITY: return polygon[objectNumber].properties.xVelocity;          break;
-            case YVELOCITY: return polygon[objectNumber].properties.yVelocity;          break;
-            case BOUNCE:    return polygon[objectNumber].properties.bouncePercentage;   break;
-            case XPOSITION: return polygon[objectNumber].centre.xPosition;              break;
-            case YPOSITION: return polygon[objectNumber].centre.yPosition;              break;
-            case RADIUS:    return polygon[objectNumber].radius;                        break;
-        }
-    }
-    else if (object == BLOCK)
-    {
-        switch(attribute)
-        {
-            case ALPHA:     return (block[objectNumber].properties.colour[3] / 255);    break;
-            case MASS:      return block[objectNumber].properties.mass;                 break;
-            case XVELOCITY: return block[objectNumber].properties.xVelocity;            break;
-            case YVELOCITY: return block[objectNumber].properties.yVelocity;            break;
-            case BOUNCE:    return block[objectNumber].properties.bouncePercentage;     break;
-            case XPOSITION: return block[objectNumber].centre.xPosition;                break;
-            case YPOSITION: return block[objectNumber].centre.yPosition;                break;
-            case WIDTH:     return block[objectNumber].dimensions.width;                break;
-            case HEIGHT:    return block[objectNumber].dimensions.height;               break;
-        }
-    }
+	switch (object)
+	{
+		case POLYGON:	switch (attribute)
+						{
+							case ALPHA:     return (polygon[objectNumber].properties.colour[3] / FULL); break;
+							case ANGLE:     return polygon[objectNumber].properties.angle;              break;
+							case MASS:      return polygon[objectNumber].properties.mass;               break;
+							case XVELOCITY: return polygon[objectNumber].properties.xVelocity;          break;
+							case YVELOCITY: return polygon[objectNumber].properties.yVelocity;          break;
+							case BOUNCE:    return polygon[objectNumber].properties.bouncePercentage;   break;
+							case XPOSITION: return polygon[objectNumber].centre.xPosition;              break;
+							case YPOSITION: return polygon[objectNumber].centre.yPosition;              break;
+							case RADIUS:    return polygon[objectNumber].radius;                        break;
+						}
+		break;
+		case BLOCK:		switch (attribute)
+						{
+							case ALPHA:     return (block[objectNumber].properties.colour[3] / 255);    break;
+							case MASS:      return block[objectNumber].properties.mass;                 break;
+							case XVELOCITY: return block[objectNumber].properties.xVelocity;            break;
+							case YVELOCITY: return block[objectNumber].properties.yVelocity;            break;
+							case BOUNCE:    return block[objectNumber].properties.bouncePercentage;     break;
+							case XPOSITION: return block[objectNumber].centre.xPosition;                break;
+							case YPOSITION: return block[objectNumber].centre.yPosition;                break;
+							case WIDTH:     return block[objectNumber].dimensions.width;                break;
+							case HEIGHT:    return block[objectNumber].dimensions.height;               break;
+						}
+		break;
+		case GAME:		switch (attribute)
+						{
+							case XCENTRE:   return (worldSizeMetres.width / 2);							break;
+							case YCENTRE:   return (worldSizeMetres.height / 2);						break;
+							case WIDTH:     return worldSizeMetres.width;								break;
+							case HEIGHT:    return worldSizeMetres.height;								break;
+						}
+		break;
+		case CAMERA:	switch (attribute)
+						{
+							case XPOSITION: return camera2D.target.xPosition;							break;
+							case YPOSITION: return camera2D.target.yPosition;							break;
+							case WIDTH:     return camera2D.viewport.width;								break;
+							case HEIGHT:    return camera2D.viewport.height;				            break;
+						}
+		break;
+	}
 }
