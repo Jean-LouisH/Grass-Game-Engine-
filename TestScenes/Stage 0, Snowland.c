@@ -28,9 +28,9 @@ void initGameData()
         edit_create(BLOCK, PLATFORM, 0, 0, worldSizeMetres.width - 0.01, 3.0, worldSizeMetres.width/2, 1.6, 83, 21, 21, 255);
         polygon[0].properties.bouncePercentage = 0.3;
         edit_create(BLOCK, PLATFORM, 0, 0, worldSizeMetres.width - 0.01, 3.0, worldSizeMetres.width/2, 3, 255, 255, 255, 255);
-        edit_createBlock(BACKGROUND, 52, 60, 4.5, 10, BLACK);
+        edit_createRectangle(BACKGROUND, 52, 60, 4.5, 10, BLACK);
         edit_create(POLYGON, ENTITY, 6, 3.0, 0, 0, 5, 30, 255, 0, 0, 255);
-        edit_createBlock(BACKGROUND, 49, 51, 0, 40, GREY);
+        edit_createRectangle(BACKGROUND, 49, 51, 0, 40, GREY);
         edit_createPolygon(BACKGROUND, 3, 8, 50, 40, BLACK);
         for(i = 2; i < 20; i++)
         {

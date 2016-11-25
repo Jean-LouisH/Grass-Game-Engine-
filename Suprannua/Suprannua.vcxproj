@@ -116,7 +116,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\GameScript.c" />
+    <ClCompile Include="..\Game.c" />
     <ClCompile Include="2DCamera.c" />
     <ClCompile Include="2DRenderer.c" />
     <ClCompile Include="AI.c" />
@@ -136,7 +136,7 @@
     <ClInclude Include="AI.h" />
     <ClInclude Include="Suprannua.h" />
     <ClInclude Include="Editor.h" />
-    <ClInclude Include="GameScript.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="GLUT.h" />
     <ClInclude Include="HUD.h" />
