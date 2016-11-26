@@ -39,7 +39,7 @@ void runKernel()
 
     render_displayBlockList();
     render_displayPolygonList();
-    //drawGrid();
+	//render_drawGrid();
     //render_postHUD();
 
     glutSwapBuffers(); //freeglut buffer swap for animation.

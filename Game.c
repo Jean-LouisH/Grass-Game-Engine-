@@ -21,7 +21,6 @@ void initGameData()
 	edit_createRectangle(BACKGROUND, 0, edit_get(GAME, 0, WIDTH), 0, edit_get(GAME, 0, HEIGHT), GREY);
 
 	//Insert Game Initialisation code.
-
 }
 
 void runGameScript()

@@ -23,7 +23,7 @@ unsigned char gameState                 = GAMEPLAY;
 bool keyStates[256]						= {false};
 bool specialKeyStates[21]				= {false};
 
-HeadsUpDisplay textCache[8];
+HeadsUpDisplay textCache[MAX_TEXTS];
 RegularPolygon polygon[MAX_POLYGONS]    = {0};
 Block block[MAX_BLOCKS]                 = {0};
 Camera camera2D;
