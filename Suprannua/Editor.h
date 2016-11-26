@@ -4,11 +4,6 @@
 * Directly reads or writes the data of polygons and blocks to organise scenes from initialisation or in response to scripted events.
 */
 
-void edit_create(unsigned char object, unsigned char type, int numberOfSides, double newRadius, double newWidth,
-				double newHeight, double newXPosition, double newYPosition,
-				unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha); 
-				//object; "polygon", "box" | type; BACKGROUND, ENTITY, PLATFORM, FOREGROUND |
-				//To remove.
 void edit_createRectangle(unsigned char type, double left, double right,
 						double down, double up, unsigned char colour);
 void edit_createSquare(unsigned char type, double diagonalLength, double newXPosition,
