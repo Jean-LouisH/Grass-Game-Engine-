@@ -84,8 +84,26 @@ void render_drawBlock(int objectNumber)
 void render_drawGrid()
 {
     int i;
-    int j;
 
+	glBegin(GL_LINES);
+	glColor4ub(255, 255, 255, 127);
+
+	for (i = 0; i < worldSizeMetres.width; i++)
+	{
+		glVertex2f((i - (camera2D.target.xPosition)) / (camera2D.viewport.width / 2),
+			(0 - (camera2D.target.yPosition)) / (camera2D.viewport.height / 2));
+		glVertex2f((i - (camera2D.target.xPosition)) / (camera2D.viewport.width / 2),
+			(worldSizeMetres.height - (camera2D.target.yPosition)) / (camera2D.viewport.height / 2));
+	}
+
+	for (i = 0; i < worldSizeMetres.height; i++)
+	{
+		glVertex2f((0 - (camera2D.target.xPosition)) / (camera2D.viewport.width / 2),
+			(i - (camera2D.target.yPosition)) / (camera2D.viewport.height / 2));
+		glVertex2f((worldSizeMetres.width - (camera2D.target.xPosition)) / (camera2D.viewport.width / 2),
+			(i - (camera2D.target.yPosition)) / (camera2D.viewport.height / 2));
+	}
+	glEnd();
 }
 void render_postHUD()
 {
