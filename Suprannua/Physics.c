@@ -38,6 +38,9 @@ void physics_detectCollision()
 
     double centreDistance;
     double combinedRadius;
+	double gradient;
+	double xVelocityStore;
+	double yVelocityStore;
 
     for(i = 0; i <= occupiedPolygons; i++)
     {
@@ -45,14 +48,26 @@ void physics_detectCollision()
         {
             for(j = 0; j <= occupiedPolygons; j++)
             {
-                if(polygon[j].properties.classification == ENTITY)
+                if(j != i && polygon[j].properties.classification == ENTITY)
                 {
-                    centreDistance = geometry_findDistance(POLYGON, 0, POLYGON, 20);
-                    combinedRadius = polygon[0].radius + polygon[20].radius;
+                    centreDistance = geometry_findDistance(POLYGON, i, POLYGON, j);
+                    combinedRadius = polygon[i].radius + polygon[j].radius;
 
                     if(centreDistance < combinedRadius)
                     {
+						/*gradient = (polygon[i].centre.yPosition / polygon[i].centre.xPosition);
+						polygon[i].centre.xPosition = polygon[j].centre.xPosition  - sqrt(pow(combinedRadius, 2) - 
+														pow(polygon[i].centre.yPosition - 
+														polygon[j].centre.yPosition, 2));
+						polygon[i].centre.yPosition = gradient * polygon[i].centre.xPosition;*/
 
+						/*xVelocityStore = polygon[i].properties.xVelocity;
+						polygon[i].properties.xVelocity = polygon[j].properties.xVelocity;
+						polygon[j].properties.xVelocity = xVelocityStore;
+
+						yVelocityStore = polygon[i].properties.yVelocity;
+						polygon[i].properties.yVelocity = polygon[j].properties.yVelocity;
+						polygon[j].properties.yVelocity = yVelocityStore;*/
                     }
                 }
             }
