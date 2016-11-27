@@ -178,6 +178,7 @@ extern Camera camera2D;
 
 extern int occupiedPolygons;
 extern int occupiedBlocks;
+extern bool gridState;
 
 extern HeadsUpDisplay textCache[MAX_TEXTS];
 

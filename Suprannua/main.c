@@ -30,6 +30,7 @@ Camera camera2D;
 
 int occupiedPolygons					= 0;
 int occupiedBlocks						= 0;
+bool gridState							= false;
 
 unsigned char black[3]					= {0,0,0};
 unsigned char white[3]					= {255,255,255};

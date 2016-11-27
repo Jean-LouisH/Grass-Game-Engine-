@@ -69,6 +69,7 @@ void edit_createPolygon(unsigned char type, int numberOfSides, double newRadius,
                          double newYPosition, unsigned char colour)
 {
     int i;
+	srand(time(NULL));
 
     for(i = 0; i < MAX_POLYGONS; i++)
     {
@@ -495,4 +496,12 @@ double edit_get(unsigned char object, int objectNumber, unsigned char attribute)
 						}
 		break;
 	}
+}
+
+void edit_grid(bool state)
+{
+	if (state)
+		gridState = true;
+	else
+		gridState = false;
 }

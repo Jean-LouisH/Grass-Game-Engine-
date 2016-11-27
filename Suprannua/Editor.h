@@ -23,3 +23,4 @@ void edit_colourFromRGBA(unsigned char object, int objectNumber, unsigned char r
 void edit_colourFromText(unsigned char object, int objectNumber, unsigned char colour);
 void edit_colourToAlpha(unsigned char object, int objectNumber, double alpha);
 double edit_get(unsigned char object, int objectNumber, unsigned char attribute);
+void edit_grid(bool state);
