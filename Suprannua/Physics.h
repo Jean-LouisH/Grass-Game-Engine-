@@ -12,6 +12,6 @@ void physics_detectPlatformCollision(); //Allows objects to settle on or under p
 void physics_gravitate(unsigned char object, int objectNumber, bool direction); //Causes an object to fall or rise.
 void physics_incrementTime(); //Updates game or simulation time.
 void physics_force(unsigned char firstObject, int firstObjectNumber,
-					unsigned char preposition, unsigned char secondObject, int secondobjectNumber);
+					unsigned char preposition, unsigned char secondObject, int secondObjectNumber);
 					// Attracts or repels an object to another based on square inverse distance.
 					// preposition - "to", "from"

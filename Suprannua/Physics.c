@@ -92,20 +92,20 @@ void physics_detectPolygonCollision()
 						//First polygon
 						polygon[i].properties.xVelocity = iCollisionAngleRatio *
 														cos(positionAngle) + (iVelocity * sin(iTheta - positionAngle) *
-														cos(positionAngle + (PI / 2)));
+														cos(positionAngle + (PI / 2))) * polygon[i].properties.bouncePercentage;
 
 						polygon[i].properties.yVelocity = iCollisionAngleRatio *
 														sin(positionAngle) + (iVelocity * sin(iTheta - positionAngle) *
-														sin(positionAngle + (PI / 2)));
+														sin(positionAngle + (PI / 2))) * polygon[i].properties.bouncePercentage;
 
 						//Second polygon.
 						polygon[j].properties.xVelocity = jCollisionAngleRatio *
 														cos(positionAngle) + (jVelocity * sin(jTheta - positionAngle) *
-														cos(positionAngle + (PI / 2)));
+														cos(positionAngle + (PI / 2))) * polygon[j].properties.bouncePercentage;
 
 						polygon[j].properties.yVelocity = jCollisionAngleRatio *
 														sin(positionAngle) + (jVelocity * sin(jTheta - positionAngle) *
-														sin(positionAngle + (PI / 2)));
+														sin(positionAngle + (PI / 2))) * polygon[j].properties.bouncePercentage;
                     }
                 }
             }
@@ -189,7 +189,27 @@ void physics_limitBoundary()
 }
 
 void physics_force(unsigned char firstObject, int firstObjectNumber,
-                 unsigned char preposition, unsigned char secondObject, int secondobjectNumber)// preposition - "to", "from"
+                 unsigned char preposition, unsigned char secondObject, int secondObjectNumber)// preposition - "to", "from"
 {
+	double force;
 
+	force = (gravityConstant * polygon[firstObjectNumber].properties.mass * polygon[secondObjectNumber].properties.mass) /
+			pow(hypot(polygon[secondObjectNumber].centre.xPosition - polygon[firstObjectNumber].centre.xPosition,
+			polygon[secondObjectNumber].centre.yPosition - polygon[firstObjectNumber].centre.yPosition), 2);
+
+	switch (preposition)
+	{
+		case TO:;						break;
+		case FROM: force = force * -1;	break;
+	}
+
+	if (polygon[secondObjectNumber].centre.xPosition > polygon[firstObjectNumber].centre.xPosition)
+		polygon[firstObjectNumber].properties.xVelocity += force / polygon[firstObjectNumber].properties.mass;
+	else
+		polygon[firstObjectNumber].properties.xVelocity -= force / polygon[firstObjectNumber].properties.mass;
+
+	if (polygon[secondObjectNumber].centre.yPosition > polygon[firstObjectNumber].centre.yPosition)
+		polygon[firstObjectNumber].properties.yVelocity += force / polygon[firstObjectNumber].properties.mass;
+	else
+		polygon[firstObjectNumber].properties.yVelocity -= force / polygon[firstObjectNumber].properties.mass;
 }

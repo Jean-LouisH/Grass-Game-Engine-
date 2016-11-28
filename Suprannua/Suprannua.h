@@ -34,7 +34,7 @@
 /////////////////////////////////////////////////////////
 
 #define SOFTWARE                "Suprannua"
-#define VERSION                 " 0.9.1 "
+#define VERSION                 " 0.10.0 "
 
 #define PI                      3.1415926535897932384626433832795
 #define FULL                    255 //Colour level
@@ -65,9 +65,9 @@ enum objectType
 };
 enum attributes
 {
-    ANGLE, MASS, GRAVITY, TYPE, XVELOCITY, YVELOCITY,
-    EDGES, BOUNCE, XPOSITION, YPOSITION, WIDTH, HEIGHT,
-    RADIUS, XCENTRE, YCENTRE
+    ANGLE, MASS, PLATFORM_GRAVITY, GRAVITY_CONSTANT, TYPE, 
+	XVELOCITY, YVELOCITY, EDGES, BOUNCE, XPOSITION, YPOSITION,
+	WIDTH, HEIGHT, RADIUS, XCENTRE, YCENTRE
 };
 enum prepositions
 {
@@ -159,6 +159,7 @@ extern double dpadSensitivity;
 extern Rect worldSizeMetres;
 
 extern double platformGravity;
+extern double gravityConstant;
 
 extern bool isGamePaused;
 

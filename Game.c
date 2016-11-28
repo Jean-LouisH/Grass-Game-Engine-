@@ -10,6 +10,7 @@ Rect worldSizeMetres		= { 100,57 }; // m
 double dpadSensitivity      = 5.0; // m/s
 double cameraScrollSpeed    = 1.0; // m/s
 double platformGravity      = 9.8; // m/s^2
+double gravityConstant		= 6.674E-11; // m/s^2
 bool isGamePaused           = false;
 
 
