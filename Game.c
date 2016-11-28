@@ -27,11 +27,10 @@ void runGameScript()
 {
 	physics_limitBoundary();
 	physics_rigidBodyDynamics(); 
-	physics_detectCollision(); 
+	physics_detectPolygonCollision(); 
 	physics_detectPlatformCollision();
 
 	//Insert Game Script code.
-
 }
 
 //Controls

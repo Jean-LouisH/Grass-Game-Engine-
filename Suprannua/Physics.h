@@ -7,7 +7,7 @@
 void physics_roll(unsigned char object, int objectNumber); //Rotates regular polygons based on velocity and circumference.
 void physics_limitBoundary(); //Prevents objects from escaping map dimensions.
 void physics_rigidBodyDynamics(); //Computes rag doll effects based on objects angle of edge from platform surface.
-void physics_detectCollision(); //Bounces regular polygons from each other.
+void physics_detectPolygonCollision(); //Bounces regular polygons from each other.
 void physics_detectPlatformCollision(); //Allows objects to settle on or under platforms.
 void physics_gravitate(unsigned char object, int objectNumber, bool direction); //Causes an object to fall or rise.
 void physics_incrementTime(); //Updates game or simulation time.

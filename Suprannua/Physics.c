@@ -16,7 +16,8 @@ void physics_detectPlatformCollision()
                     polygon[i].properties.yVelocity = polygon[i].properties.yVelocity * -1 *
 							polygon[i].properties.bouncePercentage; //Allow bounce on top
 
-                    polygon[i].centre.yPosition = block[j].centre.yPosition + (block[j].dimensions.height / 2) + polygon[i].radius;
+                    polygon[i].centre.yPosition = block[j].centre.yPosition + 
+												(block[j].dimensions.height / 2) + polygon[i].radius;
                     //Adjust the polygon on top of the platform.
                 }
                 if(logic_isTouchingUnderPlatform(POLYGON, i, j))
@@ -24,21 +25,30 @@ void physics_detectPlatformCollision()
                     polygon[i].properties.yVelocity = polygon[i].properties.yVelocity * -1 *
 							polygon[i].properties.bouncePercentage; //Allow bounce below
 
-                    polygon[i].centre.yPosition = block[j].centre.yPosition - (block[j].dimensions.height / 2) - polygon[i].radius;
+                    polygon[i].centre.yPosition = block[j].centre.yPosition - 
+												(block[j].dimensions.height / 2) - polygon[i].radius;
                 }
             }
         }
     }
 }
 
-void physics_detectCollision()
+void physics_detectPolygonCollision()
 {
     int i;
     int j;
 
     double centreDistance;
     double combinedRadius;
-	double gradient;
+	double positionAngle;
+	double xDelta;
+	double yDelta;
+	double iTheta;
+	double jTheta;
+	double iVelocity;
+	double jVelocity;
+	double iCollisionAngleRatio;
+	double jCollisionAngleRatio;
 	double xVelocityStore;
 	double yVelocityStore;
 
@@ -55,19 +65,47 @@ void physics_detectCollision()
 
                     if(centreDistance < combinedRadius)
                     {
-						/*gradient = (polygon[i].centre.yPosition / polygon[i].centre.xPosition);
-						polygon[i].centre.xPosition = polygon[j].centre.xPosition  - sqrt(pow(combinedRadius, 2) - 
-														pow(polygon[i].centre.yPosition - 
-														polygon[j].centre.yPosition, 2));
-						polygon[i].centre.yPosition = gradient * polygon[i].centre.xPosition;*/
+						//Prevents polygons from clipping into each other before frame is rendered.
+						positionAngle = atan2(polygon[j].centre.yPosition - polygon[i].centre.yPosition,
+							polygon[j].centre.xPosition - polygon[i].centre.xPosition);
 
-						/*xVelocityStore = polygon[i].properties.xVelocity;
-						polygon[i].properties.xVelocity = polygon[j].properties.xVelocity;
-						polygon[j].properties.xVelocity = xVelocityStore;
+						xDelta = (combinedRadius) * cos(positionAngle);
+						yDelta = (combinedRadius) * sin(positionAngle);
 
-						yVelocityStore = polygon[i].properties.yVelocity;
-						polygon[i].properties.yVelocity = polygon[j].properties.yVelocity;
-						polygon[j].properties.yVelocity = yVelocityStore;*/
+						polygon[j].centre.xPosition = xDelta + polygon[i].centre.xPosition;
+						polygon[j].centre.yPosition = yDelta + polygon[i].centre.yPosition;
+
+						//2D Linear Momentum Elastic Collision Response.
+						iTheta = atan2(polygon[i].properties.yVelocity, polygon[i].properties.xVelocity);
+						jTheta = atan2(polygon[j].properties.yVelocity, polygon[j].properties.xVelocity);
+						iVelocity = hypot(polygon[i].properties.xVelocity, polygon[i].properties.yVelocity);
+						jVelocity = hypot(polygon[j].properties.xVelocity, polygon[j].properties.yVelocity);
+						iCollisionAngleRatio = ((iVelocity * cos(iTheta - positionAngle) *
+											(polygon[i].properties.mass - polygon[j].properties.mass) +
+											(2 * polygon[j].properties.mass * jVelocity * cos(jTheta - positionAngle))) /
+											(polygon[i].properties.mass + polygon[j].properties.mass));
+						jCollisionAngleRatio = ((jVelocity * cos(jTheta - positionAngle) *
+											(polygon[j].properties.mass - polygon[i].properties.mass) +
+											(2 * polygon[i].properties.mass * iVelocity * cos(iTheta - positionAngle))) /
+											(polygon[j].properties.mass + polygon[i].properties.mass));
+
+						//First polygon
+						polygon[i].properties.xVelocity = iCollisionAngleRatio *
+														cos(positionAngle) + (iVelocity * sin(iTheta - positionAngle) *
+														cos(positionAngle + (PI / 2)));
+
+						polygon[i].properties.yVelocity = iCollisionAngleRatio *
+														sin(positionAngle) + (iVelocity * sin(iTheta - positionAngle) *
+														sin(positionAngle + (PI / 2)));
+
+						//Second polygon.
+						polygon[j].properties.xVelocity = jCollisionAngleRatio *
+														cos(positionAngle) + (jVelocity * sin(jTheta - positionAngle) *
+														cos(positionAngle + (PI / 2)));
+
+						polygon[j].properties.yVelocity = jCollisionAngleRatio *
+														sin(positionAngle) + (jVelocity * sin(jTheta - positionAngle) *
+														sin(positionAngle + (PI / 2)));
                     }
                 }
             }
