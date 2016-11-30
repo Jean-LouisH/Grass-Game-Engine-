@@ -39,6 +39,7 @@ void geometry_transform()
         {
             //X Axis
             polygon[i].centre.xPosition += (polygon[i].properties.xVelocity / FRAME_RATE);
+
             for (j = 0; j < polygon[i].properties.edges; j++)
             {
                 polygon[i].vertices[j].xPosition +=
@@ -46,6 +47,7 @@ void geometry_transform()
             }
             //Y Axis
             polygon[i].centre.yPosition += (polygon[i].properties.yVelocity / FRAME_RATE);
+
             for (j = 0; j < polygon[i].properties.edges; j++)
             {
                 polygon[i].vertices[j].yPosition +=
@@ -60,6 +62,7 @@ void geometry_transform()
         {
             //X Axis
             block[i].centre.xPosition += (block[i].properties.xVelocity / FRAME_RATE);
+
             for (j = 0; j < 4; j++)
             {
                 block[i].vertices[j].xPosition +=
@@ -67,6 +70,7 @@ void geometry_transform()
             }
             //Y Axis
             block[i].centre.yPosition += (block[i].properties.yVelocity / FRAME_RATE);
+
             for (j = 0; j < 4; j++)
             {
                 block[i].vertices[j].yPosition +=

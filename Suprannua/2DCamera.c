@@ -32,7 +32,8 @@ void camera_centreWorldSize()
     if(camera2D.viewport.width > worldSizeMetres.width &&
        camera2D.viewport.height > worldSizeMetres.height)
     {
-        camera_scrollToTarget(worldSizeMetres.width / 2, worldSizeMetres.height / 2, 1.0);// centres worldMap when everything can fit.
+        camera_scrollToTarget(worldSizeMetres.width / 2, worldSizeMetres.height / 2, 1.0);
+		// centres worldMap when everything can fit.
     }
 }
 
@@ -55,7 +56,7 @@ void camera_keepZoomingBy(double deltaWidth)
 	camera2D.viewport.width += deltaWidth;
 	if (camera2D.viewport.width < 1)
 	{
-		camera2D.viewport.width = 1;
+		camera2D.viewport.width = 1; //Prevents zooming to less than 0.
 	}
 	camera2D.viewport.height = camera2D.viewport.width / (1.777);
 	camera_centreWorldSize();
@@ -98,7 +99,8 @@ void camera_follow(unsigned char object, int objectNumber, bool followX, bool fo
 {
     switch(object)
     {
-        case POLYGON:   if(followX && camera2D.viewport.width < worldSizeMetres.width) //if it's not too wide to bother following.
+        case POLYGON:   //if it's not too wide to bother following.
+						if(followX && camera2D.viewport.width < worldSizeMetres.width) 
                         {
                             if(polygon[objectNumber].centre.xPosition > camera2D.target.xPosition)
                                 camera2D.target.xPosition = polygon[objectNumber].centre.xPosition;
@@ -106,7 +108,8 @@ void camera_follow(unsigned char object, int objectNumber, bool followX, bool fo
                             if(polygon[objectNumber].centre.xPosition < camera2D.target.xPosition)
                                 camera2D.target.xPosition = polygon[objectNumber].centre.xPosition;
                         }
-                        if (followY && camera2D.viewport.height < worldSizeMetres.height) //if it's not too tall to bother following.
+						//if it's not too tall to bother following.
+                        if (followY && camera2D.viewport.height < worldSizeMetres.height) 
                         {
                             if(polygon[objectNumber].centre.yPosition > camera2D.target.yPosition)
                                 camera2D.target.yPosition = polygon[objectNumber].centre.yPosition;

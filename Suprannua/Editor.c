@@ -22,6 +22,7 @@ void edit_createRectangle(unsigned char type, double left, double right,
         case BACKGROUND:
         default:            block[i].properties.classification = BACKGROUND;
     }
+
     block[i].dimensions.width = (right - left);
     block[i].dimensions.height = (up - down);
     block[i].centre.xPosition = (left + right) / 2;
@@ -109,6 +110,7 @@ void edit_createPolygon(unsigned char type, int numberOfSides, double newRadius,
     edit_colourPolygon(i, colour);
     geometry_plotPolygon(i);
 }
+
 void edit_remove(unsigned char object, int objectNumber)
 {
     int i;
@@ -119,13 +121,16 @@ void edit_remove(unsigned char object, int objectNumber)
                         polygon[objectNumber].radius = 0.0;
                         polygon[objectNumber].properties.angle = 0.0;
                         polygon[objectNumber].properties.classification = NOTHING;
+
                         for(i  = 0; i < 4; i++)
                             polygon[objectNumber].properties.colour[i] = 0;
+
                         polygon[objectNumber].properties.mass = 0.0;
                         polygon[objectNumber].properties.xVelocity = 0.0;
                         polygon[objectNumber].properties.yVelocity = 0.0;
                         polygon[objectNumber].centre.xPosition = 0.0;
                         polygon[objectNumber].centre.yPosition = 0.0;
+
                         for(i = 0; i < MAX_POLYGON_SIDES; i++)
                         {
                             polygon[objectNumber].vertices[i].xPosition = 0.0;
@@ -137,11 +142,14 @@ void edit_remove(unsigned char object, int objectNumber)
                         block[objectNumber].centre.yPosition = 0.0;
                         block[objectNumber].properties.angle = 0.0;
                         block[objectNumber].properties.classification = NOTHING;
+
                         for(i = 0; i < 4; i++)
                             block[objectNumber].properties.colour[i] = 0;
+
                         block[objectNumber].properties.mass = 0.0;
                         block[objectNumber].properties.xVelocity = 0.0;
                         block[objectNumber].properties.yVelocity = 0.0;
+
                         for(i = 0; i < 4; i++)
                         {
                             block[objectNumber].vertices[i].xPosition = 0.0;
@@ -150,6 +158,7 @@ void edit_remove(unsigned char object, int objectNumber)
         break;
     }
 }
+
 void edit_move(unsigned char object, int objectNumber, double newXPosition, double newYPosition)
 {
     switch(object)
@@ -166,6 +175,7 @@ void edit_move(unsigned char object, int objectNumber, double newXPosition, doub
         break;
     }
 }
+
 void edit_resize(unsigned char object, int objectNumber, double scale)
 {
     switch(object)
@@ -188,10 +198,10 @@ void edit_change(unsigned char object, int objectNumber, unsigned char attribute
     switch(attribute)
     {
         case PLATFORM_GRAVITY:   if(object == GAME)
-                            platformGravity = amount;
+									platformGravity = amount;
         break;
 		case GRAVITY_CONSTANT:   if (object == GAME)
-							gravityConstant = amount;
+									gravityConstant = amount;
 		break;
         case ANGLE:     if(object == POLYGON)
                             polygon[objectNumber].properties.angle = amount;
@@ -221,10 +231,10 @@ void edit_adjust(unsigned char object, int objectNumber, unsigned char attribute
     switch(attribute)
     {
         case PLATFORM_GRAVITY:   if(object == GAME)
-                            platformGravity += amount;
+									platformGravity += amount;
         break;
 		case GRAVITY_CONSTANT:   if (object == GAME)
-							gravityConstant += amount;
+									gravityConstant += amount;
 		break;
         case ANGLE:     if(object == POLYGON)
                             polygon[objectNumber].properties.angle += amount;
@@ -259,7 +269,7 @@ void edit_colourFromRGBA(unsigned char object, int objectNumber, unsigned char r
                         polygon[objectNumber].properties.colour[BLUE]   = blue;
                         polygon[objectNumber].properties.colour[ALPHA]  = alpha;
         break;
-        case BLOCK:       block[objectNumber].properties.colour[RED]    = red;
+        case BLOCK:     block[objectNumber].properties.colour[RED]    = red;
                         block[objectNumber].properties.colour[GREEN]  = green;
                         block[objectNumber].properties.colour[BLUE]   = blue;
                         block[objectNumber].properties.colour[ALPHA]  = alpha;
@@ -334,7 +344,7 @@ void edit_colourPolygon(int objectNumber, unsigned char colour)
                     polygon[objectNumber].properties.colour[BLUE]    = skyBlue[BLUE];
                     polygon[objectNumber].properties.colour[ALPHA]   = FULL;
         break;
-        case GOLD: polygon[objectNumber].properties.colour[RED]      = gold[RED];
+        case GOLD:	polygon[objectNumber].properties.colour[RED]      = gold[RED];
                     polygon[objectNumber].properties.colour[GREEN]   = gold[GREEN];
                     polygon[objectNumber].properties.colour[BLUE]    = gold[BLUE];
                     polygon[objectNumber].properties.colour[ALPHA]   = FULL;
@@ -360,6 +370,7 @@ void edit_colourPolygon(int objectNumber, unsigned char colour)
                     polygon[objectNumber].properties.colour[ALPHA]   = FULL;
     }
 }
+
 void edit_colourBlock(int objectNumber, unsigned char colour)
 {
     switch(colour)
@@ -419,7 +430,7 @@ void edit_colourBlock(int objectNumber, unsigned char colour)
                     block[objectNumber].properties.colour[BLUE]    = skyBlue[BLUE];
                     block[objectNumber].properties.colour[ALPHA]   = FULL;
         break;
-        case GOLD: block[objectNumber].properties.colour[RED]      = gold[RED];
+        case GOLD:	block[objectNumber].properties.colour[RED]      = gold[RED];
                     block[objectNumber].properties.colour[GREEN]   = gold[GREEN];
                     block[objectNumber].properties.colour[BLUE]    = gold[BLUE];
                     block[objectNumber].properties.colour[ALPHA]   = FULL;
@@ -429,7 +440,7 @@ void edit_colourBlock(int objectNumber, unsigned char colour)
                     block[objectNumber].properties.colour[BLUE]    = seaGreen[BLUE];
                     block[objectNumber].properties.colour[ALPHA]   = FULL;
         break;
-        case PINK: block[objectNumber].properties.colour[RED]      = pink[RED];
+        case PINK:	block[objectNumber].properties.colour[RED]      = pink[RED];
                     block[objectNumber].properties.colour[GREEN]   = pink[GREEN];
                     block[objectNumber].properties.colour[BLUE]    = pink[BLUE];
                     block[objectNumber].properties.colour[ALPHA]   = FULL;

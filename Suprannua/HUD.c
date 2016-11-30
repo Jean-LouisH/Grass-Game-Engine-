@@ -18,5 +18,4 @@ void HUD_setText(double xText, double yText, char newText)
 void HUD_removeText(int textCell)
 {
 
-
 }

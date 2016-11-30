@@ -1,7 +1,7 @@
 /**
  * Suprannua
  *
- * Description: A superannuated, 2D platformer, code reuse game engine developed in C and legacy OpenGL.
+ * Description: Suprannua is a superannuated, 2D platformer game engine developed in C and legacy OpenGL. Just for fun.
  *
  * Author:         Jean-Louis Haywood
  * Created:        01/09/2016
@@ -19,13 +19,13 @@ double currentTime;
 double firstTimeSample;
 double kernelTime;
 
-unsigned char gameState                 = GAMEPLAY;
+unsigned char gameState					= GAMEPLAY;
 bool keyStates[256]						= {false};
 bool specialKeyStates[21]				= {false};
 
 HeadsUpDisplay textCache[MAX_TEXTS];
-RegularPolygon polygon[MAX_POLYGONS]    = {0};
-Block block[MAX_BLOCKS]                 = {0};
+RegularPolygon polygon[MAX_POLYGONS]	= {0};
+Block block[MAX_BLOCKS]					= {0};
 Camera camera2D;
 
 int occupiedPolygons					= 0;

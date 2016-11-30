@@ -1,15 +1,10 @@
 #include "Suprannua.h"
 
-////////////////////////////////////////
-//GLUT implementations
-///////////////////////////////////////
-
 void runGLUT(int argc, char **argv)
 {
 	int screenWidthPixels;
 	int screenHeightPixels;
 
-	//GLUT initialisation
 	glutInit(&argc, argv);
 
 	screenWidthPixels = glutGet(GLUT_SCREEN_WIDTH) * 0.750;
@@ -18,7 +13,7 @@ void runGLUT(int argc, char **argv)
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowSize(screenWidthPixels, screenHeightPixels);
 	glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH) - screenWidthPixels) / 2,
-		((glutGet(GLUT_SCREEN_HEIGHT) - screenHeightPixels) / 2) - 20);
+							((glutGet(GLUT_SCREEN_HEIGHT) - screenHeightPixels) / 2) - 20);
 	glutCreateWindow(gameTitle);
 
 	//Run GLUT callback registration
@@ -46,7 +41,7 @@ void keyPressed(unsigned char key, int x, int y)
     if (keyStates[27]) //Escape key
         exit(EXIT_SUCCESS);
 
-    if(keyStates[9]) //Tab key
+    if(keyStates[9]) //Tab key to centre entire window.
         glutPositionWindow(((glutGet(GLUT_SCREEN_WIDTH) * 0.250)/ 2) + 1,
                            ((glutGet(GLUT_SCREEN_HEIGHT) * 0.250 * 0.563) / 2) + 22);
 }
@@ -56,7 +51,7 @@ void keyUp(unsigned char key, int x, int y)
     if((keyStates['p'] || keyStates['P']) && (!isGamePaused))
     {
         isGamePaused = true;
-        gameState = MENU;
+        gameState = MENU; //Goes into menu immediately after pausing.
     }
     else if((keyStates['p'] || keyStates['P'] ) && (isGamePaused))
     {
@@ -79,6 +74,7 @@ void keyUpSpecial(unsigned char key, int x, int y)
 
 void resize(int width, int height)
 {
+	//Prevent the window from being resized and aspect ratio from being distorted.
     glutReshapeWindow(glutGet(GLUT_SCREEN_WIDTH) * 0.750, (glutGet(GLUT_SCREEN_WIDTH) * 0.750) * 0.563);
 }
 

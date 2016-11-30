@@ -49,8 +49,6 @@ void physics_detectPolygonCollision()
 	double jVelocity;
 	double iCollisionAngleRatio;
 	double jCollisionAngleRatio;
-	double xVelocityStore;
-	double yVelocityStore;
 
     for(i = 0; i <= occupiedPolygons; i++)
     {
@@ -88,21 +86,21 @@ void physics_detectPolygonCollision()
 											(polygon[j].properties.mass - polygon[i].properties.mass) +
 											(2 * polygon[i].properties.mass * iVelocity * cos(iTheta - positionAngle))) /
 											(polygon[j].properties.mass + polygon[i].properties.mass));
-
+						
 						//First polygon
 						polygon[i].properties.xVelocity = iCollisionAngleRatio *
 														cos(positionAngle) + (iVelocity * sin(iTheta - positionAngle) *
 														cos(positionAngle + (PI / 2))) * polygon[i].properties.bouncePercentage;
-
+						
 						polygon[i].properties.yVelocity = iCollisionAngleRatio *
 														sin(positionAngle) + (iVelocity * sin(iTheta - positionAngle) *
 														sin(positionAngle + (PI / 2))) * polygon[i].properties.bouncePercentage;
-
+						
 						//Second polygon.
 						polygon[j].properties.xVelocity = jCollisionAngleRatio *
 														cos(positionAngle) + (jVelocity * sin(jTheta - positionAngle) *
 														cos(positionAngle + (PI / 2))) * polygon[j].properties.bouncePercentage;
-
+						
 						polygon[j].properties.yVelocity = jCollisionAngleRatio *
 														sin(positionAngle) + (jVelocity * sin(jTheta - positionAngle) *
 														sin(positionAngle + (PI / 2))) * polygon[j].properties.bouncePercentage;
@@ -161,7 +159,7 @@ void physics_limitBoundary()
 	{
 	    if(polygon[i].properties.classification != NOTHING)
         {
-            //X Axis
+			//X Axis
 			if (polygon[i].centre.xPosition + polygon[i].radius >= worldSizeMetres.width)
 			{
 				polygon[i].centre.xPosition = worldSizeMetres.width - polygon[i].radius;

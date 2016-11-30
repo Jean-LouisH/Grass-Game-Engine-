@@ -1,7 +1,7 @@
 #include "Suprannua\Suprannua.h" 
 
 //////////////////////////////////////////////////////////////////////
-//Custom code for Game Data, Logic, AI, Inputs
+//Custom code for Initialisation, Scripting and Controls
 //////////////////////////////////////////////////////////////////////
 
 //Global variables
@@ -16,9 +16,8 @@ bool isGamePaused           = false;
 
 void initGameData()
 {
-	camera_setWidth(100.0);
-	camera_setTarget(camera2D.viewport.width / 2, camera2D.viewport.height / 2);
-
+	camera_setWidth(edit_get(GAME, 0, WIDTH));
+	camera_setTarget(edit_get(GAME, 0, XCENTRE), edit_get(GAME, 0, YCENTRE));
 	edit_createRectangle(BACKGROUND, 0, edit_get(GAME, 0, WIDTH), 0, edit_get(GAME, 0, HEIGHT), GREY);
 
 	//Insert Game Initialisation code.
@@ -37,7 +36,6 @@ void runGameScript()
 //Controls
 void readInput()
 {
-
     if(gameState == GAMEPLAY)
     {
 		if (input_isPressed('w'))
@@ -62,7 +60,35 @@ void readInput()
     }
     else if (gameState == MENU)
     {
+		if (input_isPressed('w'))
+		{
+			camera_scroll(0.0, cameraScrollSpeed);
+		}
 
+		if (input_isPressed('a'))
+		{
+			camera_scroll(-1 * cameraScrollSpeed, 0.0);
+		}
+
+		if (input_isPressed('s'))
+		{
+			camera_scroll(0.0, -1 * cameraScrollSpeed);
+		}
+
+		if (input_isPressed('d'))
+		{
+			camera_scroll(cameraScrollSpeed, 0.0);
+		}
+
+		if (input_isPressed('q'))
+		{
+			camera_keepZoomingBy(1);
+		}
+
+		if (input_isPressed('e'))
+		{
+			camera_keepZoomingBy(-1);
+		}
     }
 }
 

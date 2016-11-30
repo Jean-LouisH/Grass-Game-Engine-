@@ -1,8 +1,5 @@
 #include "Suprannua.h"
 
-////////////////////////////////////////
-//2D Rendering
-///////////////////////////////////////
 void render_displayPolygonList()
 {
     int i;
@@ -23,6 +20,7 @@ void render_displayPolygonList()
         if(polygon[i].properties.classification == FOREGROUND)//renders foregrounds last.
             render_drawPolygon(i);
 }
+
 void render_drawPolygon(int objectNumber)
 {
     int i ;
@@ -42,6 +40,7 @@ void render_drawPolygon(int objectNumber)
     }
     glEnd();
 }
+
 void render_displayBlockList()
 {
     int i;
@@ -62,6 +61,7 @@ void render_displayBlockList()
         if(block[i].properties.classification == FOREGROUND)
             render_drawBlock(i);
 }
+
 void render_drawBlock(int objectNumber)
 {
     int i ;
@@ -81,6 +81,7 @@ void render_drawBlock(int objectNumber)
     }
     glEnd();
 }
+
 void render_drawGrid()
 {
     int i;
@@ -105,6 +106,7 @@ void render_drawGrid()
 	}
 	glEnd();
 }
+
 void render_postHUD()
 {
     int i;
@@ -122,6 +124,7 @@ void render_postHUD()
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, *(textCache[0].text+i));
         i++;
     }
+
     i = 0;
 
     glColor3f(1.0, 1.0, 1.0);

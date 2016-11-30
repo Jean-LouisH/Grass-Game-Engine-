@@ -55,6 +55,7 @@ bool logic_isOnPlatform(unsigned char object, int objectNumber, int platformNumb
 
     return (platformFlag);
 }
+
 bool logic_isTouchingUnderPlatform(unsigned char object, int objectNumber, int platformNumber)
 {
     bool platformFlag = false;
