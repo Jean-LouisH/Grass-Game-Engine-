@@ -123,7 +123,7 @@
     <ClCompile Include="Editor.c" />
     <ClCompile Include="Geometry.c" />
     <ClCompile Include="GLUT.c" />
-    <ClCompile Include="HUD.c" />
+    <ClCompile Include="Text.c" />
     <ClCompile Include="Input.c" />
     <ClCompile Include="Kernel.c" />
     <ClCompile Include="Logic.c" />
@@ -139,7 +139,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="GLUT.h" />
-    <ClInclude Include="HUD.h" />
+    <ClInclude Include="Text.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Kernel.h" />
     <ClInclude Include="Logic.h" />
