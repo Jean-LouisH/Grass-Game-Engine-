@@ -5,11 +5,11 @@ void physics_detectPlatformCollision()
     int i;
     int j;
 
-    for(i = 0; i <= occupiedPolygons; i++)
+    for(i = 0; i <= storedPolygons; i++)
     {
         if(polygon[i].properties.classification == ENTITY)
         {
-            for(j = 0; j <= occupiedBlocks; j++)
+            for(j = 0; j <= storedBlocks; j++)
             {
                 if(logic_isOnPlatform(POLYGON, i, j))
                 {
@@ -50,11 +50,11 @@ void physics_detectPolygonCollision()
 	double iCollisionAngleRatio;
 	double jCollisionAngleRatio;
 
-    for(i = 0; i <= occupiedPolygons; i++)
+    for(i = 0; i <= storedPolygons; i++)
     {
         if(polygon[i].properties.classification == ENTITY)
         {
-            for(j = 0; j <= occupiedPolygons; j++)
+            for(j = 0; j <= storedPolygons; j++)
             {
                 if(j != i && polygon[j].properties.classification == ENTITY)
                 {
@@ -155,7 +155,7 @@ void physics_limitBoundary()
 {
     int i;
 
-	for (i = 0; i <= occupiedPolygons; i++)
+	for (i = 0; i <= storedPolygons; i++)
 	{
 	    if(polygon[i].properties.classification != NOTHING)
         {

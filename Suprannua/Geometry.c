@@ -4,6 +4,7 @@ void geometry_plotPolygon(int objectNumber)
 {
     int i;
 
+	/* Polygon defined sides divide a full circle into angle increments that are multiplied by j to plot all points.*/
     for (i = 0; i < polygon[objectNumber].properties.edges; i++)
     {
         polygon[objectNumber].vertices[i].xPosition = polygon[objectNumber].centre.xPosition +
@@ -12,20 +13,21 @@ void geometry_plotPolygon(int objectNumber)
         polygon[objectNumber].vertices[i].yPosition = polygon[objectNumber].centre.yPosition +
                 (polygon[objectNumber].radius * sin(((360 / polygon[objectNumber].properties.edges) *
                                                      (i)) * (PI / 180)));
-    }//polygon defined sides divide a full circle into angle increments that are multiplied by j to plot all points.
+    }
 }
 
 void geometry_plotBlock(int objectNumber)
 {
     int i;
 
+	/*All expected angles return a ratio of 1/sqrt(2). Sqrt(2) cancels this to give the circumscribed square size.*/
     for (i = 0; i < 4; i++)
     {
         block[objectNumber].vertices[i].xPosition = block[objectNumber].centre.xPosition + ((block[objectNumber].dimensions.width / 2)
                     * sqrt(2) * (cos((45 + (i * 90)) * (PI / 180))));
         block[objectNumber].vertices[i].yPosition = block[objectNumber].centre.yPosition + ((block[objectNumber].dimensions.height / 2)
                     * sqrt(2) * (sin((45 + (i * 90)) * (PI / 180))));
-    }//All expected angles return a ratio of 1/sqrt(2). Sqrt(2) cancels this to give the circumscribed square size.
+    }
 }
 
 void geometry_transform()
@@ -33,7 +35,8 @@ void geometry_transform()
     int i;
     int j;
 
-    for (i = 0; i <= occupiedPolygons; i++)
+													/*Translation*/
+    for (i = 0; i <= storedPolygons; i++)
 	{
 	    if(polygon[i].properties.classification != NOTHING)
         {
@@ -56,7 +59,7 @@ void geometry_transform()
         }
 	}
 
-	for (i = 0; i <= occupiedBlocks; i++)
+	for (i = 0; i <= storedBlocks; i++)
 	{
 	    if(block[i].properties.classification != NOTHING)
         {
@@ -79,11 +82,12 @@ void geometry_transform()
         }
 	}
 
-	//Rotation
-	for (i = 0; i <= occupiedPolygons; i++)
+													/*Rotation*/
+	for (i = 0; i <= storedPolygons; i++)
 	{
 	    if(polygon[i].properties.classification != NOTHING)
         {
+			/*Prevents the store angle displacement values from exceeding the 0 to 360 range*/
             while (polygon[i].properties.angle >= 360)
                 polygon[i].properties.angle -= 360;
             while (polygon[i].properties.angle < 0)

@@ -2,10 +2,12 @@
 #define DEFINITIONS_H
 
 /**
-* Suprannua.h
-*
-* Contains all external references, global variables, structs and enums relevant to all parts of the game engine.
-*/
+ * Suprannua.h
+ *
+ * Author: Jean-Louis Haywood
+ *
+ * Contains all external references, global variables, structs and enums relevant to all parts of the game engine.
+ */
 
 #define _CRT_SECURE_NO_WARNINGS 
 
@@ -23,15 +25,13 @@
 #include "Game.h"
 #include "Geometry.h"
 #include "GLUT.h"
-#include "HUD.h"
+#include "Text.h"
 #include "Input.h"
 #include "Kernel.h"
 #include "Logic.h"
 #include "Physics.h"
 
-/////////////////////////////////////////////////////////
-//Define framework constants
-/////////////////////////////////////////////////////////
+/*Define framework constants*/
 
 #define SOFTWARE                "Suprannua"
 #define VERSION                 " 0.10.0 "
@@ -46,9 +46,7 @@
 #define MAX_BLOCKS              1000
 #define MAX_TEXTS               8
 
-//////////////////////////////////////////////////////////
-//Enums
-//////////////////////////////////////////////////////////
+/*Enums*/
 
 enum colourPalette
 {
@@ -91,9 +89,7 @@ enum AIMessages
     WAIT
 };
 
-/////////////////////////////////////////////////////////
-//Structs
-/////////////////////////////////////////////////////////
+/*Structs*/
 
 typedef struct
 {
@@ -144,13 +140,11 @@ typedef struct
 typedef struct
 {
     Vertex textPin;
-    char text[128];
+    char textContent[128];
     unsigned char classification;
-}HeadsUpDisplay;
+}Text;
 
-////////////////////////////////////////////////////////////
-//Externs
-////////////////////////////////////////////////////////////
+/*Externs*/
 
 extern bool keyStates[256]; //keyboard input buffer
 extern bool specialKeyStates[21];
@@ -178,11 +172,11 @@ extern RegularPolygon polygon[MAX_POLYGONS];
 extern Block block[MAX_BLOCKS];
 extern Camera camera2D;
 
-extern int occupiedPolygons;
-extern int occupiedBlocks;
-extern bool gridState;
+extern int storedPolygons;
+extern int storedBlocks;
+extern bool isGridEnabled;
 
-extern HeadsUpDisplay textCache[MAX_TEXTS];
+extern Text textCache[MAX_TEXTS];
 
 extern unsigned char black[3];
 extern unsigned char white[3];

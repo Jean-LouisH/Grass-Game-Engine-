@@ -1,5 +1,22 @@
 #include "Suprannua.h"
 
+/* 
+ * The loops on the create functions:
+ *
+ * e.g. for(i = 0; i < MAX_BLOCKS; i++)
+		{
+			if(block[i].properties.classification == NOTHING)
+				break;
+		}
+
+		if (i > storedBlocks)
+			storedBlocks = i;
+ *
+ * determine the next empty cells in the polygon and block arrays to reference for 
+ * a new object automatically and for bulk processing functions like 2DRenderer, 
+ * Geometry & Physics to compute what is only necessary.
+ */
+
 void edit_createRectangle(unsigned char type, double left, double right,
                          double down, double up, unsigned char colour)
 {
@@ -11,10 +28,10 @@ void edit_createRectangle(unsigned char type, double left, double right,
             break;
     }
 
-	if (i > occupiedBlocks)
-		occupiedBlocks = i;
+	if (i > storedBlocks)
+		storedBlocks = i;
 
-    switch(type)
+	switch(type)
     {
         case PLATFORM:      block[i].properties.classification = PLATFORM;      break;
         case ENTITY:        block[i].properties.classification = ENTITY;        break;
@@ -44,8 +61,8 @@ void edit_createSquare(unsigned char type, double diagonalLength, double newXPos
 			break;
 	}
 
-	if (i > occupiedBlocks)
-		occupiedBlocks = i;
+	if (i > storedBlocks)
+		storedBlocks = i;
 
 	switch (type)
 	{
@@ -78,8 +95,8 @@ void edit_createPolygon(unsigned char type, int numberOfSides, double newRadius,
             break;
     }
 
-	if (i > occupiedPolygons)
-		occupiedPolygons = i;
+	if (i > storedPolygons)
+		storedPolygons = i;
 
     switch(type)
     {
@@ -514,10 +531,10 @@ double edit_get(unsigned char object, int objectNumber, unsigned char attribute)
 	}
 }
 
-void edit_grid(bool state)
+void edit_enableGrid(bool state)
 {
 	if (state)
-		gridState = true;
+		isGridEnabled = true;
 	else
-		gridState = false;
+		isGridEnabled = false;
 }

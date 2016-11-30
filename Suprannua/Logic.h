@@ -1,8 +1,10 @@
 /**
-* Logic
-*
-* Determines if certain logical states within the game are true.
-*/
+ * Logic
+ *
+ * Author: Jean-Louis Haywood
+ *
+ * Determines if certain logical states within the game are true.
+ */
 
 bool logic_isOnPlatform(unsigned char object, int objectNumber, int platformNumber);
 bool logic_isWithinPlatformHeight(unsigned char object, int objectNumber, int platformNumber);

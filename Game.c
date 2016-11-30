@@ -1,22 +1,26 @@
 #include "Suprannua\Suprannua.h" 
 
-//////////////////////////////////////////////////////////////////////
-//Custom code for Initialisation, Scripting and Controls
-//////////////////////////////////////////////////////////////////////
+/**
+ *
+ *				DOCUMENTATION IN PROGRESS...
+ *
+ */
+
+/*Custom code for Initialisation, Scripting and Controls*/
 
 //Global variables
-char gameTitle[64]          = SOFTWARE VERSION "[Empty Game.c Source File.]";
+char gameTitle[64]			= SOFTWARE VERSION "[Empty Game.c Source File.]";
 Rect worldSizeMetres		= { 100,57 }; // m
-double dpadSensitivity      = 5.0; // m/s
-double cameraScrollSpeed    = 1.0; // m/s
-double platformGravity      = 9.8; // m/s^2
+double dpadSensitivity		= 5.0; // m/s
+double cameraScrollSpeed	= 1.0; // m/s
+double platformGravity		= 9.8; // m/s^2
 double gravityConstant		= 6.674E-11; // m/s^2
-bool isGamePaused           = false;
+bool isGamePaused			= false;
 
 
 void initGameData()
 {
-	camera_setWidth(edit_get(GAME, 0, WIDTH));
+	camera_setViewportWidth(edit_get(GAME, 0, WIDTH));
 	camera_setTarget(edit_get(GAME, 0, XCENTRE), edit_get(GAME, 0, YCENTRE));
 	edit_createRectangle(BACKGROUND, 0, edit_get(GAME, 0, WIDTH), 0, edit_get(GAME, 0, HEIGHT), GREY);
 
@@ -36,8 +40,8 @@ void runGameScript()
 //Controls
 void readInput()
 {
-    if(gameState == GAMEPLAY)
-    {
+	if(gameState == GAMEPLAY)
+	{
 		if (input_isPressed('w'))
 		{
 			;
@@ -57,9 +61,9 @@ void readInput()
 		{
 			;
 		}
-    }
-    else if (gameState == MENU)
-    {
+	}
+	else if (gameState == MENU)
+	{
 		if (input_isPressed('w'))
 		{
 			camera_scroll(0.0, cameraScrollSpeed);

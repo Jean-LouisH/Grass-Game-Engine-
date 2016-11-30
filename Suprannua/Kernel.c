@@ -31,19 +31,19 @@ void runKernel()
         passedFrames = 0;
     }
 
-    //HUD_updateKernelStats();
+    //text_updateKernelStats();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //enables alpha blending.
 
-    render_displayBlockList();
-    render_displayPolygonList();
+    render_displayStoredBlocks();
+    render_displayStoredPolygons();
 
-	if(gridState)
+	if(isGridEnabled)
 		render_drawGrid();
 
-    //render_postHUD();
+    //render_displayText();
 
     glutSwapBuffers(); //freeglut buffer swap for animation.
 }

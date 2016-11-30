@@ -4,6 +4,13 @@ void AI_spin(unsigned char agent, int agentNumber, bool direction, double amount
 {
     switch(agent)
     {
+		/*((direction * 2) - 1) is used to alternate between -1 and +1 from 
+		* direction values of either 0 or 1. 
+		* 
+		* ((0 * 2) - 1) = -1
+		* ((1 * 2) - 1) = +1
+		*/
+
         case POLYGON:   polygon[agentNumber].properties.angle +=
                         ((direction * 2) - 1) * (amount / (FRAME_RATE));
         break;

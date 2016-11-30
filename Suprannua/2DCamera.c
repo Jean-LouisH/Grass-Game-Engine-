@@ -12,7 +12,9 @@ void camera_scroll(double xScroll, double yScroll)
     camera2D.target.yPosition += yScroll;
 }
 
-void camera_scrollToTarget(double targetXPosition, double targetYPosition, double scrollSpeed)
+void camera_scrollToTarget(	double targetXPosition, 
+							double targetYPosition, 
+							double scrollSpeed)
 {
     if(camera2D.target.xPosition > targetXPosition)
       camera2D.target.xPosition -= scrollSpeed;
@@ -27,28 +29,28 @@ void camera_scrollToTarget(double targetXPosition, double targetYPosition, doubl
       camera2D.target.yPosition += scrollSpeed;
 }
 
-void camera_centreWorldSize()
+void camera_centreToWorld()
 {
     if(camera2D.viewport.width > worldSizeMetres.width &&
        camera2D.viewport.height > worldSizeMetres.height)
     {
+		// centres when everything can fit.
         camera_scrollToTarget(worldSizeMetres.width / 2, worldSizeMetres.height / 2, 1.0);
-		// centres worldMap when everything can fit.
     }
 }
 
-void camera_setWidth(double cameraWidth)
+void camera_setViewportWidth(double cameraWidth)
 {
     camera2D.viewport.width = cameraWidth;
     camera2D.viewport.height = camera2D.viewport.width / (1.777); //16:9 aspect ratio.
-    camera_centreWorldSize();
+    camera_centreToWorld();
 }
 
-void camera_setHeight(double cameraHeight)
+void camera_setViewportHeight(double cameraHeight)
 {
     camera2D.viewport.height = cameraHeight;
     camera2D.viewport.width = camera2D.viewport.height * (1.777); //16:9 aspect ratio.
-    camera_centreWorldSize();
+    camera_centreToWorld();
 }
 
 void camera_keepZoomingBy(double deltaWidth)
@@ -59,7 +61,7 @@ void camera_keepZoomingBy(double deltaWidth)
 		camera2D.viewport.width = 1; //Prevents zooming to less than 0.
 	}
 	camera2D.viewport.height = camera2D.viewport.width / (1.777);
-	camera_centreWorldSize();
+	camera_centreToWorld();
 }
 
 void camera_zoomToWidth(double targetWidth, double deltaWidth)
@@ -80,7 +82,10 @@ void camera_zoomToHeight(double targetHeight, double deltaHeight)
       camera2D.viewport.height += deltaHeight;
 }
 
-void camera_limitTo(double left, double right, double down, double up)
+void camera_limitTo(double left, 
+					double right, 
+					double down, 
+					double up)
 {
     if(camera2D.target.xPosition - (camera2D.viewport.width/2) < left)
         camera2D.target.xPosition = left + (camera2D.viewport.width/2);
@@ -95,7 +100,10 @@ void camera_limitTo(double left, double right, double down, double up)
         camera2D.target.yPosition = down + (camera2D.viewport.height/2);
 }
 
-void camera_follow(unsigned char object, int objectNumber, bool followX, bool followY)
+void camera_follow(	unsigned char object, 
+					int objectNumber, 
+					bool followX, 
+					bool followY)
 {
     switch(object)
     {

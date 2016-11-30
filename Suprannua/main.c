@@ -23,14 +23,14 @@ unsigned char gameState					= GAMEPLAY;
 bool keyStates[256]						= {false};
 bool specialKeyStates[21]				= {false};
 
-HeadsUpDisplay textCache[MAX_TEXTS];
+Text textCache[MAX_TEXTS];
 RegularPolygon polygon[MAX_POLYGONS]	= {0};
 Block block[MAX_BLOCKS]					= {0};
 Camera camera2D;
 
-int occupiedPolygons					= 0;
-int occupiedBlocks						= 0;
-bool gridState							= false;
+int storedPolygons						= 0;
+int storedBlocks						= 0;
+bool isGridEnabled						= false;
 
 unsigned char black[3]					= {0,0,0};
 unsigned char white[3]					= {255,255,255};
