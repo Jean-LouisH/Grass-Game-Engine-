@@ -13,17 +13,19 @@ void physics_detectPlatformCollision()
             {
                 if(logic_isOnPlatform(POLYGON, i, j))
                 {
+					//Allow bounce on top
                     polygon[i].properties.yVelocity = polygon[i].properties.yVelocity * -1 *
-							polygon[i].properties.bouncePercentage; //Allow bounce on top
+							polygon[i].properties.bouncePercentage;
 
+					//Adjust the polygon on top of the platform.
                     polygon[i].centre.yPosition = block[j].centre.yPosition + 
 												(block[j].dimensions.height / 2) + polygon[i].radius;
-                    //Adjust the polygon on top of the platform.
                 }
                 if(logic_isTouchingUnderPlatform(POLYGON, i, j))
                 {
+					//Allow bounce below
                     polygon[i].properties.yVelocity = polygon[i].properties.yVelocity * -1 *
-							polygon[i].properties.bouncePercentage; //Allow bounce below
+							polygon[i].properties.bouncePercentage;
 
                     polygon[i].centre.yPosition = block[j].centre.yPosition - 
 												(block[j].dimensions.height / 2) - polygon[i].radius;
@@ -35,11 +37,11 @@ void physics_detectPlatformCollision()
 
 void physics_detectPolygonCollision()
 {
-    int i;
-    int j;
+	int i;
+	int j;
 
-    double centreDistance;
-    double combinedRadius;
+	double centreDistance;
+	double combinedRadius;
 	double positionAngle;
 	double xDelta;
 	double yDelta;
@@ -50,20 +52,27 @@ void physics_detectPolygonCollision()
 	double iCollisionAngleRatio;
 	double jCollisionAngleRatio;
 
-    for(i = 0; i <= storedPolygons; i++)
-    {
-        if(polygon[i].properties.classification == ENTITY)
-        {
-            for(j = 0; j <= storedPolygons; j++)
-            {
-                if(j != i && polygon[j].properties.classification == ENTITY)
-                {
-                    centreDistance = geometry_findDistance(POLYGON, i, POLYGON, j);
-                    combinedRadius = polygon[i].radius + polygon[j].radius;
+	for(i = 0; i <= storedPolygons; i++)
+	{
+		if(polygon[i].properties.classification == ENTITY)
+		{
+			for(j = 0; j <= storedPolygons; j++)
+			{
+				if(j != i && polygon[j].properties.classification == ENTITY)
+				{
+					centreDistance = geometry_findDistance(POLYGON, i, POLYGON, j);
+					combinedRadius = polygon[i].radius + polygon[j].radius;
 
-                    if(centreDistance < combinedRadius)
-                    {
-						//Prevents polygons from clipping into each other before frame is rendered.
+					if(centreDistance < combinedRadius)
+					{
+						/* Prevents polygons from clipping into each other before frame is rendered.
+						 *
+						 * Derived from complex equation: 
+						 *
+						 * r = sqrt((xDelta)^2 + (yDelta)^2)
+						 *
+						 */
+
 						positionAngle = atan2(polygon[j].centre.yPosition - polygon[i].centre.yPosition,
 							polygon[j].centre.xPosition - polygon[i].centre.xPosition);
 
@@ -73,7 +82,20 @@ void physics_detectPolygonCollision()
 						polygon[j].centre.xPosition = xDelta + polygon[i].centre.xPosition;
 						polygon[j].centre.yPosition = yDelta + polygon[i].centre.yPosition;
 
-						//2D Linear Momentum Elastic Collision Response.
+						/*2D Linear Momentum Elastic Collision Response.
+						 *
+						 * Based on final velocity equations of two moving objects.
+						 *
+						 * v'_x1 =	(v_1 * cos(theta_1 - positionAngle)(m_1 - m_2) + 2m_2 * v_2 *
+						 *			cos(theta_2 - positionAngle)) / (m_1 + m_2) * (cos(positionAngle) +
+						 *			v_1 sin(theta_1 - positionAngle) * cos(positionAngle + pi/2))
+						 *
+						 * v'_y1 =	(v_1 * cos(theta_1 - positionAngle)(m_1 - m_2) + 2m_2 * v_2 *
+						 *			cos(theta_2 - positionAngle)) / (m_1 + m_2) * (sin(positionAngle) +
+						 *			v_1 sin(theta_1 - positionAngle) * sin(positionAngle + pi/2))
+						 *
+						 */
+
 						iTheta = atan2(polygon[i].properties.yVelocity, polygon[i].properties.xVelocity);
 						jTheta = atan2(polygon[j].properties.yVelocity, polygon[j].properties.xVelocity);
 						iVelocity = hypot(polygon[i].properties.xVelocity, polygon[i].properties.yVelocity);
@@ -104,11 +126,11 @@ void physics_detectPolygonCollision()
 						polygon[j].properties.yVelocity = jCollisionAngleRatio *
 														sin(positionAngle) + (jVelocity * sin(jTheta - positionAngle) *
 														sin(positionAngle + (PI / 2))) * polygon[j].properties.bouncePercentage;
-                    }
-                }
-            }
-        }
-    }
+					}
+				}
+			}
+		}
+	}
 }
 
 void physics_incrementTime()
