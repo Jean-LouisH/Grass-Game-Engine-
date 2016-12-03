@@ -220,6 +220,9 @@ void edit_change(unsigned char object, int objectNumber, unsigned char attribute
 		case GRAVITY_CONSTANT:   if (object == GAME)
 									gravityConstant = amount;
 		break;
+		case BOUNCE:	if (object == POLYGON)
+							polygon[objectNumber].properties.bouncePercentage = amount;
+		break;
         case ANGLE:     if(object == POLYGON)
                             polygon[objectNumber].properties.angle = amount;
                         if(object == BLOCK)
@@ -252,6 +255,9 @@ void edit_adjust(unsigned char object, int objectNumber, unsigned char attribute
         break;
 		case GRAVITY_CONSTANT:   if (object == GAME)
 									gravityConstant += amount;
+		break;
+		case BOUNCE:	if (object == POLYGON)
+							polygon[objectNumber].properties.bouncePercentage += amount;
 		break;
         case ANGLE:     if(object == POLYGON)
                             polygon[objectNumber].properties.angle += amount;
