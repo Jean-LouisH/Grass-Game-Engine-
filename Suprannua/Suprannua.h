@@ -34,7 +34,7 @@
 /*Define framework constants*/
 
 #define SOFTWARE                "Suprannua"
-#define VERSION                 " 0.10.0 "
+#define VERSION                 " 0.10.1 "
 
 #define PI                      3.1415926535897932384626433832795
 #define FULL                    255 //Colour level
@@ -42,7 +42,7 @@
 #define FRAME_DELAY_MILLISECS   1000.0/FRAME_RATE
 
 #define MAX_POLYGONS            1000
-#define MAX_POLYGON_SIDES       12
+#define MAX_POLYGON_SIDES       20
 #define MAX_BLOCKS              1000
 #define MAX_TEXTS               8
 
