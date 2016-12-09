@@ -28,6 +28,8 @@ void runGLUT(int argc, char **argv)
 	glutMainLoop();
 }
 
+/*Callback functions*/
+
 void timer(int milliseconds)
 {
     glutTimerFunc(milliseconds, timer, milliseconds);
