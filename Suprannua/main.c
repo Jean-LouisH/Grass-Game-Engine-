@@ -21,7 +21,7 @@ double kernelTime;
 
 unsigned char gameState					= GAMEPLAY;
 bool keyStates[256]						= {false};
-bool specialKeyStates[21]				= {false};
+bool specialKeyStates[108]				= {false};
 
 Text textCache[MAX_TEXTS];
 RegularPolygon polygon[MAX_POLYGONS]	= {0};

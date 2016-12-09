@@ -147,7 +147,7 @@ typedef struct
 /*Externs*/
 
 extern bool keyStates[256]; //keyboard input buffer
-extern bool specialKeyStates[21];
+extern bool specialKeyStates[108];
 extern char gameTitle[64];
 extern double dpadSensitivity;
 
