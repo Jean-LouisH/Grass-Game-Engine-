@@ -17,6 +17,27 @@
  * To display the relative positions and scale of a collection of points to the camera. 
  */
 
+void render_displayStoredBlocks()
+{
+	int i;
+
+	for (i = 0; i <= storedBlocks; i++)
+		if (block[i].properties.classification == BACKGROUND)
+			render_drawBlock(i);
+
+	for (i = 0; i <= storedBlocks; i++)
+		if (block[i].properties.classification == PLATFORM)
+			render_drawBlock(i);
+
+	for (i = 0; i <= storedBlocks; i++)
+		if (block[i].properties.classification == ENTITY)
+			render_drawBlock(i);
+
+	for (i = 0; i <= storedBlocks; i++)
+		if (block[i].properties.classification == FOREGROUND)
+			render_drawBlock(i);
+}
+
 void render_displayStoredPolygons()
 {
     int i;
@@ -38,45 +59,37 @@ void render_displayStoredPolygons()
             render_drawPolygon(i);
 }
 
-void render_drawPolygon(int objectNumber)
+void render_displayText()
 {
-    int i ;
+	/*
+	int i;
 
-    glBegin(GL_POLYGON);
-    glColor4ub( polygon[objectNumber].properties.colour[RED],
-                polygon[objectNumber].properties.colour[GREEN],
-                polygon[objectNumber].properties.colour[BLUE],
-                polygon[objectNumber].properties.colour[ALPHA]);
+	char pauseText[7] = "PAUSED";
 
-    for (i = 0; i < polygon[objectNumber].properties.edges; i++) //renders plotted points.
-    {
-        glVertex2f(	(polygon[objectNumber].vertices[i].xPosition -
-                    (camera2D.target.xPosition)) / (camera2D.viewport.width/2),
-                    (polygon[objectNumber].vertices[i].yPosition -
-                    (camera2D.target.yPosition)) / (camera2D.viewport.height/2));
-    }
-    glEnd();
-}
+	i = 0;
 
-void render_displayStoredBlocks()
-{
-    int i;
+	glColor3f(1.0, 1.0, 1.0);
+	glRasterPos2f(-1.0, 0.95);
 
-    for (i = 0; i <= storedBlocks; i++)
-        if(block[i].properties.classification == BACKGROUND)
-            render_drawBlock(i);
+	while(textCache[0].text[i] != NULL)
+	{
+	glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, *(textCache[0].text+i));
+	i++;
+	}
 
-    for(i = 0; i <= storedBlocks; i++)
-        if(block[i].properties.classification == PLATFORM)
-            render_drawBlock(i);
+	i = 0;
 
-    for(i = 0; i <= storedBlocks; i++)
-        if(block[i].properties.classification == ENTITY)
-            render_drawBlock(i);
-
-    for(i = 0; i <= storedBlocks; i++)
-        if(block[i].properties.classification == FOREGROUND)
-            render_drawBlock(i);
+	glColor3f(1.0, 1.0, 1.0);
+	glRasterPos2f(-0.075, 0.0);
+	if(isGamePaused)
+	{
+	while(textCache[1].text[i] != NULL)
+	{
+	glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *(textCache[1].text+i));
+	i++;
+	}
+	}
+	*/
 }
 
 void render_drawBlock(int objectNumber)
@@ -126,35 +139,22 @@ void render_drawGrid()
 	glEnd();
 }
 
-void render_displayText()
+void render_drawPolygon(int objectNumber)
 {
-	/*
-    int i;
+	int i;
 
-    char pauseText[7] = "PAUSED";
+	glBegin(GL_POLYGON);
+	glColor4ub(polygon[objectNumber].properties.colour[RED],
+		polygon[objectNumber].properties.colour[GREEN],
+		polygon[objectNumber].properties.colour[BLUE],
+		polygon[objectNumber].properties.colour[ALPHA]);
 
-    i = 0;
-
-    glColor3f(1.0, 1.0, 1.0);
-    glRasterPos2f(-1.0, 0.95);
-
-    while(textCache[0].text[i] != NULL)
-    {
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, *(textCache[0].text+i));
-        i++;
-    }
-
-    i = 0;
-
-    glColor3f(1.0, 1.0, 1.0);
-    glRasterPos2f(-0.075, 0.0);
-    if(isGamePaused)
-    {
-        while(textCache[1].text[i] != NULL)
-        {
-            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *(textCache[1].text+i));
-            i++;
-        }
-    }
-	*/
+	for (i = 0; i < polygon[objectNumber].properties.edges; i++) //renders plotted points.
+	{
+		glVertex2f((polygon[objectNumber].vertices[i].xPosition -
+			(camera2D.target.xPosition)) / (camera2D.viewport.width / 2),
+			(polygon[objectNumber].vertices[i].yPosition -
+			(camera2D.target.yPosition)) / (camera2D.viewport.height / 2));
+	}
+	glEnd();
 }

@@ -1,5 +1,56 @@
 #include "Suprannua.h"
 
+double geometry_findDistance(	unsigned char firstObject,
+								int firstObjectNumber,
+								unsigned char secondObject,
+								int secondObjectNumber)
+{
+	if (firstObject == POLYGON)
+	{
+		if (secondObject == POLYGON)
+			return (hypot(polygon[firstObjectNumber].centre.xPosition -
+				polygon[secondObjectNumber].centre.xPosition,
+				polygon[firstObjectNumber].centre.yPosition -
+				polygon[secondObjectNumber].centre.yPosition));
+		else if (secondObject == BLOCK)
+			return (hypot(polygon[firstObjectNumber].centre.xPosition -
+				block[secondObjectNumber].centre.xPosition,
+				polygon[firstObjectNumber].centre.yPosition -
+				block[secondObjectNumber].centre.yPosition));
+		else
+			return 0.0;
+	}
+	else if (firstObject == BLOCK)
+	{
+		if (secondObject == POLYGON)
+			return (hypot(block[firstObjectNumber].centre.xPosition -
+					polygon[secondObjectNumber].centre.xPosition,
+					block[firstObjectNumber].centre.yPosition -
+					polygon[secondObjectNumber].centre.yPosition));
+		else if (secondObject == BLOCK)
+			return (hypot(block[firstObjectNumber].centre.xPosition -
+					block[secondObjectNumber].centre.xPosition,
+					block[firstObjectNumber].centre.yPosition -
+					block[secondObjectNumber].centre.yPosition));
+		else
+			return 0.0;
+	}
+}
+
+void geometry_plotBlock(int objectNumber)
+{
+	int i;
+
+	/*All expected angles return a ratio of 1/sqrt(2). Sqrt(2) cancels this to give the circumscribed square size.*/
+	for (i = 0; i < 4; i++)
+	{
+		block[objectNumber].vertices[i].xPosition = block[objectNumber].centre.xPosition + ((block[objectNumber].dimensions.width / 2)
+			* sqrt(2) * (cos((45 + (i * 90)) * (PI / 180))));
+		block[objectNumber].vertices[i].yPosition = block[objectNumber].centre.yPosition + ((block[objectNumber].dimensions.height / 2)
+			* sqrt(2) * (sin((45 + (i * 90)) * (PI / 180))));
+	}
+}
+
 void geometry_plotPolygon(int objectNumber)
 {
     int i;
@@ -9,24 +60,10 @@ void geometry_plotPolygon(int objectNumber)
     {
         polygon[objectNumber].vertices[i].xPosition = polygon[objectNumber].centre.xPosition +
                 (polygon[objectNumber].radius * cos(((360 / polygon[objectNumber].properties.edges) *
-                                                    (i)) * (PI / 180)));
+					(i)) * (PI / 180)));
         polygon[objectNumber].vertices[i].yPosition = polygon[objectNumber].centre.yPosition +
                 (polygon[objectNumber].radius * sin(((360 / polygon[objectNumber].properties.edges) *
-                                                     (i)) * (PI / 180)));
-    }
-}
-
-void geometry_plotBlock(int objectNumber)
-{
-    int i;
-
-	/*All expected angles return a ratio of 1/sqrt(2). Sqrt(2) cancels this to give the circumscribed square size.*/
-    for (i = 0; i < 4; i++)
-    {
-        block[objectNumber].vertices[i].xPosition = block[objectNumber].centre.xPosition + ((block[objectNumber].dimensions.width / 2)
-                    * sqrt(2) * (cos((45 + (i * 90)) * (PI / 180))));
-        block[objectNumber].vertices[i].yPosition = block[objectNumber].centre.yPosition + ((block[objectNumber].dimensions.height / 2)
-                    * sqrt(2) * (sin((45 + (i * 90)) * (PI / 180))));
+					(i)) * (PI / 180)));
     }
 }
 
@@ -104,35 +141,4 @@ void geometry_transform()
             }
         }
 	}
-}
-
-double geometry_findDistance(unsigned char firstObject, int firstObjectNumber,
-                             unsigned char secondObject, int secondObjectNumber)
-{
-    if(firstObject == POLYGON)
-    {
-        if(secondObject == POLYGON)
-            return (hypot(polygon[firstObjectNumber].centre.xPosition -
-                          polygon[secondObjectNumber].centre.xPosition,
-                          polygon[firstObjectNumber].centre.yPosition -
-                          polygon[secondObjectNumber].centre.yPosition));
-        else if(secondObject == BLOCK)
-            return (hypot(polygon[firstObjectNumber].centre.xPosition -
-                          block[secondObjectNumber].centre.xPosition,
-                          polygon[firstObjectNumber].centre.yPosition -
-                          block[secondObjectNumber].centre.yPosition));
-    }
-    else if (firstObject == BLOCK)
-    {
-        if(secondObject == POLYGON)
-            return (hypot(block[firstObjectNumber].centre.xPosition -
-                          polygon[secondObjectNumber].centre.xPosition,
-                          block[firstObjectNumber].centre.yPosition -
-                          polygon[secondObjectNumber].centre.yPosition));
-        else if(secondObject == BLOCK)
-            return (hypot(block[firstObjectNumber].centre.xPosition -
-                          block[secondObjectNumber].centre.xPosition,
-                          block[firstObjectNumber].centre.yPosition -
-                          block[secondObjectNumber].centre.yPosition));
-    }
 }

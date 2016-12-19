@@ -9,8 +9,6 @@
  * Contains all external references, global variables, structs and enums relevant to all parts of the game engine.
  */
 
-#define _CRT_SECURE_NO_WARNINGS 
-
 #include <GL/freeglut.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,11 +23,11 @@
 #include "Game.h"
 #include "Geometry.h"
 #include "GLUT.h"
-#include "Text.h"
 #include "Input.h"
 #include "Kernel.h"
 #include "Logic.h"
 #include "Physics.h"
+#include "Text.h"
 
 /*Define framework constants*/
 
@@ -115,8 +113,8 @@ typedef struct
     unsigned char colour[4];
     int edges;
     double angle; //for rotation
+	double bouncePercentage;
     double mass;
-    double bouncePercentage;
     double xVelocity;
     double yVelocity;
 }Property;

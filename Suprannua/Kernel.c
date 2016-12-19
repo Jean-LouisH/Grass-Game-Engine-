@@ -1,6 +1,6 @@
 #include "Suprannua.h"
 
-void runKernel()
+void runSuprannuaKernel()
 {
     currentTime = time(NULL);
 

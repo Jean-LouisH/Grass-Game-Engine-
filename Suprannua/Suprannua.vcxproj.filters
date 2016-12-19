@@ -48,10 +48,10 @@
     <ClCompile Include="GLUT.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Game.c">
+    <ClCompile Include="Text.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Text.c">
+    <ClCompile Include="..\Game.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
