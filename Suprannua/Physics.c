@@ -11,25 +11,28 @@ void physics_detectPlatformCollision()
         {
             for(j = 0; j <= storedBlocks; j++)
             {
-                if(logic_isOnPlatform(POLYGON, i, j))
-                {
-					//Allow bounce on top
-                    polygon[i].properties.yVelocity = polygon[i].properties.yVelocity * -1 *
+				if (block[j].properties.classification == PLATFORM)
+				{
+					if (logic_isOnPlatform(POLYGON, i, j))
+					{
+						//Allow bounce on top
+						polygon[i].properties.yVelocity = polygon[i].properties.yVelocity * -1 *
 							polygon[i].properties.bouncePercentage;
 
-					//Adjust the polygon on top of the platform.
-                    polygon[i].centre.yPosition = block[j].centre.yPosition + 
-												(block[j].dimensions.height / 2) + polygon[i].radius;
-                }
-                if(logic_isTouchingUnderPlatform(POLYGON, i, j))
-                {
-					//Allow bounce below
-                    polygon[i].properties.yVelocity = polygon[i].properties.yVelocity * -1 *
+						//Adjust the polygon on top of the platform.
+						polygon[i].centre.yPosition = block[j].centre.yPosition +
+							(block[j].dimensions.height / 2) + polygon[i].radius;
+					}
+					if (logic_isTouchingUnderPlatform(POLYGON, i, j))
+					{
+						//Allow bounce below
+						polygon[i].properties.yVelocity = polygon[i].properties.yVelocity * -1 *
 							polygon[i].properties.bouncePercentage;
 
-                    polygon[i].centre.yPosition = block[j].centre.yPosition - 
-												(block[j].dimensions.height / 2) - polygon[i].radius;
-                }
+						polygon[i].centre.yPosition = block[j].centre.yPosition -
+							(block[j].dimensions.height / 2) - polygon[i].radius;
+					}
+				}
             }
         }
     }
@@ -155,6 +158,32 @@ void physics_incrementTime()
     timeCount = frameCount / FRAME_RATE;
 }
 
+void physics_force(unsigned char firstObject, int firstObjectNumber,
+	unsigned char preposition, unsigned char secondObject, int secondObjectNumber)// preposition - "to", "from"
+{
+	double force;
+	double positionAngle;
+
+	if (firstObjectNumber != secondObjectNumber)
+	{
+		positionAngle = atan2(polygon[secondObjectNumber].centre.yPosition - polygon[firstObjectNumber].centre.yPosition,
+			polygon[secondObjectNumber].centre.xPosition - polygon[firstObjectNumber].centre.xPosition);
+
+		force = (gravityConstant * polygon[firstObjectNumber].properties.mass * polygon[secondObjectNumber].properties.mass) /
+			pow(hypot(polygon[secondObjectNumber].centre.xPosition - polygon[firstObjectNumber].centre.xPosition,
+				polygon[secondObjectNumber].centre.yPosition - polygon[firstObjectNumber].centre.yPosition), 2);
+
+		switch (preposition)
+		{
+		case TO:;						break;
+		case FROM: force = force * -1;	break;
+		}
+
+		polygon[firstObjectNumber].properties.xVelocity += (force / polygon[firstObjectNumber].properties.mass) * cos(positionAngle);
+		polygon[firstObjectNumber].properties.yVelocity += (force / polygon[firstObjectNumber].properties.mass) * sin(positionAngle);
+	}
+}
+
 void physics_gravitate(unsigned char object, int objectNumber, bool direction)
 {
     switch(object)
@@ -166,38 +195,14 @@ void physics_gravitate(unsigned char object, int objectNumber, bool direction)
     }
 }
 
-void physics_rigidBodyDynamics()
-{
-    //polygon[i].properties.angle
-    //platformGravity
-    //polygon[i].properties.xVelocity
-}
-
-void physics_roll(unsigned char object, int objectNumber)
-{
-    switch(object)
-    {
-        case POLYGON:
-                        if(polygon[objectNumber].properties.xVelocity < 0)
-                            AI_spin(POLYGON, objectNumber, ANTICLOCKWISE,
-                                    -1 * (polygon[objectNumber].properties.xVelocity / polygon[objectNumber].radius)
-                                     / (PI / 180));
-                        else if(polygon[objectNumber].properties.xVelocity > 0)
-                            AI_spin(POLYGON, objectNumber, CLOCKWISE,
-                                    (polygon[objectNumber].properties.xVelocity / polygon[objectNumber].radius)
-                                    / (PI / 180));
-        break;
-    }
-}
-
 void physics_limitBoundary()
 {
-    int i;
+	int i;
 
 	for (i = 0; i <= storedPolygons; i++)
 	{
-	    if(polygon[i].properties.classification != NOTHING)
-        {
+		if (polygon[i].properties.classification != NOTHING)
+		{
 			//X Axis
 			if (polygon[i].centre.xPosition + polygon[i].radius >= worldSizeMetres.width)
 			{
@@ -222,41 +227,30 @@ void physics_limitBoundary()
 				polygon[i].properties.yVelocity = -1 * polygon[i].properties.yVelocity;
 			}
 			geometry_plotPolygon(i);
-        }
+		}
 	}
 }
 
-void physics_force(unsigned char firstObject, int firstObjectNumber,
-                 unsigned char preposition, unsigned char secondObject, int secondObjectNumber)// preposition - "to", "from"
+void physics_rigidBodyDynamics()
 {
-	double force;
-	double positionAngle;
+    //polygon[i].properties.angle
+    //platformGravity
+    //polygon[i].properties.xVelocity
+}
 
-	positionAngle = atan2(polygon[secondObjectNumber].centre.yPosition - polygon[firstObjectNumber].centre.yPosition,
-		polygon[secondObjectNumber].centre.xPosition - polygon[firstObjectNumber].centre.xPosition);
-
-	force = (gravityConstant * polygon[firstObjectNumber].properties.mass * polygon[secondObjectNumber].properties.mass) /
-			pow(hypot(polygon[secondObjectNumber].centre.xPosition - polygon[firstObjectNumber].centre.xPosition,
-			polygon[secondObjectNumber].centre.yPosition - polygon[firstObjectNumber].centre.yPosition), 2);
-
-	switch (preposition)
-	{
-		case TO:;						break;
-		case FROM: force = force * -1;	break;
-	}
-
-	polygon[firstObjectNumber].properties.xVelocity += (force / polygon[firstObjectNumber].properties.mass) * cos(positionAngle);
-	polygon[firstObjectNumber].properties.yVelocity += (force / polygon[firstObjectNumber].properties.mass) * sin(positionAngle);
-
-	/*
-	if (polygon[secondObjectNumber].centre.xPosition >= polygon[firstObjectNumber].centre.xPosition)
-		polygon[firstObjectNumber].properties.xVelocity += force / polygon[firstObjectNumber].properties.mass;
-	else
-		polygon[firstObjectNumber].properties.xVelocity -= force / polygon[firstObjectNumber].properties.mass;
-
-	if (polygon[secondObjectNumber].centre.yPosition >= polygon[firstObjectNumber].centre.yPosition)
-		polygon[firstObjectNumber].properties.yVelocity += force / polygon[firstObjectNumber].properties.mass;
-	else
-		polygon[firstObjectNumber].properties.yVelocity -= force / polygon[firstObjectNumber].properties.mass;
-	*/
+void physics_roll(unsigned char object, int objectNumber)
+{
+    switch(object)
+    {
+        case POLYGON:
+                        if(polygon[objectNumber].properties.xVelocity < 0)
+                            AI_spin(POLYGON, objectNumber, ANTICLOCKWISE,
+                                    -1 * (polygon[objectNumber].properties.xVelocity / polygon[objectNumber].radius)
+                                     / (PI / 180));
+                        else if(polygon[objectNumber].properties.xVelocity > 0)
+                            AI_spin(POLYGON, objectNumber, CLOCKWISE,
+                                    (polygon[objectNumber].properties.xVelocity / polygon[objectNumber].radius)
+                                    / (PI / 180));
+        break;
+    }
 }

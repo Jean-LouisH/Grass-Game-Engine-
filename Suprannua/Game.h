@@ -7,5 +7,5 @@
  */
 
 void initGameData();	//Sets up all the game assets before running the script.
-void runGameScript();	//Contains game or simulation logic.
 void readInput();		//Performs actions based on keyboard inputs in buffer.
+void runGameScript();	//Contains game or simulation logic.
