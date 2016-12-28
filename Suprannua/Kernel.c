@@ -4,11 +4,11 @@ void runSuprannuaKernel()
 {
     currentTime = time(NULL);
 
-    if(frameCount < 1)
+    if(frameCount == 0)
     {
         startTime = currentTime;
         firstTimeSample = currentTime;
-        initGameData();
+        initGame();
     }
 
     kernelTime = currentTime - startTime;
@@ -21,7 +21,7 @@ void runSuprannuaKernel()
         geometry_transform();
         frameCount++;
         passedFrames++;
-        runGameScript();
+        runGame();
     }
 
     if(currentTime - firstTimeSample >= 1)
