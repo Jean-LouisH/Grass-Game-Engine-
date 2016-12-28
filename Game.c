@@ -19,7 +19,7 @@ double gravityConstant		= 6.674E-11; // m/s^2
 bool isGamePaused			= false;
 
 
-void initGameData()
+void initGame()
 {
 	camera_setViewportWidth(edit_get(GAME, 0, WIDTH));
 	camera_setTarget(edit_get(CAMERA, 0, XCENTRE), edit_get(CAMERA, 0, YCENTRE));
@@ -59,28 +59,6 @@ void readInput()
 	{
 		if (input_isPressed('w'))
 		{
-			;
-		}
-
-		if (input_isPressed('a'))
-		{
-			;
-		}
-
-		if (input_isPressed('s'))
-		{
-			;
-		}
-
-		if (input_isPressed('d'))
-		{
-			;
-		}
-	}
-	else if (gameState == CUSTOM1)
-	{
-		if (input_isPressed('w'))
-		{
 			camera_scroll(0.0, cameraScrollSpeed);
 		}
 
@@ -117,13 +95,11 @@ void readInput()
 	}
 }
 
-void runGameScript()
+void runGame()
 {
 	physics_limitBoundary();
-	physics_rigidBodyDynamics();
-	physics_detectPolygonCollision(); 
+	physics_detectPolygonCollision();
 	physics_detectPlatformCollision();
 
 	//Insert Game Script code.
 }
-

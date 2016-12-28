@@ -21,6 +21,4 @@ void physics_gravitate(	unsigned char object,
 						bool direction);					//Causes an object to fall or rise.
 
 void physics_limitBoundary();								//Prevents objects from escaping map dimensions.
-						
-void physics_rigidBodyDynamics();							//Computes rag doll effects based on objects angle of edge from platform surface.
 void physics_roll(unsigned char object, int objectNumber);	//Rotates regular polygons based on velocity and circumference.
