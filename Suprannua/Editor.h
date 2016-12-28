@@ -19,15 +19,15 @@ void edit_change(	unsigned char object,
 void edit_colourBlock(int objectNumber, unsigned char colour);
 
 void edit_colourFromRGBA(unsigned char object,
-	int objectNumber,
-	unsigned char red,
-	unsigned char green,
-	unsigned char blue,
-	unsigned char alpha);
+						int objectNumber,
+						unsigned char red,
+						unsigned char green,
+						unsigned char blue,
+						unsigned char alpha);
 
 void edit_colourFromText(unsigned char object,
-	int objectNumber,
-	unsigned char colour);
+						int objectNumber,
+						unsigned char colour);
 
 void edit_colourPolygon(int objectNumber, unsigned char colour);
 
@@ -68,3 +68,8 @@ void edit_move(	unsigned char object,
 
 void edit_remove(unsigned char object, int objectNumber);
 void edit_resize(unsigned char object, int objectNumber, double scale);	
+void edit_scrollPlatform(	int objectNumber, 
+							bool direction, 
+							double startPosition, 
+							double endPosition,
+							double velocity);

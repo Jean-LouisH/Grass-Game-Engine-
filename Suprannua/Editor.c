@@ -566,3 +566,26 @@ void edit_resize(unsigned char object, int objectNumber, double scale)
         break;
     }
 }
+
+void edit_scrollPlatform(	int objectNumber,
+							bool direction,
+							double startPosition,
+							double endPosition,
+							double velocity)
+{
+	switch (direction)
+	{
+		case UP_DOWN:
+						if (block[objectNumber].centre.yPosition <= startPosition)
+							edit_adjust(BLOCK, objectNumber, YVELOCITY, velocity);
+						if (block[objectNumber].centre.yPosition >= endPosition)
+							edit_adjust(BLOCK, objectNumber, YVELOCITY, -velocity);
+		break;
+		case LEFT_RIGHT:
+						if (block[objectNumber].centre.xPosition <= startPosition)
+							edit_adjust(BLOCK, objectNumber, XVELOCITY, velocity);
+						if (block[objectNumber].centre.xPosition >= endPosition)
+							edit_adjust(BLOCK, objectNumber, XVELOCITY, -velocity);
+		break;
+	}
+}
