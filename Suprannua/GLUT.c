@@ -68,7 +68,7 @@ void runGLUT(int argc, char **argv)
 	glutReshapeFunc(resize);
 
 	glutDisplayFunc(runSuprannuaKernel);
-	glutTimerFunc(FRAME_DELAY_MILLISECS, timer, FRAME_DELAY_MILLISECS);
+	glutTimerFunc(FRAME_TIME_MILLISECS, timer, FRAME_TIME_MILLISECS);
 	glutMainLoop();
 }
 

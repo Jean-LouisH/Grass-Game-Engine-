@@ -20,24 +20,24 @@
 #include "2DRenderer.h"
 #include "AI.h"
 #include "Editor.h"
+#include "Event.h"
 #include "Game.h"
 #include "Geometry.h"
 #include "GLUT.h"
 #include "Input.h"
 #include "Kernel.h"
-#include "Logic.h"
 #include "Physics.h"
 #include "Text.h"
 
 /*Define framework constants*/
 
 #define SOFTWARE                "Suprannua"
-#define VERSION                 " 0.10.1 "
+#define VERSION                 " 0.10.2 "
 
 #define PI                      3.1415926535897932384626433832795
 #define FULL                    255 //Colour level
 #define FRAME_RATE              60.0
-#define FRAME_DELAY_MILLISECS   1000.0/FRAME_RATE
+#define FRAME_TIME_MILLISECS	1000.0/FRAME_RATE
 
 #define MAX_POLYGONS            1000
 #define MAX_POLYGON_SIDES       20
@@ -72,7 +72,7 @@ enum prepositions
 };
 enum controlModes
 {
-    GAMEPLAY, MENU, CUSTOM1, CUSTOM2, CUSTOM3
+    GAMEPLAY, MENU, CUSTOM1, CUSTOM2, CUSTOM3, TESTING
 };
 enum spinDirections
 {
@@ -81,6 +81,10 @@ enum spinDirections
 enum gravitation
 {
     DOWN, UP
+};
+enum platformScrolling
+{
+	UP_DOWN, LEFT_RIGHT
 };
 enum AIMessages
 {
