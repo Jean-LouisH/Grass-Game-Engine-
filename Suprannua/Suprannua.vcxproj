@@ -126,7 +126,7 @@
     <ClCompile Include="Text.c" />
     <ClCompile Include="Input.c" />
     <ClCompile Include="Kernel.c" />
-    <ClCompile Include="Logic.c" />
+    <ClCompile Include="Event.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="Physics.c" />
   </ItemGroup>
@@ -142,7 +142,7 @@
     <ClInclude Include="Text.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Kernel.h" />
-    <ClInclude Include="Logic.h" />
+    <ClInclude Include="Event.h" />
     <ClInclude Include="Physics.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
