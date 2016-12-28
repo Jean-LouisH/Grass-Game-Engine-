@@ -8,4 +8,5 @@
 
 void text_remove(int textCell);								//Releases an array cell with text.
 void text_set(double xText, double yText, char newText);	//Fills an empty array cell with new text.
+void text_update(int textCell, char newText);
 void text_updateKernelStats();								//Takes frame rate and time data, and then updates TextCache[0].

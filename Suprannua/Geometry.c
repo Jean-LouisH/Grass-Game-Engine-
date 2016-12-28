@@ -55,7 +55,7 @@ void geometry_plotPolygon(int objectNumber)
 {
     int i;
 
-	/* Polygon defined sides divide a full circle into angle increments that are multiplied by j to plot all points.*/
+	/* Polygon defined sides divide a full circle into angle increments that are multiplied by i to plot all points.*/
     for (i = 0; i < polygon[objectNumber].properties.edges; i++)
     {
         polygon[objectNumber].vertices[i].xPosition = polygon[objectNumber].centre.xPosition +

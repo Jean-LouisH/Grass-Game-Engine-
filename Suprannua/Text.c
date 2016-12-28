@@ -16,6 +16,11 @@ void text_set(double xText, double yText, char newText)
 	*/
 }
 
+void text_update(int textCell, char newText)
+{
+
+}
+
 void text_updateKernelStats()
 {
 	/*
