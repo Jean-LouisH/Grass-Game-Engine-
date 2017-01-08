@@ -6,6 +6,8 @@ void runSuprannuaKernel()
 
     if(frameCount == 0)
     {
+		text_set(HUD, -0.075, 0.0, "PAUSED", WHITE);
+		text_set(HUD, -1.0, 0.95, "", WHITE);
         startTime = currentTime;
         firstTimeSample = currentTime;
         initGame();
@@ -31,7 +33,7 @@ void runSuprannuaKernel()
         passedFrames = 0;
     }
 
-    //text_updateKernelStats();
+	text_updateKernelStats();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_BLEND);
@@ -43,7 +45,7 @@ void runSuprannuaKernel()
 	if(isGridEnabled)
 		render_drawGrid();
 
-    //render_displayText();
+    render_displayText();
 
     glutSwapBuffers(); //freeglut buffer swap for animation.
 }

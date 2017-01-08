@@ -61,35 +61,50 @@ void render_displayStoredPolygons()
 
 void render_displayText()
 {
-	/*
 	int i;
+	int j;
 
-	char pauseText[7] = "PAUSED";
-
-	i = 0;
-
-	glColor3f(1.0, 1.0, 1.0);
-	glRasterPos2f(-1.0, 0.95);
-
-	while(textCache[0].text[i] != NULL)
+	for (j = 0; j <= storedTexts; j++)
 	{
-	glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, *(textCache[0].text+i));
-	i++;
-	}
+		i = 0;
+		glColor4ub(	textCache[j].colour[RED],
+					textCache[j].colour[GREEN],
+					textCache[j].colour[BLUE],
+					textCache[j].colour[ALPHA]);
 
-	i = 0;
+		if (textCache[j].classification == HUD)
+		{
+			glRasterPos2f(	textCache[j].textPin.xPosition,
+							textCache[j].textPin.yPosition);
+		}
+		else if (textCache[j].classification == ENTITY)
+		{
+			glRasterPos2f((	textCache[j].textPin.xPosition -
+							(camera2D.target.xPosition)) / (camera2D.viewport.width / 2),
+							(textCache[j].textPin.yPosition -
+							(camera2D.target.yPosition)) / (camera2D.viewport.height / 2));
+		}
 
-	glColor3f(1.0, 1.0, 1.0);
-	glRasterPos2f(-0.075, 0.0);
-	if(isGamePaused)
-	{
-	while(textCache[1].text[i] != NULL)
-	{
-	glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *(textCache[1].text+i));
-	i++;
+		if (j == 0)
+		{
+			if (isGamePaused)
+			{
+				while (textCache[j].textContent[i] != NULL)
+				{
+					glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *(textCache[j].textContent + i));
+					i++;
+				}
+			}
+		}
+		else if (j != 1 || ((j == 1) && isKernelStatsEnabled))
+		{
+			while (textCache[j].textContent[i] != NULL)
+			{
+				glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, *(textCache[j].textContent + i));
+				i++;
+			}
+		}
 	}
-	}
-	*/
 }
 
 void render_drawBlock(int objectNumber)

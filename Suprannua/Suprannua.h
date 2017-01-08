@@ -1,6 +1,8 @@
 #ifndef DEFINITIONS_H
 #define DEFINITIONS_H
 
+#define _CRT_SECURE_NO_WARNINGS
+
 /**
  * Suprannua.h
  *
@@ -32,7 +34,7 @@
 /*Define framework constants*/
 
 #define SOFTWARE                "Suprannua"
-#define VERSION                 " 0.10.2 "
+#define VERSION                 " 0.11.0 "
 
 #define PI                      3.1415926535897932384626433832795
 #define FULL                    255 //Colour level
@@ -143,13 +145,14 @@ typedef struct
 {
     Vertex textPin;
     char textContent[128];
+	unsigned char colour[4];
     unsigned char classification;
 }Text;
 
 /*Externs*/
 
-extern bool keyStates[256]; //keyboard input buffer
-extern bool specialKeyStates[108];
+extern bool keyStates[128]; //keyboard input buffer
+extern bool specialKeyStates[128];
 extern char gameTitle[64];
 extern double dpadSensitivity;
 
@@ -176,6 +179,8 @@ extern Camera camera2D;
 
 extern int storedPolygons;
 extern int storedBlocks;
+extern int storedTexts;
+extern bool isKernelStatsEnabled;
 extern bool isGridEnabled;
 
 extern Text textCache[MAX_TEXTS];

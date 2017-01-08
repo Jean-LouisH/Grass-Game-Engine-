@@ -56,6 +56,7 @@ void edit_createSquare(	unsigned char type,
 						unsigned char colour);
 
 void edit_enableGrid(bool state);
+void edit_enableKernelStats(bool state);
 
 double edit_get(unsigned char object,
 				int objectNumber,

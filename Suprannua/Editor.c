@@ -174,10 +174,10 @@ void edit_colourBlock(int objectNumber, unsigned char colour)
 					block[objectNumber].properties.colour[BLUE] = grey[BLUE];
 					block[objectNumber].properties.colour[ALPHA] = FULL;
 		break;
-		default:    block[objectNumber].properties.colour[RED] = 0;
-					block[objectNumber].properties.colour[GREEN] = 0;
-					block[objectNumber].properties.colour[BLUE] = 0;
-					block[objectNumber].properties.colour[ALPHA] = FULL;
+		default:    block[objectNumber].properties.colour[RED] = FULL;
+					block[objectNumber].properties.colour[GREEN] = FULL;
+					block[objectNumber].properties.colour[BLUE] = FULL;
+					block[objectNumber].properties.colour[ALPHA] = FULL;			//White by default.
 	}
 }
 
@@ -286,19 +286,19 @@ void edit_colourPolygon(int objectNumber, unsigned char colour)
 					polygon[objectNumber].properties.colour[BLUE] = grey[BLUE];
 					polygon[objectNumber].properties.colour[ALPHA] = FULL;
 		break;
-		default:    polygon[objectNumber].properties.colour[RED] = 0;
-					polygon[objectNumber].properties.colour[GREEN] = 0;
-					polygon[objectNumber].properties.colour[BLUE] = 0;
-					polygon[objectNumber].properties.colour[ALPHA] = FULL;
+		default:    polygon[objectNumber].properties.colour[RED] = FULL;
+					polygon[objectNumber].properties.colour[GREEN] = FULL;
+					polygon[objectNumber].properties.colour[BLUE] = FULL;
+					polygon[objectNumber].properties.colour[ALPHA] = FULL;				//White by default
 	}
 }
 
 void edit_colourToAlpha(unsigned char object, int objectNumber, double alpha)
 {
 	if (object == POLYGON)
-		polygon[objectNumber].properties.colour[3] = alpha * FULL;
+		polygon[objectNumber].properties.colour[ALPHA] = alpha * FULL;
 	else if (object == BLOCK)
-		block[objectNumber].properties.colour[3] = alpha * FULL;
+		block[objectNumber].properties.colour[ALPHA] = alpha * FULL;
 }
 
 void edit_createPolygon(unsigned char type,
@@ -429,6 +429,14 @@ void edit_enableGrid(bool state)
 		isGridEnabled = true;
 	else
 		isGridEnabled = false;
+}
+
+void edit_enableKernelStats(bool state)
+{
+	if (state)
+		isKernelStatsEnabled = true;
+	else
+		isKernelStatsEnabled = false;
 }
 
 double edit_get(unsigned char object, int objectNumber, unsigned char attribute)
