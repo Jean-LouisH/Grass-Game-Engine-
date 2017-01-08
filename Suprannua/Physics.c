@@ -224,9 +224,16 @@ void physics_limitBoundary()
 				polygon[i].centre.yPosition = 0 + polygon[i].radius;
 				polygon[i].properties.yVelocity = -1 * polygon[i].properties.yVelocity;
 			}
-			geometry_plotPolygon(i);
 		}
 	}
+}
+
+void physics_resistRolling(unsigned char object, int objectNumber, double deceleration)
+{
+	if(polygon[objectNumber].properties.xVelocity > (deceleration) / FRAME_RATE)
+		edit_adjust(POLYGON, objectNumber, XVELOCITY, (-1 * deceleration) / FRAME_RATE);
+	else if (polygon[objectNumber].properties.xVelocity < (-1 * deceleration) / FRAME_RATE)
+		edit_adjust(POLYGON, objectNumber, XVELOCITY, (deceleration) / FRAME_RATE);
 }
 
 void physics_roll(unsigned char object, int objectNumber)
