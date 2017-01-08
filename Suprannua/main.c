@@ -20,8 +20,8 @@ double firstTimeSample;
 double kernelTime;
 
 unsigned char gameState					= GAMEPLAY;
-bool keyStates[256]						= {false};
-bool specialKeyStates[108]				= {false};
+bool keyStates[128]						= {false};
+bool specialKeyStates[128]				= {false};
 
 Text textCache[MAX_TEXTS];
 RegularPolygon polygon[MAX_POLYGONS]	= {0};
@@ -30,6 +30,8 @@ Camera camera2D;
 
 int storedPolygons						= 0;
 int storedBlocks						= 0;
+int storedTexts							= 0;
+bool isKernelStatsEnabled				= false;
 bool isGridEnabled						= false;
 
 unsigned char black[3]					= {0,0,0};

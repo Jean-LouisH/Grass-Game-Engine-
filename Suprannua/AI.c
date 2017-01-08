@@ -19,7 +19,7 @@ void AI_jump(unsigned char agent, int agentNumber, double jumpVelocity)
 {
 	int i;
 
-	for (i = 0; i <= storedPolygons; i++)
+	for (i = 0; i <= storedBlocks; i++)
 	{
 		if (event_isOnPlatform(POLYGON, agentNumber, i))
 		{

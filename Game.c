@@ -23,7 +23,7 @@ void initGame()
 {
 	camera_setViewportWidth(edit_get(GAME, 0, WIDTH));
 	camera_setTarget(edit_get(CAMERA, 0, XCENTRE), edit_get(CAMERA, 0, YCENTRE));
-	edit_createRectangle(BACKGROUND, 0, edit_get(GAME, 0, WIDTH), 0, edit_get(GAME, 0, HEIGHT), GREY);
+	edit_createRectangle(BACKGROUND, 0, edit_get(GAME, 0, WIDTH), 0, edit_get(GAME, 0, HEIGHT), SKY_BLUE);
 
 	//Insert Game Initialisation code.
 }
@@ -31,8 +31,6 @@ void initGame()
 //Controls
 void readInput()
 {
-	int i;
-
 	if (gameState == GAMEPLAY)
 	{
 		if (input_isPressed('w'))
