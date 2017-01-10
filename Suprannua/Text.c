@@ -2,8 +2,8 @@
 
 void text_adjust(int textCell, double xScroll, double yScroll)
 {
-	textCache[textCell].textPin.xPosition += xScroll;
-	textCache[textCell].textPin.yPosition += yScroll;
+	textCache[textCell].textPin.xPosition += xScroll / FRAME_RATE;
+	textCache[textCell].textPin.yPosition += yScroll / FRAME_RATE;
 }
 
 void text_append(int textCell, char *newText)

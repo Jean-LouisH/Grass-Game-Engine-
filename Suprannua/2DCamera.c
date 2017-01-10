@@ -88,8 +88,8 @@ void camera_limitTo(double left,
 
 void camera_scroll(double xScroll, double yScroll)
 {
-	camera2D.target.xPosition += xScroll;
-	camera2D.target.yPosition += yScroll;
+	camera2D.target.xPosition += xScroll / FRAME_RATE;
+	camera2D.target.yPosition += yScroll / FRAME_RATE;
 }
 
 void camera_scrollToTarget(	double targetXPosition,
@@ -97,16 +97,16 @@ void camera_scrollToTarget(	double targetXPosition,
 							double scrollSpeed)
 {
 	if (camera2D.target.xPosition > targetXPosition)
-		camera2D.target.xPosition -= scrollSpeed;
+		camera2D.target.xPosition -= scrollSpeed / FRAME_RATE;
 
 	if (camera2D.target.xPosition < targetXPosition)
-		camera2D.target.xPosition += scrollSpeed;
+		camera2D.target.xPosition += scrollSpeed / FRAME_RATE;
 
 	if (camera2D.target.yPosition > targetYPosition)
-		camera2D.target.yPosition -= scrollSpeed;
+		camera2D.target.yPosition -= scrollSpeed / FRAME_RATE;
 
 	if (camera2D.target.yPosition < targetYPosition)
-		camera2D.target.yPosition += scrollSpeed;
+		camera2D.target.yPosition += scrollSpeed / FRAME_RATE;
 }
 
 void camera_setTarget(double newXPosition, double newYPosition)
@@ -132,17 +132,17 @@ void camera_setViewportWidth(double cameraWidth)
 void camera_zoomToHeight(double targetHeight, double deltaHeight)
 {
 	if (camera2D.viewport.height > targetHeight)
-		camera2D.viewport.height -= deltaHeight;
+		camera2D.viewport.height -= deltaHeight / FRAME_RATE;
 
 	if (camera2D.viewport.height < targetHeight)
-		camera2D.viewport.height += deltaHeight;
+		camera2D.viewport.height += deltaHeight / FRAME_RATE;
 }
 
 void camera_zoomToWidth(double targetWidth, double deltaWidth)
 {
     if(camera2D.viewport.width > targetWidth)
-      camera2D.viewport.width -= deltaWidth;
+      camera2D.viewport.width -= deltaWidth / FRAME_RATE;
 
     if(camera2D.viewport.width < targetWidth)
-      camera2D.viewport.width += deltaWidth;
+      camera2D.viewport.width += deltaWidth / FRAME_RATE;
 }

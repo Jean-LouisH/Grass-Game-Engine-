@@ -25,33 +25,33 @@ void edit_adjust(	unsigned char object,
 	switch (attribute)
 	{
 		case PLATFORM_GRAVITY:   if (object == GAME)
-									platformGravity += amount;
+									platformGravity += amount / FRAME_RATE;
 		break;
 		case GRAVITY_CONSTANT:   if (object == GAME)
-									gravityConstant += amount;
+									gravityConstant += amount / FRAME_RATE;
 		break;
 		case BOUNCE:	if (object == POLYGON)
-							polygon[objectNumber].properties.bouncePercentage += amount;
+							polygon[objectNumber].properties.bouncePercentage += amount / FRAME_RATE;
 		break;
 		case ANGLE:     if (object == POLYGON)
-							polygon[objectNumber].properties.angle += amount;
+							polygon[objectNumber].properties.angle += amount / FRAME_RATE;
 						if (object == BLOCK)
-							block[objectNumber].properties.angle += amount;
+							block[objectNumber].properties.angle += amount / FRAME_RATE;
 		break;
 		case MASS:      if (object == POLYGON)
-							polygon[objectNumber].properties.mass += amount;
+							polygon[objectNumber].properties.mass += amount / FRAME_RATE;
 						if (object == BLOCK)
-							block[objectNumber].properties.mass += amount;
+							block[objectNumber].properties.mass += amount / FRAME_RATE;
 		break;
 		case XVELOCITY: if (object == POLYGON)
-							polygon[objectNumber].properties.xVelocity += amount;
+							polygon[objectNumber].properties.xVelocity += amount / FRAME_RATE;
 						if (object == BLOCK)
-							block[objectNumber].properties.xVelocity += amount;
+							block[objectNumber].properties.xVelocity += amount / FRAME_RATE;
 		break;
 		case YVELOCITY: if (object == POLYGON)
-							polygon[objectNumber].properties.yVelocity += amount;
+							polygon[objectNumber].properties.yVelocity += amount / FRAME_RATE;
 						if (object == BLOCK)
-							block[objectNumber].properties.yVelocity += amount;
+							block[objectNumber].properties.yVelocity += amount / FRAME_RATE;
 		break;
 	}
 }
@@ -296,9 +296,9 @@ void edit_colourPolygon(int objectNumber, unsigned char colour)
 void edit_colourToAlpha(unsigned char object, int objectNumber, double alpha)
 {
 	if (object == POLYGON)
-		polygon[objectNumber].properties.colour[ALPHA] = alpha * FULL;
+		polygon[objectNumber].properties.colour[ALPHA] = (int)(alpha * FULL);
 	else if (object == BLOCK)
-		block[objectNumber].properties.colour[ALPHA] = alpha * FULL;
+		block[objectNumber].properties.colour[ALPHA] = (int)(alpha * FULL);
 }
 
 void edit_createPolygon(unsigned char type,
@@ -487,6 +487,7 @@ double edit_get(unsigned char object, int objectNumber, unsigned char attribute)
 						case YCENTRE:   return (camera2D.viewport.height / 2);						break;
 		}
 		break;
+		default:		return 0.0;
 	}
 }
 
