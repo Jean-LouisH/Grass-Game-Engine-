@@ -143,7 +143,7 @@ void physics_detectPolygonCollision()
 					polygon[i].centre.xPosition = polygon[j].centre.xPosition - xDelta;
 					polygon[i].centre.yPosition = polygon[j].centre.yPosition - yDelta;
 
-					geometry_plotPolygon(i);
+					//geometry_plotPolygon(i);
 				}
 			}
 		}
@@ -177,8 +177,8 @@ void physics_force(unsigned char firstObject, int firstObjectNumber,
 		case FROM: force = force * -1;	break;
 		}
 
-		polygon[firstObjectNumber].properties.xVelocity += (force / polygon[firstObjectNumber].properties.mass) * cos(positionAngle);
-		polygon[firstObjectNumber].properties.yVelocity += (force / polygon[firstObjectNumber].properties.mass) * sin(positionAngle);
+		polygon[firstObjectNumber].properties.xVelocity += (force / polygon[firstObjectNumber].properties.mass) * cos(positionAngle) / FRAME_RATE;
+		polygon[firstObjectNumber].properties.yVelocity += (force / polygon[firstObjectNumber].properties.mass) * sin(positionAngle) / FRAME_RATE;
 	}
 }
 
@@ -188,7 +188,7 @@ void physics_gravitate(unsigned char object, int objectNumber, bool direction)
     {
         case POLYGON:   polygon[objectNumber].properties.yVelocity += ((direction * 2) - 1) * platformGravity / FRAME_RATE;
         break;
-        case BLOCK:       block[objectNumber].properties.yVelocity += ((direction * 2) - 1) / FRAME_RATE;
+        case BLOCK:       block[objectNumber].properties.yVelocity += ((direction * 2) - 1) * platformGravity / FRAME_RATE;
         break;
     }
 }
@@ -230,10 +230,18 @@ void physics_limitBoundary()
 
 void physics_resistRolling(unsigned char object, int objectNumber, double deceleration)
 {
-	if(polygon[objectNumber].properties.xVelocity > (deceleration) / FRAME_RATE)
-		edit_adjust(POLYGON, objectNumber, XVELOCITY, (-1 * deceleration) / FRAME_RATE);
-	else if (polygon[objectNumber].properties.xVelocity < (-1 * deceleration) / FRAME_RATE)
-		edit_adjust(POLYGON, objectNumber, XVELOCITY, (deceleration) / FRAME_RATE);
+	if (polygon[objectNumber].properties.xVelocity > 0)
+	{
+		edit_adjust(POLYGON, objectNumber, XVELOCITY, (-1 * deceleration));
+		if (polygon[objectNumber].properties.xVelocity < 0)
+			polygon[objectNumber].properties.xVelocity = 0;
+	}
+	else if (polygon[objectNumber].properties.xVelocity < 0)
+	{
+		edit_adjust(POLYGON, objectNumber, XVELOCITY, (deceleration));
+		if (polygon[objectNumber].properties.xVelocity > 0)
+			polygon[objectNumber].properties.xVelocity = 0;
+	}
 }
 
 void physics_roll(unsigned char object, int objectNumber)
