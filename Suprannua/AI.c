@@ -28,7 +28,15 @@ void AI_jump(unsigned char agent, int agentNumber, double jumpVelocity)
 		}
 		else if (event_isTouchingUnderPlatform(POLYGON, agentNumber, i))
 		{
-			edit_change(POLYGON, agentNumber, YVELOCITY, -jumpVelocity + block[i].properties.yVelocity);
+			edit_change(POLYGON, agentNumber, YVELOCITY, -1 * jumpVelocity + block[i].properties.yVelocity);
+			break;
+		}
+	}
+	for (i = 0; i <= storedPolygons; i++)
+	{
+		if (event_isPolygonHigher(agentNumber, i) && event_arePolygonsTouching(agentNumber, i))
+		{
+			edit_change(POLYGON, agentNumber, YVELOCITY, jumpVelocity + polygon[i].properties.yVelocity);
 			break;
 		}
 	}
