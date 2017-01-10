@@ -8,12 +8,12 @@
 
 /*Custom code for Initialisation, Scripting and Controls*/
 
-//Global variables
+/*Global variables*/
 
-char gameTitle[64]			= SOFTWARE VERSION "[Empty Game.c Source File.]";
-Rect worldSizeMetres		= { 100,57 }; // m
-double dpadSensitivity		= 5.0;
-double cameraScrollSpeed	= 1.0;
+char gameTitle[64]			= "Suprannua Standard Game Template.";
+Rect worldSizeMetres		= { 50,29 }; // m
+double dpadSensitivity		= 10.0; // m/s
+double cameraScrollSpeed	= 50.0; // m/s
 double platformGravity		= 9.8; // m/s^2
 double gravityConstant		= 6.674E-11; // m/s^2
 bool isGamePaused			= false;
@@ -25,22 +25,29 @@ void initGame()
 	camera_setTarget(edit_get(CAMERA, 0, XCENTRE), edit_get(CAMERA, 0, YCENTRE));
 	edit_createRectangle(BACKGROUND, 0, edit_get(GAME, 0, WIDTH), 0, edit_get(GAME, 0, HEIGHT), SKY_BLUE);
 
-	//Insert Game Initialisation code.
+	/*Insert Game Initialisation code.*/
+	edit_createRectangle(PLATFORM, 0, edit_get(GAME, 0, WIDTH), 0.0, 1.0, BROWN);
+	edit_createRectangle(PLATFORM, 0, edit_get(GAME, 0, WIDTH), 1.0, 1.25, GREEN);
+	edit_createPolygon(ENTITY, 8, 1.0, 5.0, 10.0, RED);
+	text_set(ENTITY, edit_get(GAME, 0, XCENTRE) - 5, edit_get(GAME, 0, YCENTRE) + 6, "Suprannua Standard Game Template", PURPLE);
+	text_set(ENTITY, edit_get(GAME, 0, XCENTRE) - 6, edit_get(GAME, 0, YCENTRE) + 4, "Edit the game code 'Game.c' as you see fit.", PURPLE);
+	text_set(ENTITY, edit_get(GAME, 0, XCENTRE) - 9, edit_get(GAME, 0, YCENTRE) + 3, "Use the WASD keys to move the polygon, or the camera on pausing.", PURPLE);
 }
 
-//Controls
+/*Controls*/
 void readInput()
 {
 	if (gameState == GAMEPLAY)
 	{
+		physics_resistRolling(POLYGON, 0, dpadSensitivity * 2);
 		if (input_isPressed('w'))
 		{
-			;
+			AI_jump(POLYGON, 0, 10.0);
 		}
 
 		if (input_isPressed('a'))
 		{
-			;
+			edit_change(POLYGON, 0, XVELOCITY, -1 * dpadSensitivity);
 		}
 
 		if (input_isPressed('s'))
@@ -50,7 +57,7 @@ void readInput()
 
 		if (input_isPressed('d'))
 		{
-			;
+			edit_change(POLYGON, 0, XVELOCITY, dpadSensitivity);
 		}
 	}
 	else if (gameState == MENU)
@@ -77,12 +84,12 @@ void readInput()
 
 		if (input_isPressed('q'))
 		{
-			camera_keepZoomingBy(cameraScrollSpeed);
+			camera_keepZoomingBy(cameraScrollSpeed / 32);
 		}
 
 		if (input_isPressed('e'))
 		{
-			camera_keepZoomingBy(-cameraScrollSpeed);
+			camera_keepZoomingBy(-cameraScrollSpeed / 32);
 		}
 
 		if (input_isPressed('x'))
@@ -99,5 +106,7 @@ void runGame()
 	physics_detectPolygonCollision();
 	physics_detectPlatformCollision();
 
-	//Insert Game Script code.
+	/*Insert Game Script code.*/
+	physics_gravitate(POLYGON, 0, DOWN);
+	physics_roll(POLYGON, 0);
 }
