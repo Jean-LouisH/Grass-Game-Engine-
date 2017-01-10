@@ -29,9 +29,9 @@ void initGame()
 	edit_createRectangle(PLATFORM, 0, edit_get(GAME, 0, WIDTH), 0.0, 1.0, BROWN);
 	edit_createRectangle(PLATFORM, 0, edit_get(GAME, 0, WIDTH), 1.0, 1.25, GREEN);
 	edit_createPolygon(ENTITY, 8, 1.0, 5.0, 10.0, RED);
-	text_set(ENTITY, edit_get(GAME, 0, XCENTRE) - 5, edit_get(GAME, 0, YCENTRE) + 6, "Suprannua Standard Game Template", PURPLE);
-	text_set(ENTITY, edit_get(GAME, 0, XCENTRE) - 6, edit_get(GAME, 0, YCENTRE) + 4, "Edit the game code 'Game.c' as you see fit.", PURPLE);
-	text_set(ENTITY, edit_get(GAME, 0, XCENTRE) - 9, edit_get(GAME, 0, YCENTRE) + 3, "Use the WASD keys to move the polygon, or the camera on pausing.", PURPLE);
+	text_set(ENTITY, edit_get(GAME, 0, XCENTRE) - 5, edit_get(GAME, 0, YCENTRE) + 6, "Suprannua Standard Game Template", WHITE);
+	text_set(ENTITY, edit_get(GAME, 0, XCENTRE) - 6, edit_get(GAME, 0, YCENTRE) + 4, "Edit the game code 'Game.c' as you see fit.", WHITE);
+	text_set(ENTITY, edit_get(GAME, 0, XCENTRE) - 9, edit_get(GAME, 0, YCENTRE) + 3, "Use the WASD keys to move the polygon, or the camera on pausing.", WHITE);
 }
 
 /*Controls*/
