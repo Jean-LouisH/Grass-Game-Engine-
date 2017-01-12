@@ -33,7 +33,7 @@
 
 /*Define framework constants*/
 
-#define SOFTWARE                "Suprannua"
+#define SOFTWARE                "Suprannua Engine"
 #define VERSION                 " 0.11.0 "
 
 #define PI                      3.1415926535897932384626433832795
@@ -41,7 +41,7 @@
 #define FRAME_RATE              60.0
 #define FRAME_TIME_MILLISECS	1000.0/FRAME_RATE
 
-#define MAX_POLYGONS            1000
+#define MAX_POLYGONS            80
 #define MAX_POLYGON_SIDES       20
 #define MAX_BLOCKS              1000
 #define MAX_TEXTS               8
