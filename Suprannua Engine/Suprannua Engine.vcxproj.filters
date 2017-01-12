@@ -15,47 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="2DCamera.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="2DRenderer.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AI.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Editor.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Geometry.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Input.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Kernel.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="main.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Physics.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GLUT.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Text.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Game.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Event.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="2DCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -68,7 +27,16 @@
     <ClInclude Include="Editor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Geometry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GLUT.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Input.h">
@@ -83,17 +51,49 @@
     <ClInclude Include="Suprannua.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GLUT.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Text.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Event.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="2DCamera.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="2DRenderer.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AI.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Event.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GLUT.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{AE399303-E547-4C27-987B-C35B3821CBCA}</ProjectGuid>
-    <RootNamespace>Suprannua</RootNamespace>
+    <ProjectGuid>{41E002BF-068F-42A4-A1E3-6057FDECEB59}</ProjectGuid>
+    <RootNamespace>SuprannuaEngine</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -75,9 +75,6 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -85,9 +82,6 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -116,34 +110,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="2DCamera.h" />
+    <ClInclude Include="2DRenderer.h" />
+    <ClInclude Include="AI.h" />
+    <ClInclude Include="Editor.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Geometry.h" />
+    <ClInclude Include="GLUT.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="Kernel.h" />
+    <ClInclude Include="Physics.h" />
+    <ClInclude Include="Suprannua.h" />
+    <ClInclude Include="Text.h" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="..\Game.c" />
     <ClCompile Include="2DCamera.c" />
     <ClCompile Include="2DRenderer.c" />
     <ClCompile Include="AI.c" />
     <ClCompile Include="Editor.c" />
+    <ClCompile Include="Event.c" />
     <ClCompile Include="Geometry.c" />
     <ClCompile Include="GLUT.c" />
-    <ClCompile Include="Text.c" />
     <ClCompile Include="Input.c" />
     <ClCompile Include="Kernel.c" />
-    <ClCompile Include="Event.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="Physics.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="2DCamera.h" />
-    <ClInclude Include="2DRenderer.h" />
-    <ClInclude Include="AI.h" />
-    <ClInclude Include="Suprannua.h" />
-    <ClInclude Include="Editor.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Geometry.h" />
-    <ClInclude Include="GLUT.h" />
-    <ClInclude Include="Text.h" />
-    <ClInclude Include="Input.h" />
-    <ClInclude Include="Kernel.h" />
-    <ClInclude Include="Event.h" />
-    <ClInclude Include="Physics.h" />
+    <ClCompile Include="Text.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

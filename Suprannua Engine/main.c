@@ -1,10 +1,10 @@
 /**
- * Suprannua
+ * Suprannua Engine
  *
- * Description: Suprannua is a superannuated, 2D platformer game engine developed in C and legacy OpenGL. Just for fun.
+ * Description: The Suprannua Engine is a superannuated, 2D platformer game engine codebase. Just For Fun.
  *
  * Author:         Jean-Louis Haywood
- * Created:        01/09/2016
+ * Created:        1st September 2016
  */
 
 #include "Suprannua.h"
