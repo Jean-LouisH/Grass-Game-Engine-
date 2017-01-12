@@ -1,4 +1,4 @@
-#include "Suprannua\Suprannua.h" 
+#include "Suprannua Engine\Suprannua.h" 
 
 /**
  *
@@ -10,7 +10,7 @@
 
 /*Global variables*/
 
-char gameTitle[64]			= "Suprannua Standard Game Template.";
+char gameTitle[64]			= SOFTWARE " Standard Game Template.";
 Rect worldSizeMetres		= { 50,29 }; // m
 double dpadSensitivity		= 10.0; // m/s
 double cameraScrollSpeed	= 50.0; // m/s
@@ -29,9 +29,10 @@ void initGame()
 	edit_createRectangle(PLATFORM, 0, edit_get(GAME, 0, WIDTH), 0.0, 1.0, BROWN);
 	edit_createRectangle(PLATFORM, 0, edit_get(GAME, 0, WIDTH), 1.0, 1.25, GREEN);
 	edit_createPolygon(ENTITY, 8, 1.0, 5.0, 10.0, RED);
-	text_set(ENTITY, edit_get(GAME, 0, XCENTRE) - 5, edit_get(GAME, 0, YCENTRE) + 6, "Suprannua Standard Game Template", WHITE);
+	text_set(ENTITY, edit_get(GAME, 0, XCENTRE) - 6.5, edit_get(GAME, 0, YCENTRE) + 6, "The " SOFTWARE " Standard Game Template", WHITE);
 	text_set(ENTITY, edit_get(GAME, 0, XCENTRE) - 6, edit_get(GAME, 0, YCENTRE) + 4, "Edit the game code 'Game.c' as you see fit.", WHITE);
-	text_set(ENTITY, edit_get(GAME, 0, XCENTRE) - 9, edit_get(GAME, 0, YCENTRE) + 3, "Use the WASD keys to move the polygon, or the camera on pausing.", WHITE);
+	text_set(ENTITY, edit_get(GAME, 0, XCENTRE) - 10, edit_get(GAME, 0, YCENTRE) + 3, "Use the WASD keys to move the polygon, or 'p' for pausing and camera.", WHITE);
+	text_set(HUD, -0.35, -0.1, "Test", WHITE);
 }
 
 /*Controls*/
@@ -39,6 +40,7 @@ void readInput()
 {
 	if (gameState == GAMEPLAY)
 	{
+		text_update(5, "");
 		physics_resistRolling(POLYGON, 0, dpadSensitivity * 2);
 		if (input_isPressed('w'))
 		{
@@ -62,6 +64,7 @@ void readInput()
 	}
 	else if (gameState == MENU)
 	{
+		text_update(5, "WASD - move, Q - Zoom out, E - Zoom in, X - Reset Camera");
 		if (input_isPressed('w'))
 		{
 			camera_scroll(0.0, cameraScrollSpeed);
