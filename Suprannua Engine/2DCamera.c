@@ -6,7 +6,7 @@ void camera_centreToWorld()
 		camera2D.viewport.height > worldSizeMetres.height)
 	{
 		// centres when everything can fit.
-		camera_scrollToTarget(worldSizeMetres.width / 2, worldSizeMetres.height / 2, 1.0);
+		camera_scrollToTarget(worldSizeMetres.width / 2, worldSizeMetres.height / 2, 120.0);
 	}
 }
 
