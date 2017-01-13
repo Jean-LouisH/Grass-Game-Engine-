@@ -1,4 +1,4 @@
-#include "Suprannua.h"
+#include "SuprannuaEngine.h"
 
 /* 
  * The loops on the create functions:
@@ -174,6 +174,31 @@ void edit_colourBlock(int objectNumber, unsigned char colour)
 					block[objectNumber].properties.colour[BLUE] = grey[BLUE];
 					block[objectNumber].properties.colour[ALPHA] = FULL;
 		break;
+		case DARK_RED:  block[objectNumber].properties.colour[RED] = darkRed[RED];
+						block[objectNumber].properties.colour[GREEN] = darkRed[GREEN];
+						block[objectNumber].properties.colour[BLUE] = darkRed[BLUE];
+						block[objectNumber].properties.colour[ALPHA] = FULL;
+		break;
+		case DARK_GREEN:	block[objectNumber].properties.colour[RED] = darkGreen[RED];
+							block[objectNumber].properties.colour[GREEN] = darkGreen[GREEN];
+							block[objectNumber].properties.colour[BLUE] = darkGreen[BLUE];
+							block[objectNumber].properties.colour[ALPHA] = FULL;
+		break;
+		case DARK_BLUE:		block[objectNumber].properties.colour[RED] = darkBlue[RED];
+							block[objectNumber].properties.colour[GREEN] = darkBlue[GREEN];
+							block[objectNumber].properties.colour[BLUE] = darkBlue[BLUE];
+							block[objectNumber].properties.colour[ALPHA] = FULL;
+		break;
+		case DARK_BROWN:	block[objectNumber].properties.colour[RED] = darkBrown[RED];
+							block[objectNumber].properties.colour[GREEN] = darkBrown[GREEN];
+							block[objectNumber].properties.colour[BLUE] = darkBrown[BLUE];
+							block[objectNumber].properties.colour[ALPHA] = FULL;
+		break;
+		case MAGENTA:		block[objectNumber].properties.colour[RED] = magenta[RED];
+							block[objectNumber].properties.colour[GREEN] = magenta[GREEN];
+							block[objectNumber].properties.colour[BLUE] = magenta[BLUE];
+							block[objectNumber].properties.colour[ALPHA] = FULL;
+		break;
 		default:    block[objectNumber].properties.colour[RED] = FULL;
 					block[objectNumber].properties.colour[GREEN] = FULL;
 					block[objectNumber].properties.colour[BLUE] = FULL;
@@ -285,6 +310,31 @@ void edit_colourPolygon(int objectNumber, unsigned char colour)
 					polygon[objectNumber].properties.colour[GREEN] = grey[GREEN];
 					polygon[objectNumber].properties.colour[BLUE] = grey[BLUE];
 					polygon[objectNumber].properties.colour[ALPHA] = FULL;
+		break;
+		case DARK_RED:  polygon[objectNumber].properties.colour[RED] = darkRed[RED];
+						polygon[objectNumber].properties.colour[GREEN] = darkRed[GREEN];
+						polygon[objectNumber].properties.colour[BLUE] = darkRed[BLUE];
+						polygon[objectNumber].properties.colour[ALPHA] = FULL;
+		break;
+		case DARK_GREEN:	polygon[objectNumber].properties.colour[RED] = darkGreen[RED];
+							polygon[objectNumber].properties.colour[GREEN] = darkGreen[GREEN];
+							polygon[objectNumber].properties.colour[BLUE] = darkGreen[BLUE];
+							polygon[objectNumber].properties.colour[ALPHA] = FULL;
+		break;
+		case DARK_BLUE:		polygon[objectNumber].properties.colour[RED] = darkBlue[RED];
+							polygon[objectNumber].properties.colour[GREEN] = darkBlue[GREEN];
+							polygon[objectNumber].properties.colour[BLUE] = darkBlue[BLUE];
+							polygon[objectNumber].properties.colour[ALPHA] = FULL;
+		break;
+		case DARK_BROWN:	polygon[objectNumber].properties.colour[RED] = darkBrown[RED];
+							polygon[objectNumber].properties.colour[GREEN] = darkBrown[GREEN];
+							polygon[objectNumber].properties.colour[BLUE] = darkBrown[BLUE];
+							polygon[objectNumber].properties.colour[ALPHA] = FULL;
+		break;
+		case MAGENTA:		polygon[objectNumber].properties.colour[RED] = magenta[RED];
+							polygon[objectNumber].properties.colour[GREEN] = magenta[GREEN];
+							polygon[objectNumber].properties.colour[BLUE] = magenta[BLUE];
+							polygon[objectNumber].properties.colour[ALPHA] = FULL;
 		break;
 		default:    polygon[objectNumber].properties.colour[RED] = FULL;
 					polygon[objectNumber].properties.colour[GREEN] = FULL;

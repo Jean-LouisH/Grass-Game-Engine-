@@ -7,7 +7,7 @@
  * Created:        1st September 2016
  */
 
-#include "Suprannua.h"
+#include "SuprannuaEngine.h"
 #include <Windows.h>
 
 int frameCount                          = 0;
@@ -49,6 +49,11 @@ unsigned char gold[3]					= {204,153,0};
 unsigned char seaGreen[3]				= {46,139,87};
 unsigned char pink[3]					= {255,192,203};
 unsigned char grey[3]					= {128,128,128};
+unsigned char darkRed[3]				= {192,0,0};
+unsigned char darkGreen[3]				= {0,128,0};
+unsigned char darkBlue[3]				= {0,0,128};
+unsigned char darkBrown[3]				= {80,40,0};
+unsigned char magenta[3]				= {255,0,228};
 
 
 /*int main(int argc, char **argv)

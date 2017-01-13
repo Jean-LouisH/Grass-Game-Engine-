@@ -1,4 +1,4 @@
-#include "Suprannua.h"
+#include "SuprannuaEngine.h"
 
 void text_adjust(int textCell, double xScroll, double yScroll)
 {
@@ -90,6 +90,31 @@ void text_colour(int textCell, unsigned char colour)
 					textCache[textCell].colour[GREEN] = grey[GREEN];
 					textCache[textCell].colour[BLUE] = grey[BLUE];
 					textCache[textCell].colour[ALPHA] = FULL;
+		break;
+		case DARK_RED:  textCache[textCell].colour[RED] = darkRed[RED];
+						textCache[textCell].colour[GREEN] = darkRed[GREEN];
+						textCache[textCell].colour[BLUE] = darkRed[BLUE];
+						textCache[textCell].colour[ALPHA] = FULL;
+		break;
+		case DARK_GREEN:	textCache[textCell].colour[RED] = darkGreen[RED];
+							textCache[textCell].colour[GREEN] = darkGreen[GREEN];
+							textCache[textCell].colour[BLUE] = darkGreen[BLUE];
+							textCache[textCell].colour[ALPHA] = FULL;
+		break;
+		case DARK_BLUE:		textCache[textCell].colour[RED] = darkBlue[RED];
+							textCache[textCell].colour[GREEN] = darkBlue[GREEN];
+							textCache[textCell].colour[BLUE] = darkBlue[BLUE];
+							textCache[textCell].colour[ALPHA] = FULL;
+		break;
+		case DARK_BROWN:	textCache[textCell].colour[RED] = darkBrown[RED];
+							textCache[textCell].colour[GREEN] = darkBrown[GREEN];
+							textCache[textCell].colour[BLUE] = darkBrown[BLUE];
+							textCache[textCell].colour[ALPHA] = FULL;
+		break;
+		case MAGENTA:		textCache[textCell].colour[RED] = magenta[RED];
+							textCache[textCell].colour[GREEN] = magenta[GREEN];
+							textCache[textCell].colour[BLUE] = magenta[BLUE];
+							textCache[textCell].colour[ALPHA] = FULL;
 		break;
 		default:    textCache[textCell].colour[RED] = FULL;
 					textCache[textCell].colour[GREEN] = FULL;
