@@ -8,7 +8,7 @@ The highlight of the project is the engine folder, which is intended to be a reu
 
 All game objects within the engine are represented as either regular polygons, rectangular blocks or text, with one 2D camera. Every object is classified as either a background, platform, entity, or foreground to make a distinction between how they interact with each other. E.g. Polygon entities can jump on block platforms. The objects also have a range of other properties like colour, number of edges, angular displacement, elasticity, mass and velocity. The exception to this are text objects which are represented only as heads up displays to be pinned to the camera or as entities to be pinned to world map. All objects have positional data on the x and y axes. These positions are plotted against a user defined game world size in metres.
 
-As my first application based project, the hallmark and namesake of this engine is intended to be a superannuated design where the visuals are minimally done with legacy OpenGL, while the architecture is structured around a procedural runtime with the C programming language. 
+As my first application based project, the hallmark and namesake of this engine is intended to be a superannuated design where the visuals are minimally done with legacy OpenGL, while the architecture is structured around a procedural runtime with the C programming language. For the sake of simplicity, audio and sprites are not supported in this project.
 
 Diagram of the Suprannua Engine Architecture.
 ![ScreenShot](docs/Documentation/The Suprannua Engine Architecture Diagram.png)

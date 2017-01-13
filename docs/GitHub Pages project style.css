@@ -1,0 +1,17 @@
+#summary, .imageTitle, h1
+{
+	text-align: center;
+}
+
+img
+{
+	display: block;
+    margin: auto;
+    width: 80%;
+}
+
+p
+{
+	font-family: "Times New Roman", Times, serif;
+	font-size: 1.5em;
+}
