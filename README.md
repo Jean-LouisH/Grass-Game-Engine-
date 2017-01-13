@@ -2,9 +2,9 @@
 
 The Suprannua Engine is a superannuated, 2D platformer game engine codebase. Just For Fun. 
 
-![ScreenShot](docs/Example Screenshots/Suprannua.png)
-
 The highlight of the project is the engine folder, which is intended to be a reusable framework for compiling simple Windows games or easy to make visualisations for physics and algorithms. 
+
+![ScreenShot](docs/Example Screenshots/Suprannua.png)
 
 All game objects within the engine are represented as either regular polygons, rectangular blocks or text, with one 2D camera. Every object is classified as either a background, platform, entity, or foreground to make a distinction between how they interact with each other. E.g. Polygon entities can jump on block platforms. The objects also have a range of other properties like colour, number of edges, angular displacement, elasticity, mass and velocity. The exception to this are text objects which are represented only as heads up displays to be pinned to the camera or as entities to be pinned to world map. All objects have positional data on the x and y axes. These positions are plotted against a user defined game world size in metres.
 
