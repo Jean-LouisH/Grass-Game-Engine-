@@ -2,7 +2,7 @@
 
 The Suprannua Engine is a superannuated, 2D platformer game engine codebase. Just For Fun. 
 
-![ScreenShot](Example Screenshots/Suprannua.png)
+![ScreenShot](docs/Example Screenshots/Suprannua.png)
 
 The highlight of the project is the engine folder, which is intended to be a reusable framework for compiling simple Windows games or easy to make visualisations for physics and algorithms. 
 
@@ -11,7 +11,7 @@ All game objects within the engine are represented as either regular polygons, r
 As my first application based project, the hallmark and namesake of this engine is intended to be a superannuated design where the visuals are minimally done with legacy OpenGL, while the architecture is structured around a procedural runtime with the C programming language. 
 
 Diagram of the Suprannua Engine Architecture.
-![ScreenShot](Documentation/The Suprannua Engine Architecture Diagram.png)
+![ScreenShot](docs/Documentation/The Suprannua Engine Architecture Diagram.png)
 
 The engine starts with WinMain(), or alternatively main(), as the container for global variables, and as the entry point to the Freeglut API. When Freeglut is initialised, the engine loops indefinitely within the glutMainLoop. This is where the OpenGL context is established where a 16:9 aspect ratio window of 75% of the detected display width is created. Callbacks for window dimension restoration and centring are also found here, as well as the functions for assigning keyboard inputs to a buffer and calling Suprannua's engine kernel. Freeglut also maintains the timer of the game loop.
 
@@ -19,8 +19,8 @@ At intervals of 1/60th of a second, the engine kernel is called. It then uses ti
 
 Generally in the game code, inputs can be assigned for how the engine interprets key presses. However, the ESC key is hard coded for Freeglut to call the exit() function with the parameter "EXIT_SUCCESS". This will close the application.
 
-Diagram of the Suprannua Engine Standard Game Template
-![ScreenShot](Example Screenshots/The Suprannua Engine Standard Game Template.png)
+Screenshot of the Suprannua Engine Standard Game Template
+![ScreenShot](docs/Example Screenshots/The Suprannua Engine Standard Game Template.png)
 
 Games or simulations are made by copying the standard game template global variables and functions; initGame(), runGame(), and readInput(). 
 
