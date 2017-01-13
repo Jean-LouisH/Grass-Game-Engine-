@@ -1,4 +1,4 @@
-#include "Suprannua Engine\Suprannua.h" 
+#include "Suprannua Engine\SuprannuaEngine.h" 
 
 /**
  *
@@ -27,7 +27,7 @@ void initGame()
 
 	/*Insert Game Initialisation code.*/
 	edit_createRectangle(PLATFORM, 0, edit_get(GAME, 0, WIDTH), 0.0, 1.0, BROWN);
-	edit_createRectangle(PLATFORM, 0, edit_get(GAME, 0, WIDTH), 1.0, 1.25, GREEN);
+	edit_createRectangle(PLATFORM, 0, edit_get(GAME, 0, WIDTH), 1.0, 1.25, DARK_GREEN);
 	edit_createPolygon(ENTITY, 8, 1.0, 5.0, 10.0, RED);
 	text_set(ENTITY, edit_get(GAME, 0, XCENTRE) - 6.5, edit_get(GAME, 0, YCENTRE) + 6, "The " SOFTWARE " Standard Game Template", WHITE);
 	text_set(ENTITY, edit_get(GAME, 0, XCENTRE) - 6, edit_get(GAME, 0, YCENTRE) + 4, "Edit the game code 'Game.c' as you see fit.", WHITE);
@@ -42,6 +42,7 @@ void readInput()
 	{
 		text_update(5, "");
 		physics_resistRolling(POLYGON, 0, dpadSensitivity * 2);
+
 		if (input_isPressed('w'))
 		{
 			AI_jump(POLYGON, 0, 10.0);

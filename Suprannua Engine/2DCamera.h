@@ -13,7 +13,7 @@ void camera_follow(	unsigned char object,
 					bool followX,
 					bool followY);									//Centres camera(X and/or Y) to a specified object.
 
-void camera_keepZoomingBy(double deltaWidth);						//Gradually zooms camera in or out.
+void camera_keepZoomingBy(double deltaWidth);
 
 void camera_limitTo(double left,
 					double right,

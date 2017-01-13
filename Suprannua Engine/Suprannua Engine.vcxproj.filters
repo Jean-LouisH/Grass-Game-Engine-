@@ -27,16 +27,10 @@
     <ClInclude Include="Editor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Event.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Geometry.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GLUT.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Input.h">
@@ -45,13 +39,19 @@
     <ClInclude Include="Physics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Suprannua.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Text.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EngineKernel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FreeglutCallbacks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SuprannuaEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Events.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -68,13 +68,7 @@
     <ClCompile Include="Editor.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Event.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Geometry.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GLUT.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Input.c">
@@ -93,6 +87,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EngineKernel.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FreeglutCallbacks.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Events.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

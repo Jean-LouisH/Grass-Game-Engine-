@@ -1,5 +1,5 @@
 /**
- * Event
+ * Events
  *
  * Author: Jean-Louis Haywood
  *

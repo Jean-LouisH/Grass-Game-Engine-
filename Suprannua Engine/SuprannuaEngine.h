@@ -1,5 +1,5 @@
-#ifndef DEFINITIONS_H
-#define DEFINITIONS_H
+#ifndef SUPRANNUAENGINE_H
+#define SUPRANNUAENGINE_H
 
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -23,10 +23,10 @@
 #include "AI.h"
 #include "Editor.h"
 #include "EngineKernel.h"
-#include "Event.h"
+#include "Events.h"
 #include "Game.h"
 #include "Geometry.h"
-#include "GLUT.h"
+#include "FreeglutCallbacks.h"
 #include "Input.h"
 #include "Physics.h"
 #include "Text.h"
@@ -52,7 +52,7 @@ enum colourPalette
 {
     RED, GREEN, BLUE, ALPHA, BLACK, WHITE, ORANGE, YELLOW,
     VIOLET, PURPLE, BROWN, SKY_BLUE, GOLD, SEA_GREEN,
-    PINK, GREY
+    PINK, GREY, DARK_RED, DARK_GREEN, DARK_BLUE, DARK_BROWN, MAGENTA
 };
 enum objectName
 {
@@ -200,5 +200,10 @@ extern unsigned char gold[3];
 extern unsigned char seaGreen[3];
 extern unsigned char pink[3];
 extern unsigned char grey[3];
+extern unsigned char darkRed[3];
+extern unsigned char darkGreen[3];
+extern unsigned char darkBlue[3];
+extern unsigned char darkBrown[3];
+extern unsigned char magenta[3];
 
 #endif
