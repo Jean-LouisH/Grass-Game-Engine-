@@ -119,7 +119,7 @@
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="GLUT.h" />
     <ClInclude Include="Input.h" />
-    <ClInclude Include="Kernel.h" />
+    <ClInclude Include="EngineKernel.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Suprannua.h" />
     <ClInclude Include="Text.h" />
@@ -134,7 +134,7 @@
     <ClCompile Include="Geometry.c" />
     <ClCompile Include="GLUT.c" />
     <ClCompile Include="Input.c" />
-    <ClCompile Include="Kernel.c" />
+    <ClCompile Include="EngineKernel.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="Physics.c" />
     <ClCompile Include="Text.c" />

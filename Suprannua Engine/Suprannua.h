@@ -22,12 +22,12 @@
 #include "2DRenderer.h"
 #include "AI.h"
 #include "Editor.h"
+#include "EngineKernel.h"
 #include "Event.h"
 #include "Game.h"
 #include "Geometry.h"
 #include "GLUT.h"
 #include "Input.h"
-#include "Kernel.h"
 #include "Physics.h"
 #include "Text.h"
 
