@@ -3,22 +3,23 @@
 	<head>
 		<title>Suprannua Engine</title>
 		<link href="GitHub Pages.css" rel="stylesheet">
+		<link href="" rel="icon">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 	</head>
 	<body>
 		<h1>Suprannua Engine</h1>
+		<h2>Written by Jean-Louis Haywood</h2>
+		<a href="https://github.com/Jean-LouisH/SuprannuaEngine"><img class="imgLink" src="Other Images/GitHub-Mark.png"></a><p class="imgText">GitHub Repository</p>
 
 		<p id="summary">The Suprannua Engine is a superannuated, 2D platformer game engine codebase.</br> Just For Fun.</p>
 		
-		<div id="links">
-			<a href="https://github.com/Jean-LouisH/SuprannuaEngine"><img class="imgLink" src="Other Images/GitHub-Mark.png"></a>GitHub
-			<a href="https://github.com/Jean-LouisH/SuprannuaEngine/releases"><img class="imgLink" src="Other Images/zip.png"></a> Latest Release
-			<p></p>
-		</div>
+			
+		<a href="https://github.com/Jean-LouisH/SuprannuaEngine/releases"><img class="imgLink" src="Other Images/zip.png"></a><p class="imgText">Latest Release</p>
+		<p></p>
 		
 		<p>The highlight of the project is the engine folder, which is intended to be a reusable framework for compiling simple Windows games or easy to make visualisations for physics and algorithms. </p>
 		
-		<a href="https://jean-louish.github.io/SuprannuaEngine/Example%20Screenshots/Suprannua.png"><img src="Example Screenshots/Suprannua.png" alt="Suprannua"></a>
+		<a href="Example Screenshots/Suprannua.png"><img src="Example Screenshots/Suprannua.png" alt="Suprannua"></a>
 
 		<p>All game objects within the engine are represented as either regular polygons, rectangular blocks or text, with one 2D camera. Every object is classified as either a background, platform, entity, or foreground to make a distinction between how they interact with each other. E.g. Polygon entities can jump on block platforms. The objects also have a range of other properties like colour, number of edges, angular displacement, elasticity, mass and velocity. The exception to this are text objects which are represented only as heads up displays to be pinned to the camera or as entities to be pinned to world map. All objects have positional data on the x and y axes. These positions are plotted against a user defined game world size in metres. </p>
 
@@ -43,6 +44,5 @@
 		<p><b>RunGame()</b> is called for every frame unless the pause 'p' key is pressed. Within this function, all the game logic with system calls for Artificial Intelligence, Events, Physics, and Text updates are implemented. 2DCamera and Editor updates can even be made to introduce more changes to the object data structure and how the camera behaves.</p>
 
 		<p><b>ReadInput()</b> is called throughout the entire runtime of the engine as a script that mainly interprets the input buffer, but can also call system functions that might depend on the state of the input buffer (like decelerating the player when the user releases a key).</p>
-		
 	</body>
 </html>

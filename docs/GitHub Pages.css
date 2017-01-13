@@ -1,4 +1,4 @@
-#summary, .imageTitle, h1, #links
+#summary, .imageTitle, h1, h2, .imgText
 {
 	text-align: center;
 }
@@ -20,16 +20,27 @@ img
 	display: block;
 	margin: auto;
 	width: 80%;
+	border-radius: 32px;
 }
 
-h1, p, #links
+h1, h2, p, .imgText
 {
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+.imgText
+{
+	font-weight:bold;
 }
 
 h1
 {
 	font-size: 5vw;
+}
+
+h2 
+{
+	font-size:2.5vw;
 }
 
 p
@@ -44,6 +55,11 @@ p
 	h1
 	{
 		font-size: 7vw;
+	}
+	
+	h2
+	{
+		font-size: 5vw;
 	}
 	
 	p
