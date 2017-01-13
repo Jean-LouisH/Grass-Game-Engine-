@@ -1,4 +1,4 @@
-#include "Suprannua.h"
+#include "SuprannuaEngine.h"
 
 void physics_detectPlatformCollision()
 {
@@ -17,8 +17,11 @@ void physics_detectPlatformCollision()
 					{
 						//Allow bounce on top
 						polygon[i].properties.yVelocity = polygon[i].properties.yVelocity * -1 *
-							polygon[i].properties.bouncePercentage;
+							polygon[i].properties.bouncePercentage + block[j].properties.yVelocity;
 
+						if (block[j].properties.xVelocity != 0)
+							polygon[i].properties.xVelocity = block[j].properties.xVelocity;
+	
 						//Adjust the polygon on top of the platform.
 						polygon[i].centre.yPosition = block[j].centre.yPosition +
 							(block[j].dimensions.height / 2) + polygon[i].radius;
@@ -27,10 +30,33 @@ void physics_detectPlatformCollision()
 					{
 						//Allow bounce below
 						polygon[i].properties.yVelocity = polygon[i].properties.yVelocity * -1 *
-							polygon[i].properties.bouncePercentage;
+							polygon[i].properties.bouncePercentage + block[j].properties.yVelocity;
+
+						if(block[j].properties.xVelocity != 0)
+							polygon[i].properties.xVelocity = block[j].properties.xVelocity;
 
 						polygon[i].centre.yPosition = block[j].centre.yPosition -
 							(block[j].dimensions.height / 2) - polygon[i].radius;
+					}
+
+					if (event_isTouchingRightOfPlatform(POLYGON, i, j))
+					{
+						//Allow bounce on top
+						polygon[i].properties.xVelocity = polygon[i].properties.xVelocity * -1 *
+							polygon[i].properties.bouncePercentage + block[j].properties.xVelocity;
+
+						//Adjust the polygon on top of the platform.
+						polygon[i].centre.xPosition = block[j].centre.xPosition +
+							(block[j].dimensions.width / 2) + polygon[i].radius;
+					}
+					if (event_isTouchingLeftOfPlatform(POLYGON, i, j))
+					{
+						//Allow bounce below
+						polygon[i].properties.xVelocity = polygon[i].properties.xVelocity * -1 *
+							polygon[i].properties.bouncePercentage + block[j].properties.xVelocity;
+
+						polygon[i].centre.xPosition = block[j].centre.xPosition -
+							(block[j].dimensions.width / 2) - polygon[i].radius;
 					}
 				}
             }
