@@ -20,10 +20,10 @@ img
 	display: block;
 	margin: auto;
 	width: 80%;
-	border-radius: 32px;
+	border-radius: 4%;
 }
 
-h1, h2, p, .imgText
+h1, h2, p, .imgText, ul, table
 {
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
@@ -31,6 +31,11 @@ h1, h2, p, .imgText
 .imgText
 {
 	font-weight:bold;
+}
+
+ul
+{
+	text-align: left;
 }
 
 h1
@@ -43,11 +48,19 @@ h2
 	font-size:2.5vw;
 }
 
-p
+p, ul
 {
 	font-size: 2vw;
 	margin-left: 10%;
 	margin-right: 10%;
+}
+
+table
+{
+	font-size: 2vw;
+	display: block;
+	margin: auto;
+	width: 90%;
 }
 
 @media only screen and (max-width: 480px), only screen and (max-device-width: 480px) 

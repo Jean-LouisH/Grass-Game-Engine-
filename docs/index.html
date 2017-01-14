@@ -13,29 +13,32 @@
 
 		<p id="summary">The Suprannua Engine is a superannuated, 2D platformer game engine codebase.</br> Just For Fun.</p>
 		
-			
-		<a href="https://github.com/Jean-LouisH/SuprannuaEngine/releases"><img class="imgLink" src="Other Images/zip.png"></a><p class="imgText">Latest Release</p>
-		<p></p>
-		
-		<p>The highlight of the project is the engine folder, which is intended to be a reusable framework for compiling simple Windows games or easy to make visualisations for physics and algorithms. </p>
-		
 		<a href="Example Screenshots/Suprannua.png"><img src="Example Screenshots/Suprannua.png" alt="Suprannua"></a>
-
-		<p>All game objects within the engine are represented as either regular polygons, rectangular blocks or text, with one 2D camera. Every object is classified as either a background, platform, entity, or foreground to make a distinction between how they interact with each other. E.g. Polygon entities can jump on block platforms. The objects also have a range of other properties like colour, number of edges, angular displacement, elasticity, mass and velocity. The exception to this are text objects which are represented only as heads up displays to be pinned to the camera or as entities to be pinned to world map. All objects have positional data on the x and y axes. These positions are plotted against a user defined game world size in metres. </p>
+		
+		<h2>Introduction</h2>
+		<p>Suprannua is intended to be a reusable framework for compiling simple Windows games or easy to make visualisations for physics and algorithms.</p>
 
 		<p>As my first application based project, the hallmark and namesake of this engine is intended to be a superannuated design where the visuals are minimally done with legacy OpenGL, while the architecture is structured around a procedural runtime with the C programming language. For the sake of simplicity, audio and sprites are not supported in this project.</p>
-
-		<p class="imageTitle">Diagram of the Suprannua Engine Architecture.</p>
+		
+		<p>All game objects within the engine are represented as either regular polygons, rectangular blocks or text, with one 2D camera. Every object is classified as either a background, platform, entity, or foreground to make a distinction between how they interact with each other. E.g. Polygon entities can jump on block platforms. The objects also have a range of other properties like colour, number of edges, angular displacement, elasticity, mass and velocity. The exception to this are text objects which are represented only as heads up displays to be pinned to the camera or as entities to be pinned to world map. All objects have positional data on the x and y axes. These positions are plotted against a user defined game world size in metres. </p>
+		
+		<h2>Engine Architecture</h2>
 		<a href="Documentation/The Suprannua Engine Architecture Diagram.png"><img src="Documentation/The Suprannua Engine Architecture Diagram.png" alt="Suprannua Engine Architecture Diagram"></a>
+		<p class="imageTitle">The Suprannua Engine Architecture.</p>
 
 		<p>The engine starts with WinMain(), or alternatively main(), as the container for global variables, and as the entry point to the Freeglut API. When Freeglut is initialised, the engine loops indefinitely within the glutMainLoop. This is where the OpenGL context is established where a 16:9 aspect ratio window of 75% of the detected display width is created. Callbacks for window dimension restoration and centring are also found here, as well as the functions for assigning keyboard inputs to a buffer and calling Suprannua's engine kernel. Freeglut also maintains the timer of the game loop.</p>
 
 		<p>At intervals of 1/60th of a second, the engine kernel is called. It then uses timing calculations and frame counting to determine simulation and application runtime. In addition to that, it directly calls the user's game code to structure game objects accordingly and facilitate the input and game logic scripts. The Suprannua systems are used in the engine kernel for geometry transform updates, updating kernel stats for game testing, and for 2D rendering.</p>
 
 		<p>Generally in the game code, inputs can be assigned for how the engine interprets key presses. However, the ESC key is hard coded for Freeglut to call the exit() function with the parameter "EXIT_SUCCESS". This will close the application.</p>
-
-		<p class="imageTitle">Screenshot of the Suprannua Engine Standard Game Template</p>
+		
+		
+		<h2>Game/Simulation Development</h2>
 		<a href="Example Screenshots/The Suprannua Engine Standard Game Template.png"><img src="Example Screenshots/The Suprannua Engine Standard Game Template.png" alt="The Suprannua Engine Standard Game Template"></a>
+		<p class="imageTitle">The Suprannua Engine Standard Game Template</p>
+		<p></p>
+		<a href="Example Screenshots/Standard Game Template Code.png"><img src="Example Screenshots/Standard Game Template Code.png" alt="Standard Game Template Code"></a>
+		<p class="imageTitle">Game Template Code</p>
 
 		<p>Games or simulations are made by copying the standard game template global variables and functions; initGame(), runGame(), and readInput(). </p>
 
@@ -44,5 +47,80 @@
 		<p><b>RunGame()</b> is called for every frame unless the pause 'p' key is pressed. Within this function, all the game logic with system calls for Artificial Intelligence, Events, Physics, and Text updates are implemented. 2DCamera and Editor updates can even be made to introduce more changes to the object data structure and how the camera behaves.</p>
 
 		<p><b>ReadInput()</b> is called throughout the entire runtime of the engine as a script that mainly interprets the input buffer, but can also call system functions that might depend on the state of the input buffer (like decelerating the player when the user releases a key).</p>
+		
+		<p>Global variables included in the template are directly tied to the engine and define the name of the application, physical space, the rate of motion of game objects that you can control by default, camera scroll speed, gravity between objects and platforms and the gravitational constant between entities.</p>
+		
+		<p>The most useful functions for development include:</p>
+		
+		<table>
+			<tr>
+				<th>Function</th>
+				<th>Explanation</th>
+			</tr>
+			<tr>
+				<td class="function">camera_setViewportWidth(width)</td>
+				<td>Defines camera size in the world.</td>
+			</tr>
+			<tr>
+				<td class="function">camera_setTarget(x, y)</td>
+				<td>Selects a point to focus the camera.</td>
+			</tr>
+			<tr>
+				<td class="function">edit_createRectangle(type, x1, x2, y1, y2, colour)</td>
+				<td>Selects a point to focus the camera.</td>
+			</tr>
+			<tr>
+				<td class="function">edit_createPolygon(type, edges, radius, x, y, colour)</td>
+				<td>Defines camera size in the world.</td>
+			</tr>
+			<tr>
+				<td class="function">physics_gravitate(object, number, up or down)</td>
+				<td>Defines camera size in the world.</td>
+			</tr>
+			<tr>
+				<td class="function">physics_roll(object, number)</td>
+				<td>Defines camera size in the world.</td>
+			</tr>
+			<tr>
+				<td class="function">camera_follow(object, number, follow x?, follow y?)</td>
+				<td>Defines camera size in the world.</td>
+			</tr>
+			<tr>
+				<td class="function">edit_get(object, number, attribute)</td>
+				<td>Defines camera size in the world.</td>
+			</tr>
+			<tr>
+				<td class="function">edit_adjust(object, number, attribute, delta)</td>
+				<td>Defines camera size in the world.</td>
+			</tr>
+			<tr>
+				<td class="function">edit_change(object, number, attribute, value)</td>
+				<td>Defines camera size in the world.</td>
+			</tr>
+			<tr>
+				<td class="function">edit_move(object, number, x, y)</td>
+				<td>Defines camera size in the world.</td>
+			</tr>
+			<tr>
+				<td class="function">edit_remove(object, number)</td>
+				<td>Defines camera size in the world.</td>
+			</tr>
+			<tr>
+				<td class="function">edit_move(object, number, x, y)</td>
+				<td>Defines camera size in the world.</td>
+			</tr>
+			<tr>
+				<td class="function">text_set(type, x, y, text content, colour)</td>
+				<td>Defines camera size in the world.</td>
+			</tr>
+		</table>
+		
+		<p>There are other functions within their respective categories, as well as "Event" functions that extends the functionality of the application to events such as triggering responses to timing, positioning of an object (on a platform, in a hole, past a checkpoint, or near another object).</p>
+		
+		<p>To make a new application, the standard template file "Game.c" can be editted or even renamed to develop new environments beyond the grassland that is shown by default. The key to Suprannua's compilation is to have the initGame(), runGame() and readInput() functions and the global variables available. After the changes are made, compile the file included with the "Suprannua Engine" folder. Be sure to have the Freeglut dependency supported (refer to the readme found <a href="https://github.com/Jean-LouisH/SuprannuaEngine/tree/master/Dependencies/freeglut">here</a>)</p>
+		
+		<h2>Download Suprannua Engine</h2>
+		<a href="https://github.com/Jean-LouisH/SuprannuaEngine/releases"><img class="imgLink" src="Other Images/zip.png"></a><p class="imgText">Latest Release</p>
+		<p></p>
 	</body>
 </html>
