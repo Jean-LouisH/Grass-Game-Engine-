@@ -53,6 +53,9 @@ void edit_adjust(	unsigned char object,
 						if (object == BLOCK)
 							block[objectNumber].properties.yVelocity += amount / FRAME_RATE;
 		break;
+		case RADIUS:	if (object == POLYGON)
+							polygon[objectNumber].radius += amount / FRAME_RATE;
+		break;
 	}
 }
 
@@ -92,6 +95,13 @@ void edit_change(	unsigned char object,
 						if (object == BLOCK)
 							block[objectNumber].properties.yVelocity = amount;
 		break;
+		case RADIUS:	if (object == POLYGON)
+							polygon[objectNumber].radius = amount;
+		break;
+		case TYPE: if (object == POLYGON)
+						polygon[objectNumber].properties.classification = amount;
+					if (object == BLOCK)
+						block[objectNumber].properties.classification = amount;
 	}
 }
 
@@ -372,9 +382,10 @@ void edit_createPolygon(unsigned char type,
 
 	switch (type)
 	{
-		case PLATFORM:      polygon[i].properties.classification = PLATFORM;      break;
-		case ENTITY:        polygon[i].properties.classification = ENTITY;        break;
-		case FOREGROUND:    polygon[i].properties.classification = FOREGROUND;    break;
+		case PLATFORM:      polygon[i].properties.classification = PLATFORM;	break;
+		case ENTITY:        polygon[i].properties.classification = ENTITY;		break;
+		case AIRBOURNE:		polygon[i].properties.classification = AIRBOURNE;	break;
+		case FOREGROUND:    polygon[i].properties.classification = FOREGROUND;	break;
 		case BACKGROUND:
 		default:            polygon[i].properties.classification = BACKGROUND;
 	}
@@ -422,6 +433,7 @@ void edit_createRectangle(	unsigned char type,
 	{
 		case PLATFORM:      block[i].properties.classification = PLATFORM;      break;
 		case ENTITY:        block[i].properties.classification = ENTITY;        break;
+		case AIRBOURNE:        block[i].properties.classification = AIRBOURNE;	break;
 		case FOREGROUND:    block[i].properties.classification = FOREGROUND;    break;
 		case BACKGROUND:
 		default:            block[i].properties.classification = BACKGROUND;
@@ -458,6 +470,7 @@ void edit_createSquare(	unsigned char type,
 	{
 		case PLATFORM:      block[i].properties.classification = PLATFORM;      break;
 		case ENTITY:        block[i].properties.classification = ENTITY;        break;
+		case AIRBOURNE:		block[i].properties.classification = AIRBOURNE;		break;
 		case FOREGROUND:    block[i].properties.classification = FOREGROUND;    break;
 		case BACKGROUND:
 		default:            block[i].properties.classification = BACKGROUND;
