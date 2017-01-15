@@ -74,6 +74,14 @@ bool event_isOnPlatform(unsigned char object,
 		return false;
 }
 
+bool event_isOnceEvery(double interval)
+{
+	if (frameCount % (int)(FRAME_RATE * interval) == 0)
+		return true;
+	else
+		return false;
+}
+
 bool event_isPolygonAirboune(	unsigned char object,
 								int objectNumber)
 {

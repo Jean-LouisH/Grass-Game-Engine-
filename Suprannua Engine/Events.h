@@ -17,6 +17,8 @@ bool event_isOnPlatform(unsigned char object,
 						int objectNumber,
 						int platformNumber);
 
+bool event_isOnceEvery(double interval);
+
 bool event_isPolygonAirboune(	unsigned char object,
 								int objectNumber);
 
