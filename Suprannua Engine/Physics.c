@@ -7,7 +7,7 @@ void physics_detectPlatformCollision()
 
     for(i = 0; i <= storedPolygons; i++)
     {
-        if(polygon[i].properties.classification == ENTITY)
+        if(polygon[i].properties.classification == ENTITY || polygon[i].properties.classification == AIRBOURNE)
         {
             for(j = 0; j <= storedBlocks; j++)
             {
@@ -145,7 +145,7 @@ void physics_detectPolygonCollision()
 
 		for (j = 0; j <= storedPolygons; j++)
 		{
-			if (j != i && polygon[j].properties.classification == ENTITY)
+			if (j != i && (polygon[j].properties.classification == ENTITY || polygon[j].properties.classification == AIRBOURNE))
 			{
 				centreDistance = geometry_findDistance(POLYGON, i, POLYGON, j);
 				combinedRadius = polygon[i].radius + polygon[j].radius;
@@ -254,19 +254,36 @@ void physics_limitBoundary()
 	}
 }
 
-void physics_resistRolling(unsigned char object, int objectNumber, double deceleration)
+void physics_resistMovement(unsigned char object, int objectNumber, bool direction, double deceleration)
 {
-	if (polygon[objectNumber].properties.xVelocity > 0)
+	switch(direction)
 	{
-		edit_adjust(POLYGON, objectNumber, XVELOCITY, (-1 * deceleration));
-		if (polygon[objectNumber].properties.xVelocity < 0)
-			polygon[objectNumber].properties.xVelocity = 0;
-	}
-	else if (polygon[objectNumber].properties.xVelocity < 0)
-	{
-		edit_adjust(POLYGON, objectNumber, XVELOCITY, (deceleration));
-		if (polygon[objectNumber].properties.xVelocity > 0)
-			polygon[objectNumber].properties.xVelocity = 0;
+		case UP_DOWN:		if (polygon[objectNumber].properties.yVelocity > 0)
+							{
+								edit_adjust(POLYGON, objectNumber, YVELOCITY, (-1 * deceleration));
+								if (polygon[objectNumber].properties.yVelocity < 0)
+									polygon[objectNumber].properties.yVelocity = 0;
+							}
+							else if (polygon[objectNumber].properties.yVelocity < 0)
+							{
+								edit_adjust(POLYGON, objectNumber, YVELOCITY, (deceleration));
+								if (polygon[objectNumber].properties.yVelocity > 0)
+									polygon[objectNumber].properties.yVelocity = 0;
+							}
+		break;
+		case LEFT_RIGHT:	if (polygon[objectNumber].properties.xVelocity > 0)
+							{
+								edit_adjust(POLYGON, objectNumber, XVELOCITY, (-1 * deceleration));
+								if (polygon[objectNumber].properties.xVelocity < 0)
+									polygon[objectNumber].properties.xVelocity = 0;
+							}
+							else if (polygon[objectNumber].properties.xVelocity < 0)
+							{
+								edit_adjust(POLYGON, objectNumber, XVELOCITY, (deceleration));
+								if (polygon[objectNumber].properties.xVelocity > 0)
+									polygon[objectNumber].properties.xVelocity = 0;
+							}
+		break;
 	}
 }
 

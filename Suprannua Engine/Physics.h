@@ -21,5 +21,5 @@ void physics_gravitate(	unsigned char object,
 						bool direction);					//Causes an object to fall or rise.
 
 void physics_limitBoundary();								//Prevents objects from escaping map dimensions.
-void physics_resistRolling(unsigned char object, int objectNumber, double deceleration);
+void physics_resistMovement(unsigned char object, int objectNumber, bool direction, double deceleration);
 void physics_roll(unsigned char object, int objectNumber);	//Rotates regular polygons based on velocity and circumference.
