@@ -44,7 +44,7 @@ void readInput()
 	if (gameState == GAMEPLAY)
 	{
 		text_update(5, "");
-		physics_resistRolling(POLYGON, 0, dpadSensitivity * 2);
+		physics_resistMovement(POLYGON, 0, LEFT_RIGHT, dpadSensitivity * 2);
 
 		if (input_isPressed('w'))
 		{
