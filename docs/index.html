@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<h1>Suprannua Engine</h1>
-		<h2>Written by Jean-Louis Haywood</h2>
+		<h2>Developed by Jean-Louis Haywood</h2>
 		<a href="https://github.com/Jean-LouisH/SuprannuaEngine"><img class="imgLink" src="Other Images/GitHub-Mark.png"></a><p class="imgText">GitHub Repository</p>
 
 		<p id="summary">The Suprannua Engine is a superannuated, 2D platformer game engine codebase.</br> Just For Fun.</p>
@@ -59,7 +59,7 @@
 			</tr>
 			<tr>
 				<td class="function">camera_setViewportWidth(width)</td>
-				<td>Defines camera size in the world.</td>
+				<td>Defines camera width in the world.</td>
 			</tr>
 			<tr>
 				<td class="function">camera_setTarget(x, y)</td>
@@ -67,51 +67,55 @@
 			</tr>
 			<tr>
 				<td class="function">edit_createRectangle(type, x1, x2, y1, y2, colour)</td>
-				<td>Selects a point to focus the camera.</td>
+				<td>Creates a block by plotting points to world.</td>
 			</tr>
 			<tr>
 				<td class="function">edit_createPolygon(type, edges, radius, x, y, colour)</td>
-				<td>Defines camera size in the world.</td>
+				<td>Creates polygons.</td>
 			</tr>
 			<tr>
 				<td class="function">physics_gravitate(object, number, up or down)</td>
-				<td>Defines camera size in the world.</td>
+				<td>Makes all entities rise or fall.</td>
 			</tr>
 			<tr>
 				<td class="function">physics_roll(object, number)</td>
-				<td>Defines camera size in the world.</td>
+				<td>Makes polygons roll as they move horizontally.</td>
 			</tr>
 			<tr>
-				<td class="function">camera_follow(object, number, follow x?, follow y?)</td>
-				<td>Defines camera size in the world.</td>
+				<td class="function">camera_follow(object, number, x?, y?)</td>
+				<td>Makes the camera follow an object by either x or y axes or both.</td>
 			</tr>
 			<tr>
 				<td class="function">edit_get(object, number, attribute)</td>
-				<td>Defines camera size in the world.</td>
+				<td>Queries for specific numerical data from any game object including the camera(extremely useful).</td>
 			</tr>
 			<tr>
 				<td class="function">edit_adjust(object, number, attribute, delta)</td>
-				<td>Defines camera size in the world.</td>
+				<td>Increments or decrements a value according to unit seconds.</td>
 			</tr>
 			<tr>
 				<td class="function">edit_change(object, number, attribute, value)</td>
-				<td>Defines camera size in the world.</td>
+				<td>Changes a value.</td>
 			</tr>
 			<tr>
 				<td class="function">edit_move(object, number, x, y)</td>
-				<td>Defines camera size in the world.</td>
+				<td>Reposition game objects.</td>
 			</tr>
 			<tr>
 				<td class="function">edit_remove(object, number)</td>
-				<td>Defines camera size in the world.</td>
-			</tr>
-			<tr>
-				<td class="function">edit_move(object, number, x, y)</td>
-				<td>Defines camera size in the world.</td>
+				<td>Clears objects from memory.</td>
 			</tr>
 			<tr>
 				<td class="function">text_set(type, x, y, text content, colour)</td>
-				<td>Defines camera size in the world.</td>
+				<td>Creates a text box for the heads up display or world map.</td>
+			</tr>
+			<tr>
+				<td class="function">text_data(number, text content)</td>
+				<td>Adds numerical data to an existing text box (extremely useful for scores, and with edit_get() for algorithms and simulations).</td>
+			</tr>
+			<tr>
+				<td class="function">text_update(number, text content)</td>
+				<td>Changes or refreshes an existing text box.</td>
 			</tr>
 		</table>
 		
@@ -120,7 +124,10 @@
 		<p>To make a new application, the standard template file "Game.c" can be editted or even renamed to develop new environments beyond the grassland that is shown by default. The key to Suprannua's compilation is to have the initGame(), runGame() and readInput() functions and the global variables available. After the changes are made, compile the file included with the "Suprannua Engine" folder. Be sure to have the Freeglut dependency supported (refer to the readme found <a href="https://github.com/Jean-LouisH/SuprannuaEngine/tree/master/Dependencies/freeglut">here</a>)</p>
 		
 		<h2>Download Suprannua Engine</h2>
-		<a href="https://github.com/Jean-LouisH/SuprannuaEngine/archive/v0.12.0-alpha.zip"><img class="imgLink" src="Other Images/zip.png"></a><p class="imgText">Latest Release</p>
+		<a href="https://github.com/Jean-LouisH/SuprannuaEngine/archive/v0.13.0-alpha.zip"><img class="imgLink" src="Other Images/zip.png"></a><p class="imgText">Latest Engine Release</p>
+		<p></p>
+		
+		<a href="https://github.com/Jean-LouisH/SuprannuaEngine/releases/download/v0.13.0-alpha/Game.Samples.zip"><img class="imgLink" src="Other Images/zip.png"></a><p class="imgText">Game Samples Only</p>
 		<p></p>
 	</body>
 </html>
