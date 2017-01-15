@@ -30,7 +30,7 @@ void render_displayStoredBlocks()
 			render_drawBlock(i);
 
 	for (i = 0; i <= storedBlocks; i++)
-		if (block[i].properties.classification == ENTITY)
+		if (block[i].properties.classification == ENTITY || block[i].properties.classification == AIRBOURNE)
 			render_drawBlock(i);
 
 	for (i = 0; i <= storedBlocks; i++)
@@ -51,7 +51,7 @@ void render_displayStoredPolygons()
             render_drawPolygon(i);
 
 	for (i = 0; i <= storedPolygons; i++)
-        if(polygon[i].properties.classification == ENTITY)
+        if(polygon[i].properties.classification == ENTITY || polygon[i].properties.classification == AIRBOURNE)
             render_drawPolygon(i);
 
     for (i = 0; i <= storedPolygons; i++)

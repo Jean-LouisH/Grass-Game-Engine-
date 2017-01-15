@@ -34,7 +34,7 @@
 /*Define framework constants*/
 
 #define SOFTWARE                "Suprannua Engine"
-#define VERSION                 " 0.12.0 "
+#define VERSION                 " 0.13.0 "
 
 #define PI                      3.1415926535897932384626433832795
 #define FULL                    255 //Colour level
@@ -60,7 +60,7 @@ enum objectName
 };
 enum objectType
 {
-    NOTHING, BACKGROUND, FOREGROUND, HUD, ENTITY, PLATFORM
+    NOTHING, BACKGROUND, FOREGROUND, HUD, ENTITY, AIRBOURNE, PLATFORM
 };
 enum attributes
 {
