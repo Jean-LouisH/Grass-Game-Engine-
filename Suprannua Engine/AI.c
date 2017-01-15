@@ -2,17 +2,60 @@
 
 void AI_avoid(unsigned char agent, int agentNumber, unsigned char object, int objectNumber)
 {
+	double positionAngle;
 
+	positionAngle = atan2(polygon[objectNumber].centre.yPosition - polygon[agentNumber].centre.yPosition,
+		polygon[objectNumber].centre.xPosition - polygon[agentNumber].centre.xPosition);
+
+	polygon[agentNumber].properties.xVelocity = -1 * dpadSensitivity * cos(positionAngle);
+	if (polygon[agentNumber].properties.classification == AIRBOURNE)
+		polygon[agentNumber].properties.yVelocity = dpadSensitivity * sin(positionAngle);
+	else if(event_isPolygonHigher(agentNumber, objectNumber))
+		AI_jump(POLYGON, agentNumber, 40);
 }
 
-void AI_catch(unsigned char agent, int agentNumber, unsigned char object, int objectNumber)
+void AI_catch(unsigned char agent, int agentNumber, unsigned char object, int objectNumber, bool followX, bool followY)
 {
+	double positionAngle;
 
+	positionAngle = atan2(polygon[objectNumber].centre.yPosition - polygon[agentNumber].centre.yPosition,
+		polygon[objectNumber].centre.xPosition - polygon[agentNumber].centre.xPosition);
+
+	if (followY)
+	{
+		if ((event_hasPolygonPastXLocation(agentNumber, polygon[objectNumber].centre.xPosition) &&
+			polygon[objectNumber].properties.xVelocity < 0) ||
+			(!event_hasPolygonPastXLocation(agentNumber, polygon[objectNumber].centre.xPosition) &&
+				polygon[objectNumber].properties.xVelocity > 0))
+		{
+			polygon[agentNumber].properties.yVelocity = dpadSensitivity * sin(positionAngle);
+		}
+	}
+
+	if (followX)
+	{
+		if ((event_hasPolygonPastXLocation(agentNumber, polygon[objectNumber].centre.xPosition) &&
+			polygon[objectNumber].properties.xVelocity < 0) ||
+			(!event_hasPolygonPastXLocation(agentNumber, polygon[objectNumber].centre.xPosition) &&
+				polygon[objectNumber].properties.xVelocity > 0))
+		{
+			polygon[agentNumber].properties.yVelocity = dpadSensitivity * sin(positionAngle);
+		}
+	}
 }
 
 void AI_follow(unsigned char agent, int agentNumber, unsigned char object, int objectNumber)
 {
+	double positionAngle;
 
+	positionAngle = atan2(polygon[objectNumber].centre.yPosition - polygon[agentNumber].centre.yPosition,
+		polygon[objectNumber].centre.xPosition - polygon[agentNumber].centre.xPosition);
+
+	polygon[agentNumber].properties.xVelocity = dpadSensitivity * cos(positionAngle);
+	if (polygon[agentNumber].properties.classification == AIRBOURNE)
+		polygon[agentNumber].properties.yVelocity = dpadSensitivity * sin(positionAngle);
+	else if (!event_isPolygonHigher(agentNumber, objectNumber))
+		AI_jump(POLYGON, agentNumber, 40);
 }
 
 void AI_jump(unsigned char agent, int agentNumber, double jumpVelocity)
@@ -54,7 +97,16 @@ void AI_mimic(unsigned char agent, int agentNumber, unsigned char object, int ob
 
 void AI_shoot(unsigned char agent, int agentNumber, unsigned char object, int objectNumber)
 {
+	double positionAngle;
 
+	positionAngle = atan2(polygon[objectNumber].centre.yPosition - polygon[agentNumber].centre.yPosition,
+		polygon[objectNumber].centre.xPosition - polygon[agentNumber].centre.xPosition);
+
+	edit_createPolygon(	AIRBOURNE, 12, 0.5, polygon[agentNumber].centre.xPosition + polygon[agentNumber].radius + 0.001,
+						polygon[agentNumber].centre.yPosition, WHITE);
+
+	polygon[storedPolygons].properties.xVelocity = dpadSensitivity * cos(positionAngle);
+	polygon[storedPolygons].properties.yVelocity = dpadSensitivity * sin(positionAngle);
 }
 
 void AI_signal(unsigned char message)
@@ -81,5 +133,14 @@ void AI_spin(unsigned char agent, int agentNumber, bool direction, double amount
 
 void AI_travel(unsigned char agent, int agentNumber, double toXPosition, double toYPosition, double Velocity)
 {
+	double positionAngle;
 
+	positionAngle = atan2(toYPosition - polygon[agentNumber].centre.yPosition,
+		toXPosition - polygon[agentNumber].centre.xPosition);
+
+	polygon[agentNumber].properties.xVelocity = dpadSensitivity * cos(positionAngle);
+	if (polygon[agentNumber].properties.classification == AIRBOURNE)
+		polygon[agentNumber].properties.yVelocity = dpadSensitivity * sin(positionAngle);
+	else if (polygon[agentNumber].centre.yPosition < toYPosition)
+		AI_jump(POLYGON, agentNumber, 40);
 }
