@@ -25,6 +25,9 @@ void render_displayStoredBlocks()
 		if (block[i].properties.classification == BACKGROUND)
 			render_drawBlock(i);
 
+	if (isGridEnabled)
+		render_drawGrid();
+
 	for (i = 0; i <= storedBlocks; i++)
 		if (block[i].properties.classification == PLATFORM)
 			render_drawBlock(i);
