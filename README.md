@@ -1,8 +1,9 @@
 # Suprannua Engine
 
+![ScreenShot](docs/Example Screenshots/Suprannua.png)
+
 The Suprannua Engine is a superannuated, 2D platformer game engine codebase. Just For Fun. 
 
-![ScreenShot](docs/Example Screenshots/Suprannua.png)
 
 The highlight of the project is the engine folder, which is intended to be a reusable framework for compiling simple Windows games or easy to make visualisations for physics and algorithms. 
 

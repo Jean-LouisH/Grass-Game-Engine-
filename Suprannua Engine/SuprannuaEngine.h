@@ -17,6 +17,9 @@
 #include <stdbool.h>
 #include <time.h>
 #include <math.h>
+#include <Windows.h>
+
+#include "resource.h"
 
 #include "2DCamera.h"
 #include "2DRenderer.h"

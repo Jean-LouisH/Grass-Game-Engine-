@@ -10,7 +10,7 @@
 
 /*Global variables*/
 
-char gameTitle[64]			= SOFTWARE " Standard Game Template.";
+char gameTitle[64]			= SOFTWARE " Standard Game Template";
 Rect worldSizeMetres		= { 50,29 }; // m
 double dpadSensitivity		= 10.0; // m/s
 double cameraScrollSpeed	= 50.0; // m/s

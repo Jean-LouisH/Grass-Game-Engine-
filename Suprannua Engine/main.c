@@ -8,7 +8,7 @@
  */
 
 #include "SuprannuaEngine.h"
-#include <Windows.h>
+
 
 int frameCount                          = 0;
 double timeCount;
@@ -62,7 +62,7 @@ unsigned char magenta[3]				= {255,0,228};
     return 0;
 }*/
 
-int WinMain(HINSTANCE hInstance,
+int WINAPI WinMain(HINSTANCE hInstance,
 	HINSTANCE hPrevInstance,
 	LPTSTR lpCmdLine,
 	int cmdShow) //Win32 GUI based Application.

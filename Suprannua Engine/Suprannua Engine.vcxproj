@@ -121,6 +121,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="EngineKernel.h" />
     <ClInclude Include="Physics.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SuprannuaEngine.h" />
     <ClInclude Include="Text.h" />
   </ItemGroup>
@@ -138,6 +139,12 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="Physics.c" />
     <ClCompile Include="Text.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Suprannua Engine.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Assets\Suprannua logo.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
