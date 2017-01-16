@@ -55,7 +55,7 @@ enum colourPalette
 {
     RED, GREEN, BLUE, ALPHA, BLACK, WHITE, ORANGE, YELLOW,
     VIOLET, PURPLE, BROWN, SKY_BLUE, GOLD, SEA_GREEN,
-    PINK, GREY, DARK_RED, DARK_GREEN, DARK_BLUE, DARK_BROWN, MAGENTA
+    PINK, GREY, DARK_RED, DARK_GREEN, DARK_BLUE, DARK_BROWN, MAGENTA, DARK_GREY
 };
 enum objectName
 {
@@ -208,5 +208,6 @@ extern unsigned char darkGreen[3];
 extern unsigned char darkBlue[3];
 extern unsigned char darkBrown[3];
 extern unsigned char magenta[3];
+extern unsigned char darkGrey[3];
 
 #endif

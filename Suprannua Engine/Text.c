@@ -116,6 +116,11 @@ void text_colour(int textCell, unsigned char colour)
 							textCache[textCell].colour[BLUE] = magenta[BLUE];
 							textCache[textCell].colour[ALPHA] = FULL;
 		break;
+		case DARK_GREY:		textCache[textCell].colour[RED] = darkGrey[RED];
+							textCache[textCell].colour[GREEN] = darkGrey[GREEN];
+							textCache[textCell].colour[BLUE] = darkGrey[BLUE];
+							textCache[textCell].colour[ALPHA] = FULL;
+		break;
 		default:    textCache[textCell].colour[RED] = FULL;
 					textCache[textCell].colour[GREEN] = FULL;
 					textCache[textCell].colour[BLUE] = FULL;

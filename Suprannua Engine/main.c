@@ -54,6 +54,7 @@ unsigned char darkGreen[3]				= {0,128,0};
 unsigned char darkBlue[3]				= {0,0,128};
 unsigned char darkBrown[3]				= {80,40,0};
 unsigned char magenta[3]				= {255,0,228};
+unsigned char darkGrey[3]				= {32,32,32};
 
 
 /*int main(int argc, char **argv)
