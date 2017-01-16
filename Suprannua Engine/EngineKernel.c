@@ -42,9 +42,6 @@ void runSuprannuaKernel()
     render_displayStoredBlocks();
     render_displayStoredPolygons();
 
-	if(isGridEnabled)
-		render_drawGrid();
-
     render_displayText();
 
     glutSwapBuffers(); //freeglut buffer swap for animation.
