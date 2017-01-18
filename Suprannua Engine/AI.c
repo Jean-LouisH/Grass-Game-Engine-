@@ -102,8 +102,7 @@ void AI_shoot(unsigned char agent, int agentNumber, unsigned char object, int ob
 	positionAngle = atan2(polygon[objectNumber].centre.yPosition - polygon[agentNumber].centre.yPosition,
 		polygon[objectNumber].centre.xPosition - polygon[agentNumber].centre.xPosition);
 
-	edit_createPolygon(	AIRBOURNE, 12, 0.5, polygon[agentNumber].centre.xPosition + polygon[agentNumber].radius + 0.001,
-						polygon[agentNumber].centre.yPosition, WHITE);
+	edit_createPolygon(	AIRBOURNE, 12, 0.5, polygon[agentNumber].centre.xPosition + polygon[agentNumber].radius, polygon[agentNumber].centre.yPosition + polygon[agentNumber].radius + 1.0, WHITE);
 
 	polygon[storedPolygons].properties.xVelocity = dpadSensitivity * cos(positionAngle);
 	polygon[storedPolygons].properties.yVelocity = dpadSensitivity * sin(positionAngle);
