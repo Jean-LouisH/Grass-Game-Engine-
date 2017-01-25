@@ -1,17 +1,20 @@
 #include "SuprannuaEngine.h"
 
-void AI_avoid(unsigned char agent, int agentNumber, unsigned char object, int objectNumber)
+void AI_avoid(unsigned char agent, int agentNumber, unsigned char object, int objectNumber, double range)
 {
 	double positionAngle;
 
 	positionAngle = atan2(polygon[objectNumber].centre.yPosition - polygon[agentNumber].centre.yPosition,
 		polygon[objectNumber].centre.xPosition - polygon[agentNumber].centre.xPosition);
 
-	polygon[agentNumber].properties.xVelocity = -1 * dpadSensitivity * cos(positionAngle);
-	if (polygon[agentNumber].properties.classification == AIRBOURNE)
-		polygon[agentNumber].properties.yVelocity = dpadSensitivity * sin(positionAngle);
-	else if(event_isPolygonHigher(agentNumber, objectNumber))
-		AI_jump(POLYGON, agentNumber, 40);
+	if (geometry_findDistance(agent, agentNumber, object, objectNumber) < range)
+	{
+		polygon[agentNumber].properties.xVelocity = -1 * dpadSensitivity * cos(positionAngle);
+		if (polygon[agentNumber].properties.classification == AIRBOURNE)
+			polygon[agentNumber].properties.yVelocity = -1 * dpadSensitivity * sin(positionAngle);
+		else if (event_isPolygonHigher(agentNumber, objectNumber))
+			AI_jump(POLYGON, agentNumber, 10.0);
+	}
 }
 
 void AI_catch(unsigned char agent, int agentNumber, unsigned char object, int objectNumber, bool followX, bool followY)
@@ -44,18 +47,33 @@ void AI_catch(unsigned char agent, int agentNumber, unsigned char object, int ob
 	}
 }
 
-void AI_follow(unsigned char agent, int agentNumber, unsigned char object, int objectNumber)
+void AI_fly(unsigned char agent, int agentNumber, double height)
+{
+	if (edit_get(agent, agentNumber, TYPE) == AIRBOURNE)
+	{
+		if (polygon[agentNumber].centre.yPosition < height - 0.5)
+			edit_adjust(POLYGON, agentNumber, YVELOCITY, (dpadSensitivity * 2));
+		else if (polygon[agentNumber].centre.yPosition > height + 0.5)
+			edit_adjust(POLYGON, agentNumber, YVELOCITY, (-1 * polygon[agentNumber].properties.yVelocity));
+	}
+}
+
+void AI_follow(unsigned char agent, int agentNumber, unsigned char object, int objectNumber, double detectionRange, double targetRange)
 {
 	double positionAngle;
 
 	positionAngle = atan2(polygon[objectNumber].centre.yPosition - polygon[agentNumber].centre.yPosition,
 		polygon[objectNumber].centre.xPosition - polygon[agentNumber].centre.xPosition);
 
-	polygon[agentNumber].properties.xVelocity = dpadSensitivity * cos(positionAngle);
-	if (polygon[agentNumber].properties.classification == AIRBOURNE)
-		polygon[agentNumber].properties.yVelocity = dpadSensitivity * sin(positionAngle);
-	else if (!event_isPolygonHigher(agentNumber, objectNumber))
-		AI_jump(POLYGON, agentNumber, 40);
+	if (geometry_findDistance(agent, agentNumber, object, objectNumber) < detectionRange && 
+		(geometry_findDistance(agent, agentNumber, object, objectNumber) > targetRange))
+	{
+		polygon[agentNumber].properties.xVelocity = dpadSensitivity * cos(positionAngle);
+		if (polygon[agentNumber].properties.classification == AIRBOURNE)
+			polygon[agentNumber].properties.yVelocity = dpadSensitivity * sin(positionAngle);
+		else if (!event_isPolygonHigher(agentNumber, objectNumber))
+			AI_jump(POLYGON, agentNumber, 40);
+	}
 }
 
 void AI_jump(unsigned char agent, int agentNumber, double jumpVelocity)
