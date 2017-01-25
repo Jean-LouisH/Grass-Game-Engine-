@@ -209,6 +209,11 @@ void edit_colourBlock(int objectNumber, unsigned char colour)
 							block[objectNumber].properties.colour[BLUE] = magenta[BLUE];
 							block[objectNumber].properties.colour[ALPHA] = FULL;
 		break;
+		case DARK_GREY:		block[objectNumber].properties.colour[RED] = darkGrey[RED];
+							block[objectNumber].properties.colour[GREEN] = darkGrey[GREEN];
+							block[objectNumber].properties.colour[BLUE] = darkGrey[BLUE];
+							block[objectNumber].properties.colour[ALPHA] = FULL;
+		break;
 		default:    block[objectNumber].properties.colour[RED] = FULL;
 					block[objectNumber].properties.colour[GREEN] = FULL;
 					block[objectNumber].properties.colour[BLUE] = FULL;
@@ -344,6 +349,10 @@ void edit_colourPolygon(int objectNumber, unsigned char colour)
 		case MAGENTA:		polygon[objectNumber].properties.colour[RED] = magenta[RED];
 							polygon[objectNumber].properties.colour[GREEN] = magenta[GREEN];
 							polygon[objectNumber].properties.colour[BLUE] = magenta[BLUE];
+							polygon[objectNumber].properties.colour[ALPHA] = FULL;
+		case DARK_GREY:		polygon[objectNumber].properties.colour[RED] = darkGrey[RED];
+							polygon[objectNumber].properties.colour[GREEN] = darkGrey[GREEN];
+							polygon[objectNumber].properties.colour[BLUE] = darkGrey[BLUE];
 							polygon[objectNumber].properties.colour[ALPHA] = FULL;
 		break;
 		default:    polygon[objectNumber].properties.colour[RED] = FULL;
@@ -517,6 +526,7 @@ double edit_get(unsigned char object, int objectNumber, unsigned char attribute)
 						case XPOSITION: return polygon[objectNumber].centre.xPosition;              break;
 						case YPOSITION: return polygon[objectNumber].centre.yPosition;              break;
 						case RADIUS:    return polygon[objectNumber].radius;                        break;
+						case TYPE:		return polygon[objectNumber].properties.classification;		break;
 		}
 		break;
 		case BLOCK:		switch (attribute)
@@ -530,6 +540,7 @@ double edit_get(unsigned char object, int objectNumber, unsigned char attribute)
 						case YPOSITION: return block[objectNumber].centre.yPosition;                break;
 						case WIDTH:     return block[objectNumber].dimensions.width;                break;
 						case HEIGHT:    return block[objectNumber].dimensions.height;               break;
+						case TYPE:		return block[objectNumber].properties.classification;		break;
 		}
 		break;
 		case GAME:		switch (attribute)
