@@ -1,4 +1,4 @@
-#include "Suprannua Engine\SuprannuaEngine.h" 
+#include "../../Suprannua Engine/SuprannuaEngine.h" 
 
 /*Custom code for Initialisation, Scripting and Controls*/
 
@@ -31,7 +31,7 @@ void initGame()
 	srand(time(NULL));
 	edit_change(POLYGON, 0, BOUNCE, 1.0);
 	edit_change(POLYGON, 0, XVELOCITY, (((rand() % 2) * 2) - 1) * BALL_SPEED);
-	edit_change(POLYGON, 0, YVELOCITY, BALL_SPEED);
+	edit_change(POLYGON, 0, YVELOCITY, rand() % BALL_SPEED + (BALL_SPEED / 2));
 
 	/*Text interface*/
 	text_set(ENTITY, 10, edit_get(GAME, 0, HEIGHT) - 5, "", WHITE);
@@ -74,6 +74,8 @@ void runGame()
 	text_update(3, "AI");
 	text_data(3, AIWins);
 
+	srand(time(NULL));
+
 	/*Moves text with players*/
 	text_move(2, edit_get(BLOCK, 1, XPOSITION) - 5, edit_get(BLOCK, 1, YPOSITION));
 	text_move(3, edit_get(BLOCK, 2, XPOSITION) + 1, edit_get(BLOCK, 2, YPOSITION));
@@ -96,13 +98,13 @@ void runGame()
 		AIWins++;
 		edit_move(POLYGON, 0, edit_get(GAME, 0, XCENTRE), edit_get(GAME, 0, YCENTRE));
 		edit_change(POLYGON, 0, XVELOCITY, (((rand() % 2) * 2) - 1) * BALL_SPEED);
-		edit_change(POLYGON, 0, YVELOCITY, BALL_SPEED);
+		edit_change(POLYGON, 0, YVELOCITY, rand() % BALL_SPEED + (BALL_SPEED / 2));
 	}
 	else if (polygon[0].centre.xPosition > block[2].centre.xPosition + (block[2].dimensions.width * 2))
 	{
 		playerWins++;
 		edit_move(POLYGON, 0, edit_get(GAME, 0, XCENTRE), edit_get(GAME, 0, YCENTRE));
 		edit_change(POLYGON, 0, XVELOCITY, (((rand() % 2) * 2) - 1) * BALL_SPEED);
-		edit_change(POLYGON, 0, YVELOCITY, BALL_SPEED);
+		edit_change(POLYGON, 0, YVELOCITY, rand() % BALL_SPEED + (BALL_SPEED / 2));
 	}
 }

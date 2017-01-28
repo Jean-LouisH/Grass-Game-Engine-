@@ -1,4 +1,4 @@
-#include "Suprannua Engine\SuprannuaEngine.h" 
+#include "../../Suprannua Engine/SuprannuaEngine.h" 
 
 /*Made with Suprannua 0.12.0 higher versions are probably incompatible with this code as is.*/
 /*The aim is to collect as many smaller polygons until you burst to gain win points. If you are
@@ -160,6 +160,7 @@ void runGame()
 	text_update(4, "LOSSES");
 	text_data(4, losses);
 
+	
 	/*AI following the nearest smaller polygon.*/
 	for (i = 1; i <= storedPolygons; i++)
 	{
