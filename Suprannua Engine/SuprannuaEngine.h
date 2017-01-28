@@ -1,15 +1,14 @@
-#ifndef SUPRANNUAENGINE_H
-#define SUPRANNUAENGINE_H
-
-#define _CRT_SECURE_NO_WARNINGS
-
 /**
- * Suprannua.h
+ * SuprannuaEngine
  *
  * Author: Jean-Louis Haywood
  *
  * Contains all external references, global variables, structs and enums relevant to all parts of the game engine.
  */
+
+#pragma once
+
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <GL/freeglut.h>
 #include <stdio.h>
@@ -18,7 +17,6 @@
 #include <time.h>
 #include <math.h>
 #include <Windows.h>
-
 #include "resource.h"
 
 #include "2DCamera.h"
@@ -34,7 +32,7 @@
 #include "Physics.h"
 #include "Text.h"
 
-/*Define framework constants*/
+/*Define engine constants*/
 
 #define SOFTWARE                "Suprannua Engine"
 #define VERSION                 " 0.14.0 "
@@ -53,43 +51,94 @@
 
 enum colourPalette
 {
-    RED, GREEN, BLUE, ALPHA, BLACK, WHITE, ORANGE, YELLOW,
-    VIOLET, PURPLE, BROWN, SKY_BLUE, GOLD, SEA_GREEN,
-    PINK, GREY, DARK_RED, DARK_GREEN, DARK_BLUE, DARK_BROWN, MAGENTA, DARK_GREY
+    RED,
+	GREEN,
+	BLUE,
+	ALPHA,
+	BLACK,
+	WHITE,
+	ORANGE,
+	YELLOW,
+    VIOLET,
+	PURPLE,
+	BROWN,
+	SKY_BLUE,
+	GOLD,
+	SEA_GREEN,
+	PINK,
+	GREY,
+	DARK_RED,
+	DARK_GREEN,
+	DARK_BLUE,
+	DARK_BROWN,
+	MAGENTA,
+	DARK_GREY
 };
 enum objectName
 {
-    GAME, POLYGON, BLOCK, TEXT, CAMERA
+    GAME,
+	POLYGON,
+	BLOCK,
+	TEXT,
+	CAMERA
 };
 enum objectType
 {
-    NOTHING, BACKGROUND, FOREGROUND, HUD, ENTITY, AIRBOURNE, PLATFORM
+    NOTHING,
+	BACKGROUND,
+	FOREGROUND,
+	HUD,
+	ENTITY,
+	AIRBOURNE,
+	PLATFORM
 };
 enum attributes
 {
-    ANGLE, MASS, PLATFORM_GRAVITY, GRAVITY_CONSTANT, TYPE, 
-	XVELOCITY, YVELOCITY, EDGES, BOUNCE, XPOSITION, YPOSITION,
-	WIDTH, HEIGHT, RADIUS, XCENTRE, YCENTRE
+    ANGLE,
+	MASS,
+	PLATFORM_GRAVITY,
+	GRAVITY_CONSTANT,
+	TYPE,
+	XVELOCITY,
+	YVELOCITY,
+	EDGES,
+	BOUNCE,
+	XPOSITION,
+	YPOSITION,
+	WIDTH,
+	HEIGHT,
+	RADIUS,
+	XCENTRE,
+	YCENTRE
 };
 enum prepositions
 {
-    TO, FROM
+    TO,
+	FROM
 };
 enum controlModes
 {
-    GAMEPLAY, MENU, CUSTOM1, CUSTOM2, CUSTOM3, TESTING
+    GAMEPLAY,
+	MENU,
+	CUSTOM1,
+	CUSTOM2,
+	CUSTOM3,
+	TESTING
 };
 enum spinDirections
 {
-    ANTICLOCKWISE, CLOCKWISE
+    ANTICLOCKWISE,
+	CLOCKWISE
 };
 enum gravitation
 {
-    DOWN, UP
+    DOWN,
+	UP
 };
 enum platformScrolling
 {
-	UP_DOWN, LEFT_RIGHT
+	UP_DOWN,
+	LEFT_RIGHT
 };
 enum AIMessages
 {
@@ -156,14 +205,12 @@ typedef struct
 
 extern bool keyStates[128]; //keyboard input buffer
 extern bool specialKeyStates[128];
+
 extern char gameTitle[64];
 extern double dpadSensitivity;
-
 extern Rect worldSizeMetres;
-
 extern double platformGravity;
 extern double gravityConstant;
-
 extern bool isGamePaused;
 
 extern int frameCount;
@@ -179,14 +226,14 @@ extern unsigned char gameState;
 extern RegularPolygon polygon[MAX_POLYGONS];
 extern Block block[MAX_BLOCKS];
 extern Camera camera2D;
+extern Text textCache[MAX_TEXTS];
 
 extern int storedPolygons;
 extern int storedBlocks;
 extern int storedTexts;
+
 extern bool isKernelStatsEnabled;
 extern bool isGridEnabled;
-
-extern Text textCache[MAX_TEXTS];
 
 extern unsigned char black[3];
 extern unsigned char white[3];
@@ -209,5 +256,3 @@ extern unsigned char darkBlue[3];
 extern unsigned char darkBrown[3];
 extern unsigned char magenta[3];
 extern unsigned char darkGrey[3];
-
-#endif
