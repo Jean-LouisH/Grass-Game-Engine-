@@ -1,5 +1,38 @@
 #include "SuprannuaEngine.h"
 
+double geometry_findAngleBetween(	unsigned char firstObject,
+									int firstObjectNumber,
+									unsigned char secondObject,
+									int secondObjectNumber)
+{
+	if (firstObject == POLYGON)
+	{
+		if (secondObject == POLYGON)
+			return atan2(polygon[secondObjectNumber].centre.yPosition -
+				polygon[firstObjectNumber].centre.yPosition, polygon[secondObjectNumber].centre.xPosition -
+				polygon[firstObjectNumber].centre.xPosition);
+		else if (secondObject == BLOCK)
+			return atan2(block[secondObjectNumber].centre.yPosition -
+				polygon[firstObjectNumber].centre.yPosition, block[secondObjectNumber].centre.xPosition -
+				polygon[firstObjectNumber].centre.xPosition);
+		else
+			return 0.0;
+	}
+	else if (firstObject == BLOCK)
+	{
+		if (secondObject == POLYGON)
+			return atan2(polygon[secondObjectNumber].centre.yPosition -
+				block[firstObjectNumber].centre.yPosition, polygon[secondObjectNumber].centre.xPosition -
+				block[firstObjectNumber].centre.xPosition);
+		else if (secondObject == BLOCK)
+			return atan2(block[secondObjectNumber].centre.yPosition -
+				block[firstObjectNumber].centre.yPosition, block[secondObjectNumber].centre.xPosition -
+				block[firstObjectNumber].centre.xPosition);
+		else
+			return 0.0;
+	}
+}
+
 double geometry_findDistance(	unsigned char firstObject,
 								int firstObjectNumber,
 								unsigned char secondObject,
