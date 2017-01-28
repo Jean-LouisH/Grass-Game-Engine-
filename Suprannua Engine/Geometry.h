@@ -6,6 +6,13 @@
  * Handles the mathematics behind 2D polygon and rectangle plotting, spatial data and transforms.
  */
 
+#pragma once
+
+double geometry_findAngleBetween(	unsigned char firstObject,
+									int firstObjectNumber,
+									unsigned char secondObject,
+									int secondObjectNumber);
+
 double geometry_findDistance(	unsigned char firstObject,
 								int firstObjectNumber,
 								unsigned char secondObject,

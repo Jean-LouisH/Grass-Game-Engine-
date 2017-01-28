@@ -6,6 +6,8 @@
  * Displays all polygons and blocks within the 2D Camera's viewport. The order of rendering is organised from BACKGROUND to FOREGROUND.
  */
 
+#pragma once
+
 void render_displayStoredBlocks();				//Draws blocks by classification.
 void render_displayStoredPolygons();			//Draws polygons by classification.
 void render_displayText();						//Renders text to viewport or world from strings.

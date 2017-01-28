@@ -6,6 +6,8 @@
  * Calculates all physical effects per time step according to metres, kilograms and seconds.
  */
 
+#pragma once
+
 void physics_detectPlatformCollision();						//Allows objects to settle on or under platforms.
 void physics_detectPolygonCollision();						//Bounces regular polygons from each other.
 void physics_incrementTime();								//Updates game or simulation time.

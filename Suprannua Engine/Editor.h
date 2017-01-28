@@ -6,6 +6,8 @@
  * Directly reads or writes the data of polygons and blocks to organise scenes from initialisation or in response to scripted events.
  */
 
+#pragma once
+
 void edit_adjust(	unsigned char object,
 					int objectNumber,
 					unsigned char attribute,

@@ -6,6 +6,8 @@
  * Determines if certain logical states within the game are true.
  */
 
+#pragma once
+
 bool event_arePolygonsTouching(int firstObjectNumber, int secondObjectNumber);
 bool event_hasFalleninAHole(unsigned char object, int objectNumber);
 bool event_hasPolygonPastXLocation(int objectNumber, double xPosition);

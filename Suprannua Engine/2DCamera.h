@@ -6,6 +6,8 @@
  * Manipulates the target and viewport values in the Camera2D struct to move and zoom the 2D Renderer's view.
  */
 
+#pragma once
+
 void camera_centreToWorld();										//Centres to world map when the viewport is larger.
 
 void camera_follow(	unsigned char object,

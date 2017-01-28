@@ -6,6 +6,8 @@
  * Manipulates polygon or block velocity or position data based on problem solving algorithms to simulate game AI.
  */
 
+#pragma once
+
 void AI_avoid(unsigned char agent, int agentNumber, unsigned char object, int objectNumber, double range);	//Moves agent away from a specified object.
 void AI_catch(unsigned char agent, int agentNumber, unsigned char object, int objectNumber, bool followX, bool followY);	//Agent moves anticipating approaching target.
 void AI_fly(unsigned char agent, int agentNumber, double height);

@@ -6,6 +6,8 @@
  * Handles string data within the TextCache array to be positioned relative to the 2D camera or world.
  */
 
+#pragma once
+
 void text_adjust(int textCell, double xScroll, double yScroll);
 void text_append(int textCell, char *newText);
 void text_colour(int textCell, unsigned char colour);

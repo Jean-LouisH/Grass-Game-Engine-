@@ -6,6 +6,8 @@
  * Defines all the freeglut functions to handle the OpenGL window context, timing and inputs.
  */
 
+#pragma once
+
 void keyPressed(unsigned char key, int x, int y);	//During key press.
 void keySpecial(unsigned char key, int x, int y);	//During key press for special keys.
 void keyUp(unsigned char key, int x, int y);		//After key press.
