@@ -99,6 +99,11 @@ void readInput()
 			camera_keepZoomingBy(-cameraScrollSpeed / 32);
 		}
 
+		if (input_isPressed('r'))
+		{
+			edit_reset();
+		}
+
 		if (input_isPressed('x'))
 		{
 			camera_setTarget(edit_get(GAME, 0, XCENTRE), edit_get(GAME, 0, YCENTRE));

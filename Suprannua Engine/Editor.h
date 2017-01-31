@@ -70,6 +70,7 @@ void edit_move(	unsigned char object,
 				double newYPosition);
 
 void edit_remove(unsigned char object, int objectNumber);
+void edit_reset();
 void edit_resize(unsigned char object, int objectNumber, double scale);	
 void edit_scrollPlatform(	int objectNumber, 
 							bool direction, 

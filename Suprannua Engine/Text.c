@@ -148,7 +148,7 @@ void text_move(int textCell, double xText, double yText)
 void text_remove(int textCell)
 {
 	textCache[textCell].classification = NOTHING;
-	sprintf(textCache[textCell].textContent, '/0');
+	sprintf(textCache[textCell].textContent, "Reset");
 }
 
 void text_set(unsigned char textType, double xText, double yText, char *newText, unsigned char colour)

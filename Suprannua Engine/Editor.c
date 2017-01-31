@@ -640,6 +640,38 @@ void edit_remove(unsigned char object, int objectNumber)
     }
 }
 
+void edit_reset()
+{
+	int i;
+
+	frameCount = -1;
+
+	for (i = 0; i <= storedPolygons; i++)
+	{
+		edit_remove(POLYGON, i);
+	}
+	storedPolygons = 0;
+
+	for (i = 0; i <= storedBlocks; i++)
+	{
+		edit_remove(BLOCK, i);
+	}
+	storedBlocks = 0;
+
+	for (i = 0; i <= storedTexts; i++)
+	{
+		text_remove(i);
+	}
+	storedTexts = 0;
+
+	camera_setViewportWidth(edit_get(GAME, 0, WIDTH));
+
+	isGamePaused = false;
+	gameState = GAMEPLAY;
+	edit_enableKernelStats(false);
+	edit_enableGrid(false);
+}
+
 void edit_resize(unsigned char object, int objectNumber, double scale)
 {
     switch(object)
