@@ -42,10 +42,10 @@
 #define FRAME_RATE              60.0
 #define FRAME_TIME_MILLISECS	1000.0/FRAME_RATE
 
-#define MAX_POLYGONS            80
+#define MAX_POLYGONS            1000
 #define MAX_POLYGON_SIDES       20
 #define MAX_BLOCKS              1000
-#define MAX_TEXTS               8
+#define MAX_TEXTS               1000
 
 /*Enums*/
 
