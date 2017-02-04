@@ -121,4 +121,7 @@ void runGame()
 	/*Insert Game Script code.*/
 	physics_gravitate(POLYGON, 0, DOWN);
 	physics_roll(POLYGON, 0);
+
+	if (event_hasFalleninAHole(POLYGON, 0))
+		edit_move(POLYGON, 0, 5.0, 10.0);
 }
