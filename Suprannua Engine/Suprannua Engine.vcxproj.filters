@@ -42,9 +42,6 @@
     <ClInclude Include="Text.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EngineKernel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="FreeglutCallbacks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -55,6 +52,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Kernel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -86,9 +86,6 @@
     <ClCompile Include="Text.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EngineKernel.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FreeglutCallbacks.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -96,6 +93,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Game.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

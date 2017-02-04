@@ -19,15 +19,20 @@ void keySpecial(unsigned char key, int x, int y)
 
 void keyUp(unsigned char key, int x, int y)
 {
-	if ((keyStates['p'] || keyStates['P']) && (!isGamePaused))
+	if (input_isPressed('p') && (!isGamePaused))
 	{
 		isGamePaused = true;
-		gameState = MENU; //Goes into menu immediately after pausing.
+		gameState = MENU;			//Goes into menu immediately after pausing.
 	}
-	else if ((keyStates['p'] || keyStates['P']) && (isGamePaused))
+	else if (input_isPressed('p') && (isGamePaused))
 	{
 		isGamePaused = false;
 		gameState = GAMEPLAY;
+	}
+
+	if (input_isPressed('r'))
+	{
+		edit_reset();
 	}
 
 	keyStates[key] = false;
@@ -74,7 +79,7 @@ void runGLUT(int argc, char **argv)
 	glutSpecialUpFunc(keyUpSpecial);
 	glutReshapeFunc(resize);
 
-	glutDisplayFunc(runSuprannuaKernel);
+	glutDisplayFunc(runKernel);
 	glutTimerFunc(FRAME_TIME_MILLISECS, timer, FRAME_TIME_MILLISECS);
 	glutMainLoop();
 }

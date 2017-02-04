@@ -23,7 +23,7 @@
 #include "2DRenderer.h"
 #include "AI.h"
 #include "Editor.h"
-#include "EngineKernel.h"
+#include "Kernel.h"
 #include "Events.h"
 #include "Game.h"
 #include "Geometry.h"
@@ -35,7 +35,7 @@
 /*Define engine constants*/
 
 #define SOFTWARE                "Suprannua Engine"
-#define VERSION                 " 0.14.1 "
+#define VERSION                 " 1.0.0 "
 
 #define PI                      3.1415926535897932384626433832795
 #define FULL                    255 //Colour level
@@ -43,7 +43,7 @@
 #define FRAME_TIME_MILLISECS	1000.0/FRAME_RATE
 
 #define MAX_POLYGONS            1000
-#define MAX_POLYGON_SIDES       20
+#define MAX_POLYGON_SIDES       100
 #define MAX_BLOCKS              1000
 #define MAX_TEXTS               1000
 
@@ -140,10 +140,6 @@ enum platformScrolling
 	UP_DOWN,
 	LEFT_RIGHT
 };
-enum AIMessages
-{
-    WAIT
-};
 
 /*Structs*/
 
@@ -203,9 +199,11 @@ typedef struct
 
 /*Externs*/
 
-extern bool keyStates[128]; //keyboard input buffer
+/*Input buffers*/
+extern bool keyStates[128];
 extern bool specialKeyStates[128];
 
+/*Game global variables*/
 extern char gameTitle[64];
 extern double dpadSensitivity;
 extern Rect worldSizeMetres;
@@ -213,6 +211,7 @@ extern double platformGravity;
 extern double gravityConstant;
 extern bool isGamePaused;
 
+/*Engine time and states*/
 extern int frameCount;
 extern double timeCount;
 extern double framesPerSecond;
@@ -223,18 +222,22 @@ extern double firstTimeSample;
 extern double kernelTime;
 extern unsigned char gameState;
 
+/*Game objects*/
 extern RegularPolygon polygon[MAX_POLYGONS];
 extern Block block[MAX_BLOCKS];
 extern Camera camera2D;
 extern Text textCache[MAX_TEXTS];
 
+/*Occupied memory*/
 extern int storedPolygons;
 extern int storedBlocks;
 extern int storedTexts;
 
+/*Debug switches*/
 extern bool isKernelStatsEnabled;
 extern bool isGridEnabled;
 
+/*Colour palette*/
 extern unsigned char black[3];
 extern unsigned char white[3];
 extern unsigned char red[3];

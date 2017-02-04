@@ -1,5 +1,5 @@
 /**
- * EngineKernel
+ * Kernel
  *
  * Author: Jean-Louis Haywood
  *
@@ -8,4 +8,4 @@
 
 #pragma once
 
-void runSuprannuaKernel();			//Display and framework functions on glutMainLoop().
+void runKernel();			//Display and framework functions on glutMainLoop().

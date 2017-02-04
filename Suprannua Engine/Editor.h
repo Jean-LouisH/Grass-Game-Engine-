@@ -11,11 +11,11 @@
 void edit_adjust(	unsigned char object,
 					int objectNumber,
 					unsigned char attribute,
-					double amount);
+					double amount);			//increments data values per second to attributes.
 
 void edit_change(	unsigned char object,
 					int objectNumber,
-					unsigned char attribute, // from Suprannua.h "attributes" enum
+					unsigned char attribute,
 					double amount);
 
 void edit_colourBlock(int objectNumber, unsigned char colour);
@@ -70,7 +70,7 @@ void edit_move(	unsigned char object,
 				double newYPosition);
 
 void edit_remove(unsigned char object, int objectNumber);
-void edit_reset();
+void edit_reset();										//clears all Engine runtime data.
 void edit_resize(unsigned char object, int objectNumber, double scale);	
 void edit_scrollPlatform(	int objectNumber, 
 							bool direction, 

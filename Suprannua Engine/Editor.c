@@ -407,13 +407,6 @@ void edit_createPolygon(unsigned char type,
 
 	if (newXPosition == 0 || newYPosition == 0) //provides a random position if non is specified.
 	{
-		/*
-		polygon[i].centre.xPosition = rand() %
-			(int)(worldSizeMetres.width - (2 * polygon[i].radius) * (i + 1)) + (polygon[i].radius);
-		polygon[i].centre.yPosition = rand() %
-			(int)(worldSizeMetres.height - (2 * polygon[i].radius) * (i + 1)) + (polygon[i].radius);
-		*/
-
 		polygon[i].centre.xPosition = rand() % (int)(worldSizeMetres.width - 1) + 1;
 		polygon[i].centre.yPosition = rand() % (int)(worldSizeMetres.height - 1) + 1;
 	}

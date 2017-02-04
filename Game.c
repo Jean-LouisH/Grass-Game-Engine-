@@ -2,7 +2,7 @@
 
 /**
  *
- *				DOCUMENTATION IN PROGRESS...
+ *				
  *
  */
 
@@ -97,11 +97,6 @@ void readInput()
 		if (input_isPressed('e'))
 		{
 			camera_keepZoomingBy(-cameraScrollSpeed / 32);
-		}
-
-		if (input_isPressed('r'))
-		{
-			edit_reset();
 		}
 
 		if (input_isPressed('x'))

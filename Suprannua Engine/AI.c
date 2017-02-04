@@ -10,6 +10,8 @@ void AI_avoid(unsigned char agent, int agentNumber, unsigned char object, int ob
 	if (geometry_findDistance(agent, agentNumber, object, objectNumber) < range)
 	{
 		polygon[agentNumber].properties.xVelocity = -1 * dpadSensitivity * cos(positionAngle);
+
+		/*Flies if airbourne, jumps if not.*/
 		if (polygon[agentNumber].properties.classification == AIRBOURNE)
 			polygon[agentNumber].properties.yVelocity = -1 * dpadSensitivity * sin(positionAngle);
 		else if (event_isPolygonHigher(agentNumber, objectNumber))
@@ -27,11 +29,14 @@ void AI_catch(unsigned char agent, int agentNumber, unsigned char object, int ob
 	if (followY)
 	{
 		if ((event_hasPolygonPastXLocation(agentNumber, polygon[objectNumber].centre.xPosition) &&
-			polygon[objectNumber].properties.xVelocity < 0) ||
+			polygon[objectNumber].properties.xVelocity > 0) ||
 			(!event_hasPolygonPastXLocation(agentNumber, polygon[objectNumber].centre.xPosition) &&
-				polygon[objectNumber].properties.xVelocity > 0))
+				polygon[objectNumber].properties.xVelocity < 0))
 		{
-			polygon[agentNumber].properties.yVelocity = dpadSensitivity * sin(positionAngle);
+			if (polygon[agentNumber].properties.classification == AIRBOURNE)
+				polygon[agentNumber].properties.yVelocity = dpadSensitivity * sin(positionAngle);
+			else if (polygon[agentNumber].properties.classification == ENTITY && event_isPolygonHigher(objectNumber, agentNumber))
+				AI_jump(POLYGON, agentNumber, 10.0);
 		}
 	}
 
@@ -51,6 +56,7 @@ void AI_fly(unsigned char agent, int agentNumber, double height)
 {
 	if (edit_get(agent, agentNumber, TYPE) == AIRBOURNE)
 	{
+		/*Continuously alternates the polygon's velocity while around the targeted height.*/
 		if (polygon[agentNumber].centre.yPosition < height - 0.5)
 			edit_adjust(POLYGON, agentNumber, YVELOCITY, (dpadSensitivity * 2));
 		else if (polygon[agentNumber].centre.yPosition > height + 0.5)
@@ -71,8 +77,8 @@ void AI_follow(unsigned char agent, int agentNumber, unsigned char object, int o
 		polygon[agentNumber].properties.xVelocity = dpadSensitivity * cos(positionAngle);
 		if (polygon[agentNumber].properties.classification == AIRBOURNE)
 			polygon[agentNumber].properties.yVelocity = dpadSensitivity * sin(positionAngle);
-		else if (!event_isPolygonHigher(agentNumber, objectNumber))
-			AI_jump(POLYGON, agentNumber, 40);
+		else if (event_isPolygonHigher(objectNumber, agentNumber))
+			AI_jump(POLYGON, agentNumber, 10);
 	}
 }
 
@@ -85,7 +91,7 @@ void AI_jump(unsigned char agent, int agentNumber, double jumpVelocity)
 		if (event_isOnPlatform(POLYGON, agentNumber, i))
 		{
 			edit_change(POLYGON, agentNumber, YVELOCITY, jumpVelocity + block[i].properties.yVelocity);
-			break;
+			break; //Once a single platform is identified, there's no need to look for another.
 		}
 		else if (event_isTouchingUnderPlatform(POLYGON, agentNumber, i))
 		{
@@ -103,32 +109,33 @@ void AI_jump(unsigned char agent, int agentNumber, double jumpVelocity)
 	}
 }
 
-void AI_listen()
-{
-
-}
-
 void AI_mimic(unsigned char agent, int agentNumber, unsigned char object, int objectNumber)
 {
-
+	polygon[agentNumber].properties.xVelocity = polygon[objectNumber].properties.xVelocity;
+	polygon[agentNumber].properties.yVelocity = polygon[objectNumber].properties.yVelocity;
+	polygon[agentNumber].properties.angle = polygon[objectNumber].properties.angle;
 }
 
 void AI_shoot(unsigned char agent, int agentNumber, unsigned char object, int objectNumber)
 {
 	double positionAngle;
+	static int lastPolygon = 0;
 
-	positionAngle = atan2(polygon[objectNumber].centre.yPosition - polygon[agentNumber].centre.yPosition,
+	positionAngle = atan2(polygon[objectNumber].centre.yPosition - 
+		polygon[agentNumber].centre.yPosition - polygon[agentNumber].radius - 1.0,
 		polygon[objectNumber].centre.xPosition - polygon[agentNumber].centre.xPosition);
 
-	edit_createPolygon(	AIRBOURNE, 12, 0.5, polygon[agentNumber].centre.xPosition + polygon[agentNumber].radius, polygon[agentNumber].centre.yPosition + polygon[agentNumber].radius + 1.0, WHITE);
+	/*Retains the memory cell value of the last polygon to replace with a new shot.*/
+	if (lastPolygon != 0)
+		edit_remove(POLYGON, lastPolygon);
 
-	polygon[storedPolygons].properties.xVelocity = dpadSensitivity * cos(positionAngle);
-	polygon[storedPolygons].properties.yVelocity = dpadSensitivity * sin(positionAngle);
-}
+	edit_createPolygon(	AIRBOURNE, 12, 0.3, polygon[agentNumber].centre.xPosition + 
+		polygon[agentNumber].radius, polygon[agentNumber].centre.yPosition + polygon[agentNumber].radius + 1.0, WHITE);
 
-void AI_signal(unsigned char message)
-{
+	lastPolygon = storedPolygons;
 
+	polygon[lastPolygon].properties.xVelocity = dpadSensitivity * cos(positionAngle);
+	polygon[lastPolygon].properties.yVelocity = dpadSensitivity * sin(positionAngle);
 }
 
 void AI_spin(unsigned char agent, int agentNumber, bool direction, double amount)
@@ -156,6 +163,7 @@ void AI_travel(unsigned char agent, int agentNumber, double toXPosition, double 
 		toXPosition - polygon[agentNumber].centre.xPosition);
 
 	polygon[agentNumber].properties.xVelocity = dpadSensitivity * cos(positionAngle);
+
 	if (polygon[agentNumber].properties.classification == AIRBOURNE)
 		polygon[agentNumber].properties.yVelocity = dpadSensitivity * sin(positionAngle);
 	else if (polygon[agentNumber].centre.yPosition < toYPosition)

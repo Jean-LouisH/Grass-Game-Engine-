@@ -3,7 +3,7 @@
  *
  * Author: Jean-Louis Haywood
  *
- * Determines if certain logical states within the game are true.
+ * Detects when specific events based on time or positioning of game objects exist.
  */
 
 #pragma once
@@ -13,13 +13,13 @@ bool event_hasFalleninAHole(unsigned char object, int objectNumber);
 bool event_hasPolygonPastXLocation(int objectNumber, double xPosition);
 bool event_hasPolygonPastYLocation(int objectNumber, double yPosition);
 bool event_isPolygonHigher(int firstObjectNumber, int secondObjectNumber);
-bool event_isOnCycle(double interval);
+bool event_isOnCycle(double interval);										//Allows continuous operations on a time cycle.
 
 bool event_isOnPlatform(unsigned char object,
 						int objectNumber,
 						int platformNumber);
 
-bool event_isOnceEvery(double interval);
+bool event_isOnceEvery(double interval);									//Allows single operations on a time cycle.
 
 bool event_isPolygonAirboune(	unsigned char object,
 								int objectNumber);
