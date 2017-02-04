@@ -37,6 +37,7 @@ void initGame()
 	text_set(ENTITY, 10, edit_get(GAME, 0, HEIGHT) - 5, "", WHITE);
 	text_set(ENTITY, edit_get(GAME, 0, WIDTH) - 10, edit_get(GAME, 0, HEIGHT) - 5, "", WHITE);
 	text_set(ENTITY, edit_get(GAME, 0, XCENTRE) - 3.5, edit_get(GAME, 0, YCENTRE) + 12.5, "PONG IN SUPRANNUA", WHITE);
+	text_set(HUD, -0.95, 0.95, "'W' - Up, 'S' - Down", WHITE);
 }
 
 /*Controls*/

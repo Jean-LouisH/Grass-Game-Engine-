@@ -1,6 +1,6 @@
 #include "../../Suprannua Engine/SuprannuaEngine.h" 
 
-/*Made with Suprannua 0.12.0 higher versions are probably incompatible with this code as is.*/
+/*Made with Suprannua 0.14.1. higher versions are probably incompatible with this code as is.*/
 /*The aim is to collect as many smaller polygons until you burst to gain win points. If you are
 eaten, your losses are also scored. */
 
@@ -26,10 +26,13 @@ void initGame()
 	edit_createRectangle(BACKGROUND, 0, edit_get(GAME, 0, WIDTH), 0, edit_get(GAME, 0, HEIGHT), DARK_GREY);
 
 	/*Insert Game Initialisation code.*/
-	edit_enableGrid(true);
-	edit_createPolygon(ENTITY, 12, 2.0, edit_get(GAME, 0, XCENTRE) + 4, edit_get(GAME, 0, YCENTRE) + 4, DARK_GREEN);
+
+	//edit_enableGrid(true);
+	//edit_enableKernelStats(true);
+	edit_createPolygon(AIRBOURNE, 12, 2.0, edit_get(GAME, 0, XCENTRE) + 4, edit_get(GAME, 0, YCENTRE) + 4, DARK_GREEN);
+
 	for (i = 1; i <= 10; i++)
-		edit_createPolygon(ENTITY, 12, 2.0, 0, 0, RED);
+		edit_createPolygon(AIRBOURNE, 12, 2.0, 0, 0, RED);
 
 	for (i = 11; i <= 15; i++)
 	{
@@ -52,7 +55,6 @@ void initGame()
 void readInput()
 {
 	int i;
-	static int x = 0;
 
 	if (gameState == GAMEPLAY)
 	{
@@ -153,18 +155,21 @@ void runGame()
 	//physics_detectPlatformCollision();
 
 	/*Insert Game Script code.*/
-	if(edit_get(POLYGON, 0, XPOSITION) != 0 || edit_get(POLYGON, 0, YPOSITION) != 0)
+
+	//locks the camera to the last position of the player.
+	if(edit_get(POLYGON, 0, XPOSITION) != 0 || edit_get(POLYGON, 0, YPOSITION) != 0) 
 		camera_follow(POLYGON, 0, true, true);
+
 	text_update(3, "WINS");
 	text_data(3, wins);
 	text_update(4, "LOSSES");
 	text_data(4, losses);
 
 	
-	/*AI following the nearest smaller polygon.*/
+	/*AI following the nearest, smaller polygon.*/
 	for (i = 1; i <= storedPolygons; i++)
 	{
-		if (polygon[i].properties.classification == ENTITY)
+		if (polygon[i].properties.classification == AIRBOURNE)
 		{
 			for (j = 0; j <= storedPolygons; j++)
 			{
@@ -180,13 +185,12 @@ void runGame()
 			}
 
 			/*Movement AI to be added to Game Engine*/
-			motion = dpadSensitivity;
 
-			positionAngle = atan2(polygon[target].centre.yPosition - polygon[i].centre.yPosition,
-				polygon[target].centre.xPosition - polygon[i].centre.xPosition);
-
-			polygon[i].properties.xVelocity = motion * cos(positionAngle);
-			polygon[i].properties.yVelocity = motion * sin(positionAngle);
+			AI_travel(	POLYGON, 
+						i, 
+						edit_get(POLYGON, target, XPOSITION), 
+						edit_get(POLYGON, target, YPOSITION), 
+						dpadSensitivity);
 
 			lowestDistance = edit_get(GAME, 0, WIDTH);
 			target = i;
@@ -196,7 +200,7 @@ void runGame()
 	/*Expands winning polygon and destroys losing polygon*/
 	for (i = 0; i <= storedPolygons; i++)
 	{
-		if (polygon[i].properties.classification == ENTITY)
+		if (polygon[i].properties.classification == AIRBOURNE)
 		{
 			for (j = 0; j <= storedPolygons; j++)
 			{
@@ -211,8 +215,8 @@ void runGame()
 		}
 	}
 
-	/*Generates polygons every 2 seconds. Event to be added to Game Engine*/
-	if (frameCount % (60 * 2) == (60 * 2 - 1))
+	/*Generates polygons every 1 seconds. Event to be added to Game Engine*/
+	if (frameCount % (60 * 1) == (60 * 1 - 1))
 	{
 		for (i = 0; i < 30; i++)
 		{
@@ -229,7 +233,7 @@ void runGame()
 	{
 		if (polygon[i].radius < 0.6 && polygon[i].properties.classification != NOTHING)
 		{
-			polygon[i].properties.classification = ENTITY;
+			polygon[i].properties.classification = AIRBOURNE;
 			edit_change(POLYGON, i, RADIUS, 2.0);
 			if (i == 0)
 				edit_colourPolygon(i, DARK_GREEN);
