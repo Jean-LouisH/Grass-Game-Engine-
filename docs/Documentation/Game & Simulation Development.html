@@ -26,5 +26,36 @@
 		</ul>
 
 		<p>The Suprannua Engine acts as a framework where you can edit game object data, as rigidly defined by the Engine, using almost nothing but functions. Depending on the game, most of the functions can be called in a simple sequence, but knowledge of C (at the very least) is needed for situations where you might want to loop functions (e.g. causing multiple polygons to fall under gravity) and test for logical conditions (checking whether the player has past a checkpoint).</p>
+		
+		<h2>Game Objects</h2>
+		
+		<p>The game objects are Polygons, Blocks, Texts and the Camera. All game objects are instances of type defined structs with other structs and variables inside. They all contain the Vertex struct to represent x and y positions against a world map. The world map and rectangular objects like the Camera and Blocks all contain the Rect struct to represent width and height. </p>
+		
+		<a href="Game Object Structs.png"><img class="mediumImage" src="Game Object Structs.png" alt="Game Object Structs"></a>
+		<p class="imageTitle">Game Object Structs</p>
+		<p></p>
+
+		<p>Polygons and Blocks are the only objects that contain the Properties struct, which describes the object's;</p>
+		
+		<ul>
+			<li>Classification (Whether it is a background, entity, etc)</li>
+			<li>Colour (Including alpha)</li>
+			<li>Edges (Geometric sides)</li>
+			<li>Angle (Only really applicable to Polygons)</li>
+			<li>BouncePercentage (Elasticity)</li>
+			<li>Mass</li>
+			<li>xVelocity</li>
+			<li>yVelocity</li>
+		</ul>
+		
+		<a href="Property Struct.png"><img class="mediumImage" src="Property Struct.png" alt="Property Struct"></a>
+		<p class="imageTitle">Property Struct</p>
+		<p></p>
+		
+		<p>Text is different where in addition to position, it stores a string with colour and either a entity or heads up display classification (to pin to the camera or world).</p>
+		
+		<h2>Game Functions</h2>
+		
+		<p>Suprannua's game objects can be editted by assigning values to their member variables, but usually this is never required. To make data editting even easier and to avoid reinventing the wheel, there is a collection of functions that perform the usual physical, scripting   </p>
 	</body>
 </html>

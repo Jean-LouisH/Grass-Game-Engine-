@@ -15,6 +15,11 @@
 	margin-top: 2%;
 }
 
+.mediumImage
+{	
+	width: 30%;
+}
+
 img
 {
 	display: block;
