@@ -1,6 +1,6 @@
 # Suprannua Engine
 
-![ScreenShot](docs/Example Screenshots/Suprannua.png)
+![ScreenShot](https://jean-louish.github.io/SuprannuaEngine/Example%20Screenshots/Suprannua.png)
 
 The Suprannua Engine is a superannuated, 2D platformer game engine codebase. Just For Fun. 
 
@@ -12,7 +12,7 @@ All game objects within the engine are represented as either regular polygons, r
 As my first application based project, the hallmark and namesake of this engine is intended to be a superannuated design where the visuals are minimally done with legacy OpenGL, while the architecture is structured around a procedural runtime with the C programming language. For the sake of simplicity, audio and sprites are not supported in this project.
 
 Diagram of the Suprannua Engine Architecture.
-![ScreenShot](docs/Documentation/The Suprannua Engine Architecture Diagram.png)
+![ScreenShot](https://jean-louish.github.io/SuprannuaEngine/Documentation/The%20Suprannua%20Engine%20Architecture%20Diagram.png)
 
 The engine starts with WinMain(), or alternatively main(), as the container for global variables, and as the entry point to the Freeglut API. When Freeglut is initialised, the engine loops indefinitely within the glutMainLoop. This is where the OpenGL context is established where a 16:9 aspect ratio window of 75% of the detected display width is created. Callbacks for window dimension restoration and centring are also found here, as well as the functions for assigning keyboard inputs to a buffer and calling Suprannua's engine kernel. Freeglut also maintains the timer of the game loop.
 
@@ -21,7 +21,8 @@ At intervals of 1/60th of a second, the engine kernel is called. It then uses ti
 Generally in the game code, inputs can be assigned for how the engine interprets key presses. However, the ESC key is hard coded for Freeglut to call the exit() function with the parameter "EXIT_SUCCESS". This will close the application.
 
 Screenshot of the Suprannua Engine Standard Game Template
-![ScreenShot](docs/Example Screenshots/The Suprannua Engine Standard Game Template.png)
+![ScreenShot](https://jean-louish.github.io/SuprannuaEngine/Example%20Screenshots/The%20Suprannua%20Engine%20Standard%20Game%20Template.png)
+![Screenshot](https://jean-louish.github.io/SuprannuaEngine/Example%20Screenshots/Standard%20Game%20Template%20Code.png)
 
 Games or simulations are made by copying the standard game template global variables and functions; initGame(), runGame(), and readInput(). 
 
