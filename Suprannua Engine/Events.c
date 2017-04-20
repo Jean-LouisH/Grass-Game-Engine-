@@ -11,6 +11,21 @@ bool event_arePolygonsTouching(int firstObjectNumber, int secondObjectNumber)
 		return false;
 }
 
+bool event_doFor(double interval)
+{
+	static double remainingTime;
+
+	if (remainingTime <= 0)
+		remainingTime = interval;
+
+	remainingTime -= (FRAME_TIME_MILLISECS / 1000);
+
+	if (remainingTime > 0)
+		return true;
+	else
+		return false;
+}
+
 bool event_hasFalleninAHole(unsigned char object, int objectNumber)
 {
 	if (polygon[objectNumber].centre.yPosition - polygon[objectNumber].radius < 1)
@@ -52,8 +67,8 @@ bool event_isOnCycle(double interval)
 }
 
 bool event_isOnPlatform(unsigned char object,
-						int objectNumber,
-						int platformNumber)
+	int objectNumber,
+	int platformNumber)
 {
 	if (block[platformNumber].properties.classification == PLATFORM)
 	{
@@ -82,8 +97,24 @@ bool event_isOnceEvery(double interval)
 		return false;
 }
 
-bool event_isPolygonAirboune(	unsigned char object,
-								int objectNumber)
+bool event_isOnInstant()
+{
+	static int callFrame = 0;
+
+	if (callFrame == (frameCount - 1))
+	{
+		callFrame = frameCount;
+		return false;
+	}
+	else
+	{
+		callFrame = frameCount;
+		return true;
+	}
+}
+
+bool event_isPolygonAirboune(unsigned char object,
+	int objectNumber)
 {
 	int i;
 
@@ -101,8 +132,8 @@ bool event_isPolygonAirboune(	unsigned char object,
 }
 
 bool event_isTouchingLeftOfPlatform(unsigned char object,
-									int objectNumber,
-									int platformNumber)
+	int objectNumber,
+	int platformNumber)
 {
 	if (block[platformNumber].properties.classification == PLATFORM)
 	{
@@ -123,9 +154,9 @@ bool event_isTouchingLeftOfPlatform(unsigned char object,
 		return false;
 }
 
-bool event_isTouchingRightOfPlatform(	unsigned char object,
-										int objectNumber,
-										int platformNumber)
+bool event_isTouchingRightOfPlatform(unsigned char object,
+	int objectNumber,
+	int platformNumber)
 {
 	if (block[platformNumber].properties.classification == PLATFORM)
 	{
@@ -146,9 +177,9 @@ bool event_isTouchingRightOfPlatform(	unsigned char object,
 		return false;
 }
 
-bool event_isTouchingUnderPlatform(	unsigned char object,
-									int objectNumber,
-									int platformNumber)
+bool event_isTouchingUnderPlatform(unsigned char object,
+	int objectNumber,
+	int platformNumber)
 {
 	if (block[platformNumber].properties.classification == PLATFORM)
 	{
@@ -169,9 +200,9 @@ bool event_isTouchingUnderPlatform(	unsigned char object,
 		return false;
 }
 
-bool event_isPolygonWithinRadius(	int firstObjectNumber,
-									double radius,
-									int secondObjectNumber)
+bool event_isPolygonWithinRadius(int firstObjectNumber,
+	double radius,
+	int secondObjectNumber)
 {
 	if (geometry_findDistance(POLYGON, firstObjectNumber, POLYGON, secondObjectNumber) <= radius)
 		return true;
@@ -180,9 +211,9 @@ bool event_isPolygonWithinRadius(	int firstObjectNumber,
 }
 
 
-bool event_isWithinPlatformHeight(	unsigned char object,
-									int objectNumber,
-									int platformNumber)
+bool event_isWithinPlatformHeight(unsigned char object,
+	int objectNumber,
+	int platformNumber)
 {
 	if (polygon[objectNumber].centre.yPosition >
 		block[platformNumber].centre.yPosition - (block[platformNumber].dimensions.height / 2) &&
@@ -195,9 +226,9 @@ bool event_isWithinPlatformHeight(	unsigned char object,
 		return false;
 }
 
-bool event_isWithinPlatformWidth(	unsigned char object,
-									int objectNumber,
-									int platformNumber)
+bool event_isWithinPlatformWidth(unsigned char object,
+	int objectNumber,
+	int platformNumber)
 {
 	if (polygon[objectNumber].centre.xPosition >
 		block[platformNumber].centre.xPosition - (block[platformNumber].dimensions.width / 2) &&
