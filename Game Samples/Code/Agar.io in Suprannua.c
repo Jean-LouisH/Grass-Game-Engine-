@@ -1,6 +1,5 @@
 #include "../../Suprannua Engine/SuprannuaEngine.h" 
 
-/*Made with Suprannua 0.14.1. higher versions are probably incompatible with this code as is.*/
 /*The aim is to collect as many smaller polygons until you burst to gain win points. If you are
 eaten, your losses are also scored. */
 
@@ -8,11 +7,10 @@ eaten, your losses are also scored. */
 
 char gameTitle[64] = "Agar.io in Suprannua";
 Rect worldSizeMetres = { 100,100 }; // m
-double dpadSensitivity = 10.0; // m/s
+double dpadSensitivity = 17.5; // m/s
 double cameraScrollSpeed = 50.0; // m/s
 double platformGravity = 9.8; // m/s^2
 double gravityConstant = 6.674E-11; // m/s^2
-bool isGamePaused = false;
 
 void initGame()
 {
@@ -21,14 +19,12 @@ void initGame()
 
 	srand(time(NULL));
 
-	camera_setViewportWidth(50.0);
+	camera_setViewportWidth(60.0);
 	camera_setTarget(edit_get(CAMERA, 0, XCENTRE), edit_get(CAMERA, 0, YCENTRE));
 	edit_createRectangle(BACKGROUND, 0, edit_get(GAME, 0, WIDTH), 0, edit_get(GAME, 0, HEIGHT), DARK_GREY);
 
 	/*Insert Game Initialisation code.*/
 
-	//edit_enableGrid(true);
-	//edit_enableKernelStats(true);
 	edit_createPolygon(AIRBOURNE, 12, 2.0, edit_get(GAME, 0, XCENTRE) + 4, edit_get(GAME, 0, YCENTRE) + 4, DARK_GREEN);
 
 	for (i = 1; i <= 10; i++)
@@ -129,8 +125,8 @@ void readInput()
 
 		if (input_isPressed('x'))
 		{
-			camera_setTarget(edit_get(GAME, 0, XCENTRE), edit_get(GAME, 0, YCENTRE));
-			camera_setViewportWidth(edit_get(GAME, 0, WIDTH));
+			//camera_setTarget(edit_get(GAME, 0, XCENTRE), edit_get(GAME, 0, YCENTRE));
+			camera_setViewportWidth(60.0);
 		}
 	}
 }
@@ -157,7 +153,7 @@ void runGame()
 	/*Insert Game Script code.*/
 
 	//locks the camera to the last position of the player.
-	if(edit_get(POLYGON, 0, XPOSITION) != 0 || edit_get(POLYGON, 0, YPOSITION) != 0) 
+	if (edit_get(POLYGON, 0, XPOSITION) != 0 || edit_get(POLYGON, 0, YPOSITION) != 0)
 		camera_follow(POLYGON, 0, true, true);
 
 	text_update(3, "WINS");
@@ -165,7 +161,7 @@ void runGame()
 	text_update(4, "LOSSES");
 	text_data(4, losses);
 
-	
+
 	/*AI following the nearest, smaller polygon.*/
 	for (i = 1; i <= storedPolygons; i++)
 	{
@@ -186,11 +182,11 @@ void runGame()
 
 			/*Movement AI to be added to Game Engine*/
 
-			AI_travel(	POLYGON, 
-						i, 
-						edit_get(POLYGON, target, XPOSITION), 
-						edit_get(POLYGON, target, YPOSITION), 
-						dpadSensitivity);
+			AI_travel(POLYGON,
+				i,
+				edit_get(POLYGON, target, XPOSITION),
+				edit_get(POLYGON, target, YPOSITION),
+				dpadSensitivity);
 
 			lowestDistance = edit_get(GAME, 0, WIDTH);
 			target = i;
@@ -250,8 +246,8 @@ void runGame()
 				if (randomColour == 4 || randomColour == 0 || randomColour == 17 || randomColour == 3)
 					randomColour = 5;
 
-				edit_createPolygon(BACKGROUND, 12, 0.5, polygon[i].centre.xPosition + (j * 0.5), 
-									polygon[i].centre.yPosition - (j * 0.5), randomColour);
+				edit_createPolygon(BACKGROUND, 12, 0.5, polygon[i].centre.xPosition + (j * 0.5),
+					polygon[i].centre.yPosition - (j * 0.5), randomColour);
 			}
 			if (i == 0)
 				wins++;

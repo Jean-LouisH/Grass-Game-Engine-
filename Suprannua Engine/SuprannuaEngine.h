@@ -32,7 +32,7 @@
 #include "Physics.h"
 #include "Text.h"
 
-/*Define engine constants*/
+ /*Define engine constants*/
 
 #define SOFTWARE                "Suprannua Engine"
 #define VERSION                 " 1.0.0 "
@@ -51,7 +51,7 @@
 
 enum colourPalette
 {
-    RED,
+	RED,
 	GREEN,
 	BLUE,
 	ALPHA,
@@ -59,7 +59,7 @@ enum colourPalette
 	WHITE,
 	ORANGE,
 	YELLOW,
-    VIOLET,
+	VIOLET,
 	PURPLE,
 	BROWN,
 	SKY_BLUE,
@@ -76,7 +76,7 @@ enum colourPalette
 };
 enum objectName
 {
-    GAME,
+	GAME,
 	POLYGON,
 	BLOCK,
 	TEXT,
@@ -84,7 +84,7 @@ enum objectName
 };
 enum objectType
 {
-    NOTHING,
+	NOTHING,
 	BACKGROUND,
 	FOREGROUND,
 	HUD,
@@ -94,7 +94,7 @@ enum objectType
 };
 enum attributes
 {
-    ANGLE,
+	ANGLE,
 	MASS,
 	PLATFORM_GRAVITY,
 	GRAVITY_CONSTANT,
@@ -113,12 +113,12 @@ enum attributes
 };
 enum prepositions
 {
-    TO,
+	TO,
 	FROM
 };
 enum controlModes
 {
-    GAMEPLAY,
+	GAMEPLAY,
 	MENU,
 	CUSTOM1,
 	CUSTOM2,
@@ -127,12 +127,12 @@ enum controlModes
 };
 enum spinDirections
 {
-    ANTICLOCKWISE,
+	ANTICLOCKWISE,
 	CLOCKWISE
 };
 enum gravitation
 {
-    DOWN,
+	DOWN,
 	UP
 };
 enum platformScrolling
@@ -145,56 +145,56 @@ enum platformScrolling
 
 typedef struct
 {
-    double xPosition;
-    double yPosition;
+	double xPosition;
+	double yPosition;
 }Vertex;
 
 typedef struct
 {
-    double width;
-    double height;
+	double width;
+	double height;
 }Rect;
 
 typedef struct
 {
-    Vertex target;
-    Rect viewport;
+	Vertex target;
+	Rect viewport;
 }Camera;
 
 typedef struct
 {
-    unsigned char classification; //backgrounds, entities, platforms
-    unsigned char colour[4];
-    int edges;
-    double angle; //for rotation
+	unsigned char classification; //backgrounds, entities, platforms
+	unsigned char colour[4];
+	int edges;
+	double angle; //for rotation
 	double bouncePercentage;
-    double mass;
-    double xVelocity;
-    double yVelocity;
+	double mass;
+	double xVelocity;
+	double yVelocity;
 }Property;
 
 typedef struct
 {
-    Property properties;
-    Vertex vertices[MAX_POLYGON_SIDES];
-    Vertex centre;
-    double radius;
+	Property properties;
+	Vertex vertices[MAX_POLYGON_SIDES];
+	Vertex centre;
+	double radius;
 }RegularPolygon;
 
 typedef struct
 {
-    Property properties;
-    Vertex vertices[4];
-    Vertex centre;
-    Rect dimensions;
+	Property properties;
+	Vertex vertices[4];
+	Vertex centre;
+	Rect dimensions;
 }Block;
 
 typedef struct
 {
-    Vertex textPin;
-    char textContent[128];
+	Vertex textPin;
+	char textContent[128];
 	unsigned char colour[4];
-    unsigned char classification;
+	unsigned char classification;
 }Text;
 
 /*Externs*/

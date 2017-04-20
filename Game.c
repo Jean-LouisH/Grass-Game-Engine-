@@ -1,22 +1,15 @@
 #include "Suprannua Engine\SuprannuaEngine.h" 
 
-/**
- *
- *				
- *
- */
-
 /*Custom code for Initialisation, Scripting and Controls*/
 
 /*Global variables*/
 
-char gameTitle[64]			= SOFTWARE " Standard Game Template";
-Rect worldSizeMetres		= { 50,29 }; // m
-double dpadSensitivity		= 10.0; // m/s
-double cameraScrollSpeed	= 50.0; // m/s
-double platformGravity		= 9.8; // m/s^2
-double gravityConstant		= 6.674E-11; // m/s^2
-bool isGamePaused			= false;
+char gameTitle[64] = SOFTWARE " Standard Game Template";
+Rect worldSizeMetres = { 50,29 }; // m
+double dpadSensitivity = 10.0; // m/s
+double cameraScrollSpeed = 50.0; // m/s
+double platformGravity = 9.8; // m/s^2
+double gravityConstant = 6.674E-11; // m/s^2
 
 
 void initGame()
@@ -29,12 +22,12 @@ void initGame()
 	edit_createRectangle(PLATFORM, 0, edit_get(GAME, 0, WIDTH), 0.0, 1.0, BROWN);
 	edit_createRectangle(PLATFORM, 0, edit_get(GAME, 0, WIDTH), 1.0, 1.25, DARK_GREEN);
 	edit_createPolygon(ENTITY, 8, 1.0, 5.0, 10.0, RED);
-	text_set(ENTITY, edit_get(GAME, 0, XCENTRE) - 6.5, edit_get(GAME, 0, YCENTRE) + 6, 
-			"The " SOFTWARE " Standard Game Template", WHITE);
-	text_set(ENTITY, edit_get(GAME, 0, XCENTRE) - 6, edit_get(GAME, 0, YCENTRE) + 4, 
-			"Edit the game code 'Game.c' as you see fit.", WHITE);
-	text_set(ENTITY, edit_get(GAME, 0, XCENTRE) - 10, edit_get(GAME, 0, YCENTRE) + 3, 
-			"Use the WASD keys to move the polygon, or 'p' for pausing and camera.", WHITE);
+	text_set(ENTITY, edit_get(GAME, 0, XCENTRE) - 6.5, edit_get(GAME, 0, YCENTRE) + 6,
+		"The " SOFTWARE " Standard Game Template", WHITE);
+	text_set(ENTITY, edit_get(GAME, 0, XCENTRE) - 6, edit_get(GAME, 0, YCENTRE) + 4,
+		"Edit the game code 'Game.c' as you see fit.", WHITE);
+	text_set(ENTITY, edit_get(GAME, 0, XCENTRE) - 10, edit_get(GAME, 0, YCENTRE) + 3,
+		"Use the WASD keys to move the polygon, or 'p' for pausing and camera.", WHITE);
 	text_set(HUD, -0.35, -0.1, "Test", WHITE);
 }
 
@@ -65,6 +58,13 @@ void readInput()
 		{
 			edit_change(POLYGON, 0, XVELOCITY, dpadSensitivity);
 		}
+
+		if (input_isPressed('i'))
+		{
+			if (event_isOnInstant())
+				camera_invert(true, true);
+		}
+
 	}
 	else if (gameState == MENU)
 	{

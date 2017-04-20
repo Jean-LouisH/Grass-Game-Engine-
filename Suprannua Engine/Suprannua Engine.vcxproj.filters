@@ -92,10 +92,10 @@
     <ClCompile Include="Events.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Game.c">
+    <ClCompile Include="Kernel.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Kernel.c">
+    <ClCompile Include="..\Game.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

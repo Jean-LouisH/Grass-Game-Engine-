@@ -4,18 +4,18 @@
  * for both stored polygons and blocks.
  */
 
-/* The drawPolygon and drawBlock functions contain the vertex calculations in the form of:
- *
- *			glVertex2f(	(x - x_camera)) / (camera width / 2), 
- *						(y - y_camera)) / (camera height / 2));
- *
- *   e.g.	glVertex2f(	(polygon[objectNumber].vertices[i].xPosition -
- *						(camera2D.target.xPosition)) / (camera2D.viewport.width/2),
- *						(polygon[objectNumber].vertices[i].yPosition -
- *						(camera2D.target.yPosition)) / (camera2D.viewport.height/2));
- * 
- * To display the relative positions and scale of a collection of points to the camera. 
- */
+ /* The drawPolygon and drawBlock functions contain the vertex calculations in the form of:
+  *
+  *			glVertex2f(	(x - x_camera)) / (camera width / 2),
+  *						(y - y_camera)) / (camera height / 2));
+  *
+  *   e.g.	glVertex2f(	(polygon[objectNumber].vertices[i].xPosition -
+  *						(camera2D.target.xPosition)) / (camera2D.viewport.width/2),
+  *						(polygon[objectNumber].vertices[i].yPosition -
+  *						(camera2D.target.yPosition)) / (camera2D.viewport.height/2));
+  *
+  * To display the relative positions and scale of a collection of points to the camera.
+  */
 
 void render_displayStoredBlocks()
 {
@@ -43,23 +43,23 @@ void render_displayStoredBlocks()
 
 void render_displayStoredPolygons()
 {
-    int i;
-
-    for (i = 0; i <= storedPolygons; i++)
-	    if(polygon[i].properties.classification == BACKGROUND)
-            render_drawPolygon(i);
-
-    for (i = 0; i <= storedPolygons; i++)
-        if(polygon[i].properties.classification == PLATFORM)
-            render_drawPolygon(i);
+	int i;
 
 	for (i = 0; i <= storedPolygons; i++)
-        if(polygon[i].properties.classification == ENTITY || polygon[i].properties.classification == AIRBOURNE)
-            render_drawPolygon(i);
+		if (polygon[i].properties.classification == BACKGROUND)
+			render_drawPolygon(i);
 
-    for (i = 0; i <= storedPolygons; i++)
-        if(polygon[i].properties.classification == FOREGROUND)
-            render_drawPolygon(i);
+	for (i = 0; i <= storedPolygons; i++)
+		if (polygon[i].properties.classification == PLATFORM)
+			render_drawPolygon(i);
+
+	for (i = 0; i <= storedPolygons; i++)
+		if (polygon[i].properties.classification == ENTITY || polygon[i].properties.classification == AIRBOURNE)
+			render_drawPolygon(i);
+
+	for (i = 0; i <= storedPolygons; i++)
+		if (polygon[i].properties.classification == FOREGROUND)
+			render_drawPolygon(i);
 }
 
 void render_displayText()
@@ -70,22 +70,22 @@ void render_displayText()
 	for (j = 0; j <= storedTexts; j++)
 	{
 		i = 0;
-		glColor4ub(	textCache[j].colour[RED],
-					textCache[j].colour[GREEN],
-					textCache[j].colour[BLUE],
-					textCache[j].colour[ALPHA]);
+		glColor4ub(textCache[j].colour[RED],
+			textCache[j].colour[GREEN],
+			textCache[j].colour[BLUE],
+			textCache[j].colour[ALPHA]);
 
 		if (textCache[j].classification == HUD)
 		{
-			glRasterPos2f(	textCache[j].textPin.xPosition,
-							textCache[j].textPin.yPosition);
+			glRasterPos2f(textCache[j].textPin.xPosition,
+				textCache[j].textPin.yPosition);
 		}
 		else if (textCache[j].classification == ENTITY)
 		{
-			glRasterPos2f((	textCache[j].textPin.xPosition -
-							(camera2D.target.xPosition)) / (camera2D.viewport.width / 2),
-							(textCache[j].textPin.yPosition -
-							(camera2D.target.yPosition)) / (camera2D.viewport.height / 2));
+			glRasterPos2f((textCache[j].textPin.xPosition -
+				(camera2D.target.xPosition)) / (camera2D.viewport.width / 2),
+				(textCache[j].textPin.yPosition -
+				(camera2D.target.yPosition)) / (camera2D.viewport.height / 2));
 		}
 
 		if (j == 0)
@@ -112,27 +112,27 @@ void render_displayText()
 
 void render_drawBlock(int objectNumber)
 {
-    int i ;
+	int i;
 
-    glBegin(GL_QUADS);
-    glColor4ub( block[objectNumber].properties.colour[RED],
-                block[objectNumber].properties.colour[GREEN],
-                block[objectNumber].properties.colour[BLUE],
-                block[objectNumber].properties.colour[ALPHA]);
+	glBegin(GL_QUADS);
+	glColor4ub(block[objectNumber].properties.colour[RED],
+		block[objectNumber].properties.colour[GREEN],
+		block[objectNumber].properties.colour[BLUE],
+		block[objectNumber].properties.colour[ALPHA]);
 
-    for (i = 0; i < 4; i++) //All blocks have 4 sides.
-    {
-        glVertex2f((block[objectNumber].vertices[i].xPosition -
-                    (camera2D.target.xPosition)) / (camera2D.viewport.width/2),
-                    (block[objectNumber].vertices[i].yPosition -
-                    (camera2D.target.yPosition)) / (camera2D.viewport.height/2));
-    }
-    glEnd();
+	for (i = 0; i < 4; i++) //All blocks have 4 sides.
+	{
+		glVertex2f((block[objectNumber].vertices[i].xPosition -
+			(camera2D.target.xPosition)) / (camera2D.viewport.width / 2),
+			(block[objectNumber].vertices[i].yPosition -
+			(camera2D.target.yPosition)) / (camera2D.viewport.height / 2));
+	}
+	glEnd();
 }
 
 void render_drawGrid()
 {
-    int i;
+	int i;
 
 	glBegin(GL_LINES);
 	glColor4ub(255, 255, 255, 127); //Makes them 50% transparent white lines.

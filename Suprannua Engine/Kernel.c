@@ -2,36 +2,36 @@
 
 void runKernel()
 {
-    currentTime = time(NULL);
+	currentTime = time(NULL);
 
-    if(frameCount == 0)
-    {
+	if (frameCount == 0)
+	{
 		text_set(HUD, -0.075, 0.0, "PAUSED", WHITE);
 		text_set(HUD, -1.0, 0.95, "", WHITE);
-        startTime = currentTime;
-        firstTimeSample = currentTime;
-        initGame();
-    }
+		startTime = currentTime;
+		firstTimeSample = currentTime;
+		initGame();
+	}
 
-    kernelTime = currentTime - startTime;
+	kernelTime = currentTime - startTime;
 
-    readInput();
+	readInput();
 
-    if(!isGamePaused)
-    {
-        physics_incrementTime();
-        geometry_transform();
-        frameCount++;
-        passedFrames++;
-        runGame();
-    }
+	if (!isGamePaused)
+	{
+		physics_incrementTime();
+		geometry_transform();
+		frameCount++;
+		passedFrames++;
+		runGame();
+	}
 
-    if(currentTime - firstTimeSample >= 1)
-    {
-        framesPerSecond = passedFrames / (currentTime - firstTimeSample);
-        firstTimeSample = time(NULL);
-        passedFrames = 0;
-    }
+	if (currentTime - firstTimeSample >= 1)
+	{
+		framesPerSecond = passedFrames / (currentTime - firstTimeSample);
+		firstTimeSample = time(NULL);
+		passedFrames = 0;
+	}
 
 	text_updateKernelStats();
 
@@ -39,10 +39,10 @@ void runKernel()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //enables alpha blending.
 
-    render_displayStoredBlocks();
-    render_displayStoredPolygons();
+	render_displayStoredBlocks();
+	render_displayStoredPolygons();
 
-    render_displayText();
+	render_displayText();
 
-    glutSwapBuffers(); //freeglut buffer swap for animation.
+	glutSwapBuffers(); //freeglut buffer swap for animation.
 }

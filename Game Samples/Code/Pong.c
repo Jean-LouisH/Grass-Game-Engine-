@@ -4,13 +4,12 @@
 
 /*Global variables*/
 
-char gameTitle[64]			= "Pong";
-Rect worldSizeMetres		= { 55,31 }; // m
-double dpadSensitivity		= 50.0; // m/s
-double cameraScrollSpeed	= 50.0; // m/s
-double platformGravity		= 9.8; // m/s^2
-double gravityConstant		= 6.674E-11; // m/s^2
-bool isGamePaused			= false;
+char gameTitle[64] = "Pong";
+Rect worldSizeMetres = { 55,31 }; // m
+double dpadSensitivity = 50.0; // m/s
+double cameraScrollSpeed = 50.0; // m/s
+double platformGravity = 9.8; // m/s^2
+double gravityConstant = 6.674E-11; // m/s^2
 
 #define BALL_SPEED	30
 
@@ -49,7 +48,7 @@ void readInput()
 		if (input_isPressed('w'))
 			edit_change(BLOCK, 1, YVELOCITY, dpadSensitivity);
 
-		if(input_isPressed('s'))
+		if (input_isPressed('s'))
 			edit_change(BLOCK, 1, YVELOCITY, -1 * dpadSensitivity);
 	}
 	else if (gameState == MENU)
@@ -88,7 +87,7 @@ void runGame()
 		polygon[0].centre.xPosition - block[2].centre.xPosition + block[2].dimensions.width);
 
 	if (!event_hasPolygonPastXLocation(0, block[2].centre.xPosition + block[2].dimensions.width) &&
-			polygon[0].properties.xVelocity > 0)
+		polygon[0].properties.xVelocity > 0)
 	{
 		block[2].properties.yVelocity = dpadSensitivity * sin(positionAngle);
 	}

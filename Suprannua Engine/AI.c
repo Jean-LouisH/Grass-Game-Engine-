@@ -71,7 +71,7 @@ void AI_follow(unsigned char agent, int agentNumber, unsigned char object, int o
 	positionAngle = atan2(polygon[objectNumber].centre.yPosition - polygon[agentNumber].centre.yPosition,
 		polygon[objectNumber].centre.xPosition - polygon[agentNumber].centre.xPosition);
 
-	if (geometry_findDistance(agent, agentNumber, object, objectNumber) < detectionRange && 
+	if (geometry_findDistance(agent, agentNumber, object, objectNumber) < detectionRange &&
 		(geometry_findDistance(agent, agentNumber, object, objectNumber) > targetRange))
 	{
 		polygon[agentNumber].properties.xVelocity = dpadSensitivity * cos(positionAngle);
@@ -121,7 +121,7 @@ void AI_shoot(unsigned char agent, int agentNumber, unsigned char object, int ob
 	double positionAngle;
 	static int lastPolygon = 0;
 
-	positionAngle = atan2(polygon[objectNumber].centre.yPosition - 
+	positionAngle = atan2(polygon[objectNumber].centre.yPosition -
 		polygon[agentNumber].centre.yPosition - polygon[agentNumber].radius - 1.0,
 		polygon[objectNumber].centre.xPosition - polygon[agentNumber].centre.xPosition);
 
@@ -129,7 +129,7 @@ void AI_shoot(unsigned char agent, int agentNumber, unsigned char object, int ob
 	if (lastPolygon != 0)
 		edit_remove(POLYGON, lastPolygon);
 
-	edit_createPolygon(	AIRBOURNE, 12, 0.3, polygon[agentNumber].centre.xPosition + 
+	edit_createPolygon(AIRBOURNE, 12, 0.3, polygon[agentNumber].centre.xPosition +
 		polygon[agentNumber].radius, polygon[agentNumber].centre.yPosition + polygon[agentNumber].radius + 1.0, WHITE);
 
 	lastPolygon = storedPolygons;
@@ -138,7 +138,7 @@ void AI_shoot(unsigned char agent, int agentNumber, unsigned char object, int ob
 	polygon[lastPolygon].properties.yVelocity = dpadSensitivity * sin(positionAngle);
 }
 
-void AI_spin(unsigned char agent, int agentNumber, bool direction, double amount)
+void AI_spin(unsigned char agent, int agentNumber, bool direction, double degreesPerSecond)
 {
 	switch (agent)
 	{
@@ -149,8 +149,8 @@ void AI_spin(unsigned char agent, int agentNumber, bool direction, double amount
 		* ((1 * 2) - 1) = +1
 		*/
 
-		case POLYGON:   polygon[agentNumber].properties.angle +=
-						((direction * 2) - 1) * (amount / (FRAME_RATE));
+	case POLYGON:   polygon[agentNumber].properties.angle +=
+		((direction * 2) - 1) * (degreesPerSecond / (FRAME_RATE));
 		break;
 	}
 }
