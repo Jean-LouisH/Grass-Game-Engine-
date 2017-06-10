@@ -458,7 +458,7 @@ void edit_createPolygon(unsigned char type,
 	{
 	case PLATFORM:      polygon[i].properties.classification = PLATFORM;	break;
 	case ENTITY:        polygon[i].properties.classification = ENTITY;		break;
-	case AIRBOURNE:		polygon[i].properties.classification = AIRBOURNE;	break;
+	case FLOATING:		polygon[i].properties.classification = FLOATING;	break;
 	case FOREGROUND:    polygon[i].properties.classification = FOREGROUND;	break;
 	case BACKGROUND:
 	default:            polygon[i].properties.classification = BACKGROUND;
@@ -482,6 +482,7 @@ void edit_createPolygon(unsigned char type,
 
 	edit_colourPolygon(i, colour);
 	geometry_plotPolygon(i);
+	render_addRenderingLayer(POLYGON, type, i);
 }
 
 void edit_createRectangle(unsigned char type,
@@ -506,7 +507,7 @@ void edit_createRectangle(unsigned char type,
 	{
 	case PLATFORM:      block[i].properties.classification = PLATFORM;      break;
 	case ENTITY:        block[i].properties.classification = ENTITY;        break;
-	case AIRBOURNE:        block[i].properties.classification = AIRBOURNE;	break;
+	case FLOATING:        block[i].properties.classification = FLOATING;	break;
 	case FOREGROUND:    block[i].properties.classification = FOREGROUND;    break;
 	case BACKGROUND:
 	default:            block[i].properties.classification = BACKGROUND;
@@ -520,6 +521,7 @@ void edit_createRectangle(unsigned char type,
 
 	edit_colourBlock(i, colour);
 	geometry_plotBlock(i);
+	render_addRenderingLayer(BLOCK, type, i);
 }
 
 void edit_createSquare(unsigned char type,
@@ -543,7 +545,7 @@ void edit_createSquare(unsigned char type,
 	{
 	case PLATFORM:      block[i].properties.classification = PLATFORM;      break;
 	case ENTITY:        block[i].properties.classification = ENTITY;        break;
-	case AIRBOURNE:		block[i].properties.classification = AIRBOURNE;		break;
+	case FLOATING:		block[i].properties.classification = FLOATING;		break;
 	case FOREGROUND:    block[i].properties.classification = FOREGROUND;    break;
 	case BACKGROUND:
 	default:            block[i].properties.classification = BACKGROUND;
@@ -557,6 +559,7 @@ void edit_createSquare(unsigned char type,
 
 	edit_colourBlock(i, colour);
 	geometry_plotBlock(i);
+	render_addRenderingLayer(BLOCK, type, i);
 }
 
 void edit_enableGrid(bool state)
@@ -633,6 +636,15 @@ double edit_get(unsigned char object, int objectNumber, unsigned char attribute)
 	}
 }
 
+void edit_hide(unsigned char object, int objectNumber)
+{
+	switch (object)
+	{
+	case POLYGON: polygon[objectNumber].properties.classification = PLACEHOLDER;
+	case BLOCK: block[objectNumber].properties.classification = PLACEHOLDER;
+	}
+}
+
 void edit_move(unsigned char object,
 	int objectNumber,
 	double newXPosition,
@@ -643,14 +655,10 @@ void edit_move(unsigned char object,
 	case POLYGON:
 		polygon[objectNumber].centre.xPosition = newXPosition;
 		polygon[objectNumber].centre.yPosition = newYPosition;
-
-		geometry_plotPolygon(objectNumber);
 		break;
 	case BLOCK:
 		block[objectNumber].centre.xPosition = newXPosition;
 		block[objectNumber].centre.yPosition = newYPosition;
-
-		geometry_plotBlock(objectNumber);
 		break;
 	}
 }
@@ -714,19 +722,47 @@ void edit_reset()
 	{
 		edit_remove(POLYGON, i);
 	}
-	storedPolygons = 0;
+	storedPolygons = NULL;
 
 	for (i = 0; i <= storedBlocks; i++)
 	{
 		edit_remove(BLOCK, i);
 	}
-	storedBlocks = 0;
+	storedBlocks = NULL;
 
 	for (i = 0; i <= storedTexts; i++)
 	{
 		text_remove(i);
 	}
-	storedTexts = 0;
+	storedTexts = NULL;
+
+	for (i = 0; i < storedBackgrounds; i++)
+	{
+		backgrounds[i].objectNumber = NULL;
+		backgrounds[i].objectType = NULL;
+	}
+	storedBackgrounds = NULL;
+
+	for (i = 0; i < storedPlatforms; i++)
+	{
+		platforms[i].objectNumber = NULL;
+		platforms[i].objectType = NULL;
+	}
+	storedPlatforms = NULL;
+
+	for (i = 0; i < storedEntities; i++)
+	{
+		entities[i].objectNumber = NULL;
+		entities[i].objectType = NULL;
+	}
+	storedEntities = NULL;
+
+	for (i = 0; i < storedForegrounds; i++)
+	{
+		foregrounds[i].objectNumber = NULL;
+		foregrounds[i].objectType = NULL;
+	}
+	storedForegrounds = NULL;
 
 	camera_setViewportWidth(edit_get(GAME, 0, WIDTH));
 

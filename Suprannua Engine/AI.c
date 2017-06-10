@@ -12,7 +12,7 @@ void AI_avoid(unsigned char agent, int agentNumber, unsigned char object, int ob
 		polygon[agentNumber].properties.xVelocity = -1 * dpadSensitivity * cos(positionAngle);
 
 		/*Flies if airbourne, jumps if not.*/
-		if (polygon[agentNumber].properties.classification == AIRBOURNE)
+		if (polygon[agentNumber].properties.classification == FLOATING)
 			polygon[agentNumber].properties.yVelocity = -1 * dpadSensitivity * sin(positionAngle);
 		else if (event_isPolygonHigher(agentNumber, objectNumber))
 			AI_jump(POLYGON, agentNumber, 10.0);
@@ -33,7 +33,7 @@ void AI_catch(unsigned char agent, int agentNumber, unsigned char object, int ob
 			(!event_hasPolygonPastXLocation(agentNumber, polygon[objectNumber].centre.xPosition) &&
 				polygon[objectNumber].properties.xVelocity < 0))
 		{
-			if (polygon[agentNumber].properties.classification == AIRBOURNE)
+			if (polygon[agentNumber].properties.classification == FLOATING)
 				polygon[agentNumber].properties.yVelocity = dpadSensitivity * sin(positionAngle);
 			else if (polygon[agentNumber].properties.classification == ENTITY && event_isPolygonHigher(objectNumber, agentNumber))
 				AI_jump(POLYGON, agentNumber, 10.0);
@@ -54,7 +54,7 @@ void AI_catch(unsigned char agent, int agentNumber, unsigned char object, int ob
 
 void AI_fly(unsigned char agent, int agentNumber, double height)
 {
-	if (edit_get(agent, agentNumber, TYPE) == AIRBOURNE)
+	if (edit_get(agent, agentNumber, TYPE) == FLOATING)
 	{
 		/*Continuously alternates the polygon's velocity while around the targeted height.*/
 		if (polygon[agentNumber].centre.yPosition < height - 0.5)
@@ -75,7 +75,7 @@ void AI_follow(unsigned char agent, int agentNumber, unsigned char object, int o
 		(geometry_findDistance(agent, agentNumber, object, objectNumber) > targetRange))
 	{
 		polygon[agentNumber].properties.xVelocity = dpadSensitivity * cos(positionAngle);
-		if (polygon[agentNumber].properties.classification == AIRBOURNE)
+		if (polygon[agentNumber].properties.classification == FLOATING)
 			polygon[agentNumber].properties.yVelocity = dpadSensitivity * sin(positionAngle);
 		else if (event_isPolygonHigher(objectNumber, agentNumber))
 			AI_jump(POLYGON, agentNumber, 10);
@@ -101,10 +101,13 @@ void AI_jump(unsigned char agent, int agentNumber, double jumpVelocity)
 	}
 	for (i = 0; i <= storedPolygons; i++)
 	{
-		if (event_isPolygonHigher(agentNumber, i) && event_arePolygonsTouching(agentNumber, i))
+		if (polygon[agentNumber].properties.classification == polygon[i].properties.classification)
 		{
-			edit_change(POLYGON, agentNumber, YVELOCITY, jumpVelocity + polygon[i].properties.yVelocity);
-			break;
+			if (event_isPolygonHigher(agentNumber, i) && event_arePolygonsTouching(agentNumber, i))
+			{
+				edit_change(POLYGON, agentNumber, YVELOCITY, jumpVelocity + polygon[i].properties.yVelocity);
+				break;
+			}
 		}
 	}
 }
@@ -129,7 +132,7 @@ void AI_shoot(unsigned char agent, int agentNumber, unsigned char object, int ob
 	if (lastPolygon != 0)
 		edit_remove(POLYGON, lastPolygon);
 
-	edit_createPolygon(AIRBOURNE, 12, 0.3, polygon[agentNumber].centre.xPosition +
+	edit_createPolygon(FLOATING, 12, 0.3, polygon[agentNumber].centre.xPosition +
 		polygon[agentNumber].radius, polygon[agentNumber].centre.yPosition + polygon[agentNumber].radius + 1.0, WHITE);
 
 	lastPolygon = storedPolygons;
@@ -164,7 +167,7 @@ void AI_travel(unsigned char agent, int agentNumber, double toXPosition, double 
 
 	polygon[agentNumber].properties.xVelocity = dpadSensitivity * cos(positionAngle);
 
-	if (polygon[agentNumber].properties.classification == AIRBOURNE)
+	if (polygon[agentNumber].properties.classification == FLOATING)
 		polygon[agentNumber].properties.yVelocity = dpadSensitivity * sin(positionAngle);
 	else if (polygon[agentNumber].centre.yPosition < toYPosition)
 		AI_jump(POLYGON, agentNumber, 40);

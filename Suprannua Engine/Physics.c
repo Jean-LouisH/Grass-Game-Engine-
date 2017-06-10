@@ -7,7 +7,7 @@ void physics_detectPlatformCollision()
 
 	for (i = 0; i <= storedPolygons; i++)
 	{
-		if (polygon[i].properties.classification == ENTITY || polygon[i].properties.classification == AIRBOURNE)
+		if (polygon[i].properties.classification == ENTITY || polygon[i].properties.classification == FLOATING)
 		{
 			for (j = 0; j <= storedBlocks; j++)
 			{
@@ -146,7 +146,7 @@ void physics_detectPolygonCollision()
 		for (j = 0; j <= storedPolygons; j++)
 		{
 			if (j != i && (polygon[j].properties.classification == ENTITY || 
-				polygon[j].properties.classification == AIRBOURNE) && (polygon[j].properties.classification ==
+				polygon[j].properties.classification == FLOATING) && (polygon[j].properties.classification ==
 					polygon[i].properties.classification))
 			{
 				centreDistance = geometry_findDistance(POLYGON, i, POLYGON, j);
@@ -226,7 +226,8 @@ void physics_limitBoundary()
 
 	for (i = 0; i <= storedPolygons; i++)
 	{
-		if (polygon[i].properties.classification != NOTHING)
+		if (polygon[i].properties.classification != NOTHING
+			&& polygon[i].properties.classification != PLACEHOLDER)
 		{
 			//X Axis
 			if (polygon[i].centre.xPosition + polygon[i].radius >= worldSizeMetres.width)

@@ -108,7 +108,8 @@ void geometry_transform()
 	/*Translation*/
 	for (i = 0; i <= storedPolygons; i++)
 	{
-		if (polygon[i].properties.classification != NOTHING)
+		if (polygon[i].properties.classification != NOTHING
+			&& polygon[i].properties.classification != PLACEHOLDER)
 		{
 			//X Axis
 			polygon[i].centre.xPosition += (polygon[i].properties.xVelocity / FRAME_RATE);
@@ -131,7 +132,8 @@ void geometry_transform()
 
 	for (i = 0; i <= storedBlocks; i++)
 	{
-		if (block[i].properties.classification != NOTHING)
+		if (block[i].properties.classification != NOTHING
+			&& block[i].properties.classification != PLACEHOLDER)
 		{
 			//X Axis
 			block[i].centre.xPosition += (block[i].properties.xVelocity / FRAME_RATE);
@@ -155,7 +157,8 @@ void geometry_transform()
 	/*Rotation*/
 	for (i = 0; i <= storedPolygons; i++)
 	{
-		if (polygon[i].properties.classification != NOTHING)
+		if (polygon[i].properties.classification != NOTHING
+			&& polygon[i].properties.classification != PLACEHOLDER)
 		{
 			/*Prevents the store angle displacement values from exceeding the 0 to 360 range*/
 			while (polygon[i].properties.angle >= 360)
