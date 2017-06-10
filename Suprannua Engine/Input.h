@@ -9,3 +9,4 @@
 #pragma once
 
 bool input_isPressed(unsigned char input);
+bool input_isDoublePressed(unsigned char input, int eventReference);
