@@ -11,6 +11,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <GL/freeglut.h>
+#include <SDL.h>
+#include <SDL_mixer.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -19,15 +21,16 @@
 #include <Windows.h>
 #include "resource.h"
 
+#include "2DAudio.h"
 #include "2DCamera.h"
 #include "2DRenderer.h"
 #include "AI.h"
 #include "Editor.h"
-#include "Kernel.h"
 #include "Events.h"
 #include "Game.h"
+#include "GameLoop.h"
 #include "Geometry.h"
-#include "FreeglutCallbacks.h"
+#include "FreeGLUT_Access.h"
 #include "Input.h"
 #include "Physics.h"
 #include "Text.h"
@@ -42,10 +45,17 @@
 #define FRAME_RATE              60.0
 #define FRAME_TIME_MILLISECS	1000.0/FRAME_RATE
 
-#define MAX_POLYGONS            1000
+/*For Mix_PlayMusic() and Mix_PlayChannel loops*/
+
+#define INFINITE                -1 
+#define NONE                    0
+
+#define MAX_DEFAULT_OBJECTS		1000
+#define MAX_POLYGONS            MAX_DEFAULT_OBJECTS
 #define MAX_POLYGON_SIDES       100
-#define MAX_BLOCKS              1000
+#define MAX_BLOCKS              MAX_DEFAULT_OBJECTS
 #define MAX_TEXTS               1000
+#define MAX_AUDIO_FILES         50
 
 /*Enums*/
 
@@ -85,11 +95,12 @@ enum objectName
 enum objectType
 {
 	NOTHING,
+	PLACEHOLDER,
 	BACKGROUND,
 	FOREGROUND,
 	HUD,
 	ENTITY,
-	AIRBOURNE,
+	FLOATING,
 	PLATFORM
 };
 enum attributes
@@ -120,10 +131,6 @@ enum controlModes
 {
 	GAMEPLAY,
 	MENU,
-	CUSTOM1,
-	CUSTOM2,
-	CUSTOM3,
-	TESTING
 };
 enum spinDirections
 {
@@ -139,6 +146,11 @@ enum platformScrolling
 {
 	UP_DOWN,
 	LEFT_RIGHT
+};
+enum audioTypes
+{
+	MUSIC,
+	SOUND
 };
 
 /*Structs*/
@@ -197,6 +209,12 @@ typedef struct
 	unsigned char classification;
 }Text;
 
+typedef struct
+{
+	unsigned char objectType;
+	int objectNumber;
+}RenderingLayer;
+
 /*Externs*/
 
 /*Input buffers*/
@@ -233,6 +251,17 @@ extern int storedPolygons;
 extern int storedBlocks;
 extern int storedTexts;
 
+/*Occupied rendering layers*/
+extern RenderingLayer backgrounds[MAX_DEFAULT_OBJECTS];
+extern RenderingLayer platforms[MAX_DEFAULT_OBJECTS];
+extern RenderingLayer entities[MAX_DEFAULT_OBJECTS];
+extern RenderingLayer foregrounds[MAX_DEFAULT_OBJECTS];
+
+extern int storedBackgrounds;
+extern int storedPlatforms;
+extern int storedEntities;
+extern int storedForegrounds;
+
 /*Debug switches*/
 extern bool isKernelStatsEnabled;
 extern bool isGridEnabled;
@@ -259,3 +288,9 @@ extern unsigned char darkBlue[3];
 extern unsigned char darkBrown[3];
 extern unsigned char magenta[3];
 extern unsigned char darkGrey[3];
+
+extern Mix_Music* music[MAX_AUDIO_FILES];
+extern Mix_Chunk* sound[MAX_AUDIO_FILES];
+
+extern int storedMusic;
+extern int storedSound;

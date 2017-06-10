@@ -31,6 +31,17 @@ Camera camera2D;
 int storedPolygons = 0;
 int storedBlocks = 0;
 int storedTexts = 0;
+
+RenderingLayer backgrounds[MAX_DEFAULT_OBJECTS] = { 0 };
+RenderingLayer platforms[MAX_DEFAULT_OBJECTS] = { 0 };
+RenderingLayer entities[MAX_DEFAULT_OBJECTS] = { 0 };
+RenderingLayer foregrounds[MAX_DEFAULT_OBJECTS] = { 0 };
+
+int storedBackgrounds = 0;
+int storedPlatforms = 0;
+int storedEntities = 0;
+int storedForegrounds = 0;
+
 bool isKernelStatsEnabled = false;
 bool isGridEnabled = false;
 bool isGamePaused = false;
@@ -57,9 +68,12 @@ unsigned char darkBrown[3] = { 80,40,0 };
 unsigned char magenta[3] = { 255,0,228 };
 unsigned char darkGrey[3] = { 32,32,32 };
 
+#undef main main //to reverse SDL's main definition
 
-/*int main(int argc, char **argv)
+/*
+int main(int argc, char **argv)
 {
+	initSDLAudio();
 	runGLUT(argc, argv);
 	return 0;
 }*/
@@ -69,6 +83,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	LPTSTR lpCmdLine,
 	int cmdShow) //Win32 GUI based Application.
 {
+	initSDLAudio();
 	runGLUT(NULL, NULL);
 	return 0;
 }

@@ -87,7 +87,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\louis_000\Source\Repos\SuprannuaEngine\Dependencies\SDL2_mixer-2.0.1\include;C:\Users\louis_000\Source\Repos\SuprannuaEngine\Dependencies\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>C:\Users\louis_000\Source\Repos\SuprannuaEngine\Dependencies\SDL2_mixer-2.0.1\lib\x64;C:\Users\louis_000\Source\Repos\SuprannuaEngine\Dependencies\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2_mixer.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -111,13 +116,17 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\louis_000\Source\Repos\SuprannuaEngine\Dependencies\SDL2_mixer-2.0.1\include;C:\Users\louis_000\Source\Repos\SuprannuaEngine\Dependencies\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>C:\Users\louis_000\Source\Repos\SuprannuaEngine\Dependencies\SDL2_mixer-2.0.1\lib\x64;C:\Users\louis_000\Source\Repos\SuprannuaEngine\Dependencies\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="2DAudio.h" />
     <ClInclude Include="2DCamera.h" />
     <ClInclude Include="2DRenderer.h" />
     <ClInclude Include="AI.h" />
@@ -125,16 +134,17 @@
     <ClInclude Include="Events.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Geometry.h" />
-    <ClInclude Include="FreeglutCallbacks.h" />
+    <ClInclude Include="FreeGLUT_Access.h" />
     <ClInclude Include="Input.h" />
-    <ClInclude Include="Kernel.h" />
+    <ClInclude Include="GameLoop.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SuprannuaEngine.h" />
     <ClInclude Include="Text.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Game.c" />
+    <ClCompile Include="..\Standard Game Demo.c" />
+    <ClCompile Include="2DAudio.c" />
     <ClCompile Include="2DCamera.c">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Development\freeglut\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -143,9 +153,9 @@
     <ClCompile Include="Editor.c" />
     <ClCompile Include="Events.c" />
     <ClCompile Include="Geometry.c" />
-    <ClCompile Include="FreeglutCallbacks.c" />
+    <ClCompile Include="FreeGLUT_Access.c" />
     <ClCompile Include="Input.c" />
-    <ClCompile Include="Kernel.c" />
+    <ClCompile Include="GameLoop.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="Physics.c" />
     <ClCompile Include="Text.c" />

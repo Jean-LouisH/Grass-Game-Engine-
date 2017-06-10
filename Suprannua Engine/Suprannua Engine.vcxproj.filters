@@ -42,9 +42,6 @@
     <ClInclude Include="Text.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FreeglutCallbacks.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SuprannuaEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -54,7 +51,13 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Kernel.h">
+    <ClInclude Include="2DAudio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FreeGLUT_Access.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLoop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -86,16 +89,19 @@
     <ClCompile Include="Text.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FreeglutCallbacks.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Events.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Kernel.c">
+    <ClCompile Include="2DAudio.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Game.c">
+    <ClCompile Include="FreeGLUT_Access.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLoop.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Standard Game Demo.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
