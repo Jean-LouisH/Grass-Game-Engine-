@@ -12,7 +12,7 @@ double cameraScrollSpeed = 50.0; // m/s
 double platformGravity = 9.8; // m/s^2
 double gravityConstant = 6.674E-11; // m/s^2
 
-void initGame()
+void initGameAssets()
 {
 	int i;
 	int randomColour = 2;
@@ -25,12 +25,12 @@ void initGame()
 
 	/*Insert Game Initialisation code.*/
 
-	edit_createPolygon(AIRBOURNE, 12, 2.0, edit_get(GAME, 0, XCENTRE) + 4, edit_get(GAME, 0, YCENTRE) + 4, DARK_GREEN);
+	edit_createPolygon(FLOATING, 12, 2.0, edit_get(GAME, 0, XCENTRE) + 4, edit_get(GAME, 0, YCENTRE) + 4, DARK_GREEN);
 
-	for (i = 1; i <= 10; i++)
-		edit_createPolygon(AIRBOURNE, 12, 2.0, 0, 0, RED);
+	for (i = 1; i < 10; i++)
+		edit_createPolygon(FLOATING, 12, 2.0, 0, 0, RED);
 
-	for (i = 11; i <= 15; i++)
+	for (i = 10; i <= 15; i++)
 	{
 		randomColour = rand() % 20;
 		if (randomColour == 4 || randomColour == 0 || randomColour == 17 || randomColour == 3)
@@ -131,7 +131,7 @@ void readInput()
 	}
 }
 
-void runGame()
+void runGameLogic()
 {
 	int i;
 	int j;
@@ -143,6 +143,7 @@ void runGame()
 	static int wins = 0;
 	static int losses = 0;
 	int randomColour = 2;
+	static double polygonTime[11];
 
 	srand(time(NULL));
 
@@ -161,11 +162,16 @@ void runGame()
 	text_update(4, "LOSSES");
 	text_data(4, losses);
 
+	for (i = 0; i < 10; i++)
+	{
+		polygonTime[i] += (FRAME_TIME_MILLISECS) / 1000.0;
+	}
+
 
 	/*AI following the nearest, smaller polygon.*/
 	for (i = 1; i <= storedPolygons; i++)
 	{
-		if (polygon[i].properties.classification == AIRBOURNE)
+		if (polygon[i].properties.classification == FLOATING)
 		{
 			for (j = 0; j <= storedPolygons; j++)
 			{
@@ -196,14 +202,21 @@ void runGame()
 	/*Expands winning polygon and destroys losing polygon*/
 	for (i = 0; i <= storedPolygons; i++)
 	{
-		if (polygon[i].properties.classification == AIRBOURNE)
+		if (polygon[i].properties.classification == FLOATING)
 		{
 			for (j = 0; j <= storedPolygons; j++)
 			{
-				if (event_arePolygonsTouching(i, j) && (edit_get(POLYGON, j, RADIUS) < edit_get(POLYGON, i, RADIUS)))
+				if (j < 10 && polygonTime[j] < 5.0)
+				{
+					;
+				}
+				else if (event_arePolygonsTouching(i, j) &&
+					(edit_get(POLYGON, j, RADIUS) < edit_get(POLYGON, i, RADIUS)))
 				{
 					polygon[i].radius = sqrt(((pow(polygon[i].radius, 2) * 2 * PI) + (pow(polygon[j].radius, 2) * 2 * PI)) / (2 * PI));
 					edit_remove(POLYGON, j);
+					if (j < 10)
+						polygonTime[j] = 0.0;
 					if (j == 0)
 						losses++;
 				}
@@ -225,16 +238,29 @@ void runGame()
 	}
 
 	/*Converts tiny polygons in player memory slots into players*/
-	for (i = 0; i <= 10; i++)
+	for (i = 0; i < 10; i++)
 	{
 		if (polygon[i].radius < 0.6 && polygon[i].properties.classification != NOTHING)
 		{
-			polygon[i].properties.classification = AIRBOURNE;
+			for (j = 0; j <= storedPolygons; j++)
+			{
+				if (i != j && polygon[j].properties.classification == FLOATING)
+				{
+					if(geometry_findDistance(POLYGON, i, POLYGON, j) < 5.0)
+						edit_remove(POLYGON, i);
+				}
+			}
+
+			polygon[i].properties.classification = FLOATING;
 			edit_change(POLYGON, i, RADIUS, 2.0);
 			if (i == 0)
+			{
 				edit_colourPolygon(i, DARK_GREEN);
+			}
 			else
+			{
 				edit_colourPolygon(i, RED);
+			}
 		}
 
 		/*When a player achieves the radius size, they burst*/
@@ -249,6 +275,8 @@ void runGame()
 				edit_createPolygon(BACKGROUND, 12, 0.5, polygon[i].centre.xPosition + (j * 0.5),
 					polygon[i].centre.yPosition - (j * 0.5), randomColour);
 			}
+			if(i < 10)
+				polygonTime[i] = 0.0;
 			if (i == 0)
 				wins++;
 			edit_remove(POLYGON, i);

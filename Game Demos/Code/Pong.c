@@ -13,7 +13,7 @@ double gravityConstant = 6.674E-11; // m/s^2
 
 #define BALL_SPEED	30
 
-void initGame()
+void initGameAssets()
 {
 	camera_setViewportWidth(edit_get(GAME, 0, WIDTH));
 	camera_setTarget(edit_get(CAMERA, 0, XCENTRE), edit_get(CAMERA, 0, YCENTRE));
@@ -27,7 +27,7 @@ void initGame()
 	edit_createPolygon(ENTITY, 16, 0.5, edit_get(GAME, 0, XCENTRE), edit_get(GAME, 0, YCENTRE), WHITE);
 
 	/*Initial ball velocity*/
-	srand(time(NULL));
+	srand(time(NULL) + pow(4, 2));
 	edit_change(POLYGON, 0, BOUNCE, 1.0);
 	edit_change(POLYGON, 0, XVELOCITY, (((rand() % 2) * 2) - 1) * BALL_SPEED);
 	edit_change(POLYGON, 0, YVELOCITY, rand() % BALL_SPEED + (BALL_SPEED / 2));
@@ -57,7 +57,7 @@ void readInput()
 	}
 }
 
-void runGame()
+void runGameLogic()
 {
 	physics_limitBoundary();
 	//physics_detectPolygonCollision();
@@ -74,7 +74,7 @@ void runGame()
 	text_update(3, "AI");
 	text_data(3, AIWins);
 
-	srand(time(NULL));
+	srand(time(NULL) + pow(5, 2));
 
 	/*Moves text with players*/
 	text_move(2, edit_get(BLOCK, 1, XPOSITION) - 5, edit_get(BLOCK, 1, YPOSITION));

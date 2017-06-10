@@ -12,7 +12,7 @@ double platformGravity = 9.8; // m/s^2
 double gravityConstant = 1.5E-1; // m/s^2
 
 
-void initGame()
+void initGameAssets()
 {
 	camera_setViewportHeight(edit_get(GAME, 0, HEIGHT));
 	camera_setTarget(edit_get(GAME, 0, XCENTRE), edit_get(GAME, 0, YCENTRE));
@@ -21,10 +21,10 @@ void initGame()
 	/*Insert Game Initialisation code.*/
 	edit_createPolygon(BACKGROUND, 32, edit_get(GAME, 0, WIDTH)/2, edit_get(GAME, 0, XCENTRE), edit_get(GAME, 0, YCENTRE), BLACK);
 	edit_createPolygon(BACKGROUND, 16, 0.004, edit_get(GAME, 0, XCENTRE), edit_get(GAME, 0, YCENTRE), WHITE);
-	edit_createPolygon(AIRBOURNE, 6, 0.05, edit_get(GAME, 0, XCENTRE),	edit_get(GAME, 0, HEIGHT) - 0.11, GREEN);
-	edit_createPolygon(AIRBOURNE, 6, 0.05, edit_get(GAME, 0, XCENTRE), 0 + 0.11, RED);
-	edit_createPolygon(AIRBOURNE, 6, 0.05, 0 + 0.11, edit_get(GAME, 0, YCENTRE), BLUE);
-	edit_createPolygon(AIRBOURNE, 6, 0.05, edit_get(GAME, 0, WIDTH) - 0.11, edit_get(GAME, 0, YCENTRE), YELLOW);
+	edit_createPolygon(FLOATING, 6, 0.05, edit_get(GAME, 0, XCENTRE),	edit_get(GAME, 0, HEIGHT) - 0.11, GREEN);
+	edit_createPolygon(FLOATING, 6, 0.05, edit_get(GAME, 0, XCENTRE), 0 + 0.11, RED);
+	edit_createPolygon(FLOATING, 6, 0.05, 0 + 0.11, edit_get(GAME, 0, YCENTRE), BLUE);
+	edit_createPolygon(FLOATING, 6, 0.05, edit_get(GAME, 0, WIDTH) - 0.11, edit_get(GAME, 0, YCENTRE), YELLOW);
 
 	edit_change(POLYGON, 2, XVELOCITY, dpadSensitivity * 0.6);
 	edit_change(POLYGON, 2, YVELOCITY, -(dpadSensitivity) * 0.6);
@@ -156,7 +156,7 @@ void readInput()
 	}
 }
 
-void runGame()
+void runGameLogic()
 {
 	int i;
 	int j;
@@ -191,7 +191,7 @@ void runGame()
 			edit_adjust(POLYGON, i, XVELOCITY, 0.6 * cos(geometry_findAngleBetween(POLYGON, i, POLYGON, 1)));
 			edit_adjust(POLYGON, i, YVELOCITY, 0.6 * sin(geometry_findAngleBetween(POLYGON, i, POLYGON, 1)));
 
-			if (polygon[i].properties.classification == AIRBOURNE)
+			if (polygon[i].properties.classification == FLOATING)
 			{
 				for (j = 0; j <= storedPolygons; j++)
 				{
