@@ -8,29 +8,38 @@
 
 #pragma once
 
-void camera_centreToWorld();	//Centres to world map when the viewport is larger.
+ /*| Centres to world map when the viewport is larger.*/
+void camera_centreToWorld();
 
+/*| Centres camera(X and/or Y) to a specified object.*/
 void camera_follow(unsigned char object,
 	int objectNumber,
 	bool followX,
-	bool followY);	//Centres camera(X and/or Y) to a specified object.
+	bool followY);
 
+/*| Flips the X and Y camera coordinates.*/
 void camera_invert(bool x, bool y);
 
+/*| Adjusts the camera zoom in real time.*/
 void camera_keepZoomingBy(double deltaWidth);
 
+/*| Prevents the camera frame from crossing specified points.*/
 void camera_limitTo(double left,
 	double right,
 	double down,
-	double up);	//Prevents the camera frame from crossing specified points.
+	double up);
 
-void camera_scroll(double xScroll, double yScroll);	//Shifts camera position.				
+/*| Shifts camera position.*/
+void camera_scroll(double xScroll, double yScroll);					
 
+/*| Shifts camera to a specific point.*/
 void camera_scrollToTarget(double newXPosition,
 	double newYPosition,
-	double scrollSpeed);	//Shifts camera to a specific point.
+	double scrollSpeed);
 
-void camera_setTarget(double newXPosition, double newYPosition);	//Centres camera to a specified point.
+/*| Centres camera to a specified point.*/
+void camera_setTarget(double newXPosition, double newYPosition);
+
 void camera_setViewportHeight(double cameraHeight);
 void camera_setViewportWidth(double cameraWidth);
 void camera_zoomToHeight(double targetHeight, double deltaHeight);

@@ -9,20 +9,24 @@
 #pragma once
 
 bool event_arePolygonsTouching(int firstObjectNumber, int secondObjectNumber);
-bool event_doFor(double interval);
+bool event_doAfter(double interval, int eventReference);
+bool event_doFor(double interval, int eventReference);
 bool event_hasFalleninAHole(unsigned char object, int objectNumber);
 bool event_hasPolygonPastXLocation(int objectNumber, double xPosition);
 bool event_hasPolygonPastYLocation(int objectNumber, double yPosition);
 bool event_isPolygonHigher(int firstObjectNumber, int secondObjectNumber);
-bool event_isOnCycle(double interval);	//Allows continuous operations on a time cycle.
+
+/*| Allows continuous operations on a time cycle.*/
+bool event_isOnCycle(double interval);
 
 bool event_isOnPlatform(unsigned char object,
 	int objectNumber,
 	int platformNumber);
 
-bool event_isOnceEvery(double interval);	//Allows single operations on a time cycle.
+/*| Allows single operations on a time cycle.*/
+bool event_isOnceEvery(double interval);
 
-bool event_isOnInstant();
+bool event_isOnInstant(int eventReference);
 
 bool event_isPolygonAirboune(unsigned char object,
 	int objectNumber);

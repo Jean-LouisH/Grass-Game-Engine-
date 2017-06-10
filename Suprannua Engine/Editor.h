@@ -8,10 +8,11 @@
 
 #pragma once
 
+ /*| increments data values per second to attributes.*/
 void edit_adjust(unsigned char object,
 	int objectNumber,
 	unsigned char attribute,
-	double amount);	//increments data values per second to attributes.
+	double amount);	
 
 void edit_change(unsigned char object,
 	int objectNumber,
@@ -44,12 +45,14 @@ void edit_createPolygon(unsigned char type,
 	double newYPosition,
 	unsigned char colour);
 
+
+/*| Takes in the x and y coordinate of the block sides for plotting.*/
 void edit_createRectangle(unsigned char type,
 	double left,
 	double right,
 	double down,
 	double up,
-	unsigned char colour);	//Takes in the x and y coordinate of the block sides for plotting.
+	unsigned char colour);
 
 void edit_createSquare(unsigned char type,
 	double diagonalLength,
@@ -60,9 +63,12 @@ void edit_createSquare(unsigned char type,
 void edit_enableGrid(bool state);
 void edit_enableKernelStats(bool state);
 
+/*| Retrieves decimal data from game objects.*/
 double edit_get(unsigned char object,
 	int objectNumber,
-	unsigned char attribute);	//Retrieves decimal data from game objects.
+	unsigned char attribute);
+
+void edit_hide(unsigned char object, int objectNumber);
 
 void edit_move(unsigned char object,
 	int objectNumber,
@@ -70,7 +76,9 @@ void edit_move(unsigned char object,
 	double newYPosition);
 
 void edit_remove(unsigned char object, int objectNumber);
-void edit_reset();	//clears all Engine runtime data.
+
+/*| Clears all Engine runtime data.*/
+void edit_reset();
 void edit_resize(unsigned char object, int objectNumber, double scale);
 void edit_scrollPlatform(int objectNumber,
 	bool direction,
