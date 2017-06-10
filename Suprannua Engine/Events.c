@@ -11,16 +11,21 @@ bool event_arePolygonsTouching(int firstObjectNumber, int secondObjectNumber)
 		return false;
 }
 
-bool event_doFor(double interval)
+bool event_doAfter(double interval, int eventReference)
 {
-	static double remainingTime;
+	return !(event_doFor(interval, eventReference));
+}
 
-	if (remainingTime <= 0)
-		remainingTime = interval;
+bool event_doFor(double interval, int eventReference)
+{
+	static double remainingTime[100];
 
-	remainingTime -= (FRAME_TIME_MILLISECS / 1000);
+	if (remainingTime[eventReference] <= 0)
+		remainingTime[eventReference] = interval;
 
-	if (remainingTime > 0)
+	remainingTime[eventReference] -= (FRAME_TIME_MILLISECS / 1000);
+
+	if (remainingTime[eventReference] > 0)
 		return true;
 	else
 		return false;
@@ -97,19 +102,22 @@ bool event_isOnceEvery(double interval)
 		return false;
 }
 
-bool event_isOnInstant()
+bool event_isOnInstant(int eventReference)
 {
-	static int callFrame = 0;
+	static int callFrame[100] = {0};
 
-	if (callFrame == (frameCount - 1))
+	if (frameCount > 1)
 	{
-		callFrame = frameCount;
-		return false;
-	}
-	else
-	{
-		callFrame = frameCount;
-		return true;
+		if (callFrame[eventReference] == (frameCount - 1))
+		{
+			callFrame[eventReference] = frameCount;
+			return false;
+		}
+		else
+		{
+			callFrame[eventReference] = frameCount;
+			return true;
+		}
 	}
 }
 
