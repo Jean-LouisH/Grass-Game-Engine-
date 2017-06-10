@@ -17,49 +17,116 @@
   * To display the relative positions and scale of a collection of points to the camera.
   */
 
-void render_displayStoredBlocks()
+void render_addRenderingLayer(unsigned char objectType, 
+	unsigned char classification, 
+	int objectNumber)
 {
 	int i;
 
-	for (i = 0; i <= storedBlocks; i++)
-		if (block[i].properties.classification == BACKGROUND)
-			render_drawBlock(i);
+	switch (classification)
+	{
+	case BACKGROUND:
 
-	if (isGridEnabled)
-		render_drawGrid();
+		for (i = 0; i < MAX_DEFAULT_OBJECTS; i++)
+		{
+			if (backgrounds[i].objectType == 0)
+				break;
+		}
 
-	for (i = 0; i <= storedBlocks; i++)
-		if (block[i].properties.classification == PLATFORM)
-			render_drawBlock(i);
+		if (i > storedBackgrounds)
+			storedBackgrounds = i;
 
-	for (i = 0; i <= storedBlocks; i++)
-		if (block[i].properties.classification == ENTITY || block[i].properties.classification == AIRBOURNE)
-			render_drawBlock(i);
+		backgrounds[i].objectNumber = objectNumber;
+		backgrounds[i].objectType = objectType;
+		break;
 
-	for (i = 0; i <= storedBlocks; i++)
-		if (block[i].properties.classification == FOREGROUND)
-			render_drawBlock(i);
+	case PLATFORM:
+
+		for (i = 0; i < MAX_DEFAULT_OBJECTS; i++)
+		{
+			if (platforms[i].objectType == 0)
+				break;
+		}
+
+		if (i > storedPlatforms)
+			storedPlatforms = i;
+
+		platforms[i].objectNumber = objectNumber;
+		platforms[i].objectType = objectType;
+		break;
+
+	case ENTITY:
+	case FLOATING:
+
+		for (i = 0; i < MAX_DEFAULT_OBJECTS; i++)
+		{
+			if (entities[i].objectType == 0)
+				break;
+		}
+
+		if (i > storedEntities)
+			storedEntities = i;
+
+		entities[i].objectNumber = objectNumber;
+		entities[i].objectType = objectType;
+		break;
+
+	case FOREGROUND:
+
+		for (i = 0; i < MAX_DEFAULT_OBJECTS; i++)
+		{
+			if (foregrounds[i].objectType == 0)
+				break;
+		}
+
+		if (i > storedForegrounds)
+			storedForegrounds = i;
+
+		foregrounds[i].objectNumber = objectNumber;
+		foregrounds[i].objectType = objectType;
+		break;
+	}
 }
 
-void render_displayStoredPolygons()
+void render_displayBackgrounds()
 {
 	int i;
 
-	for (i = 0; i <= storedPolygons; i++)
-		if (polygon[i].properties.classification == BACKGROUND)
-			render_drawPolygon(i);
+	for (i = 0; i <= storedBackgrounds; i++)
+		render_drawByObjectType(backgrounds[i].objectNumber, backgrounds[i].objectType);
+}
 
-	for (i = 0; i <= storedPolygons; i++)
-		if (polygon[i].properties.classification == PLATFORM)
-			render_drawPolygon(i);
+void render_displayPlatforms()
+{
+	int i;
 
-	for (i = 0; i <= storedPolygons; i++)
-		if (polygon[i].properties.classification == ENTITY || polygon[i].properties.classification == AIRBOURNE)
-			render_drawPolygon(i);
+	for (i = 0; i <= storedPlatforms; i++)
+		render_drawByObjectType(platforms[i].objectNumber, platforms[i].objectType);
+}
 
-	for (i = 0; i <= storedPolygons; i++)
-		if (polygon[i].properties.classification == FOREGROUND)
-			render_drawPolygon(i);
+void render_displayEntities()
+{
+	int i;
+
+	for (i = 0; i <= storedEntities; i++)
+		render_drawByObjectType(entities[i].objectNumber, entities[i].objectType);
+}
+
+void render_displayForegrounds()
+{
+	int i;
+
+	for (i = 0; i <= storedForegrounds; i++)
+		render_drawByObjectType(foregrounds[i].objectNumber, foregrounds[i].objectType);
+}
+
+void render_drawByObjectType(int objectNumber, unsigned char objectType)
+{
+	switch (objectType)
+	{
+	case POLYGON: render_drawPolygon(objectNumber); break;
+	case BLOCK: render_drawBlock(objectNumber); break;
+	}
 }
 
 void render_displayText()
@@ -77,17 +144,20 @@ void render_displayText()
 
 		if (textCache[j].classification == HUD)
 		{
+			/*Render to camera layout*/
 			glRasterPos2f(textCache[j].textPin.xPosition,
 				textCache[j].textPin.yPosition);
 		}
 		else if (textCache[j].classification == ENTITY)
 		{
+			/*Render to map*/
 			glRasterPos2f((textCache[j].textPin.xPosition -
 				(camera2D.target.xPosition)) / (camera2D.viewport.width / 2),
 				(textCache[j].textPin.yPosition -
 				(camera2D.target.yPosition)) / (camera2D.viewport.height / 2));
 		}
 
+		/*For the paused text cache*/
 		if (j == 0)
 		{
 			if (isGamePaused)
