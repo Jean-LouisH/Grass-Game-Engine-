@@ -1,5 +1,5 @@
 /**
- * FreeglutCallbacks
+ * FreeGLUT_Access
  *
  * Author: Jean-Louis Haywood
  *

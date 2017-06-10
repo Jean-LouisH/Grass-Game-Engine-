@@ -2,10 +2,15 @@
 
 void keyPressed(unsigned char key, int x, int y)
 {
-	keyStates[key] = true; //registers a button press in the input buffer.
+	if (key < 128)
+		keyStates[key] = true; //registers a button press in the input buffer.
 
 	if (keyStates[27]) //Escape key
+	{
+		Mix_Quit();
+		SDL_Quit();
 		exit(EXIT_SUCCESS);
+	}
 
 	if (keyStates[9]) //Tab key to centre entire window.
 		glutPositionWindow(((glutGet(GLUT_SCREEN_WIDTH) * 0.250) / 2) + 1,
@@ -23,11 +28,13 @@ void keyUp(unsigned char key, int x, int y)
 	{
 		isGamePaused = true;
 		gameState = MENU;			//Goes into menu immediately after pausing.
+		Mix_PauseMusic();
 	}
 	else if (input_isPressed('p') && (isGamePaused))
 	{
 		isGamePaused = false;
 		gameState = GAMEPLAY;
+		Mix_ResumeMusic();
 	}
 
 	if (input_isPressed('r'))
@@ -35,7 +42,8 @@ void keyUp(unsigned char key, int x, int y)
 		edit_reset();
 	}
 
-	keyStates[key] = false;
+	if (key < 128)
+		keyStates[key] = false;
 }
 
 void keyUpSpecial(unsigned char key, int x, int y)
@@ -75,11 +83,11 @@ void runGLUT(int argc, char **argv)
 	/*Run GLUT callback registration*/
 	glutKeyboardFunc(keyPressed);
 	glutKeyboardUpFunc(keyUp);
-	glutSpecialFunc(keySpecial);
-	glutSpecialUpFunc(keyUpSpecial);
+	//glutSpecialFunc(keySpecial);
+	//glutSpecialUpFunc(keyUpSpecial);
 	glutReshapeFunc(resize);
 
-	glutDisplayFunc(runKernel);
+	glutDisplayFunc(runGameLoop);
 	glutTimerFunc(FRAME_TIME_MILLISECS, timer, FRAME_TIME_MILLISECS);
 	glutMainLoop();
 }
