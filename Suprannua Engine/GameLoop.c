@@ -1,16 +1,16 @@
 #include "SuprannuaEngine.h"
 
-void runKernel()
+void runGameLoop()
 {
 	currentTime = time(NULL);
 
 	if (frameCount == 0)
 	{
 		text_set(HUD, -0.075, 0.0, "PAUSED", WHITE);
-		text_set(HUD, -1.0, 0.95, "", WHITE);
+		text_set(HUD, -1.0, 0.90, "BLAH", WHITE);
 		startTime = currentTime;
 		firstTimeSample = currentTime;
-		initGame();
+		initGameAssets();
 	}
 
 	kernelTime = currentTime - startTime;
@@ -23,7 +23,7 @@ void runKernel()
 		geometry_transform();
 		frameCount++;
 		passedFrames++;
-		runGame();
+		runGameLogic();
 	}
 
 	if (currentTime - firstTimeSample >= 1)
@@ -39,8 +39,12 @@ void runKernel()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //enables alpha blending.
 
-	render_displayStoredBlocks();
-	render_displayStoredPolygons();
+	render_displayBackgrounds();
+	if (isGridEnabled)
+		render_drawGrid();
+	render_displayPlatforms();
+	render_displayEntities();
+	render_displayForegrounds();
 
 	render_displayText();
 

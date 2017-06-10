@@ -1,5 +1,5 @@
 /**
- * Kernel
+ * GameLoop
  *
  * Author: Jean-Louis Haywood
  *
@@ -8,4 +8,4 @@
 
 #pragma once
 
-void runKernel();			//Display and framework functions on glutMainLoop().
+void runGameLoop();			//Display and framework functions on glutMainLoop().
