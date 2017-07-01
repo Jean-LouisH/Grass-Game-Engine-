@@ -30,7 +30,8 @@ img
 
 h1, h2, p, .imgText, ul, table
 {
-	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	/*font-family: "Trebuchet MS", Helvetica, sans-serif;*/
+	font-family: Lato;
 }
 
 .imgText
