@@ -21,7 +21,7 @@ void AI_jump(unsigned char agent, int agentNumber, double jumpVelocity);
 void AI_mimic(unsigned char agent, int agentNumber, unsigned char object, int objectNumber);
 
 /*| Agent fires projectile at a specified object.*/
-void AI_shoot(unsigned char agent, int agentNumber, unsigned char object, int objectNumber);
+void AI_shoot(unsigned char agent, int agentNumber, unsigned char object, int objectNumber, double speed);
 
 /*| Agent rotates.*/
 void AI_spin(unsigned char agent, int agentNumber, bool direction, double degreesPerSecond);

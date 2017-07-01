@@ -10,7 +10,7 @@
 #include "SuprannuaEngine.h"
 
 
-int frameCount = 0;
+unsigned long frameCount = 0;
 double timeCount;
 double framesPerSecond;
 int passedFrames;

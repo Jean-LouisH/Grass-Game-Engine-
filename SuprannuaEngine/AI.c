@@ -119,7 +119,7 @@ void AI_mimic(unsigned char agent, int agentNumber, unsigned char object, int ob
 	polygon[agentNumber].properties.angle = polygon[objectNumber].properties.angle;
 }
 
-void AI_shoot(unsigned char agent, int agentNumber, unsigned char object, int objectNumber)
+void AI_shoot(unsigned char agent, int agentNumber, unsigned char object, int objectNumber, double speed)
 {
 	double positionAngle;
 	static int lastPolygon = 0;
@@ -132,13 +132,15 @@ void AI_shoot(unsigned char agent, int agentNumber, unsigned char object, int ob
 	if (lastPolygon != 0)
 		edit_remove(POLYGON, lastPolygon);
 
-	edit_createPolygon(FLOATING, 12, 0.3, polygon[agentNumber].centre.xPosition +
+	edit_createPolygon(ENTITY, 12, 0.3, polygon[agentNumber].centre.xPosition +
 		polygon[agentNumber].radius, polygon[agentNumber].centre.yPosition + polygon[agentNumber].radius + 1.0, WHITE);
 
 	lastPolygon = storedPolygons;
+	edit_change(POLYGON, lastPolygon, BOUNCE, 0.99);
+	edit_change(POLYGON, lastPolygon, MASS, 0.0001);
 
-	polygon[lastPolygon].properties.xVelocity = dpadSensitivity * cos(positionAngle);
-	polygon[lastPolygon].properties.yVelocity = dpadSensitivity * sin(positionAngle);
+	polygon[lastPolygon].properties.xVelocity = speed * cos(positionAngle);
+	polygon[lastPolygon].properties.yVelocity = speed * sin(positionAngle);
 }
 
 void AI_spin(unsigned char agent, int agentNumber, bool direction, double degreesPerSecond)

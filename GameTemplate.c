@@ -1,11 +1,11 @@
-#include "Suprannua Engine/SuprannuaEngine.h" 
+#include "SuprannuaEngine/SuprannuaEngine.h" 
 
 /*Custom code for Initialisation, Scripting and Controls*/
 
 /*Global variables*/
 
-char gameTitle[64] = "[Test] AI Algorithms";
-Rect worldSizeMetres = { 200,150 }; // m
+char gameTitle[64] = "[Game Template";
+Rect worldSizeMetres = { 100,56 }; // m
 double dpadSensitivity = 10.0; // m/s
 double cameraScrollSpeed = 50.0; // m/s
 double platformGravity = 9.8; // m/s^2

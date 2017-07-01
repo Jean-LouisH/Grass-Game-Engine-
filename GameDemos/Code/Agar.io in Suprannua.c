@@ -1,4 +1,4 @@
-#include "../../Suprannua Engine/SuprannuaEngine.h" 
+#include "../../SuprannuaEngine/SuprannuaEngine.h" 
 
 /*The aim is to collect as many smaller polygons until you burst to gain win points. If you are
 eaten, your losses are also scored. */

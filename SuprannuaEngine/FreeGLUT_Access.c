@@ -37,7 +37,8 @@ void keyUp(unsigned char key, int x, int y)
 		Mix_ResumeMusic();
 	}
 
-	if (input_isPressed('r'))
+	if (input_isPressed('z') && input_isPressed('c') &&
+		input_isPressed('r') && isGamePaused)
 	{
 		edit_reset();
 	}

@@ -101,7 +101,7 @@
     <ClCompile Include="GameLoop.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Standard Game Demo.c">
+    <ClCompile Include="..\StandardGameDemo.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

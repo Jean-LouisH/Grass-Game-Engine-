@@ -226,8 +226,8 @@ void physics_limitBoundary()
 
 	for (i = 0; i <= storedPolygons; i++)
 	{
-		if (polygon[i].properties.classification != NOTHING
-			&& polygon[i].properties.classification != PLACEHOLDER)
+		if (polygon[i].properties.classification == FLOATING
+			|| polygon[i].properties.classification == ENTITY)
 		{
 			//X Axis
 			if (polygon[i].centre.xPosition + polygon[i].radius >= worldSizeMetres.width)

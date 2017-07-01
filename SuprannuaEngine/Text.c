@@ -158,7 +158,7 @@ void text_colourToAlpha(int textCell, double alpha)
 void text_data(int textCell, double value)
 {
 	char *oldText = textCache[textCell].textContent;
-	sprintf(textCache[textCell].textContent, "%s: %.1f", oldText, value);
+	sprintf(textCache[textCell].textContent, "%s %.1f", oldText, value);
 }
 
 void text_move(int textCell, double xText, double yText)

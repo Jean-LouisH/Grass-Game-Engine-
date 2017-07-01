@@ -218,7 +218,6 @@ bool event_isPolygonWithinRadius(int firstObjectNumber,
 		return false;
 }
 
-
 bool event_isWithinPlatformHeight(unsigned char object,
 	int objectNumber,
 	int platformNumber)
