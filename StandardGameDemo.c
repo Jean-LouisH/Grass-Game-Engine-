@@ -83,7 +83,7 @@ void initGameAssets()
 	edit_createRectangle(PLATFORM, 155, 160, 1.25, 6, DARK_BROWN);
 	edit_createRectangle(PLATFORM, 155, 160, 6, 6.25, DARK_GREEN);;
 	edit_createRectangle(PLATFORM, 160, edit_get(GAME, 0, WIDTH), 1.25, 11, DARK_BROWN);
-	edit_createRectangle(PLATFORM, 160, edit_get(GAME, 0, WIDTH), 11, 11.25, DARK_GREEN);
+	edit_createRectangle(PLATFORM, 160, edit_get(GAME, 0, WIDTH), 11, 11.25, WHITE);
 
 	edit_createRectangle(FOREGROUND, 149, 151, 1.25, 7.0, DARK_BROWN);
 	edit_createPolygon(FOREGROUND, 8, 5.0, 150, 9, DARK_GREEN);
@@ -95,13 +95,16 @@ void initGameAssets()
 	edit_createRectangle(FOREGROUND, 15, 19, 0.4, 1.05, SKY_BLUE);
 	edit_colourToAlpha(BLOCK, storedBlocks, 0.15);
 
-	edit_createPolygon(ENTITY, 8, 5.0, 180, 15, DARK_BROWN);
+	edit_createPolygon(ENTITY, 8, 5.0, 180, 15, WHITE);
 	edit_change(POLYGON, storedPolygons, BOUNCE, 0.99);
 	edit_change(POLYGON, storedPolygons, MASS, 10);
 
 	edit_createRectangle(PLATFORM, -0.5, 0.0, 0.0, edit_get(GAME, 0, HEIGHT), SKY_BLUE);
 	edit_createRectangle(PLATFORM, edit_get(GAME, 0, WIDTH), edit_get(GAME, 0, WIDTH) + 
 		0.5, 0.0, edit_get(GAME, 0, HEIGHT), SKY_BLUE);
+
+	edit_createRectangle(PLATFORM, 90.0, 100.0, 15.0, 16.0, VIOLET);
+	edit_createRectangle(PLATFORM, 120.0, 130.0, 14.0, 15.0, MAGENTA);
 
 	text_set(ENTITY, 5, 11 + 6,
 		"The " SOFTWARE " Standard Game Template", WHITE);
@@ -112,7 +115,9 @@ void initGameAssets()
 	text_set(HUD, -0.35, -0.1, "Test", WHITE);
 
 	audio_set(SOUND, "../EngineAssets/Kabuki Yooo.ogg");
+	audio_set(SOUND, "../EngineAssets/Freezing sfx.ogg");
 	audio_set(MUSIC, "../EngineAssets/Bay Breeze - FortyThr33.ogg");
+	audio_set(MUSIC, "../EngineAssets/Jingle Bells.ogg");
 }
 
 /*Controls*/
@@ -308,4 +313,7 @@ void runGameLogic()
 
 	if (event_isOnInstant(2))
 		audio_play(MUSIC, 0, INFINITE);
+
+	edit_scrollPlatform(storedBlocks - 1, LEFT_RIGHT, 96, 115, 5.0);
+	edit_scrollPlatform(storedBlocks, UP_DOWN, 13, 5, 5.0);
 }
