@@ -55,7 +55,7 @@ void audio_play(unsigned char type, int audioNumber, int loops)
 		{
 			Mix_HaltMusic();
 		}
-		Mix_FadeInMusic(music[audioNumber], loops, 5000);
+		Mix_PlayMusic(music[audioNumber], loops);
 		currentMusic = audioNumber;
 	}
 	else if (type == SOUND)

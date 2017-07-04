@@ -77,7 +77,7 @@ void edit_move(unsigned char object,
 
 void edit_remove(unsigned char object, int objectNumber);
 
-/*| Clears all Engine runtime data.*/
+/*| Clears all Engine runtime data. All in game variables must be manually cleared.*/
 void edit_reset();
 void edit_resize(unsigned char object, int objectNumber, double scale);
 void edit_scrollPlatform(int objectNumber,
