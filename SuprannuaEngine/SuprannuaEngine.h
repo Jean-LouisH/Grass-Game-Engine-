@@ -230,7 +230,7 @@ extern double gravityConstant;
 extern bool isGamePaused;
 
 /*Engine time and states*/
-extern unsigned long frameCount;
+extern unsigned int frameCount;
 extern double timeCount;
 extern double framesPerSecond;
 extern int passedFrames;
