@@ -11,6 +11,9 @@ double cameraScrollSpeed = 50.0; // m/s
 double platformGravity = 9.8; // m/s^2
 double gravityConstant = 6.674E-11; // m/s^2
 
+int oceanBlock;
+int snowballID;
+
 void initGameAssets()
 {
 	int i;
@@ -69,6 +72,7 @@ void initGameAssets()
 	edit_createRectangle(PLATFORM, 100, 105, -20, -13, DARK_BROWN);
 	edit_createRectangle(PLATFORM, 105, 120, -20, -13, DARK_BROWN);
 	edit_createRectangle(FOREGROUND, 90, 120, -20, 1, BLUE);
+	oceanBlock = storedBlocks;
 	edit_colourToAlpha(BLOCK, 20, 0.5);
 	edit_createRectangle(PLATFORM, 120, 121, -20, 1, BROWN);
 	edit_createRectangle(PLATFORM, 120, edit_get(GAME, 0, WIDTH), 0.0, topSoilLevel, BROWN);
@@ -98,6 +102,7 @@ void initGameAssets()
 	edit_createPolygon(ENTITY, 8, 5.0, 180, 15, WHITE);
 	edit_change(POLYGON, storedPolygons, BOUNCE, 0.99);
 	edit_change(POLYGON, storedPolygons, MASS, 10);
+	snowballID = storedPolygons;
 
 	edit_createRectangle(PLATFORM, -0.5, 0.0, 0.0, edit_get(GAME, 0, HEIGHT), SKY_BLUE);
 	edit_createRectangle(PLATFORM, edit_get(GAME, 0, WIDTH), edit_get(GAME, 0, WIDTH) + 
@@ -118,6 +123,7 @@ void initGameAssets()
 	audio_set(SOUND, "../EngineAssets/Freezing sfx.ogg");
 	audio_set(MUSIC, "../EngineAssets/Bay Breeze - FortyThr33.ogg");
 	audio_set(MUSIC, "../EngineAssets/Jingle Bells.ogg");
+	
 }
 
 /*Controls*/
@@ -316,4 +322,47 @@ void runGameLogic()
 
 	edit_scrollPlatform(storedBlocks - 1, LEFT_RIGHT, 96, 115, 5.0);
 	edit_scrollPlatform(storedBlocks, UP_DOWN, 13, 5, 5.0);
+
+	if (edit_get(POLYGON, snowballID, YPOSITION) < -5)
+	{
+		edit_colourFromRGBA(BLOCK, oceanBlock, 135, 206, 235, 160);
+		edit_change(BLOCK, oceanBlock, TYPE, PLATFORM);
+		edit_hide(POLYGON, snowballID);
+	}
+
+	if (edit_get(BLOCK, oceanBlock, TYPE) == PLATFORM)
+	{
+		if (event_isOnInstant(3))
+		{
+			audio_play(SOUND, 1, NONE);
+			edit_colourBlock(0, PINK);
+
+			for (i = 0; i < storedBlocks; i++)
+			{
+				if (block[i].properties.colour[0] == 0 && block[i].properties.colour[1] > 80 &&
+					block[i].properties.colour[2] == 0)
+				{
+					edit_colourBlock(i, WHITE);
+				}
+			}
+
+			for (i = 0; i < storedPolygons; i++)
+			{
+				if (polygon[i].properties.colour[0] == 0 && polygon[i].properties.colour[1] > 80 &&
+					polygon[i].properties.colour[2] == 0)
+				{
+					edit_colourPolygon(i, WHITE);
+				}
+			}
+
+			edit_colourToAlpha(POLYGON, 1, 0.0);
+
+			for (i = 0; i < 50; i++)
+			{
+				edit_createPolygon(FOREGROUND, 16, 0.2, 0.0, 0.0, WHITE);
+			}
+
+			audio_play(MUSIC, 1, INFINITE);
+		}
+	}
 }
