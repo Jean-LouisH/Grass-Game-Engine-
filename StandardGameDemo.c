@@ -12,6 +12,8 @@ double platformGravity = 9.8; // m/s^2
 double gravityConstant = 6.674E-11; // m/s^2
 
 int oceanBlock;
+int mountain1;
+int mountain2;
 int snowballID;
 
 void initGameAssets()
@@ -39,9 +41,11 @@ void initGameAssets()
 
 	edit_createPolygon(BACKGROUND, 6, 5.0, 10.0, 0.1, DARK_GREEN);
 	edit_colourFromRGBA(POLYGON, 2, 0, 90, 0, FULL);
+	mountain1 = storedPolygons;
 
 	edit_createPolygon(BACKGROUND, 6, 20.0, 35.0, 0.1, DARK_GREEN);
 	edit_colourFromRGBA(POLYGON, 3, 0, 90, 0, FULL);
+	mountain2 = storedPolygons;
 
 	for (i = 0; i < trees; i++)
 	{
@@ -181,6 +185,11 @@ void readInput()
 		{
 			if (event_isOnInstant(1))
 				camera_invert(true, true);
+		}
+
+		if (input_isPressed('t'))
+		{
+			edit_move(POLYGON, snowballID, 1.0, -5.0);
 		}
 	}
 	else if (gameState == MENU)
@@ -353,6 +362,11 @@ void runGameLogic()
 				{
 					edit_colourPolygon(i, WHITE);
 				}
+
+				if (i == mountain1 || i == mountain2)
+				{
+					edit_colourFromRGBA(POLYGON, i, 245, 245, 245, 255);
+				}
 			}
 
 			edit_colourToAlpha(POLYGON, 1, 0.0);
@@ -360,9 +374,19 @@ void runGameLogic()
 			for (i = 0; i < 50; i++)
 			{
 				edit_createPolygon(FOREGROUND, 16, 0.2, 0.0, 0.0, WHITE);
+				edit_change(POLYGON, i, YVELOCITY, -5.0);
 			}
 
 			audio_play(MUSIC, 1, INFINITE);
+		}
+
+		if (edit_get(BLOCK, oceanBlock, TYPE) == PLATFORM)
+		{
+			for (i = storedPolygons - 50; i < storedPolygons; i++)
+			{
+				if (edit_get(POLYGON, i, YPOSITION) < 1)
+					edit_move(POLYGON, i, edit_get(POLYGON, i, XPOSITION), edit_get(GAME, 0, HEIGHT));
+			}
 		}
 	}
 }
