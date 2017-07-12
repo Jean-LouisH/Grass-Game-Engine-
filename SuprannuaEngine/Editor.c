@@ -433,7 +433,7 @@ void edit_colourToAlpha(unsigned char object, int objectNumber, double alpha)
 		block[objectNumber].properties.colour[ALPHA] = (int)(alpha * FULL);
 }
 
-void edit_createPolygon(unsigned char type,
+int edit_createPolygon(unsigned char type,
 	int numberOfSides,
 	double newRadius,
 	double newXPosition,
@@ -483,9 +483,10 @@ void edit_createPolygon(unsigned char type,
 	edit_colourPolygon(i, colour);
 	geometry_plotPolygon(i);
 	render_addRenderingLayer(POLYGON, type, i);
+	return i;
 }
 
-void edit_createRectangle(unsigned char type,
+int edit_createRectangle(unsigned char type,
 	double left,
 	double right,
 	double down,
@@ -522,9 +523,10 @@ void edit_createRectangle(unsigned char type,
 	edit_colourBlock(i, colour);
 	geometry_plotBlock(i);
 	render_addRenderingLayer(BLOCK, type, i);
+	return i;
 }
 
-void edit_createSquare(unsigned char type,
+int edit_createSquare(unsigned char type,
 	double diagonalLength,
 	double newXPosition,
 	double newYPosition,
@@ -560,6 +562,7 @@ void edit_createSquare(unsigned char type,
 	edit_colourBlock(i, colour);
 	geometry_plotBlock(i);
 	render_addRenderingLayer(BLOCK, type, i);
+	return i;
 }
 
 void edit_enableGrid(bool state)

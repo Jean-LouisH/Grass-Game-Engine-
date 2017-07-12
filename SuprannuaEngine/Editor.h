@@ -38,7 +38,8 @@ void edit_colourToAlpha(unsigned char object,
 	int objectNumber,
 	double alpha);
 
-void edit_createPolygon(unsigned char type,
+/*| Returns polygon objectNumber*/
+int edit_createPolygon(unsigned char type,
 	int numberOfSides,
 	double newRadius,
 	double newXPosition,
@@ -46,15 +47,17 @@ void edit_createPolygon(unsigned char type,
 	unsigned char colour);
 
 
-/*| Takes in the x and y coordinate of the block sides for plotting.*/
-void edit_createRectangle(unsigned char type,
+/*| Takes in the x and y coordinate of the block sides for plotting.
+ | Returns rectangle objectNumber*/
+int edit_createRectangle(unsigned char type,
 	double left,
 	double right,
 	double down,
 	double up,
 	unsigned char colour);
 
-void edit_createSquare(unsigned char type,
+/*| Returns rectangle objectNumber*/
+int edit_createSquare(unsigned char type,
 	double diagonalLength,
 	double newXPosition,
 	double newYPosition,
