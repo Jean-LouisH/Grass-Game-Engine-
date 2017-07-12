@@ -11,9 +11,9 @@ double cameraScrollSpeed = 50.0; // m/s
 double platformGravity = 9.8; // m/s^2
 double gravityConstant = 6.674E-11; // m/s^2
 
-int oceanBlock;
-int mountain1;
-int mountain2;
+int oceanID;
+int mountain1ID;
+int mountain2ID;
 int snowballID;
 
 void initGameAssets()
@@ -39,13 +39,11 @@ void initGameAssets()
 	edit_createPolygon(ENTITY, 6, 1.0, 4.0, 10.0, RED); //Player
 	edit_createPolygon(BACKGROUND, 6, 3.0, 5.0, 17.0, YELLOW); //Sun
 
-	edit_createPolygon(BACKGROUND, 6, 5.0, 10.0, 0.1, DARK_GREEN);
+	mountain1ID = edit_createPolygon(BACKGROUND, 6, 5.0, 10.0, 0.1, DARK_GREEN);
 	edit_colourFromRGBA(POLYGON, 2, 0, 90, 0, FULL);
-	mountain1 = storedPolygons;
 
-	edit_createPolygon(BACKGROUND, 6, 20.0, 35.0, 0.1, DARK_GREEN);
+	mountain2ID = edit_createPolygon(BACKGROUND, 6, 20.0, 35.0, 0.1, DARK_GREEN);
 	edit_colourFromRGBA(POLYGON, 3, 0, 90, 0, FULL);
-	mountain2 = storedPolygons;
 
 	for (i = 0; i < trees; i++)
 	{
@@ -75,8 +73,7 @@ void initGameAssets()
 	edit_createRectangle(PLATFORM, 95, 100, -20, -7, DARK_BROWN);
 	edit_createRectangle(PLATFORM, 100, 105, -20, -13, DARK_BROWN);
 	edit_createRectangle(PLATFORM, 105, 120, -20, -13, DARK_BROWN);
-	edit_createRectangle(FOREGROUND, 90, 120, -20, 1, BLUE);
-	oceanBlock = storedBlocks;
+	oceanID = edit_createRectangle(FOREGROUND, 90, 120, -20, 1, BLUE);
 	edit_colourToAlpha(BLOCK, 20, 0.5);
 	edit_createRectangle(PLATFORM, 120, 121, -20, 1, BROWN);
 	edit_createRectangle(PLATFORM, 120, edit_get(GAME, 0, WIDTH), 0.0, topSoilLevel, BROWN);
@@ -103,10 +100,9 @@ void initGameAssets()
 	edit_createRectangle(FOREGROUND, 15, 19, 0.4, 1.05, SKY_BLUE);
 	edit_colourToAlpha(BLOCK, storedBlocks, 0.15);
 
-	edit_createPolygon(ENTITY, 8, 5.0, 180, 15, WHITE);
+	snowballID = edit_createPolygon(ENTITY, 8, 5.0, 180, 15, WHITE);
 	edit_change(POLYGON, storedPolygons, BOUNCE, 0.99);
 	edit_change(POLYGON, storedPolygons, MASS, 10);
-	snowballID = storedPolygons;
 
 	edit_createRectangle(PLATFORM, -0.5, 0.0, 0.0, edit_get(GAME, 0, HEIGHT), SKY_BLUE);
 	edit_createRectangle(PLATFORM, edit_get(GAME, 0, WIDTH), edit_get(GAME, 0, WIDTH) + 
@@ -334,12 +330,12 @@ void runGameLogic()
 
 	if (edit_get(POLYGON, snowballID, YPOSITION) < -5)
 	{
-		edit_colourFromRGBA(BLOCK, oceanBlock, 135, 206, 235, 160);
-		edit_change(BLOCK, oceanBlock, TYPE, PLATFORM);
+		edit_colourFromRGBA(BLOCK, oceanID, 135, 206, 235, 160);
+		edit_change(BLOCK, oceanID, TYPE, PLATFORM);
 		edit_hide(POLYGON, snowballID);
 	}
 
-	if (edit_get(BLOCK, oceanBlock, TYPE) == PLATFORM)
+	if (edit_get(BLOCK, oceanID, TYPE) == PLATFORM)
 	{
 		if (event_isOnInstant(3))
 		{
@@ -363,7 +359,7 @@ void runGameLogic()
 					edit_colourPolygon(i, WHITE);
 				}
 
-				if (i == mountain1 || i == mountain2)
+				if (i == mountain1ID || i == mountain2ID)
 				{
 					edit_colourFromRGBA(POLYGON, i, 245, 245, 245, 255);
 				}
@@ -380,7 +376,7 @@ void runGameLogic()
 			audio_play(MUSIC, 1, INFINITE);
 		}
 
-		if (edit_get(BLOCK, oceanBlock, TYPE) == PLATFORM)
+		if (edit_get(BLOCK, oceanID, TYPE) == PLATFORM)
 		{
 			for (i = storedPolygons - 50; i < storedPolygons; i++)
 			{
