@@ -177,11 +177,9 @@ void text_set(unsigned char textType, double xText, double yText, char *newText,
 {
 	int i;
 
-	for (i = 0; i < MAX_TEXTS; i++)
-	{
-		if (textCache[i].classification == NOTHING)
-			break;
-	}
+	for (i = 0; i < MAX_TEXTS &&
+		textCache[i].classification != NOTHING; i++)
+		;
 
 	if (i > storedTexts)
 		storedTexts = i;

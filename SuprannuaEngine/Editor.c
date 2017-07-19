@@ -443,11 +443,9 @@ int edit_createPolygon(unsigned char type,
 	int i;
 	srand(time(NULL));
 
-	for (i = 0; i < MAX_POLYGONS; i++)
-	{
-		if (polygon[i].properties.classification == NOTHING)
-			break;
-	}
+	for (i = 0; i < MAX_POLYGONS && 
+		polygon[i].properties.classification != NOTHING; i++)
+		;
 
 	if (i > storedPolygons)
 		storedPolygons = i;
@@ -495,11 +493,9 @@ int edit_createRectangle(unsigned char type,
 {
 	int i;
 
-	for (i = 0; i < MAX_BLOCKS; i++)
-	{
-		if (block[i].properties.classification == NOTHING)
-			break;
-	}
+	for (i = 0; i < MAX_BLOCKS && 
+		block[i].properties.classification != NOTHING; i++)
+		;
 
 	if (i > storedBlocks)
 		storedBlocks = i;
@@ -534,11 +530,9 @@ int edit_createSquare(unsigned char type,
 {
 	int i;
 
-	for (i = 0; i < MAX_BLOCKS; i++)
-	{
-		if (block[i].properties.classification == NOTHING)
-			break;
-	}
+	for (i = 0; i < MAX_BLOCKS && 
+		block[i].properties.classification != NOTHING; i++)
+		;
 
 	if (i > storedBlocks)
 		storedBlocks = i;

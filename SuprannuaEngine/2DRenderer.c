@@ -27,11 +27,9 @@ void render_addRenderingLayer(unsigned char objectType,
 	{
 	case BACKGROUND:
 
-		for (i = 0; i < MAX_DEFAULT_OBJECTS; i++)
-		{
-			if (backgrounds[i].objectType == 0)
-				break;
-		}
+		for (i = 0; i < MAX_DEFAULT_OBJECTS
+			&& backgrounds[i].objectType != 0; i++)
+			;
 
 		if (i > storedBackgrounds)
 			storedBackgrounds = i;
@@ -42,11 +40,9 @@ void render_addRenderingLayer(unsigned char objectType,
 
 	case PLATFORM:
 
-		for (i = 0; i < MAX_DEFAULT_OBJECTS; i++)
-		{
-			if (platforms[i].objectType == 0)
-				break;
-		}
+		for (i = 0; i < MAX_DEFAULT_OBJECTS
+			&& platforms[i].objectType != 0; i++)
+			;
 
 		if (i > storedPlatforms)
 			storedPlatforms = i;
@@ -58,11 +54,9 @@ void render_addRenderingLayer(unsigned char objectType,
 	case ENTITY:
 	case FLOATING:
 
-		for (i = 0; i < MAX_DEFAULT_OBJECTS; i++)
-		{
-			if (entities[i].objectType == 0)
-				break;
-		}
+		for (i = 0; i < MAX_DEFAULT_OBJECTS &&
+			entities[i].objectType != 0; i++)
+			;
 
 		if (i > storedEntities)
 			storedEntities = i;
@@ -73,11 +67,9 @@ void render_addRenderingLayer(unsigned char objectType,
 
 	case FOREGROUND:
 
-		for (i = 0; i < MAX_DEFAULT_OBJECTS; i++)
-		{
-			if (foregrounds[i].objectType == 0)
-				break;
-		}
+		for (i = 0; i < MAX_DEFAULT_OBJECTS &&
+			foregrounds[i].objectType != 0; i++)
+			;
 
 		if (i > storedForegrounds)
 			storedForegrounds = i;

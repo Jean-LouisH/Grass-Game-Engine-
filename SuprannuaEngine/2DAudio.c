@@ -19,28 +19,24 @@ void audio_set(unsigned char type, const char* filePath)
 
 	if (type == MUSIC)
 	{
-		for (i = 0; i < MAX_AUDIO_FILES; i++)
-		{
-			if (music[i] == NULL)
-				break;
-		}
+		for (i = 0; i < MAX_AUDIO_FILES &&
+			music[i] != NULL; i++)
+			;
+
 		if (i > storedMusic)
-		{
 			storedMusic = i;
-		}
+
 		music[i] = Mix_LoadMUS(filePath);
 	}
 	else if (type == SOUND)
 	{
-		for (i = 0; i < MAX_AUDIO_FILES; i++)
-		{
-			if (sound[i] == NULL)
-				break;
-		}
+		for (i = 0; i < MAX_AUDIO_FILES &&
+			sound[i] != NULL; i++)
+			;
+
 		if (i > storedSound)
-		{
 			storedSound = i;
-		}
+
 		sound[i] = Mix_LoadWAV(filePath);
 	}
 }
