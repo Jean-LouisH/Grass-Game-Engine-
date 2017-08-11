@@ -2,14 +2,11 @@
 
 void physics_detectPlatformCollision()
 {
-	int i;
-	int j;
-
-	for (i = 0; i <= storedPolygons; i++)
+	for (int i = 0; i <= storedPolygons; i++)
 	{
 		if (polygon[i].properties.classification == ENTITY || polygon[i].properties.classification == FLOATING)
 		{
-			for (j = 0; j <= storedBlocks; j++)
+			for (int j = 0; j <= storedBlocks; j++)
 			{
 				if (block[j].properties.classification == PLATFORM)
 				{
@@ -20,7 +17,9 @@ void physics_detectPlatformCollision()
 							polygon[i].properties.bouncePercentage + block[j].properties.yVelocity;
 
 						if (block[j].properties.xVelocity != 0)
+						{
 							polygon[i].properties.xVelocity = block[j].properties.xVelocity;
+						}
 
 						//Adjust the polygon on top of the platform.
 						polygon[i].centre.yPosition = block[j].centre.yPosition +
@@ -33,7 +32,9 @@ void physics_detectPlatformCollision()
 							polygon[i].properties.bouncePercentage + block[j].properties.yVelocity;
 
 						if (block[j].properties.xVelocity != 0)
+						{
 							polygon[i].properties.xVelocity = block[j].properties.xVelocity;
+						}
 
 						polygon[i].centre.yPosition = block[j].centre.yPosition -
 							(block[j].dimensions.height / 2) - polygon[i].radius;
@@ -66,9 +67,6 @@ void physics_detectPlatformCollision()
 
 void physics_detectPolygonCollision()
 {
-	int i;
-	int j;
-
 	double centreDistance;
 	double combinedRadius;
 	double positionAngle;
@@ -81,9 +79,9 @@ void physics_detectPolygonCollision()
 	double iCollisionAngleRatio;
 	double jCollisionAngleRatio;
 
-	for (i = 0; i <= storedPolygons; i++)
+	for (int i = 0; i <= storedPolygons; i++)
 	{
-		for (j = 0; j <= storedPolygons; j++)
+		for (int j = 0; j <= storedPolygons; j++)
 		{
 			if (j != i && polygon[j].properties.classification == polygon[i].properties.classification)
 			{
@@ -143,9 +141,9 @@ void physics_detectPolygonCollision()
 			}
 		}
 
-		for (j = 0; j <= storedPolygons; j++)
+		for (int j = 0; j <= storedPolygons; j++)
 		{
-			if (j != i && (polygon[j].properties.classification == ENTITY || 
+			if (j != i && (polygon[j].properties.classification == ENTITY ||
 				polygon[j].properties.classification == FLOATING) && (polygon[j].properties.classification ==
 					polygon[i].properties.classification))
 			{
@@ -222,9 +220,7 @@ void physics_gravitate(unsigned char object, int objectNumber, bool direction)
 
 void physics_limitBoundary()
 {
-	int i;
-
-	for (i = 0; i <= storedPolygons; i++)
+	for (int i = 0; i <= storedPolygons; i++)
 	{
 		if (polygon[i].properties.classification == FLOATING
 			|| polygon[i].properties.classification == ENTITY)
@@ -260,32 +256,42 @@ void physics_resistMovement(unsigned char object, int objectNumber, bool directi
 {
 	switch (direction)
 	{
-	case UP_DOWN:		if (polygon[objectNumber].properties.yVelocity > 0)
-	{
-		edit_adjust(POLYGON, objectNumber, YVELOCITY, (-1 * deceleration));
-		if (polygon[objectNumber].properties.yVelocity < 0)
-			polygon[objectNumber].properties.yVelocity = 0;
-	}
-						else if (polygon[objectNumber].properties.yVelocity < 0)
-						{
-							edit_adjust(POLYGON, objectNumber, YVELOCITY, (deceleration));
-							if (polygon[objectNumber].properties.yVelocity > 0)
-								polygon[objectNumber].properties.yVelocity = 0;
-						}
-						break;
-	case LEFT_RIGHT:	if (polygon[objectNumber].properties.xVelocity > 0)
-	{
-		edit_adjust(POLYGON, objectNumber, XVELOCITY, (-1 * deceleration));
-		if (polygon[objectNumber].properties.xVelocity < 0)
-			polygon[objectNumber].properties.xVelocity = 0;
-	}
-						else if (polygon[objectNumber].properties.xVelocity < 0)
-						{
-							edit_adjust(POLYGON, objectNumber, XVELOCITY, (deceleration));
-							if (polygon[objectNumber].properties.xVelocity > 0)
-								polygon[objectNumber].properties.xVelocity = 0;
-						}
-						break;
+	case UP_DOWN:
+		if (polygon[objectNumber].properties.yVelocity > 0)
+		{
+			edit_adjust(POLYGON, objectNumber, YVELOCITY, (-1 * deceleration));
+			if (polygon[objectNumber].properties.yVelocity < 0)
+			{
+				polygon[objectNumber].properties.yVelocity = 0;
+			}
+		}
+		else if (polygon[objectNumber].properties.yVelocity < 0)
+		{
+			edit_adjust(POLYGON, objectNumber, YVELOCITY, (deceleration));
+			if (polygon[objectNumber].properties.yVelocity > 0)
+			{
+				polygon[objectNumber].properties.yVelocity = 0;
+			}
+		}
+		break;
+	case LEFT_RIGHT:
+		if (polygon[objectNumber].properties.xVelocity > 0)
+		{
+			edit_adjust(POLYGON, objectNumber, XVELOCITY, (-1 * deceleration));
+			if (polygon[objectNumber].properties.xVelocity < 0)
+			{
+				polygon[objectNumber].properties.xVelocity = 0;
+			}
+		}
+		else if (polygon[objectNumber].properties.xVelocity < 0)
+		{
+			edit_adjust(POLYGON, objectNumber, XVELOCITY, (deceleration));
+			if (polygon[objectNumber].properties.xVelocity > 0)
+			{
+				polygon[objectNumber].properties.xVelocity = 0;
+			}
+		}
+		break;
 	}
 }
 
@@ -295,13 +301,17 @@ void physics_roll(unsigned char object, int objectNumber)
 	{
 	case POLYGON:
 		if (polygon[objectNumber].properties.xVelocity < 0)
+		{
 			AI_spin(POLYGON, objectNumber, ANTICLOCKWISE,
 				-1 * (polygon[objectNumber].properties.xVelocity / polygon[objectNumber].radius)
 				/ (PI / 180));
+		}
 		else if (polygon[objectNumber].properties.xVelocity > 0)
+		{
 			AI_spin(POLYGON, objectNumber, CLOCKWISE,
-			(polygon[objectNumber].properties.xVelocity / polygon[objectNumber].radius)
+				(polygon[objectNumber].properties.xVelocity / polygon[objectNumber].radius)
 				/ (PI / 180));
+		}
 		break;
 	}
 }

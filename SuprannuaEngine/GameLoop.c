@@ -40,12 +40,16 @@ void runGameLoop()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); //enables alpha blending.
 
 	render_displayBackgrounds();
+
 	if (isGridEnabled)
+	{
 		render_drawGrid();
+
+	}
+
 	render_displayPlatforms();
 	render_displayEntities();
 	render_displayForegrounds();
-
 	render_displayText();
 
 	glutSwapBuffers(); //freeglut buffer swap for animation.

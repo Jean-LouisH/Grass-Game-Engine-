@@ -173,16 +173,20 @@ void text_remove(int textCell)
 	sprintf(textCache[textCell].textContent, "Reset");
 }
 
-void text_set(unsigned char textType, double xText, double yText, char *newText, unsigned char colour)
+int text_set(unsigned char textType, double xText, double yText, char *newText, unsigned char colour)
 {
 	int i;
 
 	for (i = 0; i < MAX_TEXTS &&
 		textCache[i].classification != NOTHING; i++)
+	{
 		;
+	}
 
 	if (i > storedTexts)
+	{
 		storedTexts = i;
+	}
 
 	textCache[i].classification = textType;
 	textCache[i].textPin.xPosition = xText;
@@ -190,6 +194,8 @@ void text_set(unsigned char textType, double xText, double yText, char *newText,
 	text_colour(i, colour);
 
 	sprintf(textCache[i].textContent, "%s", newText);
+
+	return i;
 }
 
 void text_update(int textCell, char *newText)

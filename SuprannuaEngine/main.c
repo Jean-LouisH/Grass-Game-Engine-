@@ -9,7 +9,6 @@
 
 #include "SuprannuaEngine.h"
 
-
 unsigned int frameCount = 0;
 double timeCount;
 double framesPerSecond;
@@ -70,6 +69,7 @@ unsigned char darkGrey[3] = { 32,32,32 };
 
 #undef main main //to reverse SDL's main definition
 
+/*For non-Windows platforms compatible with SDL and freeGLUT*/
 /*
 int main(int argc, char **argv)
 {

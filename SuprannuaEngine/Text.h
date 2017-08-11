@@ -19,7 +19,8 @@ void text_move(int textCell, double xText, double yText);
 void text_remove(int textCell);
 
 /*| Fills an empty array cell with new text.*/
-void text_set(unsigned char textType, double xText, double yText, char *newText, unsigned char colour);
+/*| Returns text ID.*/
+int text_set(unsigned char textType, double xText, double yText, char *newText, unsigned char colour);
 void text_update(int textCell, char *newText);
 
 /*| Takes frame rate and time data, and then updates TextCache[0].*/

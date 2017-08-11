@@ -3,14 +3,16 @@
 /*
  * The loops on the create functions:
  *
- * e.g. for(i = 0; i < MAX_BLOCKS; i++)
+ * e.g. for(i = 0; i < MAX_BLOCKS &&
+		polygon[i].properties.classification != NOTHING; i++)
 		{
-			if(block[i].properties.classification == NOTHING)
-				break;
+			;
 		}
 
 		if (i > storedBlocks)
+		{
 			storedBlocks = i;
+		}
  *
  * determine the next empty cells in the polygon and block arrays to reference for
  * a new object automatically and for bulk processing functions like 2DRenderer,
@@ -26,43 +28,67 @@ void edit_adjust(unsigned char object,
 	{
 	case PLATFORM_GRAVITY:
 		if (object == GAME)
+		{
 			platformGravity += amount / FRAME_RATE;
+		}
 		break;
 	case GRAVITY_CONSTANT:
 		if (object == GAME)
+		{
 			gravityConstant += amount / FRAME_RATE;
+		}
 		break;
 	case BOUNCE:
 		if (object == POLYGON)
+		{
 			polygon[objectNumber].properties.bouncePercentage += amount / FRAME_RATE;
+		}
 		break;
 	case ANGLE:
 		if (object == POLYGON)
+		{
 			polygon[objectNumber].properties.angle += amount / FRAME_RATE;
+		}
 		if (object == BLOCK)
+		{
 			block[objectNumber].properties.angle += amount / FRAME_RATE;
+		}
 		break;
 	case MASS:
 		if (object == POLYGON)
+		{
 			polygon[objectNumber].properties.mass += amount / FRAME_RATE;
+		}
 		if (object == BLOCK)
+		{
 			block[objectNumber].properties.mass += amount / FRAME_RATE;
+		}
 		break;
 	case XVELOCITY:
 		if (object == POLYGON)
+		{
 			polygon[objectNumber].properties.xVelocity += amount / FRAME_RATE;
+		}
 		if (object == BLOCK)
+		{
 			block[objectNumber].properties.xVelocity += amount / FRAME_RATE;
+		}
 		break;
 	case YVELOCITY:
 		if (object == POLYGON)
+		{
 			polygon[objectNumber].properties.yVelocity += amount / FRAME_RATE;
+		}
 		if (object == BLOCK)
+		{
 			block[objectNumber].properties.yVelocity += amount / FRAME_RATE;
+		}
 		break;
 	case RADIUS:
 		if (object == POLYGON)
+		{
 			polygon[objectNumber].radius += amount / FRAME_RATE;
+		}
 		break;
 	}
 }
@@ -76,49 +102,77 @@ void edit_change(unsigned char object,
 	{
 	case PLATFORM_GRAVITY:
 		if (object == GAME)
+		{
 			platformGravity = amount;
+		}
 		break;
 	case GRAVITY_CONSTANT:
 		if (object == GAME)
+		{
 			gravityConstant = amount;
+		}
 		break;
 	case BOUNCE:
 		if (object == POLYGON)
+		{
 			polygon[objectNumber].properties.bouncePercentage = amount;
+		}
 		break;
 	case ANGLE:
 		if (object == POLYGON)
+		{
 			polygon[objectNumber].properties.angle = amount;
+		}
 		if (object == BLOCK)
+		{
 			block[objectNumber].properties.angle = amount;
+		}
 		break;
 	case MASS:
 		if (object == POLYGON)
+		{
 			polygon[objectNumber].properties.mass = amount;
+		}
 		if (object == BLOCK)
+		{
 			block[objectNumber].properties.mass = amount;
+		}
 		break;
 	case XVELOCITY:
 		if (object == POLYGON)
+		{
 			polygon[objectNumber].properties.xVelocity = amount;
+		}
 		if (object == BLOCK)
+		{
 			block[objectNumber].properties.xVelocity = amount;
+		}
 		break;
 	case YVELOCITY:
 		if (object == POLYGON)
+		{
 			polygon[objectNumber].properties.yVelocity = amount;
+		}
 		if (object == BLOCK)
+		{
 			block[objectNumber].properties.yVelocity = amount;
+		}
 		break;
 	case RADIUS:
 		if (object == POLYGON)
+		{
 			polygon[objectNumber].radius = amount;
+		}
 		break;
 	case TYPE:
 		if (object == POLYGON)
+		{
 			polygon[objectNumber].properties.classification = amount;
+		}
 		if (object == BLOCK)
+		{
 			block[objectNumber].properties.classification = amount;
+		}
 	}
 }
 
@@ -283,9 +337,13 @@ void edit_colourFromRGBA(unsigned char object, int objectNumber, unsigned char r
 void edit_colourFromText(unsigned char object, int objectNumber, unsigned char colour)
 {
 	if (object == POLYGON)
+	{
 		edit_colourPolygon(objectNumber, colour);
+	}
 	else if (object == BLOCK)
+	{
 		edit_colourBlock(objectNumber, colour);
+	}
 }
 
 void edit_colourPolygon(int objectNumber, unsigned char colour)
@@ -428,9 +486,13 @@ void edit_colourPolygon(int objectNumber, unsigned char colour)
 void edit_colourToAlpha(unsigned char object, int objectNumber, double alpha)
 {
 	if (object == POLYGON)
+	{
 		polygon[objectNumber].properties.colour[ALPHA] = (int)(alpha * FULL);
+	}
 	else if (object == BLOCK)
+	{
 		block[objectNumber].properties.colour[ALPHA] = (int)(alpha * FULL);
+	}
 }
 
 int edit_createPolygon(unsigned char type,
@@ -443,13 +505,18 @@ int edit_createPolygon(unsigned char type,
 	int i;
 	srand(time(NULL));
 
-	for (i = 0; i < MAX_POLYGONS && 
+	for (i = 0; i < MAX_POLYGONS &&
 		polygon[i].properties.classification != NOTHING; i++)
+	{
 		;
+	}
 
 	if (i > storedPolygons)
+	{
 		storedPolygons = i;
+	}
 
+	/*The exponent increases the apparent randomness of the pattern.*/
 	srand(time(NULL) + pow(i, 2));
 
 	switch (type)
@@ -493,12 +560,16 @@ int edit_createRectangle(unsigned char type,
 {
 	int i;
 
-	for (i = 0; i < MAX_BLOCKS && 
+	for (i = 0; i < MAX_BLOCKS &&
 		block[i].properties.classification != NOTHING; i++)
+	{
 		;
+	}
 
 	if (i > storedBlocks)
+	{
 		storedBlocks = i;
+	}
 
 	switch (type)
 	{
@@ -530,12 +601,16 @@ int edit_createSquare(unsigned char type,
 {
 	int i;
 
-	for (i = 0; i < MAX_BLOCKS && 
+	for (i = 0; i < MAX_BLOCKS &&
 		block[i].properties.classification != NOTHING; i++)
+	{
 		;
+	}
 
 	if (i > storedBlocks)
+	{
 		storedBlocks = i;
+	}
 
 	switch (type)
 	{
@@ -561,18 +636,12 @@ int edit_createSquare(unsigned char type,
 
 void edit_enableGrid(bool state)
 {
-	if (state)
-		isGridEnabled = true;
-	else
-		isGridEnabled = false;
+	isGridEnabled = state;
 }
 
 void edit_enableKernelStats(bool state)
 {
-	if (state)
-		isKernelStatsEnabled = true;
-	else
-		isKernelStatsEnabled = false;
+	isKernelStatsEnabled = state;
 }
 
 double edit_get(unsigned char object, int objectNumber, unsigned char attribute)
@@ -673,7 +742,9 @@ void edit_remove(unsigned char object, int objectNumber)
 		polygon[objectNumber].properties.classification = NOTHING;
 
 		for (i = 0; i < 4; i++)
+		{
 			polygon[objectNumber].properties.colour[i] = 0;
+		}
 
 		polygon[objectNumber].properties.mass = 0.0;
 		polygon[objectNumber].properties.xVelocity = 0.0;
@@ -694,7 +765,9 @@ void edit_remove(unsigned char object, int objectNumber)
 		block[objectNumber].properties.classification = NOTHING;
 
 		for (i = 0; i < 4; i++)
+		{
 			block[objectNumber].properties.colour[i] = 0;
+		}
 
 		block[objectNumber].properties.mass = 0.0;
 		block[objectNumber].properties.xVelocity = 0.0;
@@ -797,15 +870,23 @@ void edit_scrollPlatform(int objectNumber,
 	{
 	case UP_DOWN:
 		if (block[objectNumber].centre.yPosition <= startPosition)
+		{
 			edit_adjust(BLOCK, objectNumber, YVELOCITY, velocity);
+		}
 		if (block[objectNumber].centre.yPosition >= endPosition)
+		{
 			edit_adjust(BLOCK, objectNumber, YVELOCITY, -velocity);
+		}
 		break;
 	case LEFT_RIGHT:
 		if (block[objectNumber].centre.xPosition <= startPosition)
+		{
 			edit_adjust(BLOCK, objectNumber, XVELOCITY, velocity);
+		}
 		if (block[objectNumber].centre.xPosition >= endPosition)
+		{
 			edit_adjust(BLOCK, objectNumber, XVELOCITY, -velocity);
+		}
 		break;
 	}
 }

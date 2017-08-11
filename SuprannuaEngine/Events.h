@@ -6,11 +6,14 @@
  * Detects when specific events based on time or positioning of game objects exist.
  */
 
+/*Event IDs allow a distinction between the various contexts of the functions in the game script 
+so that there isn't any conflict in time keeping of events.*/
+
 #pragma once
 
 bool event_arePolygonsTouching(int firstObjectNumber, int secondObjectNumber);
-bool event_doAfter(double interval, int eventReference);
-bool event_doFor(double interval, int eventReference);
+bool event_doAfter(double interval, int eventID);
+bool event_doFor(double interval, int eventID);
 bool event_hasFalleninAHole(unsigned char object, int objectNumber);
 bool event_hasPolygonPastXLocation(int objectNumber, double xPosition);
 bool event_hasPolygonPastYLocation(int objectNumber, double yPosition);
@@ -26,7 +29,7 @@ bool event_isOnPlatform(unsigned char object,
 /*| Allows single operations on a time cycle.*/
 bool event_isOnceEvery(double interval);
 
-bool event_isOnInstant(int eventReference);
+bool event_isOnInstant(int eventID);
 
 bool event_isPolygonAirboune(unsigned char object,
 	int objectNumber);

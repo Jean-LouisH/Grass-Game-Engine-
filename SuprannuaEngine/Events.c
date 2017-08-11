@@ -2,73 +2,52 @@
 
 bool event_arePolygonsTouching(int firstObjectNumber, int secondObjectNumber)
 {
-	if (geometry_findDistance(POLYGON, firstObjectNumber, POLYGON, secondObjectNumber) <
-		polygon[firstObjectNumber].radius + polygon[secondObjectNumber].radius)
-	{
-		return true;
-	}
-	else
-		return false;
+	return (geometry_findDistance(POLYGON, firstObjectNumber, POLYGON, secondObjectNumber) <
+		polygon[firstObjectNumber].radius + polygon[secondObjectNumber].radius);
 }
 
-bool event_doAfter(double interval, int eventReference)
+bool event_doAfter(double interval, int eventID)
 {
-	return !(event_doFor(interval, eventReference));
+	return !(event_doFor(interval, eventID));
 }
 
-bool event_doFor(double interval, int eventReference)
+bool event_doFor(double interval, int eventID)
 {
 	static double remainingTime[100];
 
-	if (remainingTime[eventReference] <= 0)
-		remainingTime[eventReference] = interval;
+	if (remainingTime[eventID] <= 0)
+	{
+		remainingTime[eventID] = interval;
+	}
 
-	remainingTime[eventReference] -= (FRAME_TIME_MILLISECS / 1000);
+	remainingTime[eventID] -= (FRAME_TIME_MILLISECS / 1000);
 
-	if (remainingTime[eventReference] > 0)
-		return true;
-	else
-		return false;
+	return (remainingTime[eventID] > 0);
 }
 
 bool event_hasFalleninAHole(unsigned char object, int objectNumber)
 {
-	if (polygon[objectNumber].centre.yPosition - polygon[objectNumber].radius < 1)
-		return true;
-	else
-		return false;
+	return (polygon[objectNumber].centre.yPosition - polygon[objectNumber].radius < 1);
 }
 
 bool event_hasPolygonPastXLocation(int objectNumber, double xPosition)
 {
-	if (polygon[objectNumber].centre.xPosition > xPosition)
-		return true;
-	else
-		return false;
+	return (polygon[objectNumber].centre.xPosition > xPosition);
 }
 
 bool event_hasPolygonPastYLocation(int objectNumber, double yPosition)
 {
-	if (polygon[objectNumber].centre.yPosition > yPosition)
-		return true;
-	else
-		return false;
+	return (polygon[objectNumber].centre.yPosition > yPosition);
 }
 
 bool event_isPolygonHigher(int firstObjectNumber, int secondObjectNumber)
 {
-	if (polygon[firstObjectNumber].centre.yPosition > polygon[secondObjectNumber].centre.yPosition)
-		return true;
-	else
-		return false;
+	return (polygon[firstObjectNumber].centre.yPosition > polygon[secondObjectNumber].centre.yPosition);
 }
 
 bool event_isOnCycle(double interval)
 {
-	if (frameCount % (int)(FRAME_RATE * interval * 2) < (FRAME_RATE * interval))
-		return true;
-	else
-		return false;
+	return (frameCount % (int)(FRAME_RATE * interval * 2) < (FRAME_RATE * interval));
 }
 
 bool event_isOnPlatform(unsigned char object,
@@ -82,40 +61,38 @@ bool event_isOnPlatform(unsigned char object,
 			polygon[objectNumber].centre.yPosition - polygon[objectNumber].radius >
 			block[platformNumber].centre.yPosition - (block[platformNumber].dimensions.height / 2))
 		{
-			if (event_isWithinPlatformWidth(object, objectNumber, platformNumber))
-				return true;
-			else
-				return false;
+			return (event_isWithinPlatformWidth(object, objectNumber, platformNumber));
 		}
 		else
+		{
 			return false;
+		}
 	}
 	else
+	{
 		return false;
+	}
 }
 
 bool event_isOnceEvery(double interval)
 {
-	if (frameCount % (int)(FRAME_RATE * interval) == 0)
-		return true;
-	else
-		return false;
+	return (frameCount % (int)(FRAME_RATE * interval) == 0);
 }
 
-bool event_isOnInstant(int eventReference)
+bool event_isOnInstant(int eventID)
 {
 	static int callFrame[100] = {0};
 
 	if (frameCount > 1)
 	{
-		if (callFrame[eventReference] == (frameCount - 1))
+		if (callFrame[eventID] == (frameCount - 1))
 		{
-			callFrame[eventReference] = frameCount;
+			callFrame[eventID] = frameCount;
 			return false;
 		}
 		else
 		{
-			callFrame[eventReference] = frameCount;
+			callFrame[eventID] = frameCount;
 			return true;
 		}
 	}
@@ -150,16 +127,17 @@ bool event_isTouchingLeftOfPlatform(unsigned char object,
 			polygon[objectNumber].centre.xPosition + polygon[objectNumber].radius <
 			block[platformNumber].centre.xPosition + (block[platformNumber].dimensions.width / 2))
 		{
-			if (event_isWithinPlatformHeight(object, objectNumber, platformNumber))
-				return true;
-			else
-				return false;
+			return (event_isWithinPlatformHeight(object, objectNumber, platformNumber));
 		}
 		else
+		{
 			return false;
+		}
 	}
 	else
+	{
 		return false;
+	}
 }
 
 bool event_isTouchingRightOfPlatform(unsigned char object,
@@ -173,16 +151,17 @@ bool event_isTouchingRightOfPlatform(unsigned char object,
 			polygon[objectNumber].centre.xPosition - polygon[objectNumber].radius >
 			block[platformNumber].centre.xPosition - (block[platformNumber].dimensions.width / 2))
 		{
-			if (event_isWithinPlatformHeight(object, objectNumber, platformNumber))
-				return true;
-			else
-				return false;
+			return (event_isWithinPlatformHeight(object, objectNumber, platformNumber));
 		}
 		else
+		{
 			return false;
+		}
 	}
 	else
+	{
 		return false;
+	}
 }
 
 bool event_isTouchingUnderPlatform(unsigned char object,
@@ -196,62 +175,47 @@ bool event_isTouchingUnderPlatform(unsigned char object,
 			polygon[objectNumber].centre.yPosition + polygon[objectNumber].radius <
 			block[platformNumber].centre.yPosition + (block[platformNumber].dimensions.height / 2))
 		{
-			if (event_isWithinPlatformWidth(object, objectNumber, platformNumber))
-				return true;
-			else
-				return false;
+			return (event_isWithinPlatformWidth(object, objectNumber, platformNumber));
 		}
 		else
+		{
 			return false;
+		}
 	}
 	else
+	{
 		return false;
+	}
 }
 
 bool event_isPolygonWithinRadius(int firstObjectNumber,
 	double radius,
 	int secondObjectNumber)
 {
-	if (geometry_findDistance(POLYGON, firstObjectNumber, POLYGON, secondObjectNumber) <= radius)
-		return true;
-	else
-		return false;
+	return (geometry_findDistance(POLYGON, firstObjectNumber, POLYGON, secondObjectNumber) <= radius);
 }
 
 bool event_isWithinPlatformHeight(unsigned char object,
 	int objectNumber,
 	int platformNumber)
 {
-	if (polygon[objectNumber].centre.yPosition >
+	return (polygon[objectNumber].centre.yPosition >
 		block[platformNumber].centre.yPosition - (block[platformNumber].dimensions.height / 2) &&
 		polygon[objectNumber].centre.yPosition <
-		block[platformNumber].centre.yPosition + (block[platformNumber].dimensions.height / 2))
-	{
-		return true;
-	}
-	else
-		return false;
+		block[platformNumber].centre.yPosition + (block[platformNumber].dimensions.height / 2));
 }
 
 bool event_isWithinPlatformWidth(unsigned char object,
 	int objectNumber,
 	int platformNumber)
 {
-	if (polygon[objectNumber].centre.xPosition >
+	return (polygon[objectNumber].centre.xPosition >
 		block[platformNumber].centre.xPosition - (block[platformNumber].dimensions.width / 2) &&
 		polygon[objectNumber].centre.xPosition <
-		block[platformNumber].centre.xPosition + (block[platformNumber].dimensions.width / 2))
-	{
-		return true;
-	}
-	else
-		return false;
+		block[platformNumber].centre.xPosition + (block[platformNumber].dimensions.width / 2));
 }
 
 bool event_isWithinTime(double startTime, double endTime)
 {
-	if (timeCount >= startTime && timeCount <= endTime)
-		return true;
-	else
-		return false;
+	return (timeCount >= startTime && timeCount <= endTime);
 }

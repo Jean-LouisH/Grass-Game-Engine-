@@ -2,8 +2,11 @@
 
 void keyPressed(unsigned char key, int x, int y)
 {
+	/*Limits the key presses to ASCII characters*/
 	if (key < 128)
+	{
 		keyStates[key] = true; //registers a button press in the input buffer.
+	}
 
 	if (keyStates[27]) //Escape key
 	{
@@ -37,6 +40,8 @@ void keyUp(unsigned char key, int x, int y)
 		Mix_ResumeMusic();
 	}
 
+	/*Soft resets the entire engine when these keys are pressed together. 
+	User defined game variables are not affected and should be resetted manually.*/
 	if (input_isPressed('z') && input_isPressed('c') &&
 		input_isPressed('r') && isGamePaused)
 	{
@@ -44,7 +49,9 @@ void keyUp(unsigned char key, int x, int y)
 	}
 
 	if (key < 128)
+	{
 		keyStates[key] = false;
+	}
 }
 
 void keyUpSpecial(unsigned char key, int x, int y)
