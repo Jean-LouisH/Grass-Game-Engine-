@@ -48,7 +48,7 @@ int edit_createPolygon(unsigned char type,
 
 
 /*| Takes in the x and y coordinate of the block sides for plotting.
- | Returns rectangle objectNumber*/
+ | Returns block objectNumber*/
 int edit_createRectangle(unsigned char type,
 	double left,
 	double right,
@@ -56,7 +56,7 @@ int edit_createRectangle(unsigned char type,
 	double up,
 	unsigned char colour);
 
-/*| Returns rectangle objectNumber*/
+/*| Returns block objectNumber*/
 int edit_createSquare(unsigned char type,
 	double diagonalLength,
 	double newXPosition,

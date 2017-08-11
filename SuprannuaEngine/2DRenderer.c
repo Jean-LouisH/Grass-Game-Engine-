@@ -29,10 +29,14 @@ void render_addRenderingLayer(unsigned char objectType,
 
 		for (i = 0; i < MAX_DEFAULT_OBJECTS
 			&& backgrounds[i].objectType != 0; i++)
+		{
 			;
+		}
 
 		if (i > storedBackgrounds)
+		{
 			storedBackgrounds = i;
+		}
 
 		backgrounds[i].objectNumber = objectNumber;
 		backgrounds[i].objectType = objectType;
@@ -42,10 +46,14 @@ void render_addRenderingLayer(unsigned char objectType,
 
 		for (i = 0; i < MAX_DEFAULT_OBJECTS
 			&& platforms[i].objectType != 0; i++)
+		{
 			;
+		}
 
 		if (i > storedPlatforms)
+		{
 			storedPlatforms = i;
+		}
 
 		platforms[i].objectNumber = objectNumber;
 		platforms[i].objectType = objectType;
@@ -56,10 +64,14 @@ void render_addRenderingLayer(unsigned char objectType,
 
 		for (i = 0; i < MAX_DEFAULT_OBJECTS &&
 			entities[i].objectType != 0; i++)
+		{
 			;
+		}
 
 		if (i > storedEntities)
+		{
 			storedEntities = i;
+		}
 
 		entities[i].objectNumber = objectNumber;
 		entities[i].objectType = objectType;
@@ -69,10 +81,14 @@ void render_addRenderingLayer(unsigned char objectType,
 
 		for (i = 0; i < MAX_DEFAULT_OBJECTS &&
 			foregrounds[i].objectType != 0; i++)
+		{
 			;
+		}
 
 		if (i > storedForegrounds)
+		{
 			storedForegrounds = i;
+		}
 
 		foregrounds[i].objectNumber = objectNumber;
 		foregrounds[i].objectType = objectType;
@@ -82,34 +98,34 @@ void render_addRenderingLayer(unsigned char objectType,
 
 void render_displayBackgrounds()
 {
-	int i;
-
-	for (i = 0; i <= storedBackgrounds; i++)
+	for (int i = 0; i <= storedBackgrounds; i++)
+	{
 		render_drawByObjectType(backgrounds[i].objectNumber, backgrounds[i].objectType);
+	}
 }
 
 void render_displayPlatforms()
 {
-	int i;
-
-	for (i = 0; i <= storedPlatforms; i++)
+	for (int i = 0; i <= storedPlatforms; i++)
+	{
 		render_drawByObjectType(platforms[i].objectNumber, platforms[i].objectType);
+	}
 }
 
 void render_displayEntities()
 {
-	int i;
-
-	for (i = 0; i <= storedEntities; i++)
+	for (int i = 0; i <= storedEntities; i++)
+	{
 		render_drawByObjectType(entities[i].objectNumber, entities[i].objectType);
+	}
 }
 
 void render_displayForegrounds()
 {
-	int i;
-
-	for (i = 0; i <= storedForegrounds; i++)
+	for (int i = 0; i <= storedForegrounds; i++)
+	{
 		render_drawByObjectType(foregrounds[i].objectNumber, foregrounds[i].objectType);
+	}
 }
 
 void render_drawByObjectType(int objectNumber, unsigned char objectType)

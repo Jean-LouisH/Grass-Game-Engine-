@@ -21,10 +21,14 @@ void audio_set(unsigned char type, const char* filePath)
 	{
 		for (i = 0; i < MAX_AUDIO_FILES &&
 			music[i] != NULL; i++)
+		{
 			;
+		}
 
 		if (i > storedMusic)
+		{
 			storedMusic = i;
+		}
 
 		music[i] = Mix_LoadMUS(filePath);
 	}
@@ -32,10 +36,14 @@ void audio_set(unsigned char type, const char* filePath)
 	{
 		for (i = 0; i < MAX_AUDIO_FILES &&
 			sound[i] != NULL; i++)
+		{
 			;
+		}
 
 		if (i > storedSound)
+		{
 			storedSound = i;
+		}
 
 		sound[i] = Mix_LoadWAV(filePath);
 	}
@@ -47,6 +55,7 @@ void audio_play(unsigned char type, int audioNumber, int loops)
 
 	if (type == MUSIC)
 	{
+		/*Halts existing music, or just starts when silent.*/
 		if (Mix_PlayingMusic() && (currentMusic != audioNumber))
 		{
 			Mix_HaltMusic();
