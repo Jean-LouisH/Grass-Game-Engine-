@@ -69,14 +69,7 @@ unsigned char darkGrey[3] = { 32,32,32 };
 
 #undef main main //to reverse SDL's main definition
 
-/*For non-Windows platforms compatible with SDL and freeGLUT*/
-/*
-int main(int argc, char **argv)
-{
-	initSDLAudio();
-	runGLUT(argc, argv);
-	return 0;
-}*/
+#ifdef _WIN32
 
 int WINAPI WinMain(HINSTANCE hInstance,
 	HINSTANCE hPrevInstance,
@@ -84,6 +77,77 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	int cmdShow) //Win32 GUI based Application.
 {
 	initSDLAudio();
-	runGLUT(NULL, NULL);
+
+	int screenWidthPixels;
+	int screenHeightPixels;
+	char executableName[68];
+	int argc = NULL;
+	char **argv = NULL;
+
+	glutInit(&argc, argv);
+
+	screenWidthPixels = glutGet(GLUT_SCREEN_WIDTH) * 0.750;
+	screenHeightPixels = (screenWidthPixels * 0.563);
+
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+	glutInitWindowSize(screenWidthPixels, screenHeightPixels);
+	glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH) - screenWidthPixels) / 2,
+		((glutGet(GLUT_SCREEN_HEIGHT) - screenHeightPixels) / 2) - 20);
+	glutCreateWindow(gameTitle);
+
+	/*Assigns the resource icon to the executable of the same name as the game title.*/
+	HWND hwnd = FindWindow(NULL, (gameTitle));
+	sprintf(executableName, "%s.exe", gameTitle);
+	HANDLE icon = LoadImage(GetModuleHandle((executableName)), MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 32, 32, LR_COLOR);
+	SendMessage(hwnd, (UINT)WM_SETICON, ICON_BIG, (LPARAM)icon);
+
+	/*Run GLUT callback registration*/
+	glutKeyboardFunc(keyPressed);
+	glutKeyboardUpFunc(keyUp);
+	//glutSpecialFunc(keySpecial);
+	//glutSpecialUpFunc(keyUpSpecial);
+	glutReshapeFunc(resize);
+
+	glutDisplayFunc(runGameLoop);
+	glutTimerFunc(FRAME_TIME_MILLISECS, timer, FRAME_TIME_MILLISECS);
+	glutMainLoop();
 	return 0;
 }
+
+#else
+
+/*For non-Windows platforms compatible with SDL and freeGLUT*/
+
+int main(int argc, char **argv)
+{
+	initSDLAudio();
+
+	int screenWidthPixels;
+	int screenHeightPixels;
+	char executableName[68];
+
+	glutInit(&argc, argv);
+
+	screenWidthPixels = glutGet(GLUT_SCREEN_WIDTH) * 0.750;
+	screenHeightPixels = (screenWidthPixels * 0.563);
+
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+	glutInitWindowSize(screenWidthPixels, screenHeightPixels);
+	glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH) - screenWidthPixels) / 2,
+		((glutGet(GLUT_SCREEN_HEIGHT) - screenHeightPixels) / 2) - 20);
+	glutCreateWindow(gameTitle);
+
+	/*Run GLUT callback registration*/
+	glutKeyboardFunc(keyPressed);
+	glutKeyboardUpFunc(keyUp);
+	//glutSpecialFunc(keySpecial);
+	//glutSpecialUpFunc(keyUpSpecial);
+	glutReshapeFunc(resize);
+
+	glutDisplayFunc(runGameLoop);
+	glutTimerFunc(FRAME_TIME_MILLISECS, timer, FRAME_TIME_MILLISECS);
+	glutMainLoop();
+	return 0;
+}
+
+#endif
