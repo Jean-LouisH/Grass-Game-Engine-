@@ -65,41 +65,6 @@ void resize(int width, int height)
 	glutReshapeWindow(glutGet(GLUT_SCREEN_WIDTH) * 0.750, (glutGet(GLUT_SCREEN_WIDTH) * 0.750) * 0.563);
 }
 
-void runGLUT(int argc, char **argv)
-{
-	int screenWidthPixels;
-	int screenHeightPixels;
-	char executableName[68];
-
-	glutInit(&argc, argv);
-
-	screenWidthPixels = glutGet(GLUT_SCREEN_WIDTH) * 0.750;
-	screenHeightPixels = (screenWidthPixels * 0.563);
-
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
-	glutInitWindowSize(screenWidthPixels, screenHeightPixels);
-	glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH) - screenWidthPixels) / 2,
-		((glutGet(GLUT_SCREEN_HEIGHT) - screenHeightPixels) / 2) - 20);
-	glutCreateWindow(gameTitle);
-
-	/*Assigns the resource icon to the executable of the same name as the game title.*/
-	HWND hwnd = FindWindow(NULL, (gameTitle));
-	sprintf(executableName, "%s.exe", gameTitle);
-	HANDLE icon = LoadImage(GetModuleHandle((executableName)), MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 32, 32, LR_COLOR);
-	SendMessage(hwnd, (UINT)WM_SETICON, ICON_BIG, (LPARAM)icon);
-
-	/*Run GLUT callback registration*/
-	glutKeyboardFunc(keyPressed);
-	glutKeyboardUpFunc(keyUp);
-	//glutSpecialFunc(keySpecial);
-	//glutSpecialUpFunc(keyUpSpecial);
-	glutReshapeFunc(resize);
-
-	glutDisplayFunc(runGameLoop);
-	glutTimerFunc(FRAME_TIME_MILLISECS, timer, FRAME_TIME_MILLISECS);
-	glutMainLoop();
-}
-
 void timer(int milliseconds)
 {
 	glutTimerFunc(milliseconds, timer, milliseconds);
