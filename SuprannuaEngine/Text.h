@@ -24,4 +24,4 @@ int text_set(unsigned char textType, double xText, double yText, char *newText, 
 void text_update(int textCell, char *newText);
 
 /*| Takes frame rate and time data, and then updates TextCache[0].*/
-void text_updateKernelStats();
+void text_updateEngineStats();

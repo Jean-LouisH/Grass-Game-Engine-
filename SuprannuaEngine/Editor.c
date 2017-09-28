@@ -639,9 +639,9 @@ void edit_enableGrid(bool state)
 	isGridEnabled = state;
 }
 
-void edit_enableKernelStats(bool state)
+void edit_enableEngineStats(bool state)
 {
-	isKernelStatsEnabled = state;
+	isEngineStatsEnabled = state;
 }
 
 double edit_get(unsigned char object, int objectNumber, unsigned char attribute)
@@ -838,7 +838,7 @@ void edit_reset()
 
 	isGamePaused = false;
 	gameState = GAMEPLAY;
-	edit_enableKernelStats(false);
+	edit_enableEngineStats(false);
 	edit_enableGrid(false);
 }
 

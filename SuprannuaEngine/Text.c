@@ -203,8 +203,8 @@ void text_update(int textCell, char *newText)
 	sprintf(textCache[textCell].textContent, "%s", newText);
 }
 
-void text_updateKernelStats()
+void text_updateEngineStats()
 {
-	sprintf(textCache[1].textContent, SOFTWARE VERSION "Kernel time: %.0fs, Runtime: %.2fs, Frame count: %d, FPS: %.2f",
-		kernelTime, timeCount, frameCount, framesPerSecond);
+	sprintf(textCache[1].textContent, SOFTWARE VERSION "Engine time: %.0fs, Runtime: %.2fs, Frame count: %d, FPS: %.2f",
+		engineTime, timeCount, frameCount, framesPerSecond);
 }

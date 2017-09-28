@@ -20,11 +20,6 @@ void keyPressed(unsigned char key, int x, int y)
 		((glutGet(GLUT_SCREEN_HEIGHT) * 0.250 * 0.563) / 2) + 22);
 }
 
-void keySpecial(unsigned char key, int x, int y)
-{
-	specialKeyStates[key] = true;
-}
-
 void keyUp(unsigned char key, int x, int y)
 {
 	if (input_isPressed('p') && (!isGamePaused))
@@ -52,11 +47,6 @@ void keyUp(unsigned char key, int x, int y)
 	{
 		keyStates[key] = false;
 	}
-}
-
-void keyUpSpecial(unsigned char key, int x, int y)
-{
-	specialKeyStates[key] = false;
 }
 
 void resize(int width, int height)

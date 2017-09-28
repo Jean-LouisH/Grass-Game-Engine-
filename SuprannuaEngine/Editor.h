@@ -64,7 +64,7 @@ int edit_createSquare(unsigned char type,
 	unsigned char colour);
 
 void edit_enableGrid(bool state);
-void edit_enableKernelStats(bool state);
+void edit_enableEngineStats(bool state);
 
 /*| Retrieves decimal data from game objects.*/
 double edit_get(unsigned char object,

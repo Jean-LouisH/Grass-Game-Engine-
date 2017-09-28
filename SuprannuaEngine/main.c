@@ -16,11 +16,12 @@ int passedFrames;
 double startTime;
 double currentTime;
 double firstTimeSample;
-double kernelTime;
+double engineTime;
+
+bool isGamePaused = false;
 
 unsigned char gameState = GAMEPLAY;
 bool keyStates[128] = { false };
-bool specialKeyStates[128] = { false };
 
 Text textCache[MAX_TEXTS];
 RegularPolygon polygon[MAX_POLYGONS] = { 0 };
@@ -41,9 +42,8 @@ int storedPlatforms = 0;
 int storedEntities = 0;
 int storedForegrounds = 0;
 
-bool isKernelStatsEnabled = false;
+bool isEngineStatsEnabled = false;
 bool isGridEnabled = false;
-bool isGamePaused = false;
 
 unsigned char black[3] = { 0,0,0 };
 unsigned char white[3] = { 255,255,255 };

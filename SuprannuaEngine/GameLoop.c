@@ -13,7 +13,7 @@ void runGameLoop()
 		initGameAssets();
 	}
 
-	kernelTime = currentTime - startTime;
+	engineTime = currentTime - startTime;
 
 	readInput();
 
@@ -33,7 +33,7 @@ void runGameLoop()
 		passedFrames = 0;
 	}
 
-	text_updateKernelStats();
+	text_updateEngineStats();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_BLEND);

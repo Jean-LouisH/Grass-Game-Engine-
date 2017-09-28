@@ -219,7 +219,6 @@ typedef struct
 
 /*Input buffers*/
 extern bool keyStates[128];
-extern bool specialKeyStates[128];
 
 /*Game global variables*/
 extern char gameTitle[64];
@@ -227,7 +226,6 @@ extern double dpadSensitivity;
 extern Rect worldSizeMetres;
 extern double platformGravity;
 extern double gravityConstant;
-extern bool isGamePaused;
 
 /*Engine time and states*/
 extern unsigned int frameCount;
@@ -237,8 +235,10 @@ extern int passedFrames;
 extern double startTime;
 extern double currentTime;
 extern double firstTimeSample;
-extern double kernelTime;
+extern double engineTime;
 extern unsigned char gameState;
+
+extern bool isGamePaused;
 
 /*Game objects*/
 extern RegularPolygon polygon[MAX_POLYGONS];
@@ -263,7 +263,7 @@ extern int storedEntities;
 extern int storedForegrounds;
 
 /*Debug switches*/
-extern bool isKernelStatsEnabled;
+extern bool isEngineStatsEnabled;
 extern bool isGridEnabled;
 
 /*Colour palette*/

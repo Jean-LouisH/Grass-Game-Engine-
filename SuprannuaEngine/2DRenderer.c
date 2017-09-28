@@ -177,7 +177,7 @@ void render_displayText()
 				}
 			}
 		}
-		else if (j != 1 || ((j == 1) && isKernelStatsEnabled))
+		else if (j != 1 || ((j == 1) && isEngineStatsEnabled))
 		{
 			while (textCache[j].textContent[i] != NULL)
 			{

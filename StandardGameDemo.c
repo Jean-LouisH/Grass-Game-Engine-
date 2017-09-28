@@ -168,13 +168,13 @@ void readInput()
 		if (input_isPressed('g'))
 		{
 			edit_enableGrid(true);
-			edit_enableKernelStats(true);
+			edit_enableEngineStats(true);
 		}
 
 		if (input_isPressed('h'))
 		{
 			edit_enableGrid(false);
-			edit_enableKernelStats(false);
+			edit_enableEngineStats(false);
 		}
 
 		if (input_isPressed('i'))
