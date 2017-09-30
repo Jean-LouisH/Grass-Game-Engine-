@@ -4,7 +4,7 @@
 
 /*Global variables*/
 
-char gameTitle[64] = "[Game Template";
+char gameTitle[64] = "Game Template";
 Rect worldSizeMetres = { 100,56 }; // m
 double dpadSensitivity = 10.0; // m/s
 double cameraScrollSpeed = 50.0; // m/s

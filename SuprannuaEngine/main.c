@@ -104,8 +104,6 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	/*Run GLUT callback registration*/
 	glutKeyboardFunc(keyPressed);
 	glutKeyboardUpFunc(keyUp);
-	//glutSpecialFunc(keySpecial);
-	//glutSpecialUpFunc(keyUpSpecial);
 	glutReshapeFunc(resize);
 
 	glutDisplayFunc(runGameLoop);
@@ -124,7 +122,6 @@ int main(int argc, char **argv)
 
 	int screenWidthPixels;
 	int screenHeightPixels;
-	char executableName[68];
 
 	glutInit(&argc, argv);
 
@@ -140,8 +137,6 @@ int main(int argc, char **argv)
 	/*Run GLUT callback registration*/
 	glutKeyboardFunc(keyPressed);
 	glutKeyboardUpFunc(keyUp);
-	//glutSpecialFunc(keySpecial);
-	//glutSpecialUpFunc(keyUpSpecial);
 	glutReshapeFunc(resize);
 
 	glutDisplayFunc(runGameLoop);
