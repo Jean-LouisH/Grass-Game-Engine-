@@ -13,7 +13,7 @@ void initSDLAudio();
 /*| Insert MUSIC for infinitely looping background music,
 | SOUND for everything else. 
 | The filepath is relative to the executable.*/
-void audio_set(unsigned char type, const char* filePath);
+int audio_set(unsigned char type, const char* filePath);
 
 /*| Be sure to make the distinction between MUSIC and SOUND queues,
 | INFINITE or -1 plays the audio infinitely,

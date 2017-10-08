@@ -13,7 +13,7 @@ void initSDLAudio()
 	Mix_OpenAudio(44100, AUDIO_S16SYS, 2, pow(2, 11));
 }
 
-void audio_set(unsigned char type, const char* filePath)
+int audio_set(unsigned char type, const char* filePath)
 {
 	int i;
 
@@ -47,6 +47,8 @@ void audio_set(unsigned char type, const char* filePath)
 
 		sound[i] = Mix_LoadWAV(filePath);
 	}
+
+	return i;
 }
 
 void audio_play(unsigned char type, int audioNumber, int loops)
