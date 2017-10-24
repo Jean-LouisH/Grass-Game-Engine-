@@ -45,6 +45,8 @@ void initGameAssets()
 	mountain2ID = edit_createPolygon(BACKGROUND, 6, 20.0, 35.0, 0.1, DARK_GREEN);
 	edit_colourFromRGBA(POLYGON, 3, 0, 90, 0, FULL);
 
+	/*Alternates the trees between background and foreground
+	while plotting them along the path.*/
 	for (i = 0; i < trees; i++)
 	{
 		if (i % 2 == 0)
@@ -58,6 +60,7 @@ void initGameAssets()
 			topSoilLevel + treeHeight, DARK_GREEN);
 	}
 
+	/*Terrain*/
 	edit_createRectangle(BACKGROUND, 60, 85, 0, 20, BROWN);
 	edit_createRectangle(BACKGROUND, 60, 85, 20, 21, DARK_GREEN);
 	edit_createRectangle(FOREGROUND, 65, 75, 1.25, 5, DARK_BROWN);
@@ -244,6 +247,8 @@ void runGameLogic()
 	physics_roll(POLYGON, storedPolygons - 1);
 	physics_roll(POLYGON, storedPolygons);
 
+	/*To stop or slow the player when in water
+	and take the camera underneath.*/
 	if (edit_get(POLYGON, 0, YPOSITION) < 0)
 	{
 		if (event_isOnInstant(96))
@@ -256,28 +261,17 @@ void runGameLogic()
 		camera_limitTo(0, edit_get(GAME, 0, WIDTH), 0, edit_get(GAME, 0, HEIGHT));
 	}
 
-	if (edit_get(POLYGON, storedPolygons, YPOSITION) < 0)
-	{
-		if (event_isOnInstant(95))
-			edit_change(POLYGON, storedPolygons, YVELOCITY, 0.0);
-	}
-
-	if (event_hasPolygonPastXLocation(0, 90) && !event_hasPolygonPastXLocation(0, 120) &&
+	if (event_hasPolygonPastXLocation(0, 90) && 
+		!event_hasPolygonPastXLocation(0, 120) &&
 		!event_hasPolygonPastYLocation(0, -0.1))
-		edit_adjust(POLYGON, 0, YVELOCITY, 7.0);
-
-	if (event_hasPolygonPastXLocation(storedPolygons, 90) &&
-		!event_hasPolygonPastXLocation(storedPolygons, 120) &&
-		!event_hasPolygonPastYLocation(storedPolygons, -0.1))
 	{
-		edit_adjust(POLYGON, storedPolygons, YVELOCITY, 5.0);
-		edit_change(POLYGON, storedPolygons, BOUNCE, 0.1);
-		edit_change(POLYGON, storedPolygons, MASS, 100);
+		edit_adjust(POLYGON, 0, YVELOCITY, 7.0);
 	}
 
-
+	/*Always moves the sun to a fixed position on screen.*/
 	edit_move(POLYGON, 1, edit_get(CAMERA, 0, XPOSITION) + 2.5, 18);
 
+	/*Spins the sun in this sinusoidal time pattern.*/
 	AI_spin(POLYGON, 1, CLOCKWISE, sin(2 * PI * 0.435 * timeCount) * 180);
 
 	for (i = 4; i < 9; i++)
@@ -295,18 +289,28 @@ void runGameLogic()
 	else if (timeCount > 56.043)
 		edit_adjust(POLYGON, 1, RADIUS, sin(2 * PI * 1.742 * timeCount) * -8);
 
+	/*Makes the reflection copy move with the player when nearby.*/
 	if (event_hasPolygonPastXLocation(0, 3.0) && !event_hasPolygonPastXLocation(0, 70))
 	{
 		if (abs(edit_get(POLYGON, 0, XPOSITION) - edit_get(POLYGON, storedPolygons - 1, XPOSITION)) < 0.01)
+		{
 			edit_change(POLYGON, storedPolygons - 1, XVELOCITY, edit_get(POLYGON, 0, XVELOCITY));
+		}
 		else
+		{
+			/*Move the copy back to a standard position until the player returns.*/
 			AI_travel(POLYGON, storedPolygons - 1, edit_get(POLYGON, 0, XPOSITION), -1.0, 3 * dpadSensitivity);
+		}
 	}
 	else
+	{
 		AI_travel(POLYGON, storedPolygons - 1, 5.0, 0.0, 3 * dpadSensitivity);
+	}
 
+	/*Makes the copy fall upwards when it jumps with the player.*/
 	physics_gravitate(POLYGON, storedPolygons - 1, UP);
 
+	/*Shadow effects on the player when under trees.*/
 	if (!event_isPolygonHigher(0, 4) && event_isPolygonWithinRadius(0, 7.0, 4) || 
 		!event_isPolygonHigher(0, 5) && event_isPolygonWithinRadius(0, 7.0, 5) ||
 		!event_isPolygonHigher(0, 6) && event_isPolygonWithinRadius(0, 7.0, 6) || 
@@ -322,6 +326,7 @@ void runGameLogic()
 		edit_colourFromRGBA(POLYGON, storedPolygons - 1, FULL, 0, 0, FULL);
 	}
 
+	/*Background music*/
 	if (event_isOnInstant(2))
 		audio_play(MUSIC, 0, INFINITE);
 
@@ -332,57 +337,6 @@ void runGameLogic()
 	{
 		edit_colourFromRGBA(BLOCK, oceanID, 135, 206, 235, 160);
 		edit_change(BLOCK, oceanID, TYPE, PLATFORM);
-		edit_hide(POLYGON, snowballID);
-	}
-
-	if (edit_get(BLOCK, oceanID, TYPE) == PLATFORM)
-	{
-		if (event_isOnInstant(3))
-		{
-			audio_play(SOUND, 1, NONE);
-			edit_colourBlock(0, PINK);
-
-			for (i = 0; i < storedBlocks; i++)
-			{
-				if (block[i].properties.colour[0] == 0 && block[i].properties.colour[1] > 80 &&
-					block[i].properties.colour[2] == 0)
-				{
-					edit_colourBlock(i, WHITE);
-				}
-			}
-
-			for (i = 0; i < storedPolygons; i++)
-			{
-				if (polygon[i].properties.colour[0] == 0 && polygon[i].properties.colour[1] > 80 &&
-					polygon[i].properties.colour[2] == 0)
-				{
-					edit_colourPolygon(i, WHITE);
-				}
-
-				if (i == mountain1ID || i == mountain2ID)
-				{
-					edit_colourFromRGBA(POLYGON, i, 245, 245, 245, 255);
-				}
-			}
-
-			edit_colourToAlpha(POLYGON, 1, 0.0);
-
-			for (i = 0; i < 50; i++)
-			{
-				edit_createPolygon(FOREGROUND, 16, 0.2, 0.0, 0.0, WHITE);
-				edit_change(POLYGON, i, YVELOCITY, -5.0);
-			}
-
-			audio_play(MUSIC, 1, INFINITE);
-		}
-
-		if (edit_get(BLOCK, oceanID, TYPE) == PLATFORM)
-		{
-			for (i = storedPolygons - 50; i < storedPolygons; i++)
-			{
-				if (edit_get(POLYGON, i, YPOSITION) < 1)
-					edit_move(POLYGON, i, edit_get(POLYGON, i, XPOSITION), edit_get(GAME, 0, HEIGHT));
-			}
-		}
+		edit_remove(POLYGON, snowballID);
 	}
 }
