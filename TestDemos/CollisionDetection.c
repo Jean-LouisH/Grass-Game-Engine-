@@ -1,4 +1,4 @@
-#include "../../SuprannuaEngine/SuprannuaEngine.h" 
+#include "../SuprannuaEngine/SuprannuaEngine.h" 
 
 /*Custom code for Initialisation, Scripting and Controls*/
 
@@ -30,7 +30,7 @@ void initGameAssets()
 		edit_change(POLYGON, i, BOUNCE, 0.99);
 	}
 
-	edit_enableKernelStats(true);
+	edit_enableEngineStats(true);
 	edit_enableGrid(true);
 }
 
@@ -101,7 +101,7 @@ void runGameLogic()
 
 	physics_limitBoundary();
 	physics_detectPolygonCollision();
-	physics_detectPlatformCollision();
+	//physics_detectPlatformCollision();
 
 	for (i = 2; i < 30 + 2; i++)
 	{

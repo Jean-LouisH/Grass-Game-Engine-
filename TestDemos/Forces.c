@@ -1,4 +1,4 @@
-#include "../../SuprannuaEngine/SuprannuaEngine.h" 
+#include "../SuprannuaEngine/SuprannuaEngine.h" 
 
 /*Custom code for Initialisation, Scripting and Controls*/
 
@@ -25,7 +25,7 @@ void initGameAssets()
 		edit_change(POLYGON, i, BOUNCE, 0.80);
 	}
 
-	edit_enableKernelStats(true);
+	edit_enableEngineStats(true);
 	edit_enableGrid(true);
 }
 
@@ -85,7 +85,8 @@ void runGameLogic()
 		{
 			for (j = 0; j < 30; j++)
 			{
-				physics_force(POLYGON, i, TO, POLYGON, j);
+				if (i != j)
+					physics_force(POLYGON, i, TO, POLYGON, j);
 			}
 		}
 	}
@@ -95,7 +96,8 @@ void runGameLogic()
 		{
 			for (j = 0; j < 30; j++)
 			{
-				physics_force(POLYGON, i, FROM, POLYGON, j);
+				if (i != j)
+					physics_force(POLYGON, i, FROM, POLYGON, j);
 			}
 		}
 	}
