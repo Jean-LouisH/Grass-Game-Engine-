@@ -28,6 +28,12 @@ img
 	border-radius: 4%;
 }
 
+iframe
+{
+	display: block;
+	margin: auto;
+}
+
 h1, h2, p, .imgText, ul, table
 {
 	/*font-family: "Trebuchet MS", Helvetica, sans-serif;*/
