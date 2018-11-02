@@ -8,16 +8,16 @@ The Suprannua Engine is a superannuated, 2D platformer game engine codebase.
 
 ## Games
 
-![Pong](Documentation/Images/Pong Clone.png)
+![Pong](Documentation/Images/PongClone.png)
 
-![Agario](Documentation/Images/Agario Clone.png)
+![Agario](Documentation/Images/AgarioClone.png)
 
 ## Tests
 
-![AI](Documentation/Images/AI Tests.png)
+![AI](Documentation/Images/AITests.png)
 
-![Collision](Documentation/Images/Collision Tests.png)
+![Collision](Documentation/Images/CollisionTests.png)
 
-![Gravity](Documentation/Images/Gravity Tests.png)
+![Gravity](Documentation/Images/GravityTests.png)
 
 
