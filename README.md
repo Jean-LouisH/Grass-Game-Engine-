@@ -12,17 +12,17 @@ You can download all the games and tests I've made with Suprannua Engine [here](
 
 ## Games
 
-![Pong](Documentation/Images/PongClone.png)
+![Pong](Documentation/Images/PongClone.gif)
 
-![Agario](Documentation/Images/AgarioClone.png)
+![Agario](Documentation/Images/AgarioClone.gif)
 
 ## Tests
 
-![AI](Documentation/Images/AITests.png)
+![AI](Documentation/Images/AITests.gif)
 
-![Collision](Documentation/Images/CollisionTests.png)
+![Collision](Documentation/Images/CollisionTests.gif)
 
-![Gravity](Documentation/Images/GravityTests.png)
+![Gravity](Documentation/Images/GravityTests.gif)
 
 ## Documentation 
 
