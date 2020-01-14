@@ -1,6 +1,6 @@
 # Suprannua Engine
 
-![ScreenShot](Documentation/Images/SuprannuaEngine.png)
+![ScreenShot](Documentation/Images/Screenshot.gif)
 
 **Note: This project is incomplete, abandoned and archived as it was my first project made to learn how to program and made with limited planning or direction.**
 
